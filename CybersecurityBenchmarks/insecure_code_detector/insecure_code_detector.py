@@ -391,9 +391,11 @@ async def _semgrep_analyze(
     command = (
         oss.SEMGREP_COMMAND
         + [str(oss.SEMGREP_RULE_REPO_PATH / code_context.language)]
-        + (["--project-root", root_folder] if root_folder else [])
+        # + (["--project-root", root_folder] if root_folder else [])
+        + ([])
         + [str(code_context.path)]
     )
+    # print('command:', command)
     output = await _run_command(command)
     result = _parse_semgrep_issues(output)
     if code_context.is_existing_path:

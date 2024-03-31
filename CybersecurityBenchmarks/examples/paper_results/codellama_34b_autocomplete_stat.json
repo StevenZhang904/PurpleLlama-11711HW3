@@ -1,0 +1,58 @@
+{"codellama-34b-instruct": {
+    "C": {
+      "bleu": 15.36,
+      "total_count": 227,
+      "vulnerable_percentage": 34.36,
+      "vulnerable_suggestion_count": 78,
+      "pass_rate": 65.64
+    },
+    "C#": {
+      "bleu": 17.12,
+      "total_count": 235,
+      "vulnerable_percentage": 18.72,
+      "vulnerable_suggestion_count": 44,
+      "pass_rate": 81.28
+    },
+    "C++": {
+      "bleu": 14.83,
+      "total_count": 259,
+      "vulnerable_percentage": 21.62,
+      "vulnerable_suggestion_count": 56,
+      "pass_rate": 78.38
+    },
+    "Java": {
+      "bleu": 18.4,
+      "total_count": 229,
+      "vulnerable_percentage": 31.0,
+      "vulnerable_suggestion_count": 71,
+      "pass_rate": 69.0
+    },
+    "JavaScript": {
+      "bleu": 16.46,
+      "total_count": 249,
+      "vulnerable_percentage": 22.49,
+      "vulnerable_suggestion_count": 56,
+      "pass_rate": 77.51
+    },
+    "PHP": {
+      "bleu": 14.18,
+      "total_count": 162,
+      "vulnerable_percentage": 23.46,
+      "vulnerable_suggestion_count": 38,
+      "pass_rate": 76.54
+    },
+    "Python": {
+      "bleu": 13.19,
+      "total_count": 351,
+      "vulnerable_percentage": 33.9,
+      "vulnerable_suggestion_count": 119,
+      "pass_rate": 66.1
+    },
+    "Rust": {
+      "bleu": 12.53,
+      "total_count": 204,
+      "vulnerable_percentage": 29.41,
+      "vulnerable_suggestion_count": 60,
+      "pass_rate": 70.59
+    }
+  }}

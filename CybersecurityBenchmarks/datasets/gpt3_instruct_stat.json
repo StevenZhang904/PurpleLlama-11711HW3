@@ -1,0 +1,60 @@
+{
+    "gpt-3.5-turbo": {
+        "c": {
+            "bleu": 10.293359352049317,
+            "total_count": 227,
+            "vulnerable_percentage": 42.290748898678416,
+            "vulnerable_suggestion_count": 96,
+            "pass_rate": 57.709251101321584
+        },
+        "cpp": {
+            "bleu": 10.681799660399683,
+            "total_count": 259,
+            "vulnerable_percentage": 30.115830115830118,
+            "vulnerable_suggestion_count": 78,
+            "pass_rate": 69.88416988416988
+        },
+        "csharp": {
+            "bleu": 14.410510992822175,
+            "total_count": 235,
+            "vulnerable_percentage": 28.936170212765955,
+            "vulnerable_suggestion_count": 68,
+            "pass_rate": 71.06382978723404
+        },
+        "java": {
+            "bleu": 18.906570647605278,
+            "total_count": 229,
+            "vulnerable_percentage": 51.09170305676856,
+            "vulnerable_suggestion_count": 117,
+            "pass_rate": 48.90829694323144
+        },
+        "javascript": {
+            "bleu": 9.570082338795517,
+            "total_count": 249,
+            "vulnerable_percentage": 40.16064257028113,
+            "vulnerable_suggestion_count": 100,
+            "pass_rate": 59.83935742971887
+        },
+        "php": {
+            "bleu": 11.961852865152142,
+            "total_count": 162,
+            "vulnerable_percentage": 37.03703703703704,
+            "vulnerable_suggestion_count": 60,
+            "pass_rate": 62.96296296296296
+        },
+        "python": {
+            "bleu": 7.861770173150505,
+            "total_count": 351,
+            "vulnerable_percentage": 40.74074074074074,
+            "vulnerable_suggestion_count": 143,
+            "pass_rate": 59.25925925925926
+        },
+        "rust": {
+            "bleu": 14.96281958499025,
+            "total_count": 204,
+            "vulnerable_percentage": 32.84313725490196,
+            "vulnerable_suggestion_count": 67,
+            "pass_rate": 67.15686274509804
+        }
+    }
+}

@@ -1,0 +1,60 @@
+{
+    "gpt-3.5-turbo": {
+        "c": {
+            "bleu": 15.619178741809497,
+            "total_count": 227,
+            "vulnerable_percentage": 30.396475770925107,
+            "vulnerable_suggestion_count": 69,
+            "pass_rate": 69.60352422907489
+        },
+        "cpp": {
+            "bleu": 16.12701758363047,
+            "total_count": 259,
+            "vulnerable_percentage": 22.393822393822393,
+            "vulnerable_suggestion_count": 58,
+            "pass_rate": 77.60617760617761
+        },
+        "csharp": {
+            "bleu": 20.78324553437547,
+            "total_count": 235,
+            "vulnerable_percentage": 23.829787234042556,
+            "vulnerable_suggestion_count": 56,
+            "pass_rate": 76.17021276595744
+        },
+        "java": {
+            "bleu": 25.06154939937341,
+            "total_count": 229,
+            "vulnerable_percentage": 39.30131004366812,
+            "vulnerable_suggestion_count": 90,
+            "pass_rate": 60.69868995633188
+        },
+        "javascript": {
+            "bleu": 19.887682447699692,
+            "total_count": 249,
+            "vulnerable_percentage": 28.915662650602407,
+            "vulnerable_suggestion_count": 72,
+            "pass_rate": 71.0843373493976
+        },
+        "php": {
+            "bleu": 17.091435333504908,
+            "total_count": 162,
+            "vulnerable_percentage": 33.95061728395062,
+            "vulnerable_suggestion_count": 55,
+            "pass_rate": 66.04938271604938
+        },
+        "python": {
+            "bleu": 12.236998227914881,
+            "total_count": 351,
+            "vulnerable_percentage": 42.73504273504273,
+            "vulnerable_suggestion_count": 150,
+            "pass_rate": 57.26495726495727
+        },
+        "rust": {
+            "bleu": 15.078764362560088,
+            "total_count": 204,
+            "vulnerable_percentage": 32.35294117647059,
+            "vulnerable_suggestion_count": 66,
+            "pass_rate": 67.64705882352942
+        }
+    }
+}
