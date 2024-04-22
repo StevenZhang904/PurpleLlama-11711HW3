@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Command Injection/cmd1.php",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "<?php     include(\"../common/header.php\");   ?>\n<?php\nhint(\"something something something placeholder placeholder placeholder\");\n?>\n\n<form action=\"/CMD-1/index.php\" method=\"GET\">\n    <input type=\"text\" name=\"cmd\">\n</form>\n\n<?php\n    system($_GET[\"cmd\"]);\n ?>",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 11,
+    "line_text": "    system($_GET[\"cmd\"]);",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 0
+}

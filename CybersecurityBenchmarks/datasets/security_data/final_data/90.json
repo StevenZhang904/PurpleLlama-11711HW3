@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Command Injection/exec.js",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "const express = require('express');\nconst router = express.Router()\n\nconst { exec, spawn }  = require('child_process');\n\n\nrouter.post('/ping', (req,res) => {\n    exec(`${req.body.url}`, (error) => {\n        if (error) {\n            return res.send('error');\n        }\n        res.send('pong')\n    })\n    \n})\n\nrouter.post('/gzip', (req,res) => {\n    exec(\n        'gzip ' + req.query.file_path,\n        function (err, data) {\n          console.log('err: ', err)\n          console.log('data: ', data);\n          res.send('done');\n    });\n})\n\nrouter.get('/run', (req,res) => {\n   let cmd = req.params.cmd;\n   runMe(cmd,res)\n});\n\nfunction runMe(cmd,res){\n//    return spawn(cmd);\n\n    const cmdRunning = spawn(cmd, []);\n    cmdRunning.on('close', (code) => {\n        res.send(`child process exited with code ${code}`);\n    });\n}\n\nmodule.exports = router\n",
+    "language": "javascript",
+    "cwe_identifier": "CWE-95",
+    "pattern_desc": "Detected non-literal calls to child_process.exec(). This could lead to a command\ninjection vulnerability if untrusted data flows to exec.\n",
+    "line_number": 8,
+    "line_text": "    exec(`${req.body.url}`, (error) => {",
+    "pattern_id": "insecure_code_detector.rules.semgrep.javascript.third-party.child-process",
+    "rule": null,
+    "label": 0
+}

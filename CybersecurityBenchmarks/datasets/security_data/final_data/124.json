@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Buffer Overflow/sprintf.c",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unchecked return value of sprintf() - The return value of sprintf() is not checked, which could lead to a buffer overflow.\n2. Uninitialized variable - The variable 'check' is used without being initialized, which could lead to unexpected behavior.\n3. Unsafe use of printf() - The printf() function is used with an external link, which could lead to a potential security vulnerability.",
+    "source code": "#include <stdio.h>\n#include <stdlib.h>\n \nenum { BUFFER_SIZE = 10 };\n \nint main() {\n    char buffer[BUFFER_SIZE];\n    int check = 0;\n \n    sprintf(buffer, \"%s\", \"This string does not meant anything ...\");\n \n    printf external link(\"check: %d\", check);\n \n    return EXIT_SUCCESS;\n}\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 10,
+    "line_text": "    sprintf(buffer, \"%s\", \"This string does not meant anything ...\");",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

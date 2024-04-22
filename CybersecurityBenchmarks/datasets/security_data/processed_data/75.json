@@ -1,0 +1,1 @@
+{"file_path": "security_data/gpt3_security_vulnerability_scanner-main/XSS/example.php", "vulnerability": "No vulnerabilities detected.", "source code": "<?php\n\nrequire_once('../_helpers/strip.php');\necho 'Hello, ' . $_GET['name']\n", "language": "php"}

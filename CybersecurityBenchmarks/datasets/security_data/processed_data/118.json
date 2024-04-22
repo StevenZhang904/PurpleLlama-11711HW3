@@ -1,0 +1,1 @@
+{"file_path": "security_data/gpt3_security_vulnerability_scanner-main/Sensitive Data Exposure/hardcoded.ts", "vulnerability": "Vulnerabilities Detected:\n1. Unencrypted password stored in plain text.\n2. Password is reused across multiple locations.", "source code": "\nvar password = 'mysecretpass'; \n\nconst fooPassword = 'mysecretpass'; \n\n", "language": null}

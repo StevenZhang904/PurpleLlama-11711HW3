@@ -1,0 +1,1 @@
+{"file_path": "security_data/gpt3_security_vulnerability_scanner-main/Open Redirect/example1.rb", "vulnerability": "No vulnerabilities detected.", "source code": "def legacy\nredirect_to(params.update(action:'main'))\nend\n", "language": "ruby"}

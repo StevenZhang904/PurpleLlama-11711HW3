@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/PHP Object Injection/chall2.php",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unserialize call on user input without proper validation.\n2. Potential remote code execution vulnerability due to __wakeup() method.",
+    "source code": "class Example2\n{\n   private $hook;\n\n   function __construct()\n   {\n      // some PHP code...\n   }\n\n   function __wakeup()\n   {\n      if (isset($this->hook)) eval($this->hook);\n   }\n}\n\n// some PHP code...\n\n$user_data = unserialize($_COOKIE['data']);\n\n// some PHP code...\n",
+    "language": "php",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Deserialization of Untrusted Data",
+    "line_number": 18,
+    "line_text": "$user_data = unserialize($_COOKIE['data']);",
+    "pattern_id": "PHP-R-010",
+    "rule": "\\b(serialize|unserialize)\\s*\\(\\s*\\$_(GET|POST|REQUEST|COOKIE|SERVER)",
+    "label": 1
+}

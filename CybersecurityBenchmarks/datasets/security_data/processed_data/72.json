@@ -1,0 +1,1 @@
+{"file_path": "security_data/gpt3_security_vulnerability_scanner-main/XSS/example1.html", "vulnerability": "No vulnerabilities detected.", "source code": "<script>\nwindow.addEventListener('message', writeMessage, false);\nfunction writeMessage(event)\n{\n\tdocument.getElementById(\"message\").innerHTML = event.data;\n}\n</script>\n", "language": null}

@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Command Injection/cmd5.php",
+    "vulnerability": "Vulnerabilities Detected:\n1. Lack of input validation: The code does not validate the user input for the domain name, which could lead to malicious code injection.\n2. Unsanitized user input: The code does not sanitize the user input, which could lead to cross-site scripting (XSS) attacks.\n3. Unrestricted file access: The code does not restrict access to the system files, which could lead to unauthorized access.",
+    "source code": "<?php     include(\"../common/header.php\");   ?>\n<?php  hint(\"something something something about text input fields ...\"); ?>\n\n<form action=\"/CMD-5/index.php\" method=\"GET\">\n    <input type=\"text\" name=\"domain\">\n    <input type=\"hidden\" name=\"server\" value=\"whois.publicinterestregistry.net\">\n</form>\n\n<pre>\n<?php\nif (preg_match('/^[-a-z0-9]+\\.a[cdefgilmnoqrstuwxz]|b[abdefghijmnorstvwyz]|c[acdfghiklmnoruvxyz]|d[ejkmoz]|e[cegrstu]|f[ijkmor]|g[abdefghilmnpqrstuwy]|h[kmnrtu]|i[delmnoqrst]|j[emop]|k[eghimnprwyz]|l[abcikrstuvy]|m[acdeghklmnopqrstuvwxyz]|n[acefgilopruz]|om|p[aefghklmnrstwy]|qa|r[eosuw]|s[abcdeghijklmnortuvyz]|t[cdfghjklmnoprtvwz]|u[agksyz]|v[aceginu]|w[fs]|y[et]|z[amw]|biz|cat|com|edu|gov|int|mil|net|org|pro|tel|aero|arpa|asia|coop|info|jobs|mobi|name|museum|travel|arpa|xn--[a-z0-9]+$/', strtolower($_GET[\"domain\"])))\n        { system(\"whois -h \" . $_GET[\"server\"] . \" \" . $_GET[\"domain\"]); } \n    else \n        {echo \"malformed domain name\";}\n    \n ?>\n</pre>",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 12,
+    "line_text": "        { system(\"whois -h \" . $_GET[\"server\"] . \" \" . $_GET[\"domain\"]); } ",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}
