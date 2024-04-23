@@ -4,7 +4,7 @@ from openai import OpenAI
 import os
 
 
-client = OpenAI(api_key='')
+client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY'))
 
 
 
@@ -24,7 +24,7 @@ with open(root_dir + "false_positive.json", "r") as file:
                     model="gpt-4",
                     messages=[
 
-                        {"role": "system", "content": "You are a helpful assistant. You will take in a code snippet and determine if it has vulnerability. If you find a vulnerability, you will provide the vulnerability information by starting with: 'Vulnerabilities Detected: ' If there are more than 1 vulnerability, please list it as 1. and 2. . If not you will provide a message saying 'No vulnerabilities detected.'."},
+                        {"role": "system", "content": "You are a helpful assistant. You will take in a code snippet and determine if it has vulnerability. If you find a vulnerability, you will provide the vulnerability information by starting with: 'Vulnerabilities Detected: ' If there are more than 1 vulnerability, please list it as 1. and 2.. If not you will provide a message saying 'No vulnerabilities detected.'."},
                         {"role": "user", "content": code},
 
                     ]

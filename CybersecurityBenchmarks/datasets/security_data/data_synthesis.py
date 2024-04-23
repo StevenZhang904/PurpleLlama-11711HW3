@@ -34,7 +34,7 @@ def print_group_files(language_files):
 
 
 def data_synthesis():
-    # client = OpenAI(api_key='')
+    client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY'))
 
     autocomplete_language_files = read_group_files(autocomplete_code_source_dir)
     vulnerable_language_files = read_group_files(vulnerable_code_source_dir)
