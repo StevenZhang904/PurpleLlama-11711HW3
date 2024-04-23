@@ -1,0 +1,13 @@
+{
+    "file_path": "2006/samples/graphics/DrawOrder/util.cpp",
+    "vulnerability": null,
+    "source code": "\n\n}\r\n\r\n\r\n//put the Ids of all the entities on a certain layer in the array, \"ents\"\r\nbool getAllEntitiesOnLayer(char* layerName, AcDbObjectIdArray &ents)\r\n{\r\n\t\r\n\tAcad::ErrorStatus es;\r\n\t//construct a resbuffer to select all the entities on a layer\r\n\tstruct resbuf eb1; \r}\r\n\r\n\r\n//put the Ids of all the entities on a certain layer in the array, \"ents\"\r\nbool getAllEntitiesOnLayer(char* layerName, AcDbObjectIdArray &ents)\r\n{\r\n\t\r\n\tAcad::ErrorStatus es;\r\n\t//construct a resbuffer to select all the entities on a layer\r\n\tstruct resbuf eb1; \r\n\tchar sbuf1[kNameLength]; // Buffers to hold string \r\n\teb1.restype = 8;  // select based on layer name\r\n\tstrcpy(sbuf1, layerName); \r\n\teb1.resval.rstring = sbuf1; \r\n\teb1.rbnext = NULL; // No other properties \r\n\t\r\n\tads_name ss;\r\n\tif (RTNORM != acedSSGet(\"X\", NULL, NULL, &eb1, ss ) ) \r\n\t\treturn false;\r\n\tlong nEnts;\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 88,
+    "line_text": "\tchar sbuf1[kNameLength]; // Buffers to hold string \r",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

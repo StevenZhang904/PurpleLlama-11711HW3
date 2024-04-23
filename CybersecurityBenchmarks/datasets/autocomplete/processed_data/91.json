@@ -1,0 +1,13 @@
+{
+    "file_path": "src/GameSpy/Peer/peerMain.c",
+    "vulnerability": null,
+    "source code": "\n\n\n\tPI_OP_ID;\n\tPEER_CONNECTION;\n\tPEER_CONNECTED;\n\t\n\tassert(callback);\n\n\t// NULL password is the same as empty password.\n\t///////////////////////////////////////////////\n\tif(!password)\n\tPI_OP_ID;\n\tPEER_CONNECTION;\n\tPEER_CONNECTED;\n\t\n\tassert(callback);\n\n\t// NULL password is the same as empty password.\n\t///////////////////////////////////////////////\n\tif(!password)\n\t\tpassword = \"\";\n\n\t// Check for a title.\n\t/////////////////////\n\tif(!connection->title[0])\n\t{\n\t\tsuccess = PEERFalse;\n\t\tresult = PEERNoTitleSet;\n\t}\n",
+    "language": "c",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "Use of hardcoded keys/credentials. Prefer using a key/secret management system.",
+    "line_number": 1410,
+    "line_text": "\t\tpassword = \"\";",
+    "pattern_id": "C-W-016",
+    "rule": "{ $secret = \"_\";}",
+    "label": 1
+}

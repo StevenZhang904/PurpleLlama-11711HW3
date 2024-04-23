@@ -1,0 +1,13 @@
+{
+    "file_path": "src/util.rs",
+    "vulnerability": null,
+    "source code": "\n\n    // println!(\"Assembled: {:?}\", assembled);\n    assembled\n}\n\n#[cfg(test)]\nfn tmpfile() -> OsString {\n    let s = rand::thread_rng()\n        .gen_ascii_chars()\n        .take(10)\n        .collect::<String>();    // println!(\"Assembled: {:?}\", assembled);\n    assembled\n}\n\n#[cfg(test)]\nfn tmpfile() -> OsString {\n    let s = rand::thread_rng()\n        .gen_ascii_chars()\n        .take(10)\n        .collect::<String>();\n    let mut file = temp_dir();\n    file.push(\"vm-\".to_string() + &s + \".s\");\n    file.into_os_string()\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 110,
+    "line_text": "    let mut file = temp_dir();",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

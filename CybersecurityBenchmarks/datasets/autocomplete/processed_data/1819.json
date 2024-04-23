@@ -1,0 +1,13 @@
+{
+    "file_path": "src/tornado-1.0.0/tornado/web.py",
+    "vulnerability": null,
+    "source code": "\n\n        \"\"\"Finishes this response, ending the HTTP request.\"\"\"\n        assert not self._finished\n        if chunk is not None:\n            self.write(chunk)    # \u7279\u522b\u6ce8\u610f, \u8fd9\u91cc\u7684\u5173\u952e\u8c03\u7528\n\n        # Automatically support ETags and add the Content-Length header if\n        # we have not flushed any content yet.\n        if not self._headers_written:\n            if (self._status_code == 200 and self.request.method == \"GET\" and\n                        \"Etag\" not in self._headers):        \"\"\"Finishes this response, ending the HTTP request.\"\"\"\n        assert not self._finished\n        if chunk is not None:\n            self.write(chunk)    # \u7279\u522b\u6ce8\u610f, \u8fd9\u91cc\u7684\u5173\u952e\u8c03\u7528\n\n        # Automatically support ETags and add the Content-Length header if\n        # we have not flushed any content yet.\n        if not self._headers_written:\n            if (self._status_code == 200 and self.request.method == \"GET\" and\n                        \"Etag\" not in self._headers):\n                hasher = hashlib.sha1()\n                for part in self._write_buffer:\n                    hasher.update(part)\n\n                etag = '\"%s\"' % hasher.hexdigest()\n                inm = self.request.headers.get(\"If-None-Match\")\n\n                if inm and inm.find(etag) != -1:\n                    self._write_buffer = []\n                    self.set_status(304)",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 607,
+    "line_text": "                hasher = hashlib.sha1()",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

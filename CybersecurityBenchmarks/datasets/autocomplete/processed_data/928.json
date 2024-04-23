@@ -1,0 +1,13 @@
+{
+    "file_path": "extensions/amp-3q-player/0.1/amp-3q-player.js",
+    "vulnerability": null,
+    "source code": "\n\n        break;\n      case 'unmuted':\n        this.element.dispatchCustomEvent(VideoEvents.UNMUTED);\n        break;\n    }\n  }\n\n  sdnPostMessage_(message) {\n    this.playerReadyPromise_.then(() => {\n      if (this.iframe_ && this.iframe_.contentWindow) {        break;\n      case 'unmuted':\n        this.element.dispatchCustomEvent(VideoEvents.UNMUTED);\n        break;\n    }\n  }\n\n  sdnPostMessage_(message) {\n    this.playerReadyPromise_.then(() => {\n      if (this.iframe_ && this.iframe_.contentWindow) {\n        this.iframe_.contentWindow./*OK*/postMessage(message, '*');\n      }\n    });\n  }\n\n  // VideoInterface Implementation. See ../src/video-interface.VideoInterface\n  /** @override */\n  play() {\n    this.sdnPostMessage_('play2');\n  }",
+    "language": "javascript",
+    "cwe_identifier": "CWE-345",
+    "pattern_desc": "Insufficient verification of data authenticity due to lack of target origin check.\n",
+    "line_number": 169,
+    "line_text": "        this.iframe_.contentWindow./*OK*/postMessage(message, '*');",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.javascript.post-message-origin",
+    "rule": null,
+    "label": 1
+}

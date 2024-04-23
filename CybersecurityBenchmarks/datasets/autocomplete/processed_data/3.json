@@ -1,0 +1,13 @@
+{
+    "file_path": "trunk/third_party/icu/source/test/cintltst/creststn.c",
+    "vulnerability": null,
+    "source code": "\n\n    int32_t failNum = fail;\n\n    /* Make array from input params */\n\n    UBool is_in[3];\n    const char *NAME[] = { \"ROOT\", \"TE\", \"TE_IN\" };\n\n    /* Now try to load the desired items */\n    UResourceBundle* theBundle = NULL;\n    char tag[99];    int32_t failNum = fail;\n\n    /* Make array from input params */\n\n    UBool is_in[3];\n    const char *NAME[] = { \"ROOT\", \"TE\", \"TE_IN\" };\n\n    /* Now try to load the desired items */\n    UResourceBundle* theBundle = NULL;\n    char tag[99];\n    char action[256];\n    UErrorCode expected_status,status = U_ZERO_ERROR,expected_resource_status = U_ZERO_ERROR;\n    UChar* base = NULL;\n    UChar* expected_string = NULL;\n    const UChar* string = NULL;\n    char buf[5];\n    char item_tag[10];\n    int32_t i,j,row,col, len;\n    int32_t actual_bundle;\n    int32_t count = 0;",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 1590,
+    "line_text": "    char action[256];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

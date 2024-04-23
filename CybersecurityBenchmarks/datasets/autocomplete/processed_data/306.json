@@ -1,0 +1,13 @@
+{
+    "file_path": "video/video_receive_stream.cc",
+    "vulnerability": null,
+    "source code": "\n\n}\n\nnamespace internal {\nnamespace {\n\nVideoCodec CreateDecoderVideoCodec(const VideoReceiveStream::Decoder& decoder) {\n  VideoCodec codec;\n  memset(&codec, 0, sizeof(codec));\n\n  codec.plType = decoder.payload_type;}\n\nnamespace internal {\nnamespace {\n\nVideoCodec CreateDecoderVideoCodec(const VideoReceiveStream::Decoder& decoder) {\n  VideoCodec codec;\n  memset(&codec, 0, sizeof(codec));\n\n  codec.plType = decoder.payload_type;\n  strcpy(codec.plName, decoder.payload_name.c_str());\n  if (decoder.payload_name == \"VP8\") {\n    codec.codecType = kVideoCodecVP8;\n  } else if (decoder.payload_name == \"VP9\") {\n    codec.codecType = kVideoCodecVP9;\n  } else if (decoder.payload_name == \"H264\") {\n    codec.codecType = kVideoCodecH264;\n  } else {\n    codec.codecType = kVideoCodecGeneric;\n  }",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 103,
+    "line_text": "  strcpy(codec.plName, decoder.payload_name.c_str());",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

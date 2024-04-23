@@ -1,0 +1,13 @@
+{
+    "file_path": "TIGString.c",
+    "vulnerability": null,
+    "source code": "\n\n\tif (startStackString == NULL)\n\t{\n\t\tstackNumber++;\n\t}\n\telse\n\t{\n\t\tstackString = (char *)malloc((strlen(startStackString) + 1) * sizeof(char));\n\t\t\n\t\tif (startStackString != NULL)\n\t\t{\tif (startStackString == NULL)\n\t{\n\t\tstackNumber++;\n\t}\n\telse\n\t{\n\t\tstackString = (char *)malloc((strlen(startStackString) + 1) * sizeof(char));\n\t\t\n\t\tif (startStackString != NULL)\n\t\t{\n\t\t\tstrcpy(stackString, startStackString);\n\t\t}\n\t}\n}\n\nvoid TIGStringEndStack(const char *endStackString)\n{\n\tif (endStackString != NULL)\n\t{\n\t\twhile (theStringStack != NULL)",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 62,
+    "line_text": "\t\t\tstrcpy(stackString, startStackString);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

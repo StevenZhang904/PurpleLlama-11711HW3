@@ -1,0 +1,13 @@
+{
+    "file_path": "tiler.c",
+    "vulnerability": null,
+    "source code": "\n\n    fseek(flevel, 0, SEEK_SET);\n    level = malloc(level_size);\n    fread(level, 1, level_size, flevel);\n    fclose(flevel);\n\n    if(level_size < NTILES_W * NTILES_H * TILE_W * TILE_H) {\n        fprintf(stderr, \"error: level not big enough...\\n\");\n        exit(1);\n    }\n    fseek(flevel, 0, SEEK_SET);\n    level = malloc(level_size);\n    fread(level, 1, level_size, flevel);\n    fclose(flevel);\n\n    if(level_size < NTILES_W * NTILES_H * TILE_W * TILE_H) {\n        fprintf(stderr, \"error: level not big enough...\\n\");\n        exit(1);\n    }\n\n    sprintf(output_name, \"%s.map\", argv[2]);\n    foutput = fopen(output_name, \"wb\");\n    output = malloc(NTILES_W * NTILES_H);\n\n    for(y = 0; y < NTILES_H; ++y) {\n        for(x = 0; x < NTILES_W; ++x) {\n            //printf(\"checking tile (%d, %d)\\n\", x, y);\n            for(t = 0; t < TILESET_SIZE; ++t) {\n                //printf(\"checking against tilemap[%d]\\n\", t);\n                if(compare_tile(tilemap + t*TILE_W*TILE_H,",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 71,
+    "line_text": "    sprintf(output_name, \"%s.map\", argv[2]);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

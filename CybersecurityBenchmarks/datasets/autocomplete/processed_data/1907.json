@@ -1,0 +1,13 @@
+{
+    "file_path": "main.py",
+    "vulnerability": null,
+    "source code": "\n\n            title=u\"Hinet\u7cfb\u7d71\u516c\u544a\",\n            link=\"http://www.hinet.net/pu/notify.htm\",\n            description=u\"\u6b64RSS\u5167\u5bb9\u53d6\u81eaHinet\u7db2\u9801\uff0c\u4f9d\u7167\u8457\u4f5c\u6b0a\u6cd5\u4e4b\u5408\u7406\u4f7f\u7528\u539f\u5247\u7bc0\u9304\u90e8\u4efd\u5167\u5bb9\u3002\\\n            \u672cRSS\u50c5\u4f9b\u53c3\u8003\uff0cHinet\u6216\u4efb\u4f55\u4eba\u90fd\u4e0d\u5c0d\u5167\u5bb9\u8ca0\u8cac\",\n            lastBuildDate=mtime,\n            items=items)\n\n        output = StringIO.StringIO()\n        rss.write_xml(output,encoding='utf-8')\n            title=u\"Hinet\u7cfb\u7d71\u516c\u544a\",\n            link=\"http://www.hinet.net/pu/notify.htm\",\n            description=u\"\u6b64RSS\u5167\u5bb9\u53d6\u81eaHinet\u7db2\u9801\uff0c\u4f9d\u7167\u8457\u4f5c\u6b0a\u6cd5\u4e4b\u5408\u7406\u4f7f\u7528\u539f\u5247\u7bc0\u9304\u90e8\u4efd\u5167\u5bb9\u3002\\\n            \u672cRSS\u50c5\u4f9b\u53c3\u8003\uff0cHinet\u6216\u4efb\u4f55\u4eba\u90fd\u4e0d\u5c0d\u5167\u5bb9\u8ca0\u8cac\",\n            lastBuildDate=mtime,\n            items=items)\n\n        output = StringIO.StringIO()\n        rss.write_xml(output,encoding='utf-8')\n\n        etag = hashlib.sha1(output.getvalue()).hexdigest()\n\n        memcache.set('hinet_rss', output.getvalue(), time=3600)\n        memcache.set('h_mtime', mtime, time=3600)\n        memcache.set('h_etag', etag, time=3600)\n\n        self.set_headers()\n        self.response.headers['ETag'] = '\"%s\"' % (etag,)\n        self.output_content(output.getvalue(), serve)\n",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 91,
+    "line_text": "        etag = hashlib.sha1(output.getvalue()).hexdigest()",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

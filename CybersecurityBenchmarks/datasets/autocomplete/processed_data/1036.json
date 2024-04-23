@@ -1,0 +1,13 @@
+{
+    "file_path": "app/src/main/java/com/yl/merchat/widget/web/DWebView.java",
+    "vulnerability": null,
+    "source code": "\n\n\n        this.getSettings().setJavaScriptEnabled(true);\n        this.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);\n\n        String cacheDirPath = FilePathUtil.getCacheWeb();\n        this.getSettings().setAppCachePath(cacheDirPath);\n\n        this.getSettings().setDomStorageEnabled(true);\n        this.getSettings().setDatabaseEnabled(true);\n        this.getSettings().setAppCacheEnabled(true);\n        this.getSettings().setJavaScriptEnabled(true);\n        this.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);\n\n        String cacheDirPath = FilePathUtil.getCacheWeb();\n        this.getSettings().setAppCachePath(cacheDirPath);\n\n        this.getSettings().setDomStorageEnabled(true);\n        this.getSettings().setDatabaseEnabled(true);\n        this.getSettings().setAppCacheEnabled(true);\n        this.getSettings().setAllowFileAccess(true);\n\n//        this.getSettings().setUseWideViewPort(true);\n        this.getSettings().setLoadWithOverviewMode(true);\n\n        this.setWebViewClient(new JWebViewClient());\n        this.setWebChromeClient(new JWebChromeClient());\n        fixWebView();\n    }\n",
+    "language": "java",
+    "cwe_identifier": "CWE-200",
+    "pattern_desc": "Content loaded in the WebView is allowed to access the filesystem",
+    "line_number": 46,
+    "line_text": "        this.getSettings().setAllowFileAccess(true);",
+    "pattern_id": "JAVA-R-020",
+    "rule": "\\.(setAllowFileAccess|setAllowFileAccessFromURLs|setAllowUniversalAccessFromURLs)\\(true\\)",
+    "label": 1
+}

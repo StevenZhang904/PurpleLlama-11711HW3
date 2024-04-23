@@ -1,0 +1,13 @@
+{
+    "file_path": "u-boot/arch/mips/mach-au1x00/au1x00_eth.c",
+    "vulnerability": null,
+    "source code": "\n\nint au1x00_enet_initialize(bd_t *bis){\n\tstruct eth_device* dev;\n\n\tif ((dev = (struct eth_device*)malloc(sizeof *dev)) == NULL) {\n\t\tputs (\"malloc failed\\n\");\n\t\treturn -1;\n\t}\n\n\tmemset(dev, 0, sizeof *dev);\nint au1x00_enet_initialize(bd_t *bis){\n\tstruct eth_device* dev;\n\n\tif ((dev = (struct eth_device*)malloc(sizeof *dev)) == NULL) {\n\t\tputs (\"malloc failed\\n\");\n\t\treturn -1;\n\t}\n\n\tmemset(dev, 0, sizeof *dev);\n\n\tstrcpy(dev->name, \"Au1X00 ethernet\");\n\tdev->iobase = 0;\n\tdev->priv   = 0;\n\tdev->init   = au1x00_init;\n\tdev->halt   = au1x00_halt;\n\tdev->send   = au1x00_send;\n\tdev->recv   = au1x00_recv;\n\n\teth_register(dev);\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 282,
+    "line_text": "\tstrcpy(dev->name, \"Au1X00 ethernet\");",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

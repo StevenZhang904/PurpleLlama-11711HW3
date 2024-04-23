@@ -1,0 +1,13 @@
+{
+    "file_path": "FizzyText.js",
+    "vulnerability": null,
+    "source code": "\n\n\n    this.__defineSetter__(\"message\", function(m) {\n        message = m;\n        createBitmap(message);\n    });\n\n    // We can even add functions to the DAT.GUI! As long as they have 0 argumets,\n    // we can call them from the dat-gui panel.\n\n    this.explode = function() {\n    this.__defineSetter__(\"message\", function(m) {\n        message = m;\n        createBitmap(message);\n    });\n\n    // We can even add functions to the DAT.GUI! As long as they have 0 argumets,\n    // we can call them from the dat-gui panel.\n\n    this.explode = function() {\n        var mag = Math.random() * 30 + 30;\n        for (var i in particles) {\n            var angle = Math.random() * Math.PI * 2;\n            particles[i].vx = Math.cos(angle) * mag;\n            particles[i].vy = Math.sin(angle) * mag;\n        }\n    };\n\n    ////////////////////////////////\n",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 68,
+    "line_text": "        var mag = Math.random() * 30 + 30;",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

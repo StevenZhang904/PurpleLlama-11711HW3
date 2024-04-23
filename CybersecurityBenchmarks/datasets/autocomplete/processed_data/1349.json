@@ -1,0 +1,13 @@
+{
+    "file_path": "examples/tf2/main.rs",
+    "vulnerability": null,
+    "source code": "\n\nuse pelite::pe32::PeFile;\n\nfn open(base_path: &Path, dll_file: &str) -> io::Result<pelite::FileMap> {\n\tpelite::FileMap::open(&base_path.join(dll_file))\n}\n\nfn main() {\n\t// Get the tf2 folder\n\tlet tf2_path_buffer;\n\tlet tf2_path = {use pelite::pe32::PeFile;\n\nfn open(base_path: &Path, dll_file: &str) -> io::Result<pelite::FileMap> {\n\tpelite::FileMap::open(&base_path.join(dll_file))\n}\n\nfn main() {\n\t// Get the tf2 folder\n\tlet tf2_path_buffer;\n\tlet tf2_path = {\n\t\tlet mut args = env::args_os();\n\t\targs.next();\n\t\ttf2_path_buffer = args.next();\n\t\ttf2_path_buffer.as_ref()\n\t\t\t.map(Path::new)\n\t\t\t.unwrap_or(Path::new(r\"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Team Fortress 2\"))\n\t};\n\n\t// Start by opening relevant tf2 binaries\n\tlet engine_dll          = open(tf2_path, \"bin/engine.dll\").unwrap();",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 25,
+    "line_text": "\t\tlet mut args = env::args_os();",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

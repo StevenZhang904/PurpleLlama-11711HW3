@@ -1,0 +1,13 @@
+{
+    "file_path": "syspro_hw1/testers/tester-5.c",
+    "vulnerability": null,
+    "source code": "\n\n\n    int i;\n    void *realloc_ptr = NULL;\n    void **dictionary = malloc(TOTAL_ALLOCS * sizeof(void *));\n    int *dictionary_elem_size = malloc(TOTAL_ALLOCS * sizeof(int));\n    int dictionary_ct = 0;\n    int data_written = 0;\n\n    for (i = 0; i < TOTAL_ALLOCS; i++)\n    {\n    int i;\n    void *realloc_ptr = NULL;\n    void **dictionary = malloc(TOTAL_ALLOCS * sizeof(void *));\n    int *dictionary_elem_size = malloc(TOTAL_ALLOCS * sizeof(int));\n    int dictionary_ct = 0;\n    int data_written = 0;\n\n    for (i = 0; i < TOTAL_ALLOCS; i++)\n    {\n        int size = (rand() % (MAX_ALLOC_SIZE - MIN_ALLOC_SIZE + 1)) + MIN_ALLOC_SIZE;\n        void *ptr;\n\n        if (realloc_ptr == NULL)\n        {\n            ptr = malloc(size);\n            data_written = 0;\n        }\n        else\n        {",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 23,
+    "line_text": "        int size = (rand() % (MAX_ALLOC_SIZE - MIN_ALLOC_SIZE + 1)) + MIN_ALLOC_SIZE;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

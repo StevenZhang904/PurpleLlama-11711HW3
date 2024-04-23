@@ -1,0 +1,13 @@
+{
+    "file_path": "src/librustrt/rtio.rs",
+    "vulnerability": null,
+    "source code": "\n\n        // relinquish ownership back into the local task (but that would be\n        // the safe way of implementing this function).\n        //\n        // In order to get around this, we just transmute a copy out of the task\n        // in order to have what is likely a static lifetime (bad).\n        let mut t: Box<Task> = match Local::try_take() {\n            Some(t) => t,\n            None => return None,\n        };\n        let ret = t.local_io().map(|t| {        // relinquish ownership back into the local task (but that would be\n        // the safe way of implementing this function).\n        //\n        // In order to get around this, we just transmute a copy out of the task\n        // in order to have what is likely a static lifetime (bad).\n        let mut t: Box<Task> = match Local::try_take() {\n            Some(t) => t,\n            None => return None,\n        };\n        let ret = t.local_io().map(|t| {\n            unsafe { mem::transmute_copy(&t) }\n        });\n        Local::put(t);\n        return ret;\n    }\n\n    pub fn maybe_raise<T>(f: |io: &mut IoFactory| -> IoResult<T>)\n        -> IoResult<T>\n    {\n        #[cfg(unix)] use libc::EINVAL as ERROR;",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 156,
+    "line_text": "            unsafe { mem::transmute_copy(&t) }",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

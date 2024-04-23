@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/darray_algos_tests.c",
+    "vulnerability": null,
+    "source code": "\n\n\nstatic inline int sintcmp(int *a, int *b) {\n    return *a - *b;\n}\n\nint make_random(DArray *array, size_t n) {\n    srand(time(NULL));\n    size_t i = 0;\n    for(i = 0; i < n; i++) {\n        int *random = DArray_new(array);\nstatic inline int sintcmp(int *a, int *b) {\n    return *a - *b;\n}\n\nint make_random(DArray *array, size_t n) {\n    srand(time(NULL));\n    size_t i = 0;\n    for(i = 0; i < n; i++) {\n        int *random = DArray_new(array);\n        *random = rand();\n        check(DArray_push(array, random) == 0, \"Inserting random values failed.\");\n    }\n\n    return 0;\n\nerror:\n    return -1;\n}\n",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 20,
+    "line_text": "        *random = rand();",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

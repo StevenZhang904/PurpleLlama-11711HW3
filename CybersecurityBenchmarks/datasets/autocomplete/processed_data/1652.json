@@ -1,0 +1,13 @@
+{
+    "file_path": "nova/utils.py",
+    "vulnerability": null,
+    "source code": "\n\n    return image_meta\n\n\ndef get_hash_str(base_str):\n    \"\"\"Returns string that represents MD5 hash of base_str (in hex format).\n\n    If base_str is a Unicode string, encode it to UTF-8.\n    \"\"\"\n    if isinstance(base_str, six.text_type):\n        base_str = base_str.encode('utf-8')    return image_meta\n\n\ndef get_hash_str(base_str):\n    \"\"\"Returns string that represents MD5 hash of base_str (in hex format).\n\n    If base_str is a Unicode string, encode it to UTF-8.\n    \"\"\"\n    if isinstance(base_str, six.text_type):\n        base_str = base_str.encode('utf-8')\n    return hashlib.md5(base_str).hexdigest()\n\nif hasattr(hmac, 'compare_digest'):\n    constant_time_compare = hmac.compare_digest\nelse:\n    def constant_time_compare(first, second):\n        \"\"\"Returns True if both string inputs are equal, otherwise False.\n\n        This function should take a constant amount of time regardless of\n        how many characters in the strings match.",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 1370,
+    "line_text": "    return hashlib.md5(base_str).hexdigest()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

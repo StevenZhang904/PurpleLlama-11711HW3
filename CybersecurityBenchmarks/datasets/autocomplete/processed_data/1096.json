@@ -1,0 +1,13 @@
+{
+    "file_path": "src/org/kaivos/vmoney/VMoneyPlugin.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\toos.close();\n\t\t} catch (IOException ex) {\n\t\t\tex.printStackTrace();\n\t\t}\n\t}\n\t\n\t@SuppressWarnings(\"unchecked\")\n\tpublic HashMap<String, Double> lataa(String path)\n\t{\n\t\ttry {\t\t\toos.close();\n\t\t} catch (IOException ex) {\n\t\t\tex.printStackTrace();\n\t\t}\n\t}\n\t\n\t@SuppressWarnings(\"unchecked\")\n\tpublic HashMap<String, Double> lataa(String path)\n\t{\n\t\ttry {\n\t\t\tObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));\n\t\t\tObject result = ois.readObject();\n\t\t\tois.close();\n\t\t\treturn (HashMap<String, Double>) result;\n\t\t} catch (Exception ex) {\n\t\t\treturn new HashMap<String, Double>();\n\t\t}\n\t}\n\t\n}",
+    "language": "java",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Insecure deserialization detected. Ensure proper validation and handling of serialized data.\n",
+    "line_number": 254,
+    "line_text": "\t\t\tObjectInputStream ois = new ObjectInputStream(new FileInputStream(path));",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.java.deserialization_insecure_untrusted_data",
+    "rule": null,
+    "label": 1
+}

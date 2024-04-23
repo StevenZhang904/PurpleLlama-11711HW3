@@ -1,0 +1,13 @@
+{
+    "file_path": "mergetest.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\t numToMerge, nk);\n\t// make a list of compressed (6 byte) docIds\n        key_t *keys0 = (key_t *) malloc ( sizeof(key_t) * nk );\n        key_t *keys1 = (key_t *) malloc ( sizeof(key_t) * nk );\n        key_t *keys2 = (key_t *) malloc ( sizeof(key_t) * nk );\n        key_t *keys3 = (key_t *) malloc ( sizeof(key_t) * nk );\n\t// store radnom docIds in this list\n\tuint32_t *p = (uint32_t *) keys0;\n\t// random docIds\n\tfor ( int32_t i = 0 ; i < nk ; i++ ) {\t\t numToMerge, nk);\n\t// make a list of compressed (6 byte) docIds\n        key_t *keys0 = (key_t *) malloc ( sizeof(key_t) * nk );\n        key_t *keys1 = (key_t *) malloc ( sizeof(key_t) * nk );\n        key_t *keys2 = (key_t *) malloc ( sizeof(key_t) * nk );\n        key_t *keys3 = (key_t *) malloc ( sizeof(key_t) * nk );\n\t// store radnom docIds in this list\n\tuint32_t *p = (uint32_t *) keys0;\n\t// random docIds\n\tfor ( int32_t i = 0 ; i < nk ; i++ ) {\n\t\t*p++ = rand() ;\n\t\t*p++ = rand() ;\n\t\t*p++ = rand() ;\n\t}\n\tp = (uint32_t *) keys1;\n\tfor ( int32_t i = 0 ; i < nk ; i++ ) {\n\t\t*p++ = rand() ;\n\t\t*p++ = rand() ;\n\t\t*p++ = rand() ;\n\t}",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 163,
+    "line_text": "\t\t*p++ = rand() ;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

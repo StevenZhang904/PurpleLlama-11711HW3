@@ -1,0 +1,13 @@
+{
+    "file_path": "usr.bin/xlint/xlint/xlint.c",
+    "vulnerability": null,
+    "source code": "\n\n\t}\n}\n\nstatic char *\nconcat2(const char *s1, const char *s2)\n{\n\tchar\t*s;\n\n\ts = xmalloc(strlen(s1) + strlen(s2) + 1);\n\t(void)strcpy(s, s1);\t}\n}\n\nstatic char *\nconcat2(const char *s1, const char *s2)\n{\n\tchar\t*s;\n\n\ts = xmalloc(strlen(s1) + strlen(s2) + 1);\n\t(void)strcpy(s, s1);\n\t(void)strcat(s, s2);\n\n\treturn (s);\n}\n\nstatic char *\nconcat3(const char *s1, const char *s2, const char *s3)\n{\n\tchar\t*s;\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 216,
+    "line_text": "\t(void)strcat(s, s2);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "models/Stupid_Project/stupid-field.cc",
+    "vulnerability": null,
+    "source code": "\n\n/* use predatorArch to set initial state of created predators */\nPredator predatorArch;\nmake_model(predatorArch);\n\n/* system wide random number generator */\nurand u;\nmake_model(u);\n\nSpace &space=stupidModel;\n/* use predatorArch to set initial state of created predators */\nPredator predatorArch;\nmake_model(predatorArch);\n\n/* system wide random number generator */\nurand u;\nmake_model(u);\n\nSpace &space=stupidModel;\n\ninline int ran(int n) {double r=u.rand(); return (r==1)? n-1: n*r;}\n\n/* return ID for cell located at x,y */\nGraphID_t Space::mapid(int x, int y)\n{\n  assert(x>=-nx && y>=-ny);\n  if (toroidal)    \n    {\n      /* place x and y into [0..nx,ny) */\n      if (x<0 || x>=nx) ",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 41,
+    "line_text": "inline int ran(int n) {double r=u.rand(); return (r==1)? n-1: n*r;}",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Command Injection/tainted.py",
+    "vulnerability": "Vulnerabilities Detected:\n1. Insecure direct object reference: The route \"/api/<something>\" allows for direct access to the system command without any authentication or authorization checks.\n2. Insecure use of system command: The system command is executed without any input validation or sanitization, which could lead to command injection attacks.\n3. Debug mode enabled: The application is running in debug mode, which could expose sensitive information.",
+    "source code": "import os\nfrom flask import Flask, request\napp = Flask(__name__)\n\n\n@app.route(\"/api/<something>\")\ndef test_sources_7(something):\n\n    os.system(request.remote_addr)\n\n    return \"foo\"\n\n\nif __name__ == \"__main__\":\n    app.run(debug=True)\n",
+    "language": "python",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection due to os.system usage.",
+    "line_number": 9,
+    "line_text": "    os.system(request.remote_addr)",
+    "pattern_id": "insecure_code_detector.rules.semgrep.python.insecure-os-system-use",
+    "rule": null,
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Connection String Injection/example1.c",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unvalidated user input: argv[0] is not being validated and could be used to inject malicious code.\n2. SQL injection: The SQLConnect function is vulnerable to SQL injection attacks.",
+    "source code": "int main(int argc, char *argv[])\n{\n\trc = SQLConnect(Example.ConHandle, argv[0], SQL_NTS,\n\t(SQLCHAR *) \"\", SQL_NTS, (SQLCHAR *) \"\", SQL_NTS);\n}\n",
+    "language": "c",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

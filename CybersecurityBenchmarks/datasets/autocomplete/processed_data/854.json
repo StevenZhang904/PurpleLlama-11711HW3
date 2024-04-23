@@ -1,0 +1,13 @@
+{
+    "file_path": "node_modules/lmd/test/qunit/modules/test_case/testcase_lmd_loader/testcase_lmd_loader.js",
+    "vulnerability": null,
+    "source code": "\n\n    var test = require('test'),\r\n        asyncTest = require('asyncTest'),\r\n        start = require('start'),\r\n        module = require('module'),\r\n        ok = require('ok'),\r\n        expect = require('expect'),\r\n        $ = require('$'),\r\n        document = require('document'),\r\n        raises = require('raises'),\r\n\r    var test = require('test'),\r\n        asyncTest = require('asyncTest'),\r\n        start = require('start'),\r\n        module = require('module'),\r\n        ok = require('ok'),\r\n        expect = require('expect'),\r\n        $ = require('$'),\r\n        document = require('document'),\r\n        raises = require('raises'),\r\n\r\n        rnd = '?' + Math.random(),\r\n\r\n        ENV_NAME = require('worker_some_global_var') ? 'Worker' : require('node_some_global_var') ? 'Node' : 'DOM';\r\n\r\n    function getComputedStyle(element, rule) {\r\n    \tif(document.defaultView && document.defaultView.getComputedStyle){\r\n    \t\treturn document.defaultView.getComputedStyle(element, \"\").getPropertyValue(rule);\r\n    \t}\r\n\r\n        rule = rule.replace(/\\-(\\w)/g, function (strMatch, p1){\r",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 12,
+    "line_text": "        rnd = '?' + Math.random(),\r",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

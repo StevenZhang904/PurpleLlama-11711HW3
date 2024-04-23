@@ -1,0 +1,13 @@
+{
+    "file_path": "modules/ModUsuarios/models/Utils.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\treturn $fecha;\n\t}\n\t\n\t/**\n\t * Genera un token para guardarlo en la base de datos\n\t *\n\t * @param string $pre        \t\n\t * @return string\n\t */\n\tpublic static function generateToken($pre = 'tok') {\t\treturn $fecha;\n\t}\n\t\n\t/**\n\t * Genera un token para guardarlo en la base de datos\n\t *\n\t * @param string $pre        \t\n\t * @return string\n\t */\n\tpublic static function generateToken($pre = 'tok') {\n\t\t$token = $pre . md5 ( uniqid ( $pre ) ) . uniqid ();\n\t\treturn $token;\n\t}\n\t\n\t/**\n\t * Obtiene fecha de vencimiento para una fecha\n\t * @param unknown $fechaActualTimestamp\n\t */\n\tpublic static function getFechaVencimiento($fechaActualTimestamp) {\n\t\t$date = date ( 'Y-m-d H:i:s', strtotime ( \"+\".Yii::$app->params ['modUsuarios'] ['recueperarPass'] ['diasValidos'].\" day\", strtotime ( $fechaActualTimestamp ) ) );",
+    "language": "php",
+    "cwe_identifier": "CWE-330",
+    "pattern_desc": "Use of Insufficiently Random Values",
+    "line_number": 28,
+    "line_text": "\t\t$token = $pre . md5 ( uniqid ( $pre ) ) . uniqid ();",
+    "pattern_id": "PHP-R-029",
+    "rule": "\\b(mt_rand|rand|uniqid|srand)\\s*\\(\\s*\\$[a-zA-Z0-9_]+\\s*\\)",
+    "label": 1
+}

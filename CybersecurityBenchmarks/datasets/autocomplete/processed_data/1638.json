@@ -1,0 +1,13 @@
+{
+    "file_path": "src/sita/authentication/serializers.py",
+    "vulnerability": null,
+    "source code": "\n\n                {\"email\":\"The user is not actived\"}\n                )\n\n        return data\n\n    def generate_recovery_token(self, data):\n        \"\"\" Generate code to recovery password. \"\"\"\n\n        user = User.objects.get(email__exact=data.get('email'))\n        email = user.email                {\"email\":\"The user is not actived\"}\n                )\n\n        return data\n\n    def generate_recovery_token(self, data):\n        \"\"\" Generate code to recovery password. \"\"\"\n\n        user = User.objects.get(email__exact=data.get('email'))\n        email = user.email\n        salt = hashlib.sha1(str(random.random())).hexdigest()[:5]\n        if isinstance(email, unicode):\n            email = email.encode('utf-8')\n\n        key = hashlib.sha1(salt + email).hexdigest()\n        user.reset_pass_code = key\n        user.save()\n        return True\n\nclass ResetPasswordWithCodeSerializer(serializers.Serializer):",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 185,
+    "line_text": "        salt = hashlib.sha1(str(random.random())).hexdigest()[:5]",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

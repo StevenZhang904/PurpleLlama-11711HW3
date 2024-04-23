@@ -1,0 +1,13 @@
+{
+    "file_path": "agent/src/test/java/com/thoughtworks/go/agent/UrlBasedArtifactsRepositoryTest.java",
+    "vulnerability": null,
+    "source code": "\n\n            artifactsRepository.upload(console, tempFile, \"dest\", \"build42\");\n            fail(\"should have thrown request entity too large error\");\n        } catch (RuntimeException e) {\n            verify(httpService).upload(eq(\"http://baseurl/artifacts/dest?attempt=1&buildId=build42\"), eq(tempFile.length()), any(File.class), any(Properties.class));\n        }\n    }\n\n    @Test\n    void shouldRetryUponUploadFailure() throws IOException {\n        String data = \"Some text whose checksum can be asserted\";            artifactsRepository.upload(console, tempFile, \"dest\", \"build42\");\n            fail(\"should have thrown request entity too large error\");\n        } catch (RuntimeException e) {\n            verify(httpService).upload(eq(\"http://baseurl/artifacts/dest?attempt=1&buildId=build42\"), eq(tempFile.length()), any(File.class), any(Properties.class));\n        }\n    }\n\n    @Test\n    void shouldRetryUponUploadFailure() throws IOException {\n        String data = \"Some text whose checksum can be asserted\";\n        final String md5 = CachedDigestUtils.md5Hex(data);\n        FileUtils.writeStringToFile(tempFile, data, UTF_8);\n        Properties properties = new Properties();\n        properties.setProperty(\"dest/path/file.txt\", md5);\n\n        when(httpService.upload(eq(\"http://baseurl/artifacts/dest/path?attempt=1&buildId=build42\"), eq(tempFile.length()), any(File.class), eq(properties))).thenReturn(HttpServletResponse.SC_BAD_GATEWAY);\n        when(httpService.upload(eq(\"http://baseurl/artifacts/dest/path?attempt=2&buildId=build42\"), eq(tempFile.length()), any(File.class), eq(properties))).thenReturn(HttpServletResponse.SC_BAD_GATEWAY);\n        when(httpService.upload(eq(\"http://baseurl/artifacts/dest/path?attempt=3&buildId=build42\"), eq(tempFile.length()), any(File.class), eq(properties))).thenReturn(HttpServletResponse.SC_OK);\n        artifactsRepository.upload(console, tempFile, \"dest/path\", \"build42\");\n    }",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 95,
+    "line_text": "        final String md5 = CachedDigestUtils.md5Hex(data);",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

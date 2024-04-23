@@ -1,0 +1,13 @@
+{
+    "file_path": "linux-4.3/drivers/net/ethernet/intel/ixgbe/ixgbe_main.c",
+    "vulnerability": null,
+    "source code": "\n\n\tixgbe_configure(adapter);\n\n\tixgbe_up_complete(adapter);\n}\n\nvoid ixgbe_reset(struct ixgbe_adapter *adapter)\n{\n\tstruct ixgbe_hw *hw = &adapter->hw;\n\tstruct net_device *netdev = adapter->netdev;\n\tint err;\tixgbe_configure(adapter);\n\n\tixgbe_up_complete(adapter);\n}\n\nvoid ixgbe_reset(struct ixgbe_adapter *adapter)\n{\n\tstruct ixgbe_hw *hw = &adapter->hw;\n\tstruct net_device *netdev = adapter->netdev;\n\tint err;\n\tu8 old_addr[ETH_ALEN];\n\n\tif (ixgbe_removed(hw->hw_addr))\n\t\treturn;\n\t/* lock SFP init bit to prevent race conditions with the watchdog */\n\twhile (test_and_set_bit(__IXGBE_IN_SFP_INIT, &adapter->state))\n\t\tusleep_range(1000, 2000);\n\n\t/* clear all SFP and link config related flags while holding SFP_INIT */\n\tadapter->flags2 &= ~(IXGBE_FLAG2_SEARCH_FOR_SFP |",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 4999,
+    "line_text": "\tu8 old_addr[ETH_ALEN];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

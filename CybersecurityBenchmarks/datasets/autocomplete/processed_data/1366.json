@@ -1,0 +1,13 @@
+{
+    "file_path": "src/sig.rs",
+    "vulnerability": null,
+    "source code": "\n\n}\n\n\npub fn sign<K, V, S>(d: &HashMap<K, V>, secret: S) -> String\n    where K: AsRef<str> + Eq + Hash,\n          V: AsRef<str> + Eq + Hash,\n          S: AsRef<str>\n{\n    let payload = transform_payload(d);\n}\n\n\npub fn sign<K, V, S>(d: &HashMap<K, V>, secret: S) -> String\n    where K: AsRef<str> + Eq + Hash,\n          V: AsRef<str> + Eq + Hash,\n          S: AsRef<str>\n{\n    let payload = transform_payload(d);\n\n    let mut hmac = Hmac::new(Sha1::new(), secret.as_ref().as_bytes());\n    hmac.input(payload.as_bytes());\n\n    util::b64encode(hmac.result().code())\n}\n\n\n#[cfg(test)]\nmod tests {\n    use super::*;",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 37,
+    "line_text": "    let mut hmac = Hmac::new(Sha1::new(), secret.as_ref().as_bytes());",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

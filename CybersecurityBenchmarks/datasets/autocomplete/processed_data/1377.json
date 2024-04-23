@@ -1,0 +1,13 @@
+{
+    "file_path": "compiler/rustc_codegen_cranelift/src/bin/cg_clif.rs",
+    "vulnerability": null,
+    "source code": "\n\n    }\n}\n\nfn main() {\n    let start_time = std::time::Instant::now();\n    let start_rss = get_resident_set_size();\n    rustc_driver::init_rustc_env_logger();\n    let mut callbacks = CraneliftPassesCallbacks::default();\n    SyncLazy::force(&DEFAULT_HOOK); // Install ice hook\n    let exit_code = rustc_driver::catch_with_exit_code(|| {    }\n}\n\nfn main() {\n    let start_time = std::time::Instant::now();\n    let start_rss = get_resident_set_size();\n    rustc_driver::init_rustc_env_logger();\n    let mut callbacks = CraneliftPassesCallbacks::default();\n    SyncLazy::force(&DEFAULT_HOOK); // Install ice hook\n    let exit_code = rustc_driver::catch_with_exit_code(|| {\n        let args = std::env::args_os()\n            .enumerate()\n            .map(|(i, arg)| {\n                arg.into_string().unwrap_or_else(|arg| {\n                    early_error(\n                        ErrorOutputType::default(),\n                        &format!(\"Argument {} is not valid Unicode: {:?}\", i, arg),\n                    )\n                })\n            })",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 63,
+    "line_text": "        let args = std::env::args_os()",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

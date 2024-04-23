@@ -1,0 +1,13 @@
+{
+    "file_path": "src/C/FreeBSD/FreeBSD-10.0/heimdal/lib/krb5/crypto-evp.c",
+    "vulnerability": null,
+    "source code": "\n\n_krb5_evp_encrypt_cts(krb5_context context,\n\t\t      struct _krb5_key_data *key,\n\t\t      void *data,\n\t\t      size_t len,\n\t\t      krb5_boolean encryptp,\n\t\t      int usage,\n\t\t      void *ivec)\n{\n    size_t i, blocksize;\n    struct _krb5_evp_schedule *ctx = key->schedule->data;_krb5_evp_encrypt_cts(krb5_context context,\n\t\t      struct _krb5_key_data *key,\n\t\t      void *data,\n\t\t      size_t len,\n\t\t      krb5_boolean encryptp,\n\t\t      int usage,\n\t\t      void *ivec)\n{\n    size_t i, blocksize;\n    struct _krb5_evp_schedule *ctx = key->schedule->data;\n    unsigned char tmp[EVP_MAX_BLOCK_LENGTH], ivec2[EVP_MAX_BLOCK_LENGTH];\n    EVP_CIPHER_CTX *c;\n    unsigned char *p;\n\n    c = encryptp ? &ctx->ectx : &ctx->dctx;\n\n    blocksize = EVP_CIPHER_CTX_block_size(c);\n\n    if (len < blocksize) {\n\tkrb5_set_error_message(context, EINVAL,",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 101,
+    "line_text": "    unsigned char tmp[EVP_MAX_BLOCK_LENGTH], ivec2[EVP_MAX_BLOCK_LENGTH];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

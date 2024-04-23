@@ -1,0 +1,13 @@
+{
+    "file_path": "src/dyn_request.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\t\t   log_debug(LOG_DEBUG, \"forwarding request to conn '%s' on rack '%.*s'\",\n\t\t\t\t\t\t   \tdn_unresolve_peer_desc(c_conn->sd), rack->name->len, rack->name->data);\n\t\t\t\t\t}\n\t\t\t\t\tremote_req_forward(ctx, c_conn, rack_msg, rack, key, keylen);\n\t\t\t\t}\n\t\t\t} else {\n            uint32_t rack_cnt = array_n(&dc->racks);\n\t\t\t\tif (rack_cnt == 0)\n\t\t\t\t\tcontinue;\n\t\t\t\t\t   log_debug(LOG_DEBUG, \"forwarding request to conn '%s' on rack '%.*s'\",\n\t\t\t\t\t\t   \tdn_unresolve_peer_desc(c_conn->sd), rack->name->len, rack->name->data);\n\t\t\t\t\t}\n\t\t\t\t\tremote_req_forward(ctx, c_conn, rack_msg, rack, key, keylen);\n\t\t\t\t}\n\t\t\t} else {\n            uint32_t rack_cnt = array_n(&dc->racks);\n\t\t\t\tif (rack_cnt == 0)\n\t\t\t\t\tcontinue;\n\n\t\t\t\tuint32_t ran_index = rand() % rack_cnt;\n\t\t\t\tstruct rack *rack = array_get(&dc->racks, ran_index);\n\n\t\t\t\tstruct msg *rack_msg = msg_get(c_conn, msg->request, msg->redis);\n\t\t\t\tif (rack_msg == NULL) {\n\t\t\t\t\tlog_debug(LOG_VERB, \"whelp, looks like yer screwed now, buddy. no inter-rack messages for you!\");\n\t\t\t\t\tmsg_put(rack_msg);\n\t\t\t\t\tcontinue;\n\t\t\t\t}\n",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 702,
+    "line_text": "\t\t\t\tuint32_t ran_index = rand() % rack_cnt;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

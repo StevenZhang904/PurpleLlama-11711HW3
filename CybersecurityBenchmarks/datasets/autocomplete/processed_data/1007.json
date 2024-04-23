@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/net/glowstone/net/handler/login/EncryptionKeyResponseHandler.java",
+    "vulnerability": null,
+    "source code": "\n\n            session.disconnect(\"Invalid verify token.\");\n            return;\n        }\n\n        // initialize stream encryption\n        session.enableEncryption(sharedSecret);\n\n        // create hash for auth\n        String hash;\n        try {            session.disconnect(\"Invalid verify token.\");\n            return;\n        }\n\n        // initialize stream encryption\n        session.enableEncryption(sharedSecret);\n\n        // create hash for auth\n        String hash;\n        try {\n            MessageDigest digest = MessageDigest.getInstance(\"SHA-1\");\n            digest.update(session.getSessionId().getBytes());\n            digest.update(sharedSecret.getEncoded());\n            digest.update(session.getServer().getKeyPair().getPublic().getEncoded());\n\n            // BigInteger takes care of sign and leading zeroes\n            hash = new BigInteger(digest.digest()).toString(16);\n        } catch (NoSuchAlgorithmException ex) {\n            GlowServer.logger.log(Level.SEVERE, \"Unable to generate SHA-1 digest\", ex);\n            session.disconnect(\"Failed to hash login data.\");",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 88,
+    "line_text": "            MessageDigest digest = MessageDigest.getInstance(\"SHA-1\");",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

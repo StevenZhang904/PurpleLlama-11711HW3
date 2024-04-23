@@ -1,0 +1,13 @@
+{
+    "file_path": "wp-content/plugins/wd-google-maps/preview.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\twp_enqueue_script ( 'jquery' );\n                \n        $map_api_url = \"https://maps.googleapis.com/maps/api/js?libraries=places,geometry&sensor=false&v=3.exp\";\n        if(gmwd_get_option(\"map_language\")){\n            $map_api_url .= \"&language=\" . gmwd_get_option(\"map_language\");\n        }\n        if(gmwd_get_option(\"map_api_key\")){\n            $map_api_url .= \"&key=\" . gmwd_get_option(\"map_api_key\");\n        } \n\t\telse{\t\twp_enqueue_script ( 'jquery' );\n                \n        $map_api_url = \"https://maps.googleapis.com/maps/api/js?libraries=places,geometry&sensor=false&v=3.exp\";\n        if(gmwd_get_option(\"map_language\")){\n            $map_api_url .= \"&language=\" . gmwd_get_option(\"map_language\");\n        }\n        if(gmwd_get_option(\"map_api_key\")){\n            $map_api_url .= \"&key=\" . gmwd_get_option(\"map_api_key\");\n        } \n\t\telse{\n\t\t\t$api_keys = array(\"AIzaSyAmYQInD-coq0G5wC_D9h7uHjGeHhSSR4o\", \"AIzaSyBxiaSJPIRfQWID9j4hCrX3t7z-9IOOjis\",\"\tAIzaSyDi6aVWxOVptj9WZZYeAgdAA1xpqAR1mnw\", \"AIzaSyCzvhE5_lt5l0fYYChF1TpRtfFTjXpYkVI\",\"AIzaSyBMWPhZdxcpwpfXBrGPGmz8zMjwJJt83mc\");\n\t\t\t$map_api_url .= \"&key=\" . $api_keys[rand(0,4)];\n\t\t}        \n        wp_register_script ('google_map-js', $map_api_url, array ('jquery'), '' );\n        wp_enqueue_script('google_map-js');\n        \n        wp_register_script ('frontend_init_map-js', GMWD_URL . '/js/init_map.js', array(), $version);\n        wp_enqueue_script('frontend_init_map-js');\n        \n        wp_register_script ('frontend_main-js', GMWD_URL . '/js/frontend_main.js', array(), $version);",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 49,
+    "line_text": "\t\t\t$api_keys = array(\"AIzaSyAmYQInD-coq0G5wC_D9h7uHjGeHhSSR4o\", \"AIzaSyBxiaSJPIRfQWID9j4hCrX3t7z-9IOOjis\",\"\tAIzaSyDi6aVWxOVptj9WZZYeAgdAA1xpqAR1mnw\", \"AIzaSyCzvhE5_lt5l0fYYChF1TpRtfFTjXpYkVI\",\"AIzaSyBMWPhZdxcpwpfXBrGPGmz8zMjwJJt83mc\");",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

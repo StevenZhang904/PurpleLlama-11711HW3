@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/functional/staleblock_test.cc",
+    "vulnerability": null,
+    "source code": "\n\nstart_data_loading:\n    // remove previous staleblktest files\n    r = system(SHELL_DEL\" staleblktest* > errorlog.txt\");\n    (void)r;\n\n    fdb_open(&dbfile, \"./staleblktest1\", &fconfig);\n    fdb_kvs_open_default(dbfile, &db, &kvs_config);\n\n    // create num_keeping_headers+1\n    for (i = 0; i < fconfig.num_keeping_headers + 1; i++) {start_data_loading:\n    // remove previous staleblktest files\n    r = system(SHELL_DEL\" staleblktest* > errorlog.txt\");\n    (void)r;\n\n    fdb_open(&dbfile, \"./staleblktest1\", &fconfig);\n    fdb_kvs_open_default(dbfile, &db, &kvs_config);\n\n    // create num_keeping_headers+1\n    for (i = 0; i < fconfig.num_keeping_headers + 1; i++) {\n        sprintf(keybuf, \"key\");\n        status = fdb_set_kv(db, keybuf, kv, NULL, 0);\n        TEST_STATUS(status);\n        status = fdb_commit(dbfile, FDB_COMMIT_MANUAL_WAL_FLUSH);\n        TEST_STATUS(status);\n    }\n\n    // load until exceeding SB_MIN_BLOCK_REUSING_FILESIZE\n    i = 0;\n    do {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 144,
+    "line_text": "        sprintf(keybuf, \"key\");",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

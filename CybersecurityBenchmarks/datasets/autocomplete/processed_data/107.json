@@ -1,0 +1,13 @@
+{
+    "file_path": "Week 3/20150329-4.c",
+    "vulnerability": null,
+    "source code": "\n\n\nint main ()\n{\n    // Local Definitions\n    int rand1;\n    \n    // Statements\n    printf (\"\\nBeginning Random Number generation from the set 1, 4, 7, 10, 13, 16....\\n\\n\");\n    \n    srand (time(NULL));\nint main ()\n{\n    // Local Definitions\n    int rand1;\n    \n    // Statements\n    printf (\"\\nBeginning Random Number generation from the set 1, 4, 7, 10, 13, 16....\\n\\n\");\n    \n    srand (time(NULL));\n    rand1 = rand ();\n    rand1 = ((rand1 % 6) * 3) + 1;\n    \n    printf (\"Random Number is: %d\\n\\n\", rand1);\n    \n    return 0;\n}",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 29,
+    "line_text": "    rand1 = rand ();",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

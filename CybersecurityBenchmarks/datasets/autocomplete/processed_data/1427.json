@@ -1,0 +1,13 @@
+{
+    "file_path": "components/UrlRule.php",
+    "vulnerability": null,
+    "source code": "\n\n        return AesCtr::encrypt($value, '123456', 256);\n    }\n\n    public function decode($value) {\n        //return $this->mdecrypt($value);\n        // http://www.movable-type.co.uk/scripts/aes-php.html\n        return AesCtr::decrypt($value, '123456', 256);\n    }\n\n    function mencrypt($input) {        return AesCtr::encrypt($value, '123456', 256);\n    }\n\n    public function decode($value) {\n        //return $this->mdecrypt($value);\n        // http://www.movable-type.co.uk/scripts/aes-php.html\n        return AesCtr::decrypt($value, '123456', 256);\n    }\n\n    function mencrypt($input) {\n        $key = substr(md5($this->skey), 0, 24);\n        $td = mcrypt_module_open('tripledes', '', 'ecb', '');\n        $iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($td), MCRYPT_RAND);\n        mcrypt_generic_init($td, $key, $iv);\n        $encrypted_data = mcrypt_generic($td, $input);\n        mcrypt_generic_deinit($td);\n        mcrypt_module_close($td);\n        return trim(chop($this->url_base64_encode($encrypted_data)));\n    }\n",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 82,
+    "line_text": "        $key = substr(md5($this->skey), 0, 24);",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "edition4/c/ch01/1-8.c",
+    "vulnerability": null,
+    "source code": "\n\n#include <assert.h>\n#include <math.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nint isRotation(char *str1, char *str2) {\n  int size = (strlen(str1) * 2)  + 1;#include <assert.h>\n#include <math.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nint isRotation(char *str1, char *str2) {\n  int size = (strlen(str1) * 2)  + 1;\n  char str[size];\n  strcpy(str, str1);\n  strcat(str, str1);\n  str[size-1] = 0;\n\n  return strstr(str, str2) == 0 ? 0 : 1;\n}\n\nint main() {\n  // tests",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 9,
+    "line_text": "  char str[size];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

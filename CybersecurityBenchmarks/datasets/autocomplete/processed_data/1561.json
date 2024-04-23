@@ -1,0 +1,13 @@
+{
+    "file_path": "public_html/App/Models/DatabaseModel.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\tarray_push($insertcols, \":\" . $column);\n\t\t}\n\n\t\t$query .= implode(\", \", $insertcols);\n\t\t$query .= \")\";\n\n\t\t$statement = $db->prepare($query);\n\n\t\tforeach ($columns as $column) {\n\t\t\tif ($column === \"password\") {\t\t\tarray_push($insertcols, \":\" . $column);\n\t\t}\n\n\t\t$query .= implode(\", \", $insertcols);\n\t\t$query .= \")\";\n\n\t\t$statement = $db->prepare($query);\n\n\t\tforeach ($columns as $column) {\n\t\t\tif ($column === \"password\") {\n\t\t\t\t$this->$column = password_hash($this->$column, PASSWORD_DEFAULT);\n\t\t\t}\n\t\t\t$statement->bindValue(\":\" . $column, $this->$column);\n\t\t}\n\t\t\n\t\t$result = $statement->execute();\n\t\tvar_dump($result);\n\t\t$this->id =$db->lastInsertId();\n\t\t\n\t}",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 243,
+    "line_text": "\t\t\t\t$this->$column = password_hash($this->$column, PASSWORD_DEFAULT);",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

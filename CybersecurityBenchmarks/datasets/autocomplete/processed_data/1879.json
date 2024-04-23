@@ -1,0 +1,13 @@
+{
+    "file_path": "problem/views.py",
+    "vulnerability": null,
+    "source code": "\n\n                except MemoryError:\n                    return error_response(u\"\u5355\u4e2a\u6d4b\u8bd5\u6570\u636e\u4f53\u79ef\u8fc7\u5927!\")\n                finally:\n                    f.close()\n            l.sort()\n\n            file_info = {\"test_case_number\": len(l) / 2, \"test_cases\": {}}\n\n            # \u8ba1\u7b97\u8f93\u51fa\u6587\u4ef6\u7684md5\n            for i in range(len(l) / 2):                except MemoryError:\n                    return error_response(u\"\u5355\u4e2a\u6d4b\u8bd5\u6570\u636e\u4f53\u79ef\u8fc7\u5927!\")\n                finally:\n                    f.close()\n            l.sort()\n\n            file_info = {\"test_case_number\": len(l) / 2, \"test_cases\": {}}\n\n            # \u8ba1\u7b97\u8f93\u51fa\u6587\u4ef6\u7684md5\n            for i in range(len(l) / 2):\n                md5 = hashlib.md5()\n                striped_md5 = hashlib.md5()\n                f = open(test_case_dir + str(i + 1) + \".out\", \"r\")\n                # \u5b8c\u6574\u6587\u4ef6\u7684md5\n                while True:\n                    data = f.read(2 ** 8)\n                    if not data:\n                        break\n                    md5.update(data)\n",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 228,
+    "line_text": "                md5 = hashlib.md5()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/md4.rs",
+    "vulnerability": null,
+    "source code": "\n\n            (\"a\",\n             \"bde52cb31de33e46245e05fbdbd6fb24\"),\n            (\"abc\",\n             \"a448017aaf21d8525fc10ae87aa6729d\"),\n            (\"abcdefghijklmnopqrstuvwxyz\",\n             \"d79e1c308aa5bbcdeea8ed63df412da9\"),\n            (\"message digest\",\n             \"d9130a8164549fe818874806e1c7014b\"),\n        ];\n            (\"a\",\n             \"bde52cb31de33e46245e05fbdbd6fb24\"),\n            (\"abc\",\n             \"a448017aaf21d8525fc10ae87aa6729d\"),\n            (\"abcdefghijklmnopqrstuvwxyz\",\n             \"d79e1c308aa5bbcdeea8ed63df412da9\"),\n            (\"message digest\",\n             \"d9130a8164549fe818874806e1c7014b\"),\n        ];\n\n        let mut m = Md4::new();\n\n        for &(input, expected) in tests.iter() {\n            m.input(input.as_bytes());\n            assert_eq!(expected, m.result_str());\n            m.reset();\n        }\n    }\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 220,
+    "line_text": "        let mut m = Md4::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/SQL Injection/example.java",
+    "vulnerability": "Vulnerabilities Detected:\n1. SQL Injection: The code is vulnerable to SQL injection attacks due to the lack of input sanitization.\n2. Unvalidated Input: The code does not validate the input from the request parameter, which could lead to malicious data being passed to the database.\n3. Unsafe Query: The code does not use parameterized queries, which could lead to SQL injection attacks.",
+    "source code": "// Get username from parameters\nString username = request.getParameter(\"username\");\n// Create a statement from database connection\nStatement statement = connection.createStatement();  \nString query = \"SELECT secret FROM Users WHERE (username = '\" + username + \"' AND NOT role = 'admin')\";\nString query2 = String.format(\"SELECT secret FROM Users WHERE (username = '%s' AND NOT role = 'admin')\", username);\n// Execute query and return the results\nResultSet result = statement.executeQuery(query);\nResultSet result2 = statement.executeQuery(query2);\n",
+    "language": "java",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

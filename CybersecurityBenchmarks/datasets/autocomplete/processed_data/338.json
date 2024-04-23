@@ -1,0 +1,13 @@
+{
+    "file_path": "naive_bayes_only_final.cpp",
+    "vulnerability": null,
+    "source code": "\n\n        vector<int> attributeholder;\n        char *indiattri;\n        salesdata.getline(buffer,40);\n        char *pch = strtok (buffer,\"\\t\");\n        vec_pos=0;\n        vector<string> temp;\n        temp.clear();\n        int test=0;\n        while(pch!=NULL)\n        {        vector<int> attributeholder;\n        char *indiattri;\n        salesdata.getline(buffer,40);\n        char *pch = strtok (buffer,\"\\t\");\n        vec_pos=0;\n        vector<string> temp;\n        temp.clear();\n        int test=0;\n        while(pch!=NULL)\n        {\n            char temp12[10];\n            strcpy(temp12,pch);\n            temp.insert(temp.begin()+vec_pos,temp12);\n            test++;\n            if(!strcmp(pch,\"NA\"))\n            {\n                gt++;\n                pch=0;\n                indi=1;\n                break;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 71,
+    "line_text": "            char temp12[10];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

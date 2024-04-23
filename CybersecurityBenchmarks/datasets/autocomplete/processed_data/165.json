@@ -1,0 +1,13 @@
+{
+    "file_path": "src/cli.c",
+    "vulnerability": null,
+    "source code": "\n\n\n    if (value >= 0)\n        intString2[0] = ' ';    // Positive number, add a pad space\n    else\n        intString2[0] = '-';    // Negative number, add a negative sign\n\n    if (strlen(intString1) == 1) {\n        intString2[1] = '0';\n        intString2[2] = '0';\n        intString2[3] = '0';\n    if (value >= 0)\n        intString2[0] = ' ';    // Positive number, add a pad space\n    else\n        intString2[0] = '-';    // Negative number, add a negative sign\n\n    if (strlen(intString1) == 1) {\n        intString2[1] = '0';\n        intString2[2] = '0';\n        intString2[3] = '0';\n        strcat(intString2, intString1);\n    } else if (strlen(intString1) == 2) {\n        intString2[1] = '0';\n        intString2[2] = '0';\n        strcat(intString2, intString1);\n    } else if (strlen(intString1) == 3) {\n        intString2[1] = '0';\n        strcat(intString2, intString1);\n    } else {\n        strcat(intString2, intString1);",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 387,
+    "line_text": "        strcat(intString2, intString1);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

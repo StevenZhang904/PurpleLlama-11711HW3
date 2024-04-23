@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Denial Of Service/example1.aspx.cs",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "Private Sub cmdRunNotePad_Click()\nDim str As String\nMyVar = window.Text()\nSleep myVar+1\ndblNotePadID = Sleep(myVar)\nEnd Sub\n",
+    "language": "csharp",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

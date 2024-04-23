@@ -1,0 +1,13 @@
+{
+    "file_path": "websocket-key/src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n\nuse rust_crypto::sha1::Sha1;\nuse rust_crypto::digest::Digest;\nuse serialize::base64::{ToBase64, STANDARD};\n\n\nfn sec_handshake (from_server: &[u8]) -> String {\n\n    let guid = b\"258EAFA5-E914-47DA-95CA-C5AB0DC85B11\";\n\nuse rust_crypto::sha1::Sha1;\nuse rust_crypto::digest::Digest;\nuse serialize::base64::{ToBase64, STANDARD};\n\n\nfn sec_handshake (from_server: &[u8]) -> String {\n\n    let guid = b\"258EAFA5-E914-47DA-95CA-C5AB0DC85B11\";\n\n    let mut sha = Sha1::new();\n\n    sha.input(from_server);\n    sha.input(guid);\n    let mut out = [0u8, ..20];\n    sha.result(out.as_mut_slice());\n\n    println!(\"{} {}\", sha.result_str(), out.to_base64(STANDARD));\n\n    return out.to_base64(STANDARD);",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 13,
+    "line_text": "    let mut sha = Sha1::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

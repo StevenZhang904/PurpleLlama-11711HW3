@@ -1,0 +1,13 @@
+{
+    "file_path": "kolibri/core/content/test/test_zipcontent.py",
+    "vulnerability": null,
+    "source code": "\n\n    test_str_2 = \"And another test...\"\n    embedded_file_name = \"test/this/path/test.txt\"\n    embedded_file_str = \"Embedded file test\"\n\n    def setUp(self):\n\n        self.client = Client()\n\n        provision_device()\n    test_str_2 = \"And another test...\"\n    embedded_file_name = \"test/this/path/test.txt\"\n    embedded_file_str = \"Embedded file test\"\n\n    def setUp(self):\n\n        self.client = Client()\n\n        provision_device()\n\n        self.hash = hashlib.md5(\"DUMMYDATA\".encode()).hexdigest()\n        self.extension = \"zip\"\n        self.filename = \"{}.{}\".format(self.hash, self.extension)\n\n        self.zip_path = get_content_storage_file_path(self.filename)\n        zip_path_dir = os.path.dirname(self.zip_path)\n        if not os.path.exists(zip_path_dir):\n            os.makedirs(zip_path_dir)\n\n        with zipfile.ZipFile(self.zip_path, \"w\") as zf:",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 64,
+    "line_text": "        self.hash = hashlib.md5(\"DUMMYDATA\".encode()).hexdigest()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

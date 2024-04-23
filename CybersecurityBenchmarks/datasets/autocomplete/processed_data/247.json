@@ -1,0 +1,13 @@
+{
+    "file_path": "core/sql/arkcmp/ProcessEnv.cpp",
+    "vulnerability": null,
+    "source code": "\n\n        if ( envChanged )\n        {\n          NADELETEBASIC(envs_[j], heap_);\n          envs_.remove(j);\n        }\n        else\n          index = envs_.unusedIndex();  // Insert a new env string\n\n\tUInt32 len = strlen(newenvs[i]);\n\tchar *copyEnv = new (heap_) char[len + 1];        if ( envChanged )\n        {\n          NADELETEBASIC(envs_[j], heap_);\n          envs_.remove(j);\n        }\n        else\n          index = envs_.unusedIndex();  // Insert a new env string\n\n\tUInt32 len = strlen(newenvs[i]);\n\tchar *copyEnv = new (heap_) char[len + 1];\n\tstrcpy(copyEnv, newenvs[i]);\n\tcopyEnv[len] = 0;\n\n        PUTENV(copyEnv);\n        envs_.insertAt(index, copyEnv);\n      }\n      delete[] envName;\n    }\n  }\n}",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 258,
+    "line_text": "\tstrcpy(copyEnv, newenvs[i]);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

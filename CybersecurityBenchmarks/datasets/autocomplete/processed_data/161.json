@@ -1,0 +1,13 @@
+{
+    "file_path": "xsrc/external/mit/xorg-server/dist/hw/xquartz/mach-startup/bundle-main.c",
+    "vulnerability": null,
+    "source code": "\n\n}\n\nstatic int create_socket(char *filename_out) {\n    struct sockaddr_un servaddr_un;\n    struct sockaddr *servaddr;\n    socklen_t servaddr_len;\n    int ret_fd;\n    size_t try, try_max;\n    \n    for(try=0, try_max=5; try < try_max; try++) {}\n\nstatic int create_socket(char *filename_out) {\n    struct sockaddr_un servaddr_un;\n    struct sockaddr *servaddr;\n    socklen_t servaddr_len;\n    int ret_fd;\n    size_t try, try_max;\n    \n    for(try=0, try_max=5; try < try_max; try++) {\n        tmpnam(filename_out);\n        \n        /* Setup servaddr_un */\n        memset (&servaddr_un, 0, sizeof (struct sockaddr_un));\n        servaddr_un.sun_family = AF_UNIX;\n        strlcpy(servaddr_un.sun_path, filename_out, sizeof(servaddr_un.sun_path));\n        \n        servaddr = (struct sockaddr *) &servaddr_un;\n        servaddr_len = sizeof(struct sockaddr_un) - sizeof(servaddr_un.sun_path) + strlen(filename_out);\n        ",
+    "language": "c",
+    "cwe_identifier": "CWE-377",
+    "pattern_desc": "Usage of tmpnam, which generates temporary file without exclusive access. It may lead to race conditions.",
+    "line_number": 248,
+    "line_text": "        tmpnam(filename_out);",
+    "pattern_id": "C-R-013",
+    "rule": "tmpnam\\s*\\(\\s*\\w+\\s*\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/api/app/setup.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\t\t$messages[]='The site name are required';\n\t\t\t\t}\n\t\t\t\t$f3->set('SESSION.form_messages',$messages);\n\t\t\t\t$f3->reroute('/setup');\n\t\t\t}else{\n\t\t\t\t$configuration = $this->configuration;\n\t\t\t\t$user = array(\n\t\t\t\t\t\"firstName\"=> \"Administrator\",\n\t\t\t\t\t\"lastName\"=> \"\",\n\t\t\t\t\t\"userName\"=> \"admin\",\t\t\t\t\t$messages[]='The site name are required';\n\t\t\t\t}\n\t\t\t\t$f3->set('SESSION.form_messages',$messages);\n\t\t\t\t$f3->reroute('/setup');\n\t\t\t}else{\n\t\t\t\t$configuration = $this->configuration;\n\t\t\t\t$user = array(\n\t\t\t\t\t\"firstName\"=> \"Administrator\",\n\t\t\t\t\t\"lastName\"=> \"\",\n\t\t\t\t\t\"userName\"=> \"admin\",\n\t\t\t\t\t\"password\"=> password_hash($values['password'],PASSWORD_DEFAULT),\n\t\t\t\t\t\"email\"=> $values['admin-email'],\n\t\t\t\t\t\"phone\"=> \"\",\n\t\t\t\t\t\"country\"=> \"\",\n\t\t\t\t\t\"city\"=> \"\",\n\t\t\t\t\t\"address\"=> \"\"\n\t\t\t\t\t);\n\t\t\t\t$f3->set('users', new \\DB\\Jig\\Mapper($this->db, 'users.json'));\n\t\t\t\t$f3->get('users')->copyFrom((array)$user);\n\t\t\t\t$users =$f3->get('users')->save();",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 59,
+    "line_text": "\t\t\t\t\t\"password\"=> password_hash($values['password'],PASSWORD_DEFAULT),",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

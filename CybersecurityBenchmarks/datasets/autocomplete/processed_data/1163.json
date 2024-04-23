@@ -1,0 +1,13 @@
+{
+    "file_path": "gerrit-httpd/src/main/java/com/google/gerrit/httpd/raw/HostPageServlet.java",
+    "vulnerability": null,
+    "source code": "\n\n\n    String src = \"gerrit_ui/gerrit_ui.nocache.js\";\n    if (!IS_DEV) {\n      Element devmode = HtmlDomUtil.find(template, \"gwtdevmode\");\n      if (devmode != null) {\n        devmode.getParentNode().removeChild(devmode);\n      }\n\n      InputStream in = servletContext.getResourceAsStream(\"/\" + src);\n      if (in != null) {\n    String src = \"gerrit_ui/gerrit_ui.nocache.js\";\n    if (!IS_DEV) {\n      Element devmode = HtmlDomUtil.find(template, \"gwtdevmode\");\n      if (devmode != null) {\n        devmode.getParentNode().removeChild(devmode);\n      }\n\n      InputStream in = servletContext.getResourceAsStream(\"/\" + src);\n      if (in != null) {\n        Hasher md = Hashing.md5().newHasher();\n        try {\n          try {\n            final byte[] buf = new byte[1024];\n            int n;\n            while ((n = in.read(buf)) > 0) {\n              md.putBytes(buf, 0, n);\n            }\n          } finally {\n            in.close();",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 124,
+    "line_text": "        Hasher md = Hashing.md5().newHasher();",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

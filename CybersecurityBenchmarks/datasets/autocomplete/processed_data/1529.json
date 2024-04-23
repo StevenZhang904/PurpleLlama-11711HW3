@@ -1,0 +1,13 @@
+{
+    "file_path": "wp-content/plugins/ssh-sftp-updater-support/phpseclib/Crypt/Random.php",
+    "vulnerability": null,
+    "source code": "\n\n                session_write_close();\n            }\n\n            session_id(1);\n            ini_set('session.use_cookies', 0);\n            session_cache_limiter('');\n            session_start();\n\n            $v = $seed = $_SESSION['seed'] = pack('H*', sha1(\n                serialize($_SERVER) .                session_write_close();\n            }\n\n            session_id(1);\n            ini_set('session.use_cookies', 0);\n            session_cache_limiter('');\n            session_start();\n\n            $v = $seed = $_SESSION['seed'] = pack('H*', sha1(\n                serialize($_SERVER) .\n                serialize($_POST) .\n                serialize($_GET) .\n                serialize($_COOKIE) .\n                serialize($GLOBALS) .\n                serialize($_SESSION) .\n                serialize($_OLD_SESSION)\n            ));\n            if (!isset($_SESSION['count'])) {\n                $_SESSION['count'] = 0;\n            }",
+    "language": "php",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Deserialization of Untrusted Data",
+    "line_number": 153,
+    "line_text": "                serialize($_POST) .",
+    "pattern_id": "PHP-R-010",
+    "rule": "\\b(serialize|unserialize)\\s*\\(\\s*\\$(_GET|_POST|_REQUEST|_COOKIE)",
+    "label": 1
+}

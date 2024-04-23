@@ -1,0 +1,13 @@
+{
+    "file_path": "src/C/libressl/libressl-2.0.0/ssl/ssl_algs.c",
+    "vulnerability": null,
+    "source code": "\n\n#include <stdio.h>\n#include <openssl/objects.h>\n#include <openssl/lhash.h>\n#include \"ssl_locl.h\"\n\nint\nSSL_library_init(void)\n{\n\n#ifndef OPENSSL_NO_DES#include <stdio.h>\n#include <openssl/objects.h>\n#include <openssl/lhash.h>\n#include \"ssl_locl.h\"\n\nint\nSSL_library_init(void)\n{\n\n#ifndef OPENSSL_NO_DES\n\tEVP_add_cipher(EVP_des_cbc());\n\tEVP_add_cipher(EVP_des_ede3_cbc());\n#endif\n#ifndef OPENSSL_NO_IDEA\n\tEVP_add_cipher(EVP_idea_cbc());\n#endif\n#ifndef OPENSSL_NO_RC4\n\tEVP_add_cipher(EVP_rc4());\n#if !defined(OPENSSL_NO_MD5) && (defined(__x86_64) || defined(__x86_64__))\n\tEVP_add_cipher(EVP_rc4_hmac_md5());",
+    "language": "c",
+    "cwe_identifier": "CWE-1240",
+    "pattern_desc": "The DES, 3DES and DES-X algorithms are insecure. Please avoid using them.",
+    "line_number": 69,
+    "line_text": "\tEVP_add_cipher(EVP_des_cbc());",
+    "pattern_id": "C-R-008",
+    "rule": "(EVP_des_\\w+\\s*\\()|(DES_\\w+crypt\\s*\\()",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/queue.rs",
+    "vulnerability": null,
+    "source code": "\n\nuse native::*;\nuse super::{check, ErrorStatus};\nuse signal::*;\n\npub struct Queue {\n    handle: *const QueueHandle,\n}\n\nimpl Queue {\n    pub fn new(agent: Agent, size: u32, typ: QueueType) -> Result<Queue, ErrorStatus> {use native::*;\nuse super::{check, ErrorStatus};\nuse signal::*;\n\npub struct Queue {\n    handle: *const QueueHandle,\n}\n\nimpl Queue {\n    pub fn new(agent: Agent, size: u32, typ: QueueType) -> Result<Queue, ErrorStatus> {\n        unsafe {\n            let handle: *const QueueHandle = zeroed();\n            check(\n                hsa_queue_create(\n                    agent,\n                    size,\n                    typ,\n                    null(),\n                    null(),\n                    u32::MAX,",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 17,
+    "line_text": "        unsafe {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

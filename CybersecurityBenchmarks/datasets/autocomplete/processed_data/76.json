@@ -1,0 +1,13 @@
+{
+    "file_path": "hdrline.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t   (op == '(' && *cp != ')') ||\n\t\t\t   (op == '<' && *cp != '>')))\n\t{\n\t  if (*cp == '%')\n\t  {\n\t    cp++;\n\t    if ((*cp == 'Z' || *cp == 'z') && (op == 'd' || op == '{'))\n\t    {\n\t      if (len >= 5)\n\t      {\t\t\t   (op == '(' && *cp != ')') ||\n\t\t\t   (op == '<' && *cp != '>')))\n\t{\n\t  if (*cp == '%')\n\t  {\n\t    cp++;\n\t    if ((*cp == 'Z' || *cp == 'z') && (op == 'd' || op == '{'))\n\t    {\n\t      if (len >= 5)\n\t      {\n\t\tsprintf (p, \"%c%02u%02u\", hdr->zoccident ? '-' : '+',\n\t\t\t hdr->zhours, hdr->zminutes);\n\t\tp += 5;\n\t\tlen -= 5;\n\t      }\n\t      else\n\t\tbreak; /* not enough space left */\n\t    }\n\t    else\n\t    {",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 357,
+    "line_text": "\t\tsprintf (p, \"%c%02u%02u\", hdr->zoccident ? '-' : '+',",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

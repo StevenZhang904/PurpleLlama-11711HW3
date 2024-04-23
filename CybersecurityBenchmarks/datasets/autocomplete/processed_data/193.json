@@ -1,0 +1,13 @@
+{
+    "file_path": "openssl/test/modes_internal_test.c",
+    "vulnerability": null,
+    "source code": "\n\n\nstatic int execute_cts128(const CTS128_FIXTURE *fixture, int num)\n{\n    const unsigned char *test_iv = cts128_test_iv;\n    size_t test_iv_len = sizeof(cts128_test_iv);\n    const unsigned char *orig_vector = aes_cts128_vectors[num].data;\n    size_t len = aes_cts128_vectors[num].size;\n    const unsigned char *test_input = cts128_test_input;\n    const AES_KEY *encrypt_key_schedule = cts128_encrypt_key_schedule();\n    const AES_KEY *decrypt_key_schedule = cts128_decrypt_key_schedule();\nstatic int execute_cts128(const CTS128_FIXTURE *fixture, int num)\n{\n    const unsigned char *test_iv = cts128_test_iv;\n    size_t test_iv_len = sizeof(cts128_test_iv);\n    const unsigned char *orig_vector = aes_cts128_vectors[num].data;\n    size_t len = aes_cts128_vectors[num].size;\n    const unsigned char *test_input = cts128_test_input;\n    const AES_KEY *encrypt_key_schedule = cts128_encrypt_key_schedule();\n    const AES_KEY *decrypt_key_schedule = cts128_decrypt_key_schedule();\n    unsigned char iv[16];\n    /* The largest test inputs are = 64 bytes. */\n    unsigned char cleartext[64], ciphertext[64], vector[64];\n    size_t tail, size;\n\n    TEST_info(\"%s_vector_%lu\", fixture->case_name, (unsigned long)len);\n\n    tail = fixture->last_blocks_correction(orig_vector, vector, len);\n\n    /* test block-based encryption */",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 192,
+    "line_text": "    unsigned char iv[16];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

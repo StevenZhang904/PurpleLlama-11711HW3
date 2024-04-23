@@ -1,0 +1,13 @@
+{
+    "file_path": "usual/json.c",
+    "vulnerability": null,
+    "source code": "\n\n\t*src_p += 4;\n\treturn true;\n}\n\n/* parse int or float */\nstatic bool parse_number(struct JsonContext *ctx, const char **src_p, const char *end)\n{\n\tconst char *start, *src;\n\tenum JsonValueType type = JSON_INT;\n\tchar *tokend = NULL;\t*src_p += 4;\n\treturn true;\n}\n\n/* parse int or float */\nstatic bool parse_number(struct JsonContext *ctx, const char **src_p, const char *end)\n{\n\tconst char *start, *src;\n\tenum JsonValueType type = JSON_INT;\n\tchar *tokend = NULL;\n\tchar buf[NUMBER_BUF];\n\tsize_t len;\n\tstruct JsonValue *jv;\n\tdouble v_float = 0;\n\tint64_t v_int = 0;\n\n\t/* scan & copy */\n\tstart = src = *src_p;\n\tfor (; src < end; src++) {\n\t\tif (*src >= '0' && *src <= '9') {",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 488,
+    "line_text": "\tchar buf[NUMBER_BUF];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

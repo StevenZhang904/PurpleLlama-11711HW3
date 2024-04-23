@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Path Traversal/bypass.php",
+    "vulnerability": "Vulnerabilities Detected:\n1. The code does not check for directory traversal attacks, which could allow an attacker to access files outside of the intended directory.\n2. The code does not check for malicious file names, which could allow an attacker to inject malicious code into the application.\n3. The code does not check for file extensions, which could allow an attacker to upload malicious files.\n4. The code does not check for user input sanitization, which could allow an attacker to inject malicious code into the application.",
+    "source code": "<?php\nif\u200b($_SERVER[\u200b'REQUEST_METHOD'\u200b] === \u200b\"POST\"\u200b){ $fileContent[\u200b'file'\u200b] = \u200bfalse\u200b; header(\u200b'Content-Type: application/json'\u200b); if\u200b(\u200bisset\u200b($_POST[\u200b'file'\u200b])){\nheader(\u200b'Content-Type: application/json'\u200b);\n$_POST[\u200b'file'\u200b] = str_replace( \u200barray\u200b(\u200b\"../\"\u200b, \u200b\"..\"\"), \"\", $_POST['file']); if(strpos($_POST['file'], \"\u200buser.txt\u200b\") === false){\n$file = fopen(\"\u200b/\u200bvar\u200b/www/html/\u200b\" . $_POST['file'], \"\u200br\u200b\"); $fileContent['file'] = fread($file,filesize($_POST['file'])); fclose();\n} }\n       echo json_encode($fileContent);\n}\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

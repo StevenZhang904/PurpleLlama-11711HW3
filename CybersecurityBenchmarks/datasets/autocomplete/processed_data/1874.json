@@ -1,0 +1,13 @@
+{
+    "file_path": "luigi/lock.py",
+    "vulnerability": null,
+    "source code": "\n\n    if my_pid is None:\n        my_pid = os.getpid()\n\n    my_cmd = getpcmd(my_pid)\n\n    if six.PY3:\n        cmd_hash = my_cmd.encode('utf8')\n    else:\n        cmd_hash = my_cmd\n    if my_pid is None:\n        my_pid = os.getpid()\n\n    my_cmd = getpcmd(my_pid)\n\n    if six.PY3:\n        cmd_hash = my_cmd.encode('utf8')\n    else:\n        cmd_hash = my_cmd\n\n    pid_file = os.path.join(pid_dir, hashlib.md5(cmd_hash).hexdigest()) + '.pid'\n\n    return my_pid, my_cmd, pid_file\n\n\ndef acquire_for(pid_dir, num_available=1):\n    \"\"\"\n    Makes sure the process is only run once at the same time with the same name.\n\n    Notice that we since we check the process name, different parameters to the same",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 53,
+    "line_text": "    pid_file = os.path.join(pid_dir, hashlib.md5(cmd_hash).hexdigest()) + '.pid'",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

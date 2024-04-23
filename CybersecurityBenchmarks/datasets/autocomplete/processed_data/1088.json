@@ -1,0 +1,13 @@
+{
+    "file_path": "jfunk-core/src/main/java/com/mgmtp/jfunk/core/ui/JFunkFrame.java",
+    "vulnerability": null,
+    "source code": "\n\n\r\n\tprivate JFunkFrame(final List<File> roots) {\r\n\t\tsuper(\"jFunk SkriptRunner UI\");\r\n\t\tthis.roots = roots;\r\n\t\tsetDefaultCloseOperation(DO_NOTHING_ON_CLOSE);\r\n\t}\r\n\r\n\tprivate boolean readState() {\r\n\t\tObjectInputStream ois = null;\r\n\t\ttry {\r\r\n\tprivate JFunkFrame(final List<File> roots) {\r\n\t\tsuper(\"jFunk SkriptRunner UI\");\r\n\t\tthis.roots = roots;\r\n\t\tsetDefaultCloseOperation(DO_NOTHING_ON_CLOSE);\r\n\t}\r\n\r\n\tprivate boolean readState() {\r\n\t\tObjectInputStream ois = null;\r\n\t\ttry {\r\n\t\t\tois = new ObjectInputStream(new FileInputStream(\"jFunkFrame.state\"));\r\n\t\t\tsetBounds((Rectangle) ois.readObject());\r\n\t\t\tsetExtendedState(ois.readInt());\r\n\t\t\ttree.setSelectionPaths((TreePath[]) ois.readObject());\r\n\t\t\tjFunkPropertyFilesComboBox.setSelectedIndex(ois.readInt());\r\n\t\t\ttestSystemsComboBox.setSelectedIndex(ois.readInt());\r\n\t\t\tmailConfigurationsComboBox.setSelectedIndex(ois.readInt());\r\n\t\t\tthreadCountComboBox.setSelectedIndex(ois.readInt());\r\n\t\t\tparallelComboBox.setSelectedIndex(ois.readInt());\r\n\t\t\treturn true;\r",
+    "language": "java",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Insecure deserialization detected. Ensure proper validation and handling of serialized data.\n",
+    "line_number": 139,
+    "line_text": "\t\t\tois = new ObjectInputStream(new FileInputStream(\"jFunkFrame.state\"));\r",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.java.deserialization_insecure_untrusted_data",
+    "rule": null,
+    "label": 1
+}

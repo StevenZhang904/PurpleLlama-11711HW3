@@ -1,0 +1,13 @@
+{
+    "file_path": "lichee/linux-3.4/arch/arm/mach-sun7i/rf/wifi_pm.c",
+    "vulnerability": null,
+    "source code": "\n\n#ifdef CONFIG_PROC_FS\nstatic int wifi_pm_power_stat(char *page, char **start, off_t off, int count, int *eof, void *data)\n{\n\tstruct wifi_pm_ops *ops = (struct wifi_pm_ops *)data;\n\tchar *p = page;\n\tint power = 0;\n\n\tif (ops->power)\n\t\tops->power(0, &power);\n#ifdef CONFIG_PROC_FS\nstatic int wifi_pm_power_stat(char *page, char **start, off_t off, int count, int *eof, void *data)\n{\n\tstruct wifi_pm_ops *ops = (struct wifi_pm_ops *)data;\n\tchar *p = page;\n\tint power = 0;\n\n\tif (ops->power)\n\t\tops->power(0, &power);\n\n\tp += sprintf(p, \"%s : power state %s\\n\", ops->mod_name, power ? \"on\" : \"off\");\n\treturn p - page;\n}\n\nstatic int wifi_pm_power_ctrl(struct file *file, const char __user *buffer, unsigned long count, void *data)\n{\n    struct wifi_pm_ops *ops = (struct wifi_pm_ops *)data;\n    int power = simple_strtoul(buffer, NULL, 10);\n    \n    power = power ? 1 : 0;",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 75,
+    "line_text": "\tp += sprintf(p, \"%s : power state %s\\n\", ops->mod_name, power ? \"on\" : \"off\");",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

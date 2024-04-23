@@ -1,0 +1,13 @@
+{
+    "file_path": "src/libstd/sys/windows/os.rs",
+    "vulnerability": null,
+    "source code": "\n\n    (libc::O_BINARY | libc::O_NOINHERIT) as c_int) {\n        0 => {\n            assert!(fds[0] != -1 && fds[0] != 0);\n            assert!(fds[1] != -1 && fds[1] != 0);\n            Ok((FileDesc::new(fds[0], true), FileDesc::new(fds[1], true)))\n        }\n        _ => Err(IoError::last_error()),\n    }\n}\n    (libc::O_BINARY | libc::O_NOINHERIT) as c_int) {\n        0 => {\n            assert!(fds[0] != -1 && fds[0] != 0);\n            assert!(fds[1] != -1 && fds[1] != 0);\n            Ok((FileDesc::new(fds[0], true), FileDesc::new(fds[1], true)))\n        }\n        _ => Err(IoError::last_error()),\n    }\n}\n\npub fn temp_dir() -> PathBuf {\n    super::fill_utf16_buf_new(|buf, sz| unsafe {\n        c::GetTempPathW(sz, buf)\n    }, super::os2path).unwrap()\n}\n\npub fn home_dir() -> Option<PathBuf> {\n    getenv(\"HOME\".as_os_str()).or_else(|| {\n        getenv(\"USERPROFILE\".as_os_str())\n    }).map(|os| {",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 357,
+    "line_text": "pub fn temp_dir() -> PathBuf {",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

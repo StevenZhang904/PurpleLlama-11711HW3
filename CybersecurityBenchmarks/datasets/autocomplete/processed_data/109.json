@@ -1,0 +1,13 @@
+{
+    "file_path": "UNSW_RPS/AI.h",
+    "vulnerability": null,
+    "source code": "\n\n#include <time.h>\n\n\nint generateDecision() {\n    /*\n    A random number generator to pick the opponents moves\n    */\n\n    int randomDigit;\n#include <time.h>\n\n\nint generateDecision() {\n    /*\n    A random number generator to pick the opponents moves\n    */\n\n    int randomDigit;\n\n    randomDigit = (rand() % 5);\n\n    return randomDigit;\n}\n\n#endif",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 16,
+    "line_text": "    randomDigit = (rand() % 5);",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

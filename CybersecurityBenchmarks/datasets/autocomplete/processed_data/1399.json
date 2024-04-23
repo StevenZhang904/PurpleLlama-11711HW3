@@ -1,0 +1,13 @@
+{
+    "file_path": "src/connection.rs",
+    "vulnerability": null,
+    "source code": "\n\n    pub fn new(host: IpAddr, port: u16, verify: bool, nodelay: bool) -> Result<Connection, ConnectionError> {\n        let stream = try!(Connection::connect(host, port, verify, nodelay));\n        Ok(Connection { control_channel: Mutex::new(stream) })\n    }\n\n    fn connect(host: IpAddr, port: u16, verify: bool, nodelay: bool) -> Result<SslStream<TcpStream>, ConnectionError> {\n        let mut context = try!(SslContext::new(SslMethod::Tlsv1));\n        if verify {\n            context.set_verify(openssl::ssl::SSL_VERIFY_PEER);\n        } else {    pub fn new(host: IpAddr, port: u16, verify: bool, nodelay: bool) -> Result<Connection, ConnectionError> {\n        let stream = try!(Connection::connect(host, port, verify, nodelay));\n        Ok(Connection { control_channel: Mutex::new(stream) })\n    }\n\n    fn connect(host: IpAddr, port: u16, verify: bool, nodelay: bool) -> Result<SslStream<TcpStream>, ConnectionError> {\n        let mut context = try!(SslContext::new(SslMethod::Tlsv1));\n        if verify {\n            context.set_verify(openssl::ssl::SSL_VERIFY_PEER);\n        } else {\n            context.set_verify(openssl::ssl::SSL_VERIFY_NONE);\n        }\n        let stream = try!(TcpStream::connect((host, port)));\n        // I don't know how this can fail, so just unwrapping for now...\n        // TODO: figure this out\n        stream.set_nodelay(nodelay).unwrap();\n        match SslStream::connect(&context, stream) {\n            Ok(val) => Ok(val),\n            Err(err) => match err {\n                HandshakeError::Failure(handshake_err) => Err(ConnectionError::Ssl(handshake_err)),",
+    "language": "rust",
+    "cwe_identifier": "CWE-295",
+    "pattern_desc": "Disabled SSL verification: Accepting invalid ssl connections",
+    "line_number": 69,
+    "line_text": "            context.set_verify(openssl::ssl::SSL_VERIFY_NONE);",
+    "pattern_id": "RUST-R-010",
+    "rule": "set_verify\\(.*SSL_VERIFY_NONE\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "Main/Relax/Login/login_code.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\tif ($user != \"\" && $password != \"\") { // If Username and Password field are NOT empty\n\t\t\t\t$elems = mysql_query(\"SELECT `Username`,`Password` FROM `accounts` WHERE `Username` = '$user'\");\n\t\t\t\t// Find and Select the Username in the DB (not working check??)\n\t\t\t\t$row = mysql_fetch_row($elems); // Extract the Username\n\n\t\t\t\tif (!is_null($row[0])) { // If the Username is NOT NULL (exists)\n\t//\t\t\t\techo \"User \", $row[0], \" found<br>\";\n\t//\t\t\t\techo \"Logging in...<br>\";\n\n\t\t\t\t\t$user = htmlspecialchars(trim($_POST['Username'])); // Crypt the Username\t\t\tif ($user != \"\" && $password != \"\") { // If Username and Password field are NOT empty\n\t\t\t\t$elems = mysql_query(\"SELECT `Username`,`Password` FROM `accounts` WHERE `Username` = '$user'\");\n\t\t\t\t// Find and Select the Username in the DB (not working check??)\n\t\t\t\t$row = mysql_fetch_row($elems); // Extract the Username\n\n\t\t\t\tif (!is_null($row[0])) { // If the Username is NOT NULL (exists)\n\t//\t\t\t\techo \"User \", $row[0], \" found<br>\";\n\t//\t\t\t\techo \"Logging in...<br>\";\n\n\t\t\t\t\t$user = htmlspecialchars(trim($_POST['Username'])); // Crypt the Username\n\t\t\t\t\t$password = md5(htmlspecialchars(trim($_POST['Password']))); //Crypt the Password\n\n\t\t\t\t\tif ($password == $row[1]) {\n\t\t\t\t\t\t$_SESSION['user'] = $user; // SET the Session to the current User\n\t\t\t\t\t\techo \"User \", $row[0], \" logged<br>\";\n\t\t\t\t\t\theader(\"Location: http://charleston.onthewifi.com/Relax\");\n\t\t\t\t\t\texit;\n\t\t\t\t\t} else {\n\t\t\t\t\t\techo \"Wrong Password!<br>\";\n\t\t\t\t\t}",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 27,
+    "line_text": "\t\t\t\t\t$password = md5(htmlspecialchars(trim($_POST['Password']))); //Crypt the Password",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

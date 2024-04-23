@@ -1,0 +1,13 @@
+{
+    "file_path": "variant.hpp",
+    "vulnerability": null,
+    "source code": "\n\n\n    variant& operator=(variant&& rhs) {\n        delete_if_not_empty();\n        data_ = rhs.data_;\n        type_index_ = rhs.type_index_;\n        rhs.data_ = 0;\n        return *this;\n    }\n\n    template <class V>\n    variant& operator=(variant&& rhs) {\n        delete_if_not_empty();\n        data_ = rhs.data_;\n        type_index_ = rhs.type_index_;\n        rhs.data_ = 0;\n        return *this;\n    }\n\n    template <class V>\n    variant& operator=(std::auto_ptr<V>& rhs) {\n        int const new_index = meta::index_of<V, T...>::value;\n        static_assert(\n            new_index < n_elements, \"type does not exist in variant\");\n        delete_if_not_empty();\n        type_index_ = new_index;\n        data_ = rhs.release();\n        return *this;\n    }\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-665",
+    "pattern_desc": "Uses deprecated auto_ptr, which can lead to undefined behavior.",
+    "line_number": 91,
+    "line_text": "    variant& operator=(std::auto_ptr<V>& rhs) {",
+    "pattern_id": "CPP-R-001",
+    "rule": "\\bstd::auto_ptr<\\s*\\w+\\s*>",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/blob.rs",
+    "vulnerability": null,
+    "source code": "\n\n///\n/// [1]: http://git-scm.com/book/en/Git-Internals-Git-Objects\npub struct Blob<'repo> {\n    raw: *mut raw::git_blob,\n    _marker: marker::PhantomData<Object<'repo>>,\n}\n\nimpl<'repo> Blob<'repo> {\n    /// Get the id (SHA1) of a repository blob\n    pub fn id(&self) -> Oid {///\n/// [1]: http://git-scm.com/book/en/Git-Internals-Git-Objects\npub struct Blob<'repo> {\n    raw: *mut raw::git_blob,\n    _marker: marker::PhantomData<Object<'repo>>,\n}\n\nimpl<'repo> Blob<'repo> {\n    /// Get the id (SHA1) of a repository blob\n    pub fn id(&self) -> Oid {\n        unsafe { Binding::from_raw(raw::git_blob_id(&*self.raw)) }\n    }\n\n    /// Determine if the blob content is most certainly binary or not.\n    pub fn is_binary(&self) -> bool {\n        unsafe { raw::git_blob_is_binary(&*self.raw) == 1 }\n    }\n\n    /// Get the content of this blob.\n    pub fn content(&self) -> &[u8] {",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 18,
+    "line_text": "        unsafe { Binding::from_raw(raw::git_blob_id(&*self.raw)) }",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

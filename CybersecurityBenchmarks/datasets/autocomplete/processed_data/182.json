@@ -1,0 +1,13 @@
+{
+    "file_path": "third_party/llvm/compiler-rt/test/builtins/Unit/absvdi2_test.c",
+    "vulnerability": null,
+    "source code": "\n\n        return 1;\n    if (test__absvdi2(0x8000000000000002LL))\n        return 1;\n    if (test__absvdi2(0xFFFFFFFFFFFFFFFELL))\n        return 1;\n    if (test__absvdi2(0xFFFFFFFFFFFFFFFFLL))\n        return 1;\n\n    int i;\n    for (i = 0; i < 10000; ++i)        return 1;\n    if (test__absvdi2(0x8000000000000002LL))\n        return 1;\n    if (test__absvdi2(0xFFFFFFFFFFFFFFFELL))\n        return 1;\n    if (test__absvdi2(0xFFFFFFFFFFFFFFFFLL))\n        return 1;\n\n    int i;\n    for (i = 0; i < 10000; ++i)\n        if (test__absvdi2(((di_int)rand() << 32) | rand()))\n            return 1;\n\n    return 0;\n}\n",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 62,
+    "line_text": "        if (test__absvdi2(((di_int)rand() << 32) | rand()))",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

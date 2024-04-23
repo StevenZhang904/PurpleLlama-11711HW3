@@ -1,0 +1,13 @@
+{
+    "file_path": "exercises/ex09/newshound.c",
+    "vulnerability": null,
+    "source code": "\n\n        \"http://www.nytimes.com/services/xml/rss/nyt/Americas.xml\",\n        \"http://www.nytimes.com/services/xml/rss/nyt/MiddleEast.xml\",\n        \"http://www.nytimes.com/services/xml/rss/nyt/Europe.xml\",\n        \"http://www.nytimes.com/services/xml/rss/nyt/AsiaPacific.xml\"\n    };\n    int num_feeds = 5;\n    char *search_phrase = argv[1];\n    char var[255];\n\n    for (int i=0; i<num_feeds; i++) {        \"http://www.nytimes.com/services/xml/rss/nyt/Americas.xml\",\n        \"http://www.nytimes.com/services/xml/rss/nyt/MiddleEast.xml\",\n        \"http://www.nytimes.com/services/xml/rss/nyt/Europe.xml\",\n        \"http://www.nytimes.com/services/xml/rss/nyt/AsiaPacific.xml\"\n    };\n    int num_feeds = 5;\n    char *search_phrase = argv[1];\n    char var[255];\n\n    for (int i=0; i<num_feeds; i++) {\n        sprintf(var, \"RSS_FEED=%s\", feeds[i]);\n        char *vars[] = {var, NULL};\n\n        int res = execle(PYTHON, PYTHON, SCRIPT, search_phrase, NULL, vars);\n        if (res == -1) {\n            error(\"Can't run script.\");\n        }\n    }\n    return 0;\n}",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 43,
+    "line_text": "        sprintf(var, \"RSS_FEED=%s\", feeds[i]);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

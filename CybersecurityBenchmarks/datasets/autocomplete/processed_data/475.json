@@ -1,0 +1,13 @@
+{
+    "file_path": "Boss2D/addon/webrtc-jumpingyang001_for_boss/modules/audio_coding/neteq/neteq_stereo_unittest.cc",
+    "vulnerability": null,
+    "source code": "\n\n        multi_payload_size_bytes_(0),\n        last_send_time_(0),\n        last_arrival_time_(0) {\n    NetEq::Config config;\n    config.sample_rate_hz = sample_rate_hz_;\n    rtc::scoped_refptr<AudioDecoderFactory> factory =\n        CreateBuiltinAudioDecoderFactory();\n    neteq_mono_ = NetEq::Create(config, factory);\n    neteq_ = NetEq::Create(config, factory);\n    input_ = new int16_t[frame_size_samples_];        multi_payload_size_bytes_(0),\n        last_send_time_(0),\n        last_arrival_time_(0) {\n    NetEq::Config config;\n    config.sample_rate_hz = sample_rate_hz_;\n    rtc::scoped_refptr<AudioDecoderFactory> factory =\n        CreateBuiltinAudioDecoderFactory();\n    neteq_mono_ = NetEq::Create(config, factory);\n    neteq_ = NetEq::Create(config, factory);\n    input_ = new int16_t[frame_size_samples_];\n    encoded_ = new uint8_t[2 * frame_size_samples_];\n    input_multi_channel_ = new int16_t[frame_size_samples_ * num_channels_];\n    encoded_multi_channel_ =\n        new uint8_t[frame_size_samples_ * 2 * num_channels_];\n  }\n\n  ~NetEqStereoTest() {\n    delete neteq_mono_;\n    delete neteq_;\n    delete[] input_;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 73,
+    "line_text": "    encoded_ = new uint8_t[2 * frame_size_samples_];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

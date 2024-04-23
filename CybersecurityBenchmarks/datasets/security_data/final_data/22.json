@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/SSRF/express.js",
+    "vulnerability": "Vulnerabilities Detected:\n1. No input validation on the URL parameter.\n2. No rate limiting on requests.\n3. No authentication or authorization checks on the request.\n4. No error handling on the request.",
+    "source code": "const express = require('express');\nconst router = express.Router()\nconst request = require('request');\n\nrouter.post('/download-url', (req, res) => {\n  downloadURL(req.body.url, () => {\n    res.send('Done')\n  })\n});\n\nconst downloadURL = (url, onend) => {\n  const opts = {\n    uri: url,\n    method: 'GET',\n    followAllRedirects: true\n  }\n\n  request(opts)\n    .on('data', () => { })\n    .on('end', () => onend())\n    .on('error', (err) => console.log(err, 'controller.url.download.error'))\n}\n\nmodule.exports = router\n",
+    "language": "javascript",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "packager/src/net/rim/tumbler/WidgetPackager.java",
+    "vulnerability": null,
+    "source code": "\n\n\r\n\t\ttry {\r\n\t\t\tlastModified = (new File(codFullname)).lastModified();\r\n\t\t\tString password = sessionManager.getPassword();\r\n\t\t\tFile cwd = new File(sessionManager.getBBWPJarFolder());\r\n\t\t\tString cmdline = \"java -jar SignatureTool.jar -a -c \"\r\n\t\t\t\t\t+ (password.length() == 0 ? \"\" : \"-p \" + password + \" \")\r\n\t\t\t\t\t+ \"\\\"\" + sessionManager.getSourceFolder()\r\n\t\t\t\t\t+ System.getProperty(\"file.separator\")\r\n\t\t\t\t\t+ sessionManager.getArchiveName() + \".cod\" + \"\\\"\";\r\r\n\t\ttry {\r\n\t\t\tlastModified = (new File(codFullname)).lastModified();\r\n\t\t\tString password = sessionManager.getPassword();\r\n\t\t\tFile cwd = new File(sessionManager.getBBWPJarFolder());\r\n\t\t\tString cmdline = \"java -jar SignatureTool.jar -a -c \"\r\n\t\t\t\t\t+ (password.length() == 0 ? \"\" : \"-p \" + password + \" \")\r\n\t\t\t\t\t+ \"\\\"\" + sessionManager.getSourceFolder()\r\n\t\t\t\t\t+ System.getProperty(\"file.separator\")\r\n\t\t\t\t\t+ sessionManager.getArchiveName() + \".cod\" + \"\\\"\";\r\n\t\t\tsigningProcess = Runtime.getRuntime().exec(cmdline, null, cwd);\r\n\t\t} catch (IOException ex) {\r\n\t\t\tthrow ex;\r\n\t\t}\r\n\r\n\t\ttry {\r\n\t\t\tint signingResult = signingProcess.waitFor();\r\n\r\n\t\t\t// Check whether signing is successful\r\n\t\t\tif (signingResult != 0) {\r",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 190,
+    "line_text": "\t\t\tsigningProcess = Runtime.getRuntime().exec(cmdline, null, cwd);\r",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

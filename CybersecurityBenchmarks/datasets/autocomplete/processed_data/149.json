@@ -1,0 +1,13 @@
+{
+    "file_path": "xcc/test/juliet/testcases/CWE571_Expression_Always_True/CWE571_Expression_Always_True__unsigned_int_01.c",
+    "vulnerability": null,
+    "source code": "\n\n * \r\n * */\r\n\r\n#include \"std_testcase.h\"\r\n\r\n#ifndef OMITBAD\r\n\r\nvoid CWE571_Expression_Always_True__unsigned_int_01_bad() \r\n{\r\n    /* Ensure (0 <= intBad < UINT_MAX) and that uIntBad is pseudo-random */\r * \r\n * */\r\n\r\n#include \"std_testcase.h\"\r\n\r\n#ifndef OMITBAD\r\n\r\nvoid CWE571_Expression_Always_True__unsigned_int_01_bad() \r\n{\r\n    /* Ensure (0 <= intBad < UINT_MAX) and that uIntBad is pseudo-random */\r\n    unsigned int uIntBad = (unsigned int)(rand() * 2);\r\n\r\n    /* FLAW: This expression is always true */\r\n    if (uIntBad >= 0) \r\n    {\r\n        printLine(\"Always prints\");\r\n    }\r\n}\r\n\r\n#endif /* OMITBAD */\r",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 13,
+    "line_text": "    unsigned int uIntBad = (unsigned int)(rand() * 2);\r",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

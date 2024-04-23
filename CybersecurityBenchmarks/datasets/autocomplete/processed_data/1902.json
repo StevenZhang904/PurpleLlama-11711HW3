@@ -1,0 +1,13 @@
+{
+    "file_path": "md5s3stash.py",
+    "vulnerability": null,
+    "source code": "\n\n       Helper to download large files the only arg is a url this file\n       will go to a temp directory the file will also be downloaded in\n       chunks and md5 checksum is returned\n\n       based on downloadChunks@https://gist.github.com/gourneau/1430932\n       and http://www.pythoncentral.io/hashing-files-with-python/\n    \"\"\"\n    temp_file = tempfile.NamedTemporaryFile(delete=False, prefix='md5s3_')\n    logging.getLogger('MD5S3').info(\"temp file path %s\" % temp_file.name)\n       Helper to download large files the only arg is a url this file\n       will go to a temp directory the file will also be downloaded in\n       chunks and md5 checksum is returned\n\n       based on downloadChunks@https://gist.github.com/gourneau/1430932\n       and http://www.pythoncentral.io/hashing-files-with-python/\n    \"\"\"\n    temp_file = tempfile.NamedTemporaryFile(delete=False, prefix='md5s3_')\n    logging.getLogger('MD5S3').info(\"temp file path %s\" % temp_file.name)\n\n    hasher = hashlib.new('md5')\n    BLOCKSIZE = 1024 * hasher.block_size\n\n    try:\n        req = urlopen_with_auth(url, auth=auth, cache=cache)\n        thisurl = cache.get(url, dict())\n        if req.getcode() == 304:\n            return None, thisurl['md5'], None\n        mime_type = req.info()['Content-type']\n        # record these headers, they will let us pretend like we are a cacheing",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 and MD5 hash functions are considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 241,
+    "line_text": "    hasher = hashlib.new('md5')",
+    "pattern_id": "PY-R-005",
+    "rule": "\\bhashlib\\.new\\s*\\([\"\\'](sha1|md5)[\"\\']\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "CorpCommons/corp-commando/src/main/java/co/kuznetsov/commando/monitoring/ExID.java",
+    "vulnerability": null,
+    "source code": "\n\n        for ( int j = 0; j < bytes.length; j++ ) {\n            int v = bytes[j] & 0xFF;\n            hexChars[j * 2] = HEX_ARRAY[v >>> 4];\n            hexChars[j * 2 + 1] = HEX_ARRAY[v & 0x0F];\n        }\n        return new String(hexChars);\n    }\n\n    private MessageDigest digester() {\n        try {        for ( int j = 0; j < bytes.length; j++ ) {\n            int v = bytes[j] & 0xFF;\n            hexChars[j * 2] = HEX_ARRAY[v >>> 4];\n            hexChars[j * 2 + 1] = HEX_ARRAY[v & 0x0F];\n        }\n        return new String(hexChars);\n    }\n\n    private MessageDigest digester() {\n        try {\n            return MessageDigest.getInstance(\"SHA1\");\n        } catch (NoSuchAlgorithmException e) {\n            throw new RuntimeException(e);\n        }\n    }\n\n}\n",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 193,
+    "line_text": "            return MessageDigest.getInstance(\"SHA1\");",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

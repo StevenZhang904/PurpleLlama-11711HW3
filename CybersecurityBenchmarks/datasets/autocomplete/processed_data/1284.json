@@ -1,0 +1,13 @@
+{
+    "file_path": "src/lib.rs",
+    "vulnerability": null,
+    "source code": "\n\n        match try!(self.read_message()) {\n            AuthenticationOk => return Ok(()),\n            AuthenticationCleartextPassword => {\n                let pass = try!(user.password.ok_or(ConnectError::MissingPassword));\n                try!(self.write_messages(&[PasswordMessage {\n                        password: &pass,\n                    }]));\n            }\n            AuthenticationMD5Password { salt } => {\n                let pass = try!(user.password.ok_or(ConnectError::MissingPassword));        match try!(self.read_message()) {\n            AuthenticationOk => return Ok(()),\n            AuthenticationCleartextPassword => {\n                let pass = try!(user.password.ok_or(ConnectError::MissingPassword));\n                try!(self.write_messages(&[PasswordMessage {\n                        password: &pass,\n                    }]));\n            }\n            AuthenticationMD5Password { salt } => {\n                let pass = try!(user.password.ok_or(ConnectError::MissingPassword));\n                let mut hasher = Md5::new();\n                let _ = hasher.input(pass.as_bytes());\n                let _ = hasher.input(user.user.as_bytes());\n                let output = hasher.result_str();\n                hasher.reset();\n                let _ = hasher.input(output.as_bytes());\n                let _ = hasher.input(&salt);\n                let output = format!(\"md5{}\", hasher.result_str());\n                try!(self.write_messages(&[PasswordMessage {\n                        password: &output",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 591,
+    "line_text": "                let mut hasher = Md5::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

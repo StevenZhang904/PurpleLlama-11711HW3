@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Server Side Template Injection/Twig.php",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unsanitized user input: The $_GET['nextSlide'] variable is not being sanitized before being used in the render() method.\n2. Cross-site scripting (XSS): The link variable is not being escaped before being rendered in the template.",
+    "source code": "// composer require \"twig/twig\"\nrequire 'vendor/autoload.php';\n\nclass Template {\n    private $twig;\n\n    public function __construct() {\n        $indexTemplate = '<img ' .\n            'src=\"https://loremflickr.com/320/240\">' .\n            '<a href=\"{{link|escape}}\">Next slide \u00bb</a>';\n\n        // Default twig setup, simulate loading\n        // index.html file from disk\n        $loader = new Twig\\Loader\\ArrayLoader([\n            'index.html' => $indexTemplate\n        ]);\n        $this->twig = new Twig\\Environment($loader);\n    }\n\n    public function getNexSlideUrl() {\n        $nextSlide = $_GET['nextSlide'];\n        return filter_var($nextSlide, FILTER_VALIDATE_URL);\n    }\n\n    public function render() {\n        echo $this->twig->render(\n            'index.html',\n            ['link' => $this->getNexSlideUrl()]\n        );\n    }\n}\n\n(new Template())->render();\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

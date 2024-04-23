@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/IDOR/example1.php",
+    "vulnerability": "}\n\n?>\n\nVulnerabilities Detected:\n1. Lack of input sanitization: The user input is not being sanitized before being used in the SQL query, which could lead to SQL injection attacks.\n2. Lack of authentication: There is no authentication in place to ensure that only authorized users can access the secrets.",
+    "source code": "<?php\n\nrequire_once('../_helpers/strip.php');\n\n// this database contains a table with 2 rows\n$db = new SQLite3('test.db');\n\n$id = $_GET['id'];\n\nif (strlen($id) > 0) {\n  $query = $db->query('select * from secrets where id = ' . (int)$id);\n\n  while ($row = $query->fetchArray()) {\n    echo 'Secret: ' . $row['secret'];\n  }\n\n  echo '<br /><br /><a href=\"/\">Go back</a>';\n} else {\n  $query = $db->query('select * from secrets where user_id = 1');\n\n  echo '<strong>Your secrets</strong><br /><br />';\n\n  while ($row = $query->fetchArray()) {\n    echo '<a href=\"/?id=' . $row['id'] . '\">#' . $row['id'] . '</a><br />';\n  }\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

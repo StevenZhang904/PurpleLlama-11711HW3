@@ -1,0 +1,13 @@
+{
+    "file_path": "examples/bin/app.bundle.js",
+    "vulnerability": null,
+    "source code": "\n\n\t})(Function.prototype, TO_STRING, function toString() {\n\t  return typeof this == 'function' && this[SRC] || $toString.call(this);\n\t});\n\n\n/***/ }),\n/* 19 */\n/***/ (function(module, exports) {\n\n\tvar id = 0;\t})(Function.prototype, TO_STRING, function toString() {\n\t  return typeof this == 'function' && this[SRC] || $toString.call(this);\n\t});\n\n\n/***/ }),\n/* 19 */\n/***/ (function(module, exports) {\n\n\tvar id = 0;\n\tvar px = Math.random();\n\tmodule.exports = function (key) {\n\t  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));\n\t};\n\n\n/***/ }),\n/* 20 */\n/***/ (function(module, exports, __webpack_require__) {\n",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Depending on the context, generating weak random numbers may expose cryptographic functions,\nwhich rely on these numbers, to be exploitable. When generating numbers for sensitive values\nsuch as tokens, nonces, and cryptographic keys, it is recommended that the `randomBytes` method\nof the `crypto` module be used instead of `pseudoRandomBytes`.\n",
+    "line_number": 819,
+    "line_text": "\tvar px = Math.random();",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.javascript.third-party.pseudo-random-bytes",
+    "rule": null,
+    "label": 1
+}

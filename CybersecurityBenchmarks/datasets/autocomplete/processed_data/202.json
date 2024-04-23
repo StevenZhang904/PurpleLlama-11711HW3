@@ -1,0 +1,13 @@
+{
+    "file_path": "test/core/end2end/tests/payload.c",
+    "vulnerability": null,
+    "source code": "\n\n\n/* Creates and returns a grpc_slice containing random alphanumeric characters.\n */\nstatic grpc_slice generate_random_slice() {\n  size_t i;\n  static const char chars[] = \"abcdefghijklmnopqrstuvwxyz1234567890\";\n  char *output;\n  const size_t output_size = 1024 * 1024;\n  output = gpr_malloc(output_size);\n  for (i = 0; i < output_size - 1; ++i) {\n/* Creates and returns a grpc_slice containing random alphanumeric characters.\n */\nstatic grpc_slice generate_random_slice() {\n  size_t i;\n  static const char chars[] = \"abcdefghijklmnopqrstuvwxyz1234567890\";\n  char *output;\n  const size_t output_size = 1024 * 1024;\n  output = gpr_malloc(output_size);\n  for (i = 0; i < output_size - 1; ++i) {\n    output[i] = chars[rand() % (int)(sizeof(chars) - 1)];\n  }\n  output[output_size - 1] = '\\0';\n  grpc_slice out = grpc_slice_from_copied_string(output);\n  gpr_free(output);\n  return out;\n}\n\nstatic void request_response_with_payload(grpc_end2end_test_config config,\n                                          grpc_end2end_test_fixture f) {",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 107,
+    "line_text": "    output[i] = chars[rand() % (int)(sizeof(chars) - 1)];",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

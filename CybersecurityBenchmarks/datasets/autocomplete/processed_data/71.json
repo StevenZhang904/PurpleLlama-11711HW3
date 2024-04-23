@@ -1,0 +1,13 @@
+{
+    "file_path": "samples/c/1/slip.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\tsl = dev->priv;\n\t\tif (test_bit(SLF_INUSE, &sl->flags)) {\n\t\t\tunregister_netdevice(dev);\n\t\t\tdev = NULL;\n\t\t\tslip_devs[i] = NULL;\n\t\t}\n\t}\n\t\n\tif (!dev) {\n\t\tchar name[IFNAMSIZ];\t\tsl = dev->priv;\n\t\tif (test_bit(SLF_INUSE, &sl->flags)) {\n\t\t\tunregister_netdevice(dev);\n\t\t\tdev = NULL;\n\t\t\tslip_devs[i] = NULL;\n\t\t}\n\t}\n\t\n\tif (!dev) {\n\t\tchar name[IFNAMSIZ];\n\t\tsprintf(name, \"sl%d\", i);\n\n\t\tdev = alloc_netdev(sizeof(*sl), name, sl_setup);\n\t\tif (!dev)\n\t\t\treturn NULL;\n\t\tdev->base_addr  = i;\n\t}\n\n\tsl = dev->priv;\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 810,
+    "line_text": "\t\tsprintf(name, \"sl%d\", i);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

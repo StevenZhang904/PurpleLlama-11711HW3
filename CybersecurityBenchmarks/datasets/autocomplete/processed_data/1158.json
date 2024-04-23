@@ -1,0 +1,13 @@
+{
+    "file_path": "h2o-algos/src/main/java/hex/deepwater/DeepWaterModel.java",
+    "vulnerability": null,
+    "source code": "\n\n      }\n    }).keys();\n    if (fs==null) fs = new Futures();\n    for (Key k : cacheKeys) DKV.remove(k, fs);\n    fs.blockForPending();\n  }\n\n\n  private static String getNvidiaStats() throws java.io.IOException {\n    String cmd = \"nvidia-smi\";      }\n    }).keys();\n    if (fs==null) fs = new Futures();\n    for (Key k : cacheKeys) DKV.remove(k, fs);\n    fs.blockForPending();\n  }\n\n\n  private static String getNvidiaStats() throws java.io.IOException {\n    String cmd = \"nvidia-smi\";\n    InputStream stdin = Runtime.getRuntime().exec(cmd).getInputStream();\n    InputStreamReader isr = new InputStreamReader(stdin);\n    BufferedReader br = new BufferedReader(isr);\n    StringBuilder sb = new StringBuilder();\n    String s;\n    while ((s = br.readLine()) != null) {\n      sb.append(s).append(\"\\n\");\n    }\n    return sb.toString();\n  }",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 1015,
+    "line_text": "    InputStream stdin = Runtime.getRuntime().exec(cmd).getInputStream();",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

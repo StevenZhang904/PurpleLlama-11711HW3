@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/lib.rs",
+    "vulnerability": null,
+    "source code": "\n\n\nfn gen_key_pair(seed: &str, params: &EncParams) -> KeyPair {\n    let seed_u8 = seed.as_bytes();\n    let rng = RNG_CTR_DRBG;\n    let rand_ctx = ntru::rand::init_det(&rng, seed_u8).unwrap();\n\n    ntru::generate_key_pair(params, &rand_ctx).unwrap()\n}\n\nfn sha1(input: &[u8]) -> [u8; 20] {\nfn gen_key_pair(seed: &str, params: &EncParams) -> KeyPair {\n    let seed_u8 = seed.as_bytes();\n    let rng = RNG_CTR_DRBG;\n    let rand_ctx = ntru::rand::init_det(&rng, seed_u8).unwrap();\n\n    ntru::generate_key_pair(params, &rand_ctx).unwrap()\n}\n\nfn sha1(input: &[u8]) -> [u8; 20] {\n    let mut hasher = Sha1::new();\n    hasher.input(input);\n\n    let mut digest = [0u8; 20];\n    hasher.result(&mut digest);\n    digest\n}\n\n#[test]\nfn it_keygen() {",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 58,
+    "line_text": "    let mut hasher = Sha1::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

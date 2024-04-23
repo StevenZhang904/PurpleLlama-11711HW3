@@ -1,0 +1,13 @@
+{
+    "file_path": "zfs-fuse/src/lib/libzfs/libzfs_pool.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\t/*\n\t\t * If it's a raidz device, we need to stick in the parity level.\n\t\t */\n\t\tif (strcmp(path, VDEV_TYPE_RAIDZ) == 0) {\n\t\t\tverify(nvlist_lookup_uint64(nv, ZPOOL_CONFIG_NPARITY,\n\t\t\t    &value) == 0);\n\t\t\t(void) snprintf(buf, sizeof (buf), \"%s%llu\", path,\n\t\t\t    (u_longlong_t)value);\n\t\t\tpath = buf;\n\t\t}\t\t/*\n\t\t * If it's a raidz device, we need to stick in the parity level.\n\t\t */\n\t\tif (strcmp(path, VDEV_TYPE_RAIDZ) == 0) {\n\t\t\tverify(nvlist_lookup_uint64(nv, ZPOOL_CONFIG_NPARITY,\n\t\t\t    &value) == 0);\n\t\t\t(void) snprintf(buf, sizeof (buf), \"%s%llu\", path,\n\t\t\t    (u_longlong_t)value);\n\t\t\tpath = buf;\n\t\t}\n\t\tchar str[64];\n\t\tstrcpy(str,path);\n\n\t\t/*\n\t\t * We identify each top-level vdev by using a <type-id>\n\t\t * naming convention.\n\t\t */\n\t\tif (verbose) {\n\t\t\tuint64_t id;\n",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 3062,
+    "line_text": "\t\tchar str[64];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

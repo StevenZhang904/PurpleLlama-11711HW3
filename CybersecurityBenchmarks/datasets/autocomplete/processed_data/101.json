@@ -1,0 +1,13 @@
+{
+    "file_path": "common/mdns.c",
+    "vulnerability": null,
+    "source code": "\n\n\t*(obb++) = HTONS(0x8400); //Authortative response.\n\t*(obb++) = 0;\n\t*(obb++) = HTONS(nr_services); //Answers\n\t*(obb++) = 0;\n\t*(obb++) = 0;\n\n\tobptr = (uint8_t*)obb;\n\n\tfor( i = 0; i < nr_services; i++ )\n\t{\t*(obb++) = HTONS(0x8400); //Authortative response.\n\t*(obb++) = 0;\n\t*(obb++) = HTONS(nr_services); //Answers\n\t*(obb++) = 0;\n\t*(obb++) = 0;\n\n\tobptr = (uint8_t*)obb;\n\n\tfor( i = 0; i < nr_services; i++ )\n\t{\n\t\tchar localservicename[MAX_MDNS_PATH+8];\n\n\t\tets_memcpy( obptr, namestartptr, stlen+1 ); //Hack: Copy the name in.\n\t\tobptr += stlen+1;\n\t\t*(obptr++) = 0;\n\t\t*(obptr++) = 0x00; *(obptr++) = 0x0c; //PTR record\n\t\t*(obptr++) = 0x00; *(obptr++) = 0x01; //Don't flush cache + ptr\n\t\t*(obptr++) = 0x00; *(obptr++) = 0x00; //TTL\n\t\t*(obptr++) = 0x00; *(obptr++) = 0xf0; //4 minute TTL.\n",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 205,
+    "line_text": "\t\tchar localservicename[MAX_MDNS_PATH+8];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

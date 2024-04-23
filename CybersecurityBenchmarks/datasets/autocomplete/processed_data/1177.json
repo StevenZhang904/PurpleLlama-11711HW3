@@ -1,0 +1,13 @@
+{
+    "file_path": "src/org/bds/lang/Breakpoint.java",
+    "vulnerability": null,
+    "source code": "\n\n\t */\n\t@Override\n\tpublic void runStep(BdsThread bdsThread) {\n\t\t// Switch debug mode to 'step'\n\t\tbdsThread.setDebugMode(DebugMode.STEP);\n\n\t\t// Show message\n\t\tString msg = \"\";\n\t\tif (expr != null) {\n\t\t\t// Evaluate expression to show\t */\n\t@Override\n\tpublic void runStep(BdsThread bdsThread) {\n\t\t// Switch debug mode to 'step'\n\t\tbdsThread.setDebugMode(DebugMode.STEP);\n\n\t\t// Show message\n\t\tString msg = \"\";\n\t\tif (expr != null) {\n\t\t\t// Evaluate expression to show\n\t\t\tbdsThread.run(expr);\n\t\t\tif (bdsThread.isCheckpointRecover()) return;\n\t\t\tmsg = popString(bdsThread);\n\t\t}\n\n\t\tif (bdsThread.isCheckpointRecover()) return;\n\t\tSystem.err.print(\"Breakpoint \" + getFileName() + \", line \" + getLineNum() + (!msg.isEmpty() ? \": \" + msg : \"\"));\n\t}\n\n}",
+    "language": "java",
+    "cwe_identifier": "CWE-589",
+    "pattern_desc": "Use of deprecated or obsolete methods",
+    "line_number": 30,
+    "line_text": "\t\t\tbdsThread.run(expr);",
+    "pattern_id": "JAVA-R-034",
+    "rule": "Thread\\.(run|stop)\\(",
+    "label": 1
+}

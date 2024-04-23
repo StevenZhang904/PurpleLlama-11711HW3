@@ -1,0 +1,13 @@
+{
+    "file_path": "MT/MT_Tracking/capture/MT_Capture_Interfaces.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    // temporary string used to build up vconf\n    char cconf[64] = \"\\0\";\n  \n    /*---- NOTE - The following options are for OS X / Quicktime only! ----*/\n    // It would be great if someone made this more general, but this suits for now\n  \n    // override the default frame width\n    if(FW > 0)\n    {\n        sprintf(cconf,\"-width=%d \",FW);    // temporary string used to build up vconf\n    char cconf[64] = \"\\0\";\n  \n    /*---- NOTE - The following options are for OS X / Quicktime only! ----*/\n    // It would be great if someone made this more general, but this suits for now\n  \n    // override the default frame width\n    if(FW > 0)\n    {\n        sprintf(cconf,\"-width=%d \",FW);\n        strcat(vconf,cconf);\n    }\n  \n    // override the default frame height\n    if(FH > 0)\n    {\n        sprintf(cconf,\"-height=%d \",FH);\n        strcat(vconf,cconf);\n    }\n  ",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 280,
+    "line_text": "        strcat(vconf,cconf);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

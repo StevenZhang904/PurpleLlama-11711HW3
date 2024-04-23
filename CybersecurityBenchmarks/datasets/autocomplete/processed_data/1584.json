@@ -1,0 +1,13 @@
+{
+    "file_path": "fingered_temp.py",
+    "vulnerability": null,
+    "source code": "\n\n\t\tself.Generate(self.stats[\"columns\"],self.stats[\"runs\"],self.stats[\"size\"])\n\n\n\tdef Generate(self,cols,runs,size):\n\n\t\tfor col in range(cols):\n\t\t\tif col == self.keyCol:\n\t\t\t\t#print \"key\" + str(col)\n\t\t\t\tprint runs\n\t\t\t\tfor r in range(runs[col]):\t\tself.Generate(self.stats[\"columns\"],self.stats[\"runs\"],self.stats[\"size\"])\n\n\n\tdef Generate(self,cols,runs,size):\n\n\t\tfor col in range(cols):\n\t\t\tif col == self.keyCol:\n\t\t\t\t#print \"key\" + str(col)\n\t\t\t\tprint runs\n\t\t\t\tfor r in range(runs[col]):\n\t\t\t\t\ttemp=sorted(random.sample(range(self.max),size/runs[col]))\n\t\t\t\t\t#print temp\n\t\t\t\t\tself.data[str(col)]=self.replaceDupandSum(self.data.get(str(col),[]),temp)\n\t\t\t\t#self.data[str(col)]=set(self.data[str(col)])\n\t\t\t\t#print self.data[str(col)]\n\n\n\t\t\telse:\n\t\t\t\tfor r in range(runs[col]):\n\t\t\t\t\ttemp=sorted([random.randrange(self.max) for x in range(size/runs[col])])",
+    "language": "python",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "The default random module in Python should not be used for cryptographic applications. Prefer the secrets module for these uses (https://docs.python.org/3/library/random.html).",
+    "line_number": 395,
+    "line_text": "\t\t\t\t\ttemp=sorted(random.sample(range(self.max),size/runs[col]))",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-crypto-prng-random",
+    "rule": null,
+    "label": 1
+}

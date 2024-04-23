@@ -1,0 +1,13 @@
+{
+    "file_path": "libjaus/src/message/command/core/resumeMessage.c",
+    "vulnerability": null,
+    "source code": "\n\n    int returnVal;\n    \n    //Print the message header to the string buffer\n    returnVal = headerToString(message, &buf1);\n    \n    //Print the message data fields to the string buffer\n    returnVal += dataToString(message, &buf2);\n    \nbuf = (char*)malloc(strlen(buf1)+strlen(buf2)+1);\n    strcpy(buf, buf1);    int returnVal;\n    \n    //Print the message header to the string buffer\n    returnVal = headerToString(message, &buf1);\n    \n    //Print the message data fields to the string buffer\n    returnVal += dataToString(message, &buf2);\n    \nbuf = (char*)malloc(strlen(buf1)+strlen(buf2)+1);\n    strcpy(buf, buf1);\n    strcat(buf, buf2);\n\n    free(buf1);\n    free(buf2);\n    \n    return buf;\n  }\n  else\n  {\n    char* buf = \"Invalid Resume Message\";",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 302,
+    "line_text": "    strcat(buf, buf2);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "modules/page/Page.php",
+    "vulnerability": null,
+    "source code": "\n\n        $order = $content->position;\n        $pageid = $content->page_id;\n        $areaname = $content->areaname;\n        $content->delete();\n        \n        // new sorting\n        $sql = sprintf(\"UPDATE contents \n                        SET position = position-1 \n                        WHERE `page_id` = $pageid AND `areaname` = '$areaname' AND position > %d \n                        ORDER BY position ASC\", $order);        $order = $content->position;\n        $pageid = $content->page_id;\n        $areaname = $content->areaname;\n        $content->delete();\n        \n        // new sorting\n        $sql = sprintf(\"UPDATE contents \n                        SET position = position-1 \n                        WHERE `page_id` = $pageid AND `areaname` = '$areaname' AND position > %d \n                        ORDER BY position ASC\", $order);\n        $this->db->exec($sql);\n        \n        $this->response->addSuccess($this, \"The content element was successfully deleted.\");\n    }\n    \n    public function sort(Event $event) {\n        \n        $areas = $event->getInfo(\"areas\");\n        \n        foreach($areas as $areaname => $area) {",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 792,
+    "line_text": "        $this->db->exec($sql);",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

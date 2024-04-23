@@ -1,0 +1,13 @@
+{
+    "file_path": "framework/src/main/java/com/xinghai/framework/utils/ShellUtils.java",
+    "vulnerability": null,
+    "source code": "\n\n        if (commands == null || commands.length == 0) {\r\n            return new CommandResult(result, null, null);\r\n        }\r\n        Process process = null;\r\n        BufferedReader successResult = null;\r\n        BufferedReader errorResult = null;\r\n        StringBuilder successMsg = null;\r\n        StringBuilder errorMsg = null;\r\n        DataOutputStream os = null;\r\n        try {\r        if (commands == null || commands.length == 0) {\r\n            return new CommandResult(result, null, null);\r\n        }\r\n        Process process = null;\r\n        BufferedReader successResult = null;\r\n        BufferedReader errorResult = null;\r\n        StringBuilder successMsg = null;\r\n        StringBuilder errorMsg = null;\r\n        DataOutputStream os = null;\r\n        try {\r\n            process = Runtime.getRuntime().exec(isRoot ? \"su\" : \"sh\");\r\n            os = new DataOutputStream(process.getOutputStream());\r\n            for (String command : commands) {\r\n                if (command == null) continue;\r\n                os.write(command.getBytes());\r\n                os.writeBytes(\"\\n\");\r\n                os.flush();\r\n            }\r\n            os.writeBytes(\"exit\\n\");\r\n            os.flush();\r",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 96,
+    "line_text": "            process = Runtime.getRuntime().exec(isRoot ? \"su\" : \"sh\");\r",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

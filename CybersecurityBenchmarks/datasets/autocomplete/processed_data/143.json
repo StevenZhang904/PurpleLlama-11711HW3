@@ -1,0 +1,13 @@
+{
+    "file_path": "third_party/edk2/CryptoPkg/Library/OpensslLib/openssl/apps/cms.c",
+    "vulnerability": null,
+    "source code": "\n\n            }\n            sk_OPENSSL_STRING_push(key_param->param, opt_arg());\n            break;\n        case OPT_V_CASES:\n            if (!opt_verify(o, vpm))\n                goto end;\n            vpmtouched++;\n            break;\n        case OPT_3DES_WRAP:\n# ifndef OPENSSL_NO_DES            }\n            sk_OPENSSL_STRING_push(key_param->param, opt_arg());\n            break;\n        case OPT_V_CASES:\n            if (!opt_verify(o, vpm))\n                goto end;\n            vpmtouched++;\n            break;\n        case OPT_3DES_WRAP:\n# ifndef OPENSSL_NO_DES\n            wrap_cipher = EVP_des_ede3_wrap();\n# endif\n            break;\n        case OPT_AES128_WRAP:\n            wrap_cipher = EVP_aes_128_wrap();\n            break;\n        case OPT_AES192_WRAP:\n            wrap_cipher = EVP_aes_192_wrap();\n            break;\n        case OPT_AES256_WRAP:",
+    "language": "c",
+    "cwe_identifier": "CWE-1240",
+    "pattern_desc": "The DES, 3DES and DES-X algorithms are insecure. Please avoid using them.",
+    "line_number": 572,
+    "line_text": "            wrap_cipher = EVP_des_ede3_wrap();",
+    "pattern_id": "C-R-008",
+    "rule": "(EVP_des_\\w+\\s*\\()|(DES_\\w+crypt\\s*\\()",
+    "label": 1
+}

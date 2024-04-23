@@ -1,0 +1,13 @@
+{
+    "file_path": "android/external/iputils/ping.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\tprintf(\"Bad ICMP type: %d\\n\", type);\n\t}\n}\n\nvoid pr_options(unsigned char * cp, int hlen)\n{\n\tint i, j;\n\tint optlen, totlen;\n\tunsigned char * optptr;\n\tstatic int old_rrlen;\t\tprintf(\"Bad ICMP type: %d\\n\", type);\n\t}\n}\n\nvoid pr_options(unsigned char * cp, int hlen)\n{\n\tint i, j;\n\tint optlen, totlen;\n\tunsigned char * optptr;\n\tstatic int old_rrlen;\n\tstatic char old_rr[MAX_IPOPTLEN];\n\n\ttotlen = hlen-sizeof(struct iphdr);\n\toptptr = cp;\n\n\twhile (totlen > 0) {\n\t\tif (*optptr == IPOPT_EOL)\n\t\t\tbreak;\n\t\tif (*optptr == IPOPT_NOP) {\n\t\t\ttotlen--;",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 1136,
+    "line_text": "\tstatic char old_rr[MAX_IPOPTLEN];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

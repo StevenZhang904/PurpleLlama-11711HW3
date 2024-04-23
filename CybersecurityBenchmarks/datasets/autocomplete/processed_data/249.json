@@ -1,0 +1,13 @@
+{
+    "file_path": "third_party/llvm/llvm/lib/CodeGen/MachinePipeliner.cpp",
+    "vulnerability": null,
+    "source code": "\n\n/// instruction has a memory operand.\nstatic void getUnderlyingObjects(const MachineInstr *MI,\n                                 SmallVectorImpl<const Value *> &Objs,\n                                 const DataLayout &DL) {\n  if (!MI->hasOneMemOperand())\n    return;\n  MachineMemOperand *MM = *MI->memoperands_begin();\n  if (!MM->getValue())\n    return;\n  GetUnderlyingObjects(MM->getValue(), Objs, DL);/// instruction has a memory operand.\nstatic void getUnderlyingObjects(const MachineInstr *MI,\n                                 SmallVectorImpl<const Value *> &Objs,\n                                 const DataLayout &DL) {\n  if (!MI->hasOneMemOperand())\n    return;\n  MachineMemOperand *MM = *MI->memoperands_begin();\n  if (!MM->getValue())\n    return;\n  GetUnderlyingObjects(MM->getValue(), Objs, DL);\n  for (const Value *V : Objs) {\n    if (!isIdentifiedObject(V)) {\n      Objs.clear();\n      return;\n    }\n    Objs.push_back(V);\n  }\n}\n\n/// Add a chain edge between a load and store if the store can be an",
+    "language": "cpp",
+    "cwe_identifier": "CWE-416",
+    "pattern_desc": "Using an iterator after it has been invalidated, resulting in use after free",
+    "line_number": 716,
+    "line_text": "  for (const Value *V : Objs) {",
+    "pattern_id": "CPP-W-008",
+    "rule": "{ for (_ _ : $c) { strict: $c.$func();} }",
+    "label": 1
+}

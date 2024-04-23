@@ -1,0 +1,13 @@
+{
+    "file_path": "bindings/python/src/session.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    entry save_state(session const& s, boost::uint32_t flags)\n    {\n        allow_threading_guard guard;\n        entry e;\n        s.save_state(e, flags);\n        return e;\n    }\n\n    object pop_alert(session& ses)\n    {    entry save_state(session const& s, boost::uint32_t flags)\n    {\n        allow_threading_guard guard;\n        entry e;\n        s.save_state(e, flags);\n        return e;\n    }\n\n    object pop_alert(session& ses)\n    {\n        std::auto_ptr<alert> a;\n        {\n            allow_threading_guard guard;\n            a = ses.pop_alert();\n        }\n\n        return object(boost::shared_ptr<alert>(a.release()));\n    }\n\n    list pop_alerts(session& ses)",
+    "language": "cpp",
+    "cwe_identifier": "CWE-665",
+    "pattern_desc": "Uses deprecated auto_ptr, which can lead to undefined behavior.",
+    "line_number": 464,
+    "line_text": "        std::auto_ptr<alert> a;",
+    "pattern_id": "CPP-R-001",
+    "rule": "\\bstd::auto_ptr<\\s*\\w+\\s*>",
+    "label": 1
+}

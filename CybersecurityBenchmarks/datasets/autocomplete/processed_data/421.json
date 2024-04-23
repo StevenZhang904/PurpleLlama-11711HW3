@@ -1,0 +1,13 @@
+{
+    "file_path": "src/crypter.cpp",
+    "vulnerability": null,
+    "source code": "\n\n#include <openssl/aes.h>\n#include <openssl/evp.h>\n\nbool CCrypter::SetKeyFromPassphrase(const SecureString& strKeyData, const std::vector<unsigned char>& chSalt, const unsigned int nRounds, const unsigned int nDerivationMethod)\n{\n    if (nRounds < 1 || chSalt.size() != WALLET_CRYPTO_SALT_SIZE)\n        return false;\n\n    int i = 0;\n    if (nDerivationMethod == 0)#include <openssl/aes.h>\n#include <openssl/evp.h>\n\nbool CCrypter::SetKeyFromPassphrase(const SecureString& strKeyData, const std::vector<unsigned char>& chSalt, const unsigned int nRounds, const unsigned int nDerivationMethod)\n{\n    if (nRounds < 1 || chSalt.size() != WALLET_CRYPTO_SALT_SIZE)\n        return false;\n\n    int i = 0;\n    if (nDerivationMethod == 0)\n        i = EVP_BytesToKey(EVP_aes_256_cbc(), EVP_sha512(), &chSalt[0],\n                          (unsigned char *)&strKeyData[0], strKeyData.size(), nRounds, chKey, chIV);\n\n    if (i != (int)WALLET_CRYPTO_KEY_SIZE)\n    {\n        OPENSSL_cleanse(chKey, sizeof(chKey));\n        OPENSSL_cleanse(chIV, sizeof(chIV));\n        return false;\n    }\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-347",
+    "pattern_desc": "It looks like you are using an unauthenticated mode of encryption. Don't use this unless you have a good reason or are separately adding authentication.",
+    "line_number": 22,
+    "line_text": "        i = EVP_BytesToKey(EVP_aes_256_cbc(), EVP_sha512(), &chSalt[0],",
+    "pattern_id": "C-R-010",
+    "rule": "(EVP_\\w+_cbc\\s*\\()|(EVP_\\w+_ctr\\s*\\()|(EVP_\\w+_xts\\s*\\()|(EVP_\\w+_cfb\\w\\s*\\()|(EVP_\\w+_ofb\\s*\\()",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "octi-for-woocommerce.php",
+    "vulnerability": null,
+    "source code": "\n\n    public function octi_install() {\n        global $wp;\n\n        if (!isset($_GET['octi']) || !isset($_GET['name'])) return;\n        if (!preg_match('/[a-z0-9\\-]+/i', $_GET['name'])) return;\n        if (!isset($this->settings)) {\n            $this->settings = (array) get_option( 'octi-for-seller' );\n        }\n\n        if (!wp_verify_nonce($_GET['nonce'], 'octi-install-'.$_GET['name'] )) {    public function octi_install() {\n        global $wp;\n\n        if (!isset($_GET['octi']) || !isset($_GET['name'])) return;\n        if (!preg_match('/[a-z0-9\\-]+/i', $_GET['name'])) return;\n        if (!isset($this->settings)) {\n            $this->settings = (array) get_option( 'octi-for-seller' );\n        }\n\n        if (!wp_verify_nonce($_GET['nonce'], 'octi-install-'.$_GET['name'] )) {\n            header('Location: '.get_permalink( get_option('woocommerce_myaccount_page_id') ).'?octi=afterlogin&slug='.$_GET['name']);\n            exit();\n        }\n\n\n        header('Location: '.OCTI_OTP::generate( $this->settings['key'], $_GET['name'] ));\n        exit();\n    }\n\n    /**",
+    "language": "php",
+    "cwe_identifier": "CWE-601",
+    "pattern_desc": "Open redirect vulnerability due to unsanitized URL parameter",
+    "line_number": 77,
+    "line_text": "            header('Location: '.get_permalink( get_option('woocommerce_myaccount_page_id') ).'?octi=afterlogin&slug='.$_GET['name']);",
+    "pattern_id": "PHP-R-025",
+    "rule": "header\\s*\\(\\s*['\"]Location:.*\\$_(GET|POST|REQUEST|COOKIE)",
+    "label": 1
+}

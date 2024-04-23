@@ -1,0 +1,13 @@
+{
+    "file_path": "src/torcontrol.cpp",
+    "vulnerability": null,
+    "source code": "\n\n        // Now that we know Tor is running setup the proxy for onion addresses\n        // if -onion isn't set to something else.\n        if (GetArg(\"-onion\", \"\") == \"\") {\n            proxyType addrOnion = proxyType(CService(\"127.0.0.1\", 9050), true);\n            SetProxy(NET_TOR, addrOnion);\n            SetLimited(NET_TOR, false);\n        }\n\n        // Finally - now create the service\n        if (private_key.empty()) // No private key, generate one        // Now that we know Tor is running setup the proxy for onion addresses\n        // if -onion isn't set to something else.\n        if (GetArg(\"-onion\", \"\") == \"\") {\n            proxyType addrOnion = proxyType(CService(\"127.0.0.1\", 9050), true);\n            SetProxy(NET_TOR, addrOnion);\n            SetLimited(NET_TOR, false);\n        }\n\n        // Finally - now create the service\n        if (private_key.empty()) // No private key, generate one\n            private_key = \"NEW:BEST\";\n        // Request hidden service, redirect port.\n        // Note that the 'virtual' port doesn't have to be the same as our internal port, but this is just a convenient\n        // choice.  TODO; refactor the shutdown sequence some day.\n        conn.Command(strprintf(\"ADD_ONION %s Port=%i,127.0.0.1:%i\", private_key, GetListenPort(), GetListenPort()),\n            boost::bind(&TorController::add_onion_cb, this, _1, _2));\n    } else {\n        LogPrintf(\"tor: Authentication failed\\n\");\n    }\n}",
+    "language": "cpp",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "Use of hardcoded keys/credentials. Prefer using a key/secret management system.",
+    "line_number": 472,
+    "line_text": "            private_key = \"NEW:BEST\";",
+    "pattern_id": "C-W-016",
+    "rule": "{ $secret = \"_\";}",
+    "label": 1
+}

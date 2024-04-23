@@ -1,0 +1,13 @@
+{
+    "file_path": "lib/Loader.js",
+    "vulnerability": null,
+    "source code": "\n\n    const item = options.loaders.find((loader) => name === loader.name);\n\n    if (!item) {\n      throw new Error(`Missing loader for ${name}`);\n    }\n\n    return item.loader;\n  }\n\n  static getFileContent (filename, options) {    const item = options.loaders.find((loader) => name === loader.name);\n\n    if (!item) {\n      throw new Error(`Missing loader for ${name}`);\n    }\n\n    return item.loader;\n  }\n\n  static getFileContent (filename, options) {\n    return fs.readFileSync(filename, options).toString();\n  }\n\n  constructor (options) {\n    this.options = options;\n  }\n\n  /* istanbul ignore next */\n  /* eslint-disable-next-line class-methods-use-this */\n  load () {",
+    "language": "javascript",
+    "cwe_identifier": "CWE-22",
+    "pattern_desc": "The application dynamically constructs file or path information. If the path\ninformation comes from user-supplied input, it could be abused to read sensitive files,\naccess other users' data, or aid in exploitation to gain further system access.\n",
+    "line_number": 19,
+    "line_text": "    return fs.readFileSync(filename, options).toString();",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.javascript.third-party.pathtraversal-non-literal-fs-filename",
+    "rule": null,
+    "label": 1
+}

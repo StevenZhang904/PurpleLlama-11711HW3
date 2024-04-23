@@ -1,0 +1,13 @@
+{
+    "file_path": "syzygy/integration_tests/asan_interceptors_tests.cc",
+    "vulnerability": null,
+    "source code": "\n\n  size_t original_value = NonInterceptedRead(mem + 1);\n  NonInterceptedWrite(mem + 1, original_value + 1);\n\n  // Raise an exception.\n  ::RaiseException(EXCEPTION_ARRAY_BOUNDS_EXCEEDED, 0, 0, NULL);\n  return ret;\n}\n\nsize_t AsanMemcmpAccessViolation() {\n  static const size_t kPageSize = 4096;  size_t original_value = NonInterceptedRead(mem + 1);\n  NonInterceptedWrite(mem + 1, original_value + 1);\n\n  // Raise an exception.\n  ::RaiseException(EXCEPTION_ARRAY_BOUNDS_EXCEEDED, 0, 0, NULL);\n  return ret;\n}\n\nsize_t AsanMemcmpAccessViolation() {\n  static const size_t kPageSize = 4096;\n  char* alloc = new char[2 * kPageSize];\n  ::memset(alloc, 0, 2 * kPageSize);\n\n  // Find the beginning of a page in the allocation.\n  char* page_start = reinterpret_cast<char*>(\n      ((reinterpret_cast<uintptr_t>(alloc) + kPageSize - 1) / kPageSize) *\n          kPageSize);\n\n  // Protect the page so that memcmp will produce an access violation when\n  // reading from it.",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 1208,
+    "line_text": "  char* alloc = new char[2 * kPageSize];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

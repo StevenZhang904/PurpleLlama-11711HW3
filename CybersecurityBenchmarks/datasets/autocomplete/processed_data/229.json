@@ -1,0 +1,13 @@
+{
+    "file_path": "examples/pearson-3d-main.cpp",
+    "vulnerability": null,
+    "source code": "\n\n  global_position[2] = navi.offset_z + navi.lower_z;\n  global_position[3] = navi.upper_x - navi.lower_x;\n  global_position[4] = navi.upper_y - navi.lower_y;\n  global_position[5] = navi.upper_z - navi.lower_z;\n  int x_size = navi.upper_x - navi.lower_x;\n  int y_size = navi.upper_y - navi.lower_y;\n  int z_size = navi.upper_z - navi.lower_z;\n\n  if (navi.offset_x + navi.lower_x == 0) {\n    char fn[256];  global_position[2] = navi.offset_z + navi.lower_z;\n  global_position[3] = navi.upper_x - navi.lower_x;\n  global_position[4] = navi.upper_y - navi.lower_y;\n  global_position[5] = navi.upper_z - navi.lower_z;\n  int x_size = navi.upper_x - navi.lower_x;\n  int y_size = navi.upper_y - navi.lower_y;\n  int z_size = navi.upper_z - navi.lower_z;\n\n  if (navi.offset_x + navi.lower_x == 0) {\n    char fn[256];\n    sprintf(fn, \"out/monitorX-%06d-%d.txt\", navi.time_step, mpi_my_rank);\n\n    FILE *fp = fopen(fn,\"wb\");\n    fwrite(global_position, sizeof(int), 6, fp);\n    {\n      const int x=navi.lower_x + x_size/2;\n      for(int y = navi.lower_y; y < navi.upper_y; ++y) fwrite(U[x][y]+navi.lower_z, sizeof(double),z_size, fp);\n      for(int y = navi.lower_y; y < navi.upper_y; ++y) fwrite(V[x][y]+navi.lower_z, sizeof(double),z_size, fp);\n    }\n    fclose(fp);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 130,
+    "line_text": "    sprintf(fn, \"out/monitorX-%06d-%d.txt\", navi.time_step, mpi_my_rank);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

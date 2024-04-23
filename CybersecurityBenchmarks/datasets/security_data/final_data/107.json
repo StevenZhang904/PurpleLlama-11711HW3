@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Prototype Pollution/lodash.js",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "const express = require('express');\nconst router = express.Router()\n\nconst lodash = require('lodash');\n\nfunction check(req, res) {\n\n  let config = {};\n  lodash.defaultsDeep(config, JSON.parse(req.body.config));\n\n  let user = getCurrentUser();\n  if (!user) {\n    user = {};\n  }\n\n  if (user.isAdmin && user.isAdmin === true) {\n    res.send('Welcome Admin')\n  } else {\n    res.send('Welcome User')\n  }\n}\n\nfunction getCurrentUser() {\n  return false;\n}\n\n\nrouter.post('/check-user', check)\n\nmodule.exports = router\n",
+    "language": "javascript",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

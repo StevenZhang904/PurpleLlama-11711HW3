@@ -1,0 +1,13 @@
+{
+    "file_path": "example/imgui.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n#if defined(_MSC_VER) && !defined(vsnprintf)\n#define vsnprintf _vsnprintf\n#endif\n\nint ImFormatString(char* buf, size_t buf_size, const char* fmt, ...)\n{\n    va_list args;\n    va_start(args, fmt);\n#ifdef IMGUI_USE_STB_SPRINTF\n#if defined(_MSC_VER) && !defined(vsnprintf)\n#define vsnprintf _vsnprintf\n#endif\n\nint ImFormatString(char* buf, size_t buf_size, const char* fmt, ...)\n{\n    va_list args;\n    va_start(args, fmt);\n#ifdef IMGUI_USE_STB_SPRINTF\n    int w = stbsp_vsnprintf(buf, (int)buf_size, fmt, args);\n#else\n    int w = vsnprintf(buf, buf_size, fmt, args);\n#endif\n    va_end(args);\n    if (buf == NULL)\n        return w;\n    if (w == -1 || w >= (int)buf_size)\n        w = (int)buf_size - 1;\n    buf[w] = 0;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential out of bounds access due to improper validation of return values of .*snprintf.* functions",
+    "line_number": 1460,
+    "line_text": "    int w = stbsp_vsnprintf(buf, (int)buf_size, fmt, args);",
+    "pattern_id": "C-W-002",
+    "rule": "{ $ret = $snprintf_family($b); not: $ret < _; $b[$ret] = _;}",
+    "label": 1
+}

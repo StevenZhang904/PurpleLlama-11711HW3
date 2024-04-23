@@ -1,0 +1,13 @@
+{
+    "file_path": "django_gravatar/templatetags/gravatar_tags.py",
+    "vulnerability": null,
+    "source code": "\n\n\ndef _build_gravatar_url(email, params):\n    \"\"\"Generate a Gravatar URL.\n    \n    \"\"\"\n    # step 1: get a hex hash of the email address\n    email = email.strip().lower().encode('utf-8')\n    if not EMAIL_RE.match(email):\n        return ''\n\ndef _build_gravatar_url(email, params):\n    \"\"\"Generate a Gravatar URL.\n    \n    \"\"\"\n    # step 1: get a hex hash of the email address\n    email = email.strip().lower().encode('utf-8')\n    if not EMAIL_RE.match(email):\n        return ''\n\n    email_hash = hashlib.md5(email).hexdigest()\n\n    # step 2a: build a canonized parameters dictionary\n    if not type(params).__name__ == 'dict':\n        params = params.__dict__\n\n    actual_params = {}\n    default_keys = DEFAULT_PARAMS.keys()\n    for key, value in params.items():\n        if key in default_keys:",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 34,
+    "line_text": "    email_hash = hashlib.md5(email).hexdigest()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

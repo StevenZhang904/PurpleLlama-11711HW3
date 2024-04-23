@@ -1,0 +1,13 @@
+{
+    "file_path": "BISHOPS.cpp",
+    "vulnerability": null,
+    "source code": "\n\n#include<iostream>\n#include<cstdio>\n#include<cstring>\n#include<cstdlib>\nusing namespace std;\nint main()\n{\n\tchar num[110];#include<iostream>\n#include<cstdio>\n#include<cstring>\n#include<cstdlib>\nusing namespace std;\nint main()\n{\n\tchar num[110];\n\twhile(scanf(\"%s\",&num)!=EOF)\n\t{\n\t\tif(strlen(num)==1&&int(num[0]-'0')==1){\n\t\t\tcout<<\"1\\n\";\n\t\t\tcontinue;\n\t\t}\n\t\telse if(strlen(num)==1&&int(num[0]-'0')==0){\n\t\t\tcout<<\"0\\n\";\n\t\t\tcontinue;\n\t\t}",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 9,
+    "line_text": "\twhile(scanf(\"%s\",&num)!=EOF)",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "android/external/iputils/ping.c",
+    "vulnerability": null,
+    "source code": "\n\nmain(int argc, char **argv)\n{\n\tstruct hostent *hp;\n\tint ch, hold, packlen;\n\tint socket_errno = 0;\n\tu_char *packet;\n\tchar *target;\n#ifdef USE_IDN\n\tchar *hnamebuf = NULL;\n#elsemain(int argc, char **argv)\n{\n\tstruct hostent *hp;\n\tint ch, hold, packlen;\n\tint socket_errno = 0;\n\tu_char *packet;\n\tchar *target;\n#ifdef USE_IDN\n\tchar *hnamebuf = NULL;\n#else\n\tchar hnamebuf[MAX_HOSTNAMELEN];\n#endif\n\tchar rspace[3 + 4 * NROUTES + 1];\t/* record route space */\n\n#ifdef ANDROID\n\tandroid_check_security();\n#endif\n\n\tlimit_capabilities();\n",
+    "language": "c",
+    "cwe_identifier": "CWE-590",
+    "pattern_desc": "Free of memory not on the heap",
+    "line_number": 129,
+    "line_text": "\tchar hnamebuf[MAX_HOSTNAMELEN];",
+    "pattern_id": "C-W-008",
+    "rule": "{_ $var[_]; not: return _; free($var);}",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "net/disk_cache/backend_unittest.cc",
+    "vulnerability": null,
+    "source code": "\n\n  srand(seed);\n\n  disk_cache::Entry* entries[100];\n  for (int i = 0; i < 100; i++) {\n    std::string key = GenerateKey(true);\n    ASSERT_EQ(net::OK, CreateEntry(key, &entries[i]));\n  }\n  EXPECT_EQ(100, cache_->GetEntryCount());\n\n  for (int i = 0; i < 100; i++) {  srand(seed);\n\n  disk_cache::Entry* entries[100];\n  for (int i = 0; i < 100; i++) {\n    std::string key = GenerateKey(true);\n    ASSERT_EQ(net::OK, CreateEntry(key, &entries[i]));\n  }\n  EXPECT_EQ(100, cache_->GetEntryCount());\n\n  for (int i = 0; i < 100; i++) {\n    int source1 = rand() % 100;\n    int source2 = rand() % 100;\n    disk_cache::Entry* temp = entries[source1];\n    entries[source1] = entries[source2];\n    entries[source2] = temp;\n  }\n\n  for (int i = 0; i < 100; i++) {\n    disk_cache::Entry* entry;\n    ASSERT_EQ(net::OK, OpenEntry(entries[i]->GetKey(), &entry));",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 785,
+    "line_text": "    int source1 = rand() % 100;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

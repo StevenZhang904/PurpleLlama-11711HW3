@@ -1,0 +1,13 @@
+{
+    "file_path": "backup/public/php/waypoints.php",
+    "vulnerability": null,
+    "source code": "\n\n\nsession_start();\n\nif (!isset($_SESSION[\"validated\"])){\n\techo \"Contact admin@evhighwaystatus.co.uk for access.\";\n\texit();\n}\n\n\n\nsession_start();\n\nif (!isset($_SESSION[\"validated\"])){\n\techo \"Contact admin@evhighwaystatus.co.uk for access.\";\n\texit();\n}\n\n\n\n$apikey = \"AIzaSyB9_vfqgqGrIwOeY3tN9tHztRVEU_J7JwM\";\n\n$routeRequest = json_decode(stripslashes(file_get_contents(\"php://input\")),true);\n\n\n\n$startLocation = $routeRequest[\"start\"][\"lat\"].\",\".$routeRequest[\"start\"][\"lng\"];\n$endLocation = $routeRequest[\"end\"][\"lat\"].\",\".$routeRequest[\"end\"][\"lng\"];\n\nforeach ($routeRequest[\"waypoints\"] as $key => $value) {",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 13,
+    "line_text": "$apikey = \"AIzaSyB9_vfqgqGrIwOeY3tN9tHztRVEU_J7JwM\";",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

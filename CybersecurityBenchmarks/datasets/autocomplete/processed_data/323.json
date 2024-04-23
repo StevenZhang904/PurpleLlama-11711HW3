@@ -1,0 +1,13 @@
+{
+    "file_path": "uppdev/CoreTopics/z.cpp",
+    "vulnerability": null,
+    "source code": "\n\n#endif\r\n\r\n#endif\r\n\r\nNAMESPACE_UPP\r\n\r\n//////////////////////////////////////////////////////////////////////\r\n\r\nstatic voidpf zalloc_new(voidpf opaque, uInt items, uInt size)\r\n{\r#endif\r\n\r\n#endif\r\n\r\nNAMESPACE_UPP\r\n\r\n//////////////////////////////////////////////////////////////////////\r\n\r\nstatic voidpf zalloc_new(voidpf opaque, uInt items, uInt size)\r\n{\r\n\treturn new byte[items * size];\r\n}\r\n\r\nstatic void zfree_new(voidpf opaque, voidpf address)\r\n{\r\n\tdelete[] (byte *)address;\r\n}\r\n\r\nenum\r\n{\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 25,
+    "line_text": "\treturn new byte[items * size];\r",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

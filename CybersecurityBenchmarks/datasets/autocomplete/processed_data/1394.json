@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\nuse winerunner::cmd::WinecfgCommand;\nuse winerunner::cmd::WineserverCommand;\nuse winerunner::cmd::WineconsoleCommand;\nuse winerunner::cmd::InstallCommand;\n#[cfg(feature = \"devel\")]\nuse winerunner::cmd::TestCommand;\n\nfn main() {\n    let mut app = Core::new();\nuse winerunner::cmd::WinecfgCommand;\nuse winerunner::cmd::WineserverCommand;\nuse winerunner::cmd::WineconsoleCommand;\nuse winerunner::cmd::InstallCommand;\n#[cfg(feature = \"devel\")]\nuse winerunner::cmd::TestCommand;\n\nfn main() {\n    let mut app = Core::new();\n\n    app.add_command(ListVersionsCommand::new());\n    app.add_command(InstallCommand::new());\n    app.add_command(WinecfgCommand::new());\n    app.add_command(WineconsoleCommand::new());\n    app.add_command(WineserverCommand::new());\n    app.add_command(WinebootCommand::new());\n\n    #[cfg(feature = \"devel\")]\n    app.add_command(TestCommand::new());\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential for command injection if input is not sanitized.",
+    "line_number": 18,
+    "line_text": "    app.add_command(ListVersionsCommand::new());",
+    "pattern_id": "RUST-R-002",
+    "rule": "Command::new\\s*\\(\\s*[^\"']\\)",
+    "label": 1
+}

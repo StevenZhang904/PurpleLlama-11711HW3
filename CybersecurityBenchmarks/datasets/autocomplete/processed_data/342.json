@@ -1,0 +1,13 @@
+{
+    "file_path": "TemplePlus/ui/ui_pc_creation.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n\t/*if (_msg->widgetEventType == TigMsgWidgetEvent::Exited) {\n\ttemple::GetRef<void(__cdecl)(const char*)>(0x10162C00)(\"\");\n\treturn 1;\n\t}\n\n\tif (_msg->widgetEventType == TigMsgWidgetEvent::Entered) {\n\tauto textboxText = fmt::format(\"Prestige Classes\");\n\tif (textboxText.size() >= 1024)\n\ttextboxText[1023] = 0;\n\t/*if (_msg->widgetEventType == TigMsgWidgetEvent::Exited) {\n\ttemple::GetRef<void(__cdecl)(const char*)>(0x10162C00)(\"\");\n\treturn 1;\n\t}\n\n\tif (_msg->widgetEventType == TigMsgWidgetEvent::Entered) {\n\tauto textboxText = fmt::format(\"Prestige Classes\");\n\tif (textboxText.size() >= 1024)\n\ttextboxText[1023] = 0;\n\tstrcpy(temple::GetRef<char[1024]>(0x10C80CC0), &textboxText[0]);\n\ttemple::GetRef<void(__cdecl)(const char*)>(0x10162C00)(temple::GetRef<char[1024]>(0x10C80CC0));\n\treturn 1;\n\t}*/\n\n\treturn FALSE;\n}\n\nBOOL UiPcCreation::ClassPrevBtnMsg(int widId, TigMsg * msg)\n{",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 588,
+    "line_text": "\tstrcpy(temple::GetRef<char[1024]>(0x10C80CC0), &textboxText[0]);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

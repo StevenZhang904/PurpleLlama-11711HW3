@@ -1,0 +1,13 @@
+{
+    "file_path": "IDE/src/main/java/com/cognizant/cognizantits/ide/main/explorer/ImageGallery.java",
+    "vulnerability": null,
+    "source code": "\n\n        thumbList.clear();\n    }\n\n    /**\n     * opens the configured image editor with the preview image to edit\n     */\n    private void openEditor() {\n        try {\n            Hide();\n            Process p;        thumbList.clear();\n    }\n\n    /**\n     * opens the configured image editor with the preview image to edit\n     */\n    private void openEditor() {\n        try {\n            Hide();\n            Process p;\n            p = Runtime.getRuntime().exec(getCommand());\n            p.waitFor();\n            refresh();\n            Show();\n        } catch (Exception ex) {\n            Logger.getLogger(ImageGallery.class.getName()).log(Level.SEVERE, null, ex);\n            Notification.show(\"Please, Configure Image Editor in Settings!!\");\n            Show();\n        }\n    }",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 439,
+    "line_text": "            p = Runtime.getRuntime().exec(getCommand());",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

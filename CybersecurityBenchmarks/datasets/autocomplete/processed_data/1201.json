@@ -1,0 +1,13 @@
+{
+    "file_path": "src/client/gfx/vbo.rs",
+    "vulnerability": null,
+    "source code": "\n\n      target: 0,\n      is_bound: false,\n    }\n  }\n\n  pub fn bind(&self)\n  {\n    log_assert!(self.target != 0 && self.name != 0);\n\n    check!(gl::BindBuffer(self.target, self.name));      target: 0,\n      is_bound: false,\n    }\n  }\n\n  pub fn bind(&self)\n  {\n    log_assert!(self.target != 0 && self.name != 0);\n\n    check!(gl::BindBuffer(self.target, self.name));\n    unsafe { cast::transmute_mut(self).is_bound = true; }\n  }\n\n  pub fn unbind(&self)\n  {\n    log_assert!(self.target != 0 && self.name != 0);\n    log_assert!(self.is_bound, \"VBO is not bound\");\n\n    check!(gl::BindBuffer(self.target, 0));\n    unsafe { cast::transmute_mut(self).is_bound = false; }",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 61,
+    "line_text": "    unsafe { cast::transmute_mut(self).is_bound = true; }",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/auto/text_tag.rs",
+    "vulnerability": null,
+    "source code": "\n\n\n    match fn {\n        get_type => || ffi::gtk_text_tag_get_type(),\n    }\n}\n\nimpl TextTag {\n    pub fn new<'a, P: Into<Option<&'a str>>>(name: P) -> TextTag {\n        assert_initialized_main_thread!();\n        let name = name.into();\n    match fn {\n        get_type => || ffi::gtk_text_tag_get_type(),\n    }\n}\n\nimpl TextTag {\n    pub fn new<'a, P: Into<Option<&'a str>>>(name: P) -> TextTag {\n        assert_initialized_main_thread!();\n        let name = name.into();\n        unsafe {\n            from_glib_full(ffi::gtk_text_tag_new(name.to_glib_none().0))\n        }\n    }\n}\n\npub const NONE_TEXT_TAG: Option<&TextTag> = None;\n\npub trait TextTagExt: 'static {\n    #[cfg(any(feature = \"v3_20\", feature = \"dox\"))]",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 41,
+    "line_text": "        unsafe {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

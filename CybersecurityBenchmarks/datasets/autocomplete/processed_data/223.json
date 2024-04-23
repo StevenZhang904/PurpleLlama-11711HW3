@@ -1,0 +1,13 @@
+{
+    "file_path": "metamorphosys/META/analysis_tools/FAME/MSL/3.2/Modelica/Resources/C-Sources/ModelicaInternal.c",
+    "vulnerability": null,
+    "source code": "\n\n\r\n    return fullName;\r\n}\r\n\r\nstatic const char* ModelicaInternal_temporaryFileName()\r\n{\r\n    /* Get full path name of a temporary */\r\n\r\n    char* fullName;\r\n\r\r\n    return fullName;\r\n}\r\n\r\nstatic const char* ModelicaInternal_temporaryFileName()\r\n{\r\n    /* Get full path name of a temporary */\r\n\r\n    char* fullName;\r\n\r\n    char* tempName = tmpnam(NULL);\r\n    if (tempName == NULL) {\r\n        ModelicaFormatError(\"Not possible to get temporary filename\\n%s\", strerror(errno));\r\n        return \"\";\r\n    }\r\n    fullName = ModelicaAllocateString(strlen(tempName));\r\n    strcpy(fullName, tempName);\r\n    ModelicaConvertToUnixDirectorySeparator(fullName);\r\n\r\n    return fullName;\r",
+    "language": "c",
+    "cwe_identifier": "CWE-377",
+    "pattern_desc": "Usage of tmpnam, which generates temporary file without exclusive access. It may lead to race conditions.",
+    "line_number": 465,
+    "line_text": "    char* tempName = tmpnam(NULL);\r",
+    "pattern_id": "C-R-013",
+    "rule": "tmpnam\\s*\\(\\s*\\w+\\s*\\)",
+    "label": 1
+}

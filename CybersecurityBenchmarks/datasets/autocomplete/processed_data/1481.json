@@ -1,0 +1,13 @@
+{
+    "file_path": "src/HttpLogAnalyzer/IO/ConsoleIO.php",
+    "vulnerability": null,
+    "source code": "\n\n     */\n    public function askAndHideAnswer($question)\n    {\n        // handle windows\n        if (defined('PHP_WINDOWS_VERSION_BUILD')) {\n            $finder = new ExecutableFinder();\n\n            // use bash if it's present\n            if ($finder->find('bash') && $finder->find('stty')) {\n                $this->write($question, false);     */\n    public function askAndHideAnswer($question)\n    {\n        // handle windows\n        if (defined('PHP_WINDOWS_VERSION_BUILD')) {\n            $finder = new ExecutableFinder();\n\n            // use bash if it's present\n            if ($finder->find('bash') && $finder->find('stty')) {\n                $this->write($question, false);\n                $value = rtrim(shell_exec('bash -c \"stty -echo; read -n0 discard; read -r mypassword; stty echo; echo $mypassword\"'));\n                $this->write('');\n\n                return $value;\n            }\n\n            // fallback to hiddeninput executable\n            $exe = __DIR__.'\\\\hiddeninput.exe';\n\n            // handle code running from a phar",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 181,
+    "line_text": "                $value = rtrim(shell_exec('bash -c \"stty -echo; read -n0 discard; read -r mypassword; stty echo; echo $mypassword\"'));",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

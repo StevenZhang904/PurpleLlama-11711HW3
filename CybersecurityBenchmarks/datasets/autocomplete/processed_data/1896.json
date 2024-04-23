@@ -1,0 +1,13 @@
+{
+    "file_path": "mopidy_youtube/backend.py",
+    "vulnerability": null,
+    "source code": "\n\nfrom urlparse import urlparse, parse_qs\nfrom mopidy import backend\nfrom mopidy.models import SearchResult, Track, Album, Artist\nimport pykka\nimport pafy\nimport requests\nimport unicodedata\nfrom mopidy_youtube import logger\n\nyt_api_endpoint = 'https://www.googleapis.com/youtube/v3/'from urlparse import urlparse, parse_qs\nfrom mopidy import backend\nfrom mopidy.models import SearchResult, Track, Album, Artist\nimport pykka\nimport pafy\nimport requests\nimport unicodedata\nfrom mopidy_youtube import logger\n\nyt_api_endpoint = 'https://www.googleapis.com/youtube/v3/'\nyt_key = 'AIzaSyAl1Xq9DwdE_KD4AtPaE4EJl3WZe2zCqg4'\n\n\ndef resolve_track(track, stream=False):\n    logger.debug(\"Resolving Youtube for track '%s'\", track)\n    if hasattr(track, 'uri'):\n        return resolve_url(track.comment, stream)\n    else:\n        return resolve_url(track.split('.')[-1], stream)\n",
+    "language": "python",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 16,
+    "line_text": "yt_key = 'AIzaSyAl1Xq9DwdE_KD4AtPaE4EJl3WZe2zCqg4'",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

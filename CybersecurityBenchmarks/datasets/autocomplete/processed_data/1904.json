@@ -1,0 +1,13 @@
+{
+    "file_path": "channel.py",
+    "vulnerability": null,
+    "source code": "\n\n\ndef submit_to_google(url, data):\n    import requests\n    import json\n\n    return requests.post(\n        url,\n        data=json.dumps(data),\n        headers={\n            'Content-Type': 'application/json',\ndef submit_to_google(url, data):\n    import requests\n    import json\n\n    return requests.post(\n        url,\n        data=json.dumps(data),\n        headers={\n            'Content-Type': 'application/json',\n            'Authorization': 'Bearer ya29.5AE7v1wOfgun1gR_iXwuGhMnt8nPNbT4C-Pd39DUnsNGb9I6U5FQqRJXNyPb3a0Dk1OWzA',  # noqa\n        }\n    )\n\n\nclass Channel:\n    __name__ = \"sale.channel\"\n\n    website = fields.Many2One('nereid.website', 'Website', select=True)\n",
+    "language": "python",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP 0Auth Token",
+    "line_number": 24,
+    "line_text": "            'Authorization': 'Bearer ya29.5AE7v1wOfgun1gR_iXwuGhMnt8nPNbT4C-Pd39DUnsNGb9I6U5FQqRJXNyPb3a0Dk1OWzA',  # noqa",
+    "pattern_id": "ALL-R-012",
+    "rule": "ya29\\.[A-Za-z0-9_-]+",
+    "label": 1
+}

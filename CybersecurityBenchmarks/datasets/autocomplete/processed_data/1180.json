@@ -1,0 +1,13 @@
+{
+    "file_path": "Kalimba Radio/src/main/java/net/sourceforge/kalimbaradio/androidapp/util/Util.java",
+    "vulnerability": null,
+    "source code": "\n\n     *\n     * @param s Data to digest.\n     * @return MD5 digest as a hex string.\n     */\n    public static String md5Hex(String s) {\n        if (s == null) {\n            return null;\n        }\n\n        try {     *\n     * @param s Data to digest.\n     * @return MD5 digest as a hex string.\n     */\n    public static String md5Hex(String s) {\n        if (s == null) {\n            return null;\n        }\n\n        try {\n            MessageDigest md5 = MessageDigest.getInstance(\"MD5\");\n            return hexEncode(md5.digest(s.getBytes(Constants.UTF_8)));\n        } catch (Exception x) {\n            throw new RuntimeException(x.getMessage(), x);\n        }\n    }\n\n    public static boolean isNetworkConnected(Context context) {\n        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);\n        NetworkInfo networkInfo = manager.getActiveNetworkInfo();",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 488,
+    "line_text": "            MessageDigest md5 = MessageDigest.getInstance(\"MD5\");",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

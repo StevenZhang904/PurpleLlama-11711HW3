@@ -1,0 +1,13 @@
+{
+    "file_path": "xcc/test/juliet/testcases/CWE134_Uncontrolled_Format_String/s02/CWE134_Uncontrolled_Format_String__char_environment_vfprintf_61b.c",
+    "vulnerability": null,
+    "source code": "\n\n}\r\n\r\n#endif /* OMITBAD */\r\n\r\n#ifndef OMITGOOD\r\n\r\n/* goodG2B() uses the GoodSource with the BadSink */\r\nchar * CWE134_Uncontrolled_Format_String__char_environment_vfprintf_61b_goodG2BSource(char * data)\r\n{\r\n    /* FIX: Use a fixed string that does not contain a format specifier */\r}\r\n\r\n#endif /* OMITBAD */\r\n\r\n#ifndef OMITGOOD\r\n\r\n/* goodG2B() uses the GoodSource with the BadSink */\r\nchar * CWE134_Uncontrolled_Format_String__char_environment_vfprintf_61b_goodG2BSource(char * data)\r\n{\r\n    /* FIX: Use a fixed string that does not contain a format specifier */\r\n    strcpy(data, \"fixedstringtest\");\r\n    return data;\r\n}\r\n\r\n/* goodB2G() uses the BadSource with the GoodSink */\r\nchar * CWE134_Uncontrolled_Format_String__char_environment_vfprintf_61b_goodB2GSource(char * data)\r\n{\r\n    {\r\n        /* Append input from an environment variable to data */\r\n        size_t dataLen = strlen(data);\r",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 59,
+    "line_text": "    strcpy(data, \"fixedstringtest\");\r",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

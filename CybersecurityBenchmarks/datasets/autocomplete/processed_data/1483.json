@@ -1,0 +1,13 @@
+{
+    "file_path": "Admin/Member_Search.php",
+    "vulnerability": null,
+    "source code": "\n\n * redirect($id)\n *  - $id: the id of the member found\n *\n * If exactly one member is found, go to the View_User page for that member.\n * If the search came from another page, results will be returned to that\n * page.\n */\nfunction redirect($id) {\n\tif (isSet($_REQUEST['return'])) {\n\t\tif (preg_match('/?/', $_POST['return'])) * redirect($id)\n *  - $id: the id of the member found\n *\n * If exactly one member is found, go to the View_User page for that member.\n * If the search came from another page, results will be returned to that\n * page.\n */\nfunction redirect($id) {\n\tif (isSet($_REQUEST['return'])) {\n\t\tif (preg_match('/?/', $_POST['return']))\n\t\t\theader('Location: ../Admin/' . $_POST['return'] . '&MemberSearchID=' . $id);//If it already has a ? query string in it, make it &\n\t\telse\n\t\t\theader('Location: ../Admin/' . $_POST['return'] . '?MemberSearchID=' . $id);\n\t}\n\telse\n\t\theader('Location: View_User?ID=' . $id);\n\tdie();\n}\n\n",
+    "language": "php",
+    "cwe_identifier": "CWE-601",
+    "pattern_desc": "Open redirect vulnerability due to unsanitized URL parameter",
+    "line_number": 88,
+    "line_text": "\t\t\theader('Location: ../Admin/' . $_POST['return'] . '&MemberSearchID=' . $id);//If it already has a ? query string in it, make it &",
+    "pattern_id": "PHP-R-025",
+    "rule": "header\\s*\\(\\s*['\"]Location:.*\\$_(GET|POST|REQUEST|COOKIE)",
+    "label": 1
+}

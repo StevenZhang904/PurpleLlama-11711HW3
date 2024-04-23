@@ -1,0 +1,13 @@
+{
+    "file_path": "vendor/laravel/framework/src/Illuminate/Routing/Middleware/ThrottleRequests.php",
+    "vulnerability": null,
+    "source code": "\n\n     * Resolve request signature.\n     *\n     * @param  \\Illuminate\\Http\\Request  $request\n     * @return string\n     *\n     * @throws \\RuntimeException\n     */\n    protected function resolveRequestSignature($request)\n    {\n        if ($user = $request->user()) {     * Resolve request signature.\n     *\n     * @param  \\Illuminate\\Http\\Request  $request\n     * @return string\n     *\n     * @throws \\RuntimeException\n     */\n    protected function resolveRequestSignature($request)\n    {\n        if ($user = $request->user()) {\n            return sha1($user->getAuthIdentifier());\n        }\n\n        if ($route = $request->route()) {\n            return sha1($route->getDomain().'|'.$request->ip());\n        }\n\n        throw new RuntimeException('Unable to generate the request signature. Route unavailable.');\n    }\n",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 98,
+    "line_text": "            return sha1($user->getAuthIdentifier());",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

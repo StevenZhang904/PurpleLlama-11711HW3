@@ -1,0 +1,13 @@
+{
+    "file_path": "trunk/third_party/icu/source/test/cintltst/creststn.c",
+    "vulnerability": null,
+    "source code": "\n\n                    base = NULL;\n                }\n                base = (UChar*) malloc(sizeof(UChar) * 1);\n                *base = 0x0000;\n            }\n        }\n\n        /*----string---------------------------------------------------------------- */\n\n        strcpy(tag,\"string_\");                    base = NULL;\n                }\n                base = (UChar*) malloc(sizeof(UChar) * 1);\n                *base = 0x0000;\n            }\n        }\n\n        /*----string---------------------------------------------------------------- */\n\n        strcpy(tag,\"string_\");\n        strcat(tag,frag);\n\n        strcpy(action,param[i].name);\n        strcat(action, \".ures_getStringByKey(\" );\n        strcat(action,tag);\n        strcat(action, \")\");\n\n\n        status = U_ZERO_ERROR;\n        len=0;",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 1697,
+    "line_text": "        strcat(tag,frag);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

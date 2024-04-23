@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Customs/FirstBossScript.cpp",
+    "vulnerability": null,
+    "source code": "\n\n}\n\nvoid FirstBossScript::Attack(){\n\n\n  if(GetOwner()->active){\n    //rand first attack or second attack\n    \n    \n    if(timerAttackCooldown.GetTime() >= 9*1000){ // chosse new number}\n\nvoid FirstBossScript::Attack(){\n\n\n  if(GetOwner()->active){\n    //rand first attack or second attack\n    \n    \n    if(timerAttackCooldown.GetTime() >= 9*1000){ // chosse new number\n      randNum = rand() % 2;\n      timerAttackCooldown.Restart();\n      //randNumber = 1;\n      cout << randNum << endl;\n    }\n\n    \n\n\n    if(randNum == 0 && SecondAttackFall ==  false){",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 124,
+    "line_text": "      randNum = rand() % 2;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

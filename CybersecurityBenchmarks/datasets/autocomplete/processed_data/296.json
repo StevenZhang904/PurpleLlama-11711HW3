@@ -1,0 +1,13 @@
+{
+    "file_path": "jni/jni.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    double ky;\n    // get PPM data\n    pageWidth = doc->getPageCropWidth(pg);\n    kx = ((double)displayWidth) / pageWidth;\n\tkx *= 72.0;\n\tpageHeight = doc->getPageCropHeight(pg);\n\tky = ((double)displayHeight) / pageHeight;\n\tky *= 72.0;\n\tresolution = (int)kx > (int)ky ? (int)ky : (int)kx;\n\tdoc->displayPage(splashOut, pg, resolution, resolution, 0, gFalse, gTrue, gFalse);    double ky;\n    // get PPM data\n    pageWidth = doc->getPageCropWidth(pg);\n    kx = ((double)displayWidth) / pageWidth;\n\tkx *= 72.0;\n\tpageHeight = doc->getPageCropHeight(pg);\n\tky = ((double)displayHeight) / pageHeight;\n\tky *= 72.0;\n\tresolution = (int)kx > (int)ky ? (int)ky : (int)kx;\n\tdoc->displayPage(splashOut, pg, resolution, resolution, 0, gFalse, gTrue, gFalse);\n\t sprintf(ppmFile, \"%.*s-%06d.%s\",(int)sizeof(ppmFile) - 32, \"/sdcard/temp/\", pg,  mono ? \"pbm\" : gray ? \"pgm\" : \"ppm\");\n\t\n\tsplashOut->getBitmap()->writePNMFile(ppmFile);\n\tbitMap = splashOut->getBitmap();\n\tunsigned char * tempArr = bitMap->getPNMByteBuffer();\n\trealwidth = bitMap->getWidth();\n\trealheigt = bitMap->getHeight();\n\tjbyte * ji = (jbyte*)tempArr;\n\tint bufferLength = bitMap->getPNMBufferLength();\n\ta1 = env->NewByteArray(bufferLength);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 267,
+    "line_text": "\t sprintf(ppmFile, \"%.*s-%06d.%s\",(int)sizeof(ppmFile) - 32, \"/sdcard/temp/\", pg,  mono ? \"pbm\" : gray ? \"pgm\" : \"ppm\");",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

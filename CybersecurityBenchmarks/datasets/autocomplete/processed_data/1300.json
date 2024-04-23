@@ -1,0 +1,13 @@
+{
+    "file_path": "src/libstd/os.rs",
+    "vulnerability": null,
+    "source code": "\n\n/// use std::os;\n///\n/// match os::self_exe_name() {\n///     Some(exe_path) => println!(\"Path of this executable is: {}\", exe_path.display()),\n///     None => println!(\"Unable to get the path of this executable!\")\n/// };\n/// ```\n#[deprecated(since = \"1.0.0\", reason = \"renamed to env::current_exe\")]\n#[unstable(feature = \"os\")]\npub fn self_exe_name() -> Option<Path> {/// use std::os;\n///\n/// match os::self_exe_name() {\n///     Some(exe_path) => println!(\"Path of this executable is: {}\", exe_path.display()),\n///     None => println!(\"Unable to get the path of this executable!\")\n/// };\n/// ```\n#[deprecated(since = \"1.0.0\", reason = \"renamed to env::current_exe\")]\n#[unstable(feature = \"os\")]\npub fn self_exe_name() -> Option<Path> {\n    env::current_exe().ok()\n}\n\n/// Optionally returns the filesystem path to the current executable which is\n/// running.\n///\n/// Like self_exe_name() but without the binary's name.\n///\n/// # Example\n///",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 341,
+    "line_text": "    env::current_exe().ok()",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

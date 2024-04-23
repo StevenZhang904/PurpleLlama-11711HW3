@@ -1,0 +1,13 @@
+{
+    "file_path": "src/auth.rs",
+    "vulnerability": null,
+    "source code": "\n\n            Err(_) => return Err(ResponseError(\"Invalid base64 salt returned\".to_owned()))\n        };\n\n\n        let i = match i_opt {\n            Some(val) => val,\n            None => return Err(ResponseError(\"Invalid iteration count returned\".to_owned()))\n        };\n\n        // Hash password            Err(_) => return Err(ResponseError(\"Invalid base64 salt returned\".to_owned()))\n        };\n\n\n        let i = match i_opt {\n            Some(val) => val,\n            None => return Err(ResponseError(\"Invalid iteration count returned\".to_owned()))\n        };\n\n        // Hash password\n        let mut md5 = Md5::new();\n        md5.input_str(&password[..]);\n        let hashed_password = md5.result_str();\n\n        // Salt password\n        let mut hmac = Hmac::new(Sha1::new(), hashed_password.as_bytes());\n        let mut salted_password : Vec<_> = (0..hmac.output_bytes()).map(|_| 0).collect();\n        pbkdf2::pbkdf2(&mut hmac, &salt[..], i, &mut salted_password);\n\n        // Compute client key",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 123,
+    "line_text": "        let mut md5 = Md5::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

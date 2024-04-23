@@ -1,0 +1,13 @@
+{
+    "file_path": "Classes/Vender/openssl/headers/md4.h",
+    "vulnerability": null,
+    "source code": "\n\n\ntypedef struct MD4state_st\n\t{\n\tMD4_LONG A,B,C,D;\n\tMD4_LONG Nl,Nh;\n\tMD4_LONG data[MD4_LBLOCK];\n\tunsigned int num;\n\t} MD4_CTX;\n\n#ifdef OPENSSL_FIPS\ntypedef struct MD4state_st\n\t{\n\tMD4_LONG A,B,C,D;\n\tMD4_LONG Nl,Nh;\n\tMD4_LONG data[MD4_LBLOCK];\n\tunsigned int num;\n\t} MD4_CTX;\n\n#ifdef OPENSSL_FIPS\nint private_MD4_Init(MD4_CTX *c);\n#endif\nint MD4_Init(MD4_CTX *c);\nint MD4_Update(MD4_CTX *c, const void *data, size_t len);\nint MD4_Final(unsigned char *md, MD4_CTX *c);\nunsigned char *MD4(const unsigned char *d, size_t n, unsigned char *md);\nvoid MD4_Transform(MD4_CTX *c, const unsigned char *b);\n#ifdef  __cplusplus\n}\n#endif",
+    "language": "c",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD2 and MD4 hash functions are considered insecure.",
+    "line_number": 109,
+    "line_text": "int private_MD4_Init(MD4_CTX *c);",
+    "pattern_id": "C-R-006",
+    "rule": "(MD2_Init\\s*\\()|(EVP_md2\\s*\\()|(MD4_Init\\s*\\()|(EVP_md4\\s*\\()",
+    "label": 1
+}

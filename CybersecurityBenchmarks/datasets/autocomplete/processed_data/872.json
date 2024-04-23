@@ -1,0 +1,13 @@
+{
+    "file_path": "gulpfile.js",
+    "vulnerability": null,
+    "source code": "\n\n\r\n// Build tools\r\nvar _        = require(DEPS_FOLDER + 'lodash');\r\nvar insert   = require(DEPS_FOLDER + 'gulp-insert');\r\nvar del      = require(DEPS_FOLDER + 'del');\r\n\r\nvar plugins       = {};\r\nplugins.sass      = require(DEPS_FOLDER + 'gulp-sass');\r\nplugins.tsc       = require(DEPS_FOLDER + 'gulp-tsc');\r\nplugins.ngHtml2js = require(DEPS_FOLDER + 'gulp-ng-html2js');\r\r\n// Build tools\r\nvar _        = require(DEPS_FOLDER + 'lodash');\r\nvar insert   = require(DEPS_FOLDER + 'gulp-insert');\r\nvar del      = require(DEPS_FOLDER + 'del');\r\n\r\nvar plugins       = {};\r\nplugins.sass      = require(DEPS_FOLDER + 'gulp-sass');\r\nplugins.tsc       = require(DEPS_FOLDER + 'gulp-tsc');\r\nplugins.ngHtml2js = require(DEPS_FOLDER + 'gulp-ng-html2js');\r\nplugins.concat    = require(DEPS_FOLDER + 'gulp-concat');\r\n\r\n\r\n// Customize build configuration\r\nvar CONFIG = setup.buildConfig;\r\nCONFIG.FOLDER.APP = _.constant(\"./src/app/web3-demo/\");\r\n\r\nCONFIG.PARTIALS.MAIN = function() {\r\n    return [\r\n        \"./src/app/web3-demo/view/content.html\"\r",
+    "language": "javascript",
+    "cwe_identifier": "CWE-95",
+    "pattern_desc": "The application was found to dynamically import a module by calling `require` using a\nnon-literal string. An adversary might be able to read the first line of\narbitrary files. If they had write access to the file system, they may also be able to\nexecute arbitrary code.\n",
+    "line_number": 15,
+    "line_text": "plugins.concat    = require(DEPS_FOLDER + 'gulp-concat');\r",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.javascript.third-party.non-literal-require",
+    "rule": null,
+    "label": 1
+}

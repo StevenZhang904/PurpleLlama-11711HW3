@@ -1,0 +1,13 @@
+{
+    "file_path": "xsrc/external/mit/xorg-server/dist/hw/xquartz/mach-startup/bundle-main.c",
+    "vulnerability": null,
+    "source code": "\n\n        string_array_t newenvp;\n        string_array_t newargv;\n\n        /* We need to count envp */\n        int envpc;\n        for(envpc=0; envp[envpc]; envpc++);\n\n        /* We have fixed-size string lengths due to limitations in IPC,\n         * so we need to copy our argv and envp.\n         */        string_array_t newenvp;\n        string_array_t newargv;\n\n        /* We need to count envp */\n        int envpc;\n        for(envpc=0; envp[envpc]; envpc++);\n\n        /* We have fixed-size string lengths due to limitations in IPC,\n         * so we need to copy our argv and envp.\n         */\n        newargv = (string_array_t)alloca(argc * sizeof(string_t));\n        newenvp = (string_array_t)alloca(envpc * sizeof(string_t));\n        \n        if(!newargv || !newenvp) {\n            fprintf(stderr, \"Memory allocation failure\\n\");\n            exit(EXIT_FAILURE);\n        }\n        \n        for(i=0; i < argc; i++) {\n            strlcpy(newargv[i], argv[i], STRING_T_SIZE);",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 380,
+    "line_text": "        newargv = (string_array_t)alloca(argc * sizeof(string_t));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

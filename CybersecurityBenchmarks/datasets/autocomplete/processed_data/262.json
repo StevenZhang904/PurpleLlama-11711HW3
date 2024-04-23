@@ -1,0 +1,13 @@
+{
+    "file_path": "include/goetia/storage/partitioned_storage.hh",
+    "vulnerability": null,
+    "source code": "\n\n\n    std::vector<size_t> get_partition_counts() {\n        std::vector<size_t> counts;\n        for (auto& partition : partitions) {\n            counts.push_back(partition->n_unique_kmers());\n        }\n        return counts;\n    }\n\n    void * get_partition_counts_as_buffer() {\n    std::vector<size_t> get_partition_counts() {\n        std::vector<size_t> counts;\n        for (auto& partition : partitions) {\n            counts.push_back(partition->n_unique_kmers());\n        }\n        return counts;\n    }\n\n    void * get_partition_counts_as_buffer() {\n        size_t * counts = (size_t *) malloc(sizeof(size_t) * n_partitions);\n        for (size_t pidx = 0; pidx < n_partitions; ++pidx) {\n            counts[pidx] = partitions[pidx]->n_unique_kmers();\n        }\n        return counts;\n    }\n};\n\n\nextern template class goetia::storage::PartitionedStorage<goetia::storage::BitStorage>;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 184,
+    "line_text": "        size_t * counts = (size_t *) malloc(sizeof(size_t) * n_partitions);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

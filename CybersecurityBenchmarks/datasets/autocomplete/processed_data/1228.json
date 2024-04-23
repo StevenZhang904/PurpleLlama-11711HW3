@@ -1,0 +1,13 @@
+{
+    "file_path": "src/test/run-pass/issues/issue-17302.rs",
+    "vulnerability": null,
+    "source code": "\n\n// run-pass\n\nstatic mut DROPPED: [bool; 2] = [false, false];\n\nstruct A(usize);\nstruct Foo { _a: A, _b: isize }\n\nimpl Drop for A {\n    fn drop(&mut self) {\n        let A(i) = *self;// run-pass\n\nstatic mut DROPPED: [bool; 2] = [false, false];\n\nstruct A(usize);\nstruct Foo { _a: A, _b: isize }\n\nimpl Drop for A {\n    fn drop(&mut self) {\n        let A(i) = *self;\n        unsafe { DROPPED[i] = true; }\n    }\n}\n\nfn main() {\n    {\n        Foo {\n            _a: A(0),\n            ..Foo { _a: A(1), _b: 2 }\n        };",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 21,
+    "line_text": "        unsafe { DROPPED[i] = true; }",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "reactNative/reactnativelearn-master/js/GirlComponent.js",
+    "vulnerability": null,
+    "source code": "\n\n        this.setState({imgUrl: ''});\n        this.getImage();\n    }\n\n\n    componentWillMount() {\n        this.getImage();\n    }\n\n    getImage() {        this.setState({imgUrl: ''});\n        this.getImage();\n    }\n\n\n    componentWillMount() {\n        this.getImage();\n    }\n\n    getImage() {\n         fetch('http://gank.io/api/data/\u798f\u5229/100/1')//\u5f02\u6b65\u8bf7\u6c42\u56fe\u7247\n            .then((response) => {\n                return response.json();\n            })\n            .then((responseJson) => {\n                if (responseJson.results) {\n                    const index = Math.ceil(Math.random() * 100 - 1);//\u968f\u673a\u53d6\u4e00\u5f20\u798f\u5229\u56fe\n                    this.setState({imgUrl: responseJson.results[index].url});\n                }\n            }).catch((error) => console.error(error))",
+    "language": "javascript",
+    "cwe_identifier": "CWE-319",
+    "pattern_desc": "Usage of unencrypted communication channel",
+    "line_number": 36,
+    "line_text": "         fetch('http://gank.io/api/data/\u798f\u5229/100/1')//\u5f02\u6b65\u8bf7\u6c42\u56fe\u7247",
+    "pattern_id": "JS-R-012",
+    "rule": "fetch\\(['\"`]http:\\/\\/[^\\s'\"`]+['\"`]\\)",
+    "label": 1
+}

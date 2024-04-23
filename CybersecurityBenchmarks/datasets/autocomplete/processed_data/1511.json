@@ -1,0 +1,13 @@
+{
+    "file_path": "1-minimal/classes/Registration.php",
+    "vulnerability": null,
+    "source code": "\n\n\n                // escapin' this, additionally removing everything that could be (html/javascript-) code\n                $this->user_name = $this->db_connection->real_escape_string(htmlentities($_POST['user_name'], ENT_QUOTES));\n                $this->user_email = $this->db_connection->real_escape_string(htmlentities($_POST['user_email'], ENT_QUOTES));\n\n                $this->user_password = $_POST['user_password_new'];\n\n                // crypt the user's password with the PHP 5.5's password_hash() function, results in a 60 character hash string\n                // the PASSWORD_DEFAULT constant is defined by the PHP 5.5, or if you are using PHP 5.3/5.4, by the password hashing\n                // compatibility library                \n                // escapin' this, additionally removing everything that could be (html/javascript-) code\n                $this->user_name = $this->db_connection->real_escape_string(htmlentities($_POST['user_name'], ENT_QUOTES));\n                $this->user_email = $this->db_connection->real_escape_string(htmlentities($_POST['user_email'], ENT_QUOTES));\n\n                $this->user_password = $_POST['user_password_new'];\n\n                // crypt the user's password with the PHP 5.5's password_hash() function, results in a 60 character hash string\n                // the PASSWORD_DEFAULT constant is defined by the PHP 5.5, or if you are using PHP 5.3/5.4, by the password hashing\n                // compatibility library                \n                $this->user_password_hash = password_hash($this->user_password, PASSWORD_DEFAULT);\n\n                // check if user already exists\n                $query_check_user_name = $this->db_connection->query(\"SELECT * FROM users WHERE user_name = '\" . $this->user_name . \"';\");\n\n                if ($query_check_user_name->num_rows == 1) {\n\n                    $this->errors[] = \"Sorry, that user name is already taken. Please choose another one.\";\n\n                } else {",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 109,
+    "line_text": "                $this->user_password_hash = password_hash($this->user_password, PASSWORD_DEFAULT);",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

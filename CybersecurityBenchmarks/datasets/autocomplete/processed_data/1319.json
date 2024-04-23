@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n    // pong data\n    //let mut pong_data = \"pong\".to_string();\n    let pong_data = \"pong1234512345123451234512345123\".to_string();\n\n    // test data\n    //let server_log_id = 262;\n    //let nonce = \"24c148a156046268f0259fde5e37640b8041786d\".from_hex();\n    //let session = \"c891a5a5679a10a8fcdb38d959e048aa05c831fb\".from_hex();\n\n    // pong data\n    //let mut pong_data = \"pong\".to_string();\n    let pong_data = \"pong1234512345123451234512345123\".to_string();\n\n    // test data\n    //let server_log_id = 262;\n    //let nonce = \"24c148a156046268f0259fde5e37640b8041786d\".from_hex();\n    //let session = \"c891a5a5679a10a8fcdb38d959e048aa05c831fb\".from_hex();\n\n\n    let mut m = sha1::Sha1::new();\n    m.update(\"test\".as_bytes());\n    //m.update(nonce);\n    //m.update(session);\n    //let sha1_hash = m.digest();\n\n    println!(\"\\nsha1_hash: {}\", m.hexdigest());\n\n    //let player_count = 42;\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 135,
+    "line_text": "    let mut m = sha1::Sha1::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "paddle/gserver/tests/test_Evaluator.cpp",
+    "vulnerability": null,
+    "source code": "\n\n        data.value = Matrix::create(batchSize, dim, false, useGpu);\n        data.value->randomizeUniform();\n\n        // make sure output > 0 && output < 1\n        data.value->add(-0.5);\n        data.value->sigmoid(*data.value);\n        break;\n      case INPUT_LABEL:\n      case INPUT_SEQUENCE_LABEL:\n        data.ids = VectorT<int>::create(batchSize, useGpu);        data.value = Matrix::create(batchSize, dim, false, useGpu);\n        data.value->randomizeUniform();\n\n        // make sure output > 0 && output < 1\n        data.value->add(-0.5);\n        data.value->sigmoid(*data.value);\n        break;\n      case INPUT_LABEL:\n      case INPUT_SEQUENCE_LABEL:\n        data.ids = VectorT<int>::create(batchSize, useGpu);\n        data.ids->rand(dim);  // now rand number can be 0 to inputDefs[i].dim.\n        break;\n      case INPUT_SPARSE_NON_VALUE_DATA:\n        data.value = makeRandomSparseMatrix(batchSize,\n                                            dim,\n                                            /* withValue= */ false,\n                                            useGpu);\n        break;\n      default:\n        LOG(FATAL) << \" unknown inputType \";",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 80,
+    "line_text": "        data.ids->rand(dim);  // now rand number can be 0 to inputDefs[i].dim.",
+    "pattern_id": "C-W-018",
+    "rule": "{ rand(_); }",
+    "label": 1
+}

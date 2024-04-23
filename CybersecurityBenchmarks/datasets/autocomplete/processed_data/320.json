@@ -1,0 +1,13 @@
+{
+    "file_path": "naive_bayes_nearest_neighbor/experiment_1/experiment_1.cc",
+    "vulnerability": null,
+    "source code": "\n\n    for (size_t j = 0; j < train_list.size(); ++j) {\n      sjm::sift::DescriptorSet d;\n      sjm::sift::ReadDescriptorSetFromFile(train_list[j], &d);\n      total_descriptors += d.sift_descriptor_size();\n    }\n    int dimensions = 128;\n    if (FLAGS_alpha > 0) {\n      dimensions += 2;\n    }\n    flann::Matrix<uint8_t>* data =    for (size_t j = 0; j < train_list.size(); ++j) {\n      sjm::sift::DescriptorSet d;\n      sjm::sift::ReadDescriptorSetFromFile(train_list[j], &d);\n      total_descriptors += d.sift_descriptor_size();\n    }\n    int dimensions = 128;\n    if (FLAGS_alpha > 0) {\n      dimensions += 2;\n    }\n    flann::Matrix<uint8_t>* data =\n        new flann::Matrix<uint8_t>(new uint8_t[total_descriptors * dimensions],\n                                   total_descriptors, dimensions);\n    datasets.push_back(data);\n    LOG(INFO) << \"Loading data for category \" << categories[i] << \".\";\n    int data_index = 0;\n    for (size_t j = 0; j < train_list.size(); ++j) {\n      sjm::sift::DescriptorSet d;\n      sjm::sift::ReadDescriptorSetFromFile(train_list[j], &d);\n      for (int k = 0; k < d.sift_descriptor_size(); ++k) {\n        for (int col = 0; col < d.sift_descriptor(k).bin_size(); ++col) {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 120,
+    "line_text": "        new flann::Matrix<uint8_t>(new uint8_t[total_descriptors * dimensions],",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

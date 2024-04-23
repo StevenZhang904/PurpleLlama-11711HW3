@@ -1,0 +1,13 @@
+{
+    "file_path": "scripts/legacy/make_irmas_index.py",
+    "vulnerability": null,
+    "source code": "\n\n    \"\"\"Get md5 hash of a file.\n    Parameters\n    ----------\n    file_path: str\n        File path.\n    Returns\n    -------\n    md5_hash: str\n        md5 hash of data in file_path\n    \"\"\"    \"\"\"Get md5 hash of a file.\n    Parameters\n    ----------\n    file_path: str\n        File path.\n    Returns\n    -------\n    md5_hash: str\n        md5 hash of data in file_path\n    \"\"\"\n    hash_md5 = hashlib.md5()\n    with open(file_path, 'rb') as fhandle:\n        for chunk in iter(lambda: fhandle.read(4096), b''):\n            hash_md5.update(chunk)\n    return hash_md5.hexdigest()\n\n\ndef strip_first_dir(full_path):\n    return os.path.join(*(full_path.split(os.path.sep)[1:]))\n",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 22,
+    "line_text": "    hash_md5 = hashlib.md5()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

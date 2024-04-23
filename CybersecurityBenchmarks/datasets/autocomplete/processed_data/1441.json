@@ -1,0 +1,13 @@
+{
+    "file_path": "Injection/CWE_90/safe/CWE_90__shell_exec__func_FILTER-CLEANING-special_chars_filter__name-interpretation_simple_quote.php",
+    "vulnerability": null,
+    "source code": "\n\nPARTICULAR PURPOSE, AND NON-INFRINGEMENT.\n\n\nTHE SOFTWARE IS PROVIDED ON AN \"AS-IS\" BASIS AND AUTHORS HAVE NO\n\nOBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR\n\nMODIFICATIONS.*/\n\nPARTICULAR PURPOSE, AND NON-INFRINGEMENT.\n\n\nTHE SOFTWARE IS PROVIDED ON AN \"AS-IS\" BASIS AND AUTHORS HAVE NO\n\nOBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR\n\nMODIFICATIONS.*/\n\n\n$tainted = shell_exec('cat /tmp/tainted.txt');\n\n$sanitized = filter_var($tainted, FILTER_SANITIZE_SPECIAL_CHARS);\n  $tainted = $sanitized ;\n      \n\n$query = \"name=' $tainted '\";\n\n$ds=ldap_connect(\"localhost\"); \n$r=ldap_bind($ds);",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 45,
+    "line_text": "$tainted = shell_exec('cat /tmp/tainted.txt');",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

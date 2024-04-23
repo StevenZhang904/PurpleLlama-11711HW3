@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/resources/archetype-resources/__rootArtifactId__-rest-provider/src/test/java/security/credentials/PasswordHelperTest.java",
+    "vulnerability": null,
+    "source code": "\n\n    public void testEncryptPassword() throws Exception {\n        PasswordHelper passwordHelper = new PasswordHelper();\n        System.out.println(passwordHelper.encryptPassword(\"admin\"));\n\n        System.out.println(UUID.fromString(\"test\"));\n    }\n\n    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {\n        String str = \"aaa\";\n        // \u751f\u6210\u4e00\u4e2aMD5\u52a0\u5bc6\u8ba1\u7b97\u6458\u8981    public void testEncryptPassword() throws Exception {\n        PasswordHelper passwordHelper = new PasswordHelper();\n        System.out.println(passwordHelper.encryptPassword(\"admin\"));\n\n        System.out.println(UUID.fromString(\"test\"));\n    }\n\n    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {\n        String str = \"aaa\";\n        // \u751f\u6210\u4e00\u4e2aMD5\u52a0\u5bc6\u8ba1\u7b97\u6458\u8981\n        MessageDigest md = MessageDigest.getInstance(\"MD5\");\n        // \u8ba1\u7b97md5\u51fd\u6570\n        md.update(str.getBytes());\n        // digest()\u6700\u540e\u786e\u5b9a\u8fd4\u56demd5 hash\u503c\uff0c\u8fd4\u56de\u503c\u4e3a8\u4e3a\u5b57\u7b26\u4e32\u3002\u56e0\u4e3amd5 hash\u503c\u662f16\u4f4d\u7684hex\u503c\uff0c\u5b9e\u9645\u4e0a\u5c31\u662f8\u4f4d\u7684\u5b57\u7b26\n        // BigInteger\u51fd\u6570\u5219\u5c068\u4f4d\u7684\u5b57\u7b26\u4e32\u8f6c\u6362\u621016\u4f4dhex\u503c\uff0c\u7528\u5b57\u7b26\u4e32\u6765\u8868\u793a\uff1b\u5f97\u5230\u5b57\u7b26\u4e32\u5f62\u5f0f\u7684hash\u503c\n        String newStr = new BigInteger(1, md.digest()).toString(16);\n        System.out.println(newStr);\n\n    }\n",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 35,
+    "line_text": "        MessageDigest md = MessageDigest.getInstance(\"MD5\");",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

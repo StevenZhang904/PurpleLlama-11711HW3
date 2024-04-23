@@ -1,0 +1,13 @@
+{
+    "file_path": "com.wjlc/com.wjlc.util/EncryptHelper.cs",
+    "vulnerability": null,
+    "source code": "\n\n            catch (Exception) { return \"xxxx\"; }\n        }\n        ///<summary><![CDATA[\u5b57\u7b26\u4e32DES\u89e3\u5bc6\u51fd\u6570]]></summary>\n        ///<param name=\"str\"><![CDATA[\u88ab\u89e3\u5bc6\u5b57\u7b26\u4e32]]></param>\n        ///<param name=\"key\"><![CDATA[\u5bc6\u94a5]]></param>\n        ///<returns><![CDATA[\u89e3\u5bc6\u540e\u5b57\u7b26\u4e32]]></returns>\n        public static string DESDecrypt(string str, string key)\n        {\n            try\n            {            catch (Exception) { return \"xxxx\"; }\n        }\n        ///<summary><![CDATA[\u5b57\u7b26\u4e32DES\u89e3\u5bc6\u51fd\u6570]]></summary>\n        ///<param name=\"str\"><![CDATA[\u88ab\u89e3\u5bc6\u5b57\u7b26\u4e32]]></param>\n        ///<param name=\"key\"><![CDATA[\u5bc6\u94a5]]></param>\n        ///<returns><![CDATA[\u89e3\u5bc6\u540e\u5b57\u7b26\u4e32]]></returns>\n        public static string DESDecrypt(string str, string key)\n        {\n            try\n            {\n                DESCryptoServiceProvider provider = new DESCryptoServiceProvider();\n                provider.Key = Encoding.UTF8.GetBytes(key.Substring(0, 8));\n                provider.IV = Encoding.UTF8.GetBytes(key.Substring(0, 8));\n                byte[] buffer = new byte[str.Length / 2];\n                for (int i = 0; i < (str.Length / 2); i++)\n                {\n                    int num2 = Convert.ToInt32(str.Substring(i * 2, 2), 0x10);\n                    buffer[i] = (byte)num2;\n                }\n                MemoryStream stream = new MemoryStream();",
+    "language": "csharp",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "DES, TripleDES and RC2 are all considered broken or insecure cryptographic algorithms.\n",
+    "line_number": 281,
+    "line_text": "                DESCryptoServiceProvider provider = new DESCryptoServiceProvider();",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.csharp.third-party.crypto-weak-cipher-algorithm",
+    "rule": null,
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Personal/Server/Routing/UserMiddleware.php",
+    "vulnerability": null,
+    "source code": "\n\n    }\n    else if (!preg_match($regex_mail, $data['email']))\n    {  \n      $app->response->setStatus(STATUS_BAD_REQUEST);\n      return;\n    } \n    $auth = array();\n    $auth[\"can_public\"] = (array_key_exists(\"can_public\", $data)) ? $data[\"can_public\"] : ($app->config[\"default_visibility\"] === \"public\");\n    $auth[\"admin_user\"] =  (array_key_exists(\"admin_user\", $data)) ? $data[\"admin_user\"] : ($app->config[\"default_admin_user_authorization\"] === \"admin\");\n    $auth[\"login\"] = $data[\"login\"];    }\n    else if (!preg_match($regex_mail, $data['email']))\n    {  \n      $app->response->setStatus(STATUS_BAD_REQUEST);\n      return;\n    } \n    $auth = array();\n    $auth[\"can_public\"] = (array_key_exists(\"can_public\", $data)) ? $data[\"can_public\"] : ($app->config[\"default_visibility\"] === \"public\");\n    $auth[\"admin_user\"] =  (array_key_exists(\"admin_user\", $data)) ? $data[\"admin_user\"] : ($app->config[\"default_admin_user_authorization\"] === \"admin\");\n    $auth[\"login\"] = $data[\"login\"];\n    $auth[\"password\"] = password_hash($data[\"login\"].$data[\"password\"], PASSWORD_DEFAULT);\n    $auth[\"validation_key\"] = md5(microtime(TRUE)*100000);\n    $auth[\"activate\"] = false;\n    unset($data[\"can_public\"]);\n    unset($data[\"admin_user\"]);\n    unset($data[\"login\"]);\n    unset($data[\"password\"]);\n    unset($data[\"request_type\"]);\n    $json_auth = json_encode($auth);\n    $json_info = json_encode($data);",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 230,
+    "line_text": "    $auth[\"password\"] = password_hash($data[\"login\"].$data[\"password\"], PASSWORD_DEFAULT);",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

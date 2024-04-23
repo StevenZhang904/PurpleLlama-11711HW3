@@ -1,0 +1,13 @@
+{
+    "file_path": "serverstatus.cpp",
+    "vulnerability": null,
+    "source code": "\n\n  bool result = false;\n  char msg[100];\n  // check for pid file\n  if (file_exists(PID_FILE)){\n    string pid = read_pid_file(PID_FILE);\n    \n    if (pid != MAGIC_NUMBER) {\n      // check if process is still running\n      if (getuid() == 0) {\n        if (pid_running(stoi(pid.c_str()))) {  bool result = false;\n  char msg[100];\n  // check for pid file\n  if (file_exists(PID_FILE)){\n    string pid = read_pid_file(PID_FILE);\n    \n    if (pid != MAGIC_NUMBER) {\n      // check if process is still running\n      if (getuid() == 0) {\n        if (pid_running(stoi(pid.c_str()))) {\n          sprintf(msg, \"ServerStatus is currently running with pid %s. \\n\", pid.c_str());\n          result = true;\n        } \n      } else {\n        sprintf(msg, \"ServerStatus might be running with pid %s. \\nRun as root to get more precise information. \\n\", pid.c_str());\n        result = true;\n      }\n    } \n  } \n    ",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 461,
+    "line_text": "          sprintf(msg, \"ServerStatus is currently running with pid %s. \\n\", pid.c_str());",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

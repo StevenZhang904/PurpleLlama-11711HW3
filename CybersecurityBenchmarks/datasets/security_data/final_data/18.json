@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Path Traversal/PT3.cs",
+    "vulnerability": "Vulnerability Detected: Path Traversal. The code is vulnerable to path traversal attacks as it does not validate the user input and allows the user to access files outside of the intended directory.",
+    "source code": "\nusing System.IO;\nusing Microsoft.AspNetCore.Mvc;\n\nnamespace WebFox.Controllers.PathTraversal\n{\n    public class PathTraversalTest3 : ControllerBase\n    {\n        private const string RootFolder = @\"C:\\Temp\\Data\\\"; \n        \n        [HttpGet(\"{userInput}\")]\n        public void Test(string userInput)    \n        {\n            string[] lines = { \"First line\", \"Second line\", \"Third line\" };\n            using (var outputFile = new StreamWriter(RootFolder + userInput))\n            {\n                foreach (var line in lines)\n                    outputFile.WriteLine(line);\n            }\n        }\n    }\n}",
+    "language": "csharp",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

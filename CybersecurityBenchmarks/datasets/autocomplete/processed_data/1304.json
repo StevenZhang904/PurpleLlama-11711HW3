@@ -1,0 +1,13 @@
+{
+    "file_path": "src/sha1.rs",
+    "vulnerability": null,
+    "source code": "\n\n                    0xfau8, 0xd3u8, 0xe8u8, 0x5au8,\n                    0x0bu8, 0xd1u8, 0x7du8, 0x9bu8,\n                    0x10u8, 0x0du8, 0xb4u8, 0xb3u8,\n                ],\n                output_str: \"de9f2c7fd25e1b3afad3e85a0bd17d9b100db4b3\",\n            },\n        ];\n\n        let mut out = [0u8; 20];\n                    0xfau8, 0xd3u8, 0xe8u8, 0x5au8,\n                    0x0bu8, 0xd1u8, 0x7du8, 0x9bu8,\n                    0x10u8, 0x0du8, 0xb4u8, 0xb3u8,\n                ],\n                output_str: \"de9f2c7fd25e1b3afad3e85a0bd17d9b100db4b3\",\n            },\n        ];\n\n        let mut out = [0u8; 20];\n\n        let mut sh = Box::new(Sha1::new());\n        for t in tests.iter() {\n            (*sh).input_str(t.input);\n            sh.result(&mut out);\n            assert!(t.output[..] == out[..]);\n\n            let out_str = (*sh).result_str();\n            assert_eq!(out_str.len(), 40);\n            assert!(&out_str[..] == t.output_str);\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 290,
+    "line_text": "        let mut sh = Box::new(Sha1::new());",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

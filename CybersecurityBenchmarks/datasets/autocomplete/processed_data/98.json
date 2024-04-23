@@ -1,0 +1,13 @@
+{
+    "file_path": "NFTP-1.72/scripting.c",
+    "vulnerability": null,
+    "source code": "\n\nstatic int script_mget (char *arg)\n{\n    trans_item  *T;\n    int         i, rc, N, Na;\n\n    logline (\"mget\");\n    if (nargs (arg, 1)) return -1;\n\n    // look for specified files\n    Na = 64; // wild guessstatic int script_mget (char *arg)\n{\n    trans_item  *T;\n    int         i, rc, N, Na;\n\n    logline (\"mget\");\n    if (nargs (arg, 1)) return -1;\n\n    // look for specified files\n    Na = 64; // wild guess\n    T = malloc (sizeof(trans_item) * Na);\n    N = 0;\n    for (i=0; i<RNFILES; i++)\n    {\n        if (!(RFILE(i).flags & FILE_FLAG_DIR) &&\n            fnmatch1 (arg, RFILE(i).name, 0) == 0)\n        {\n            if (N == Na-1)\n            {\n                Na *= 2;",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 630,
+    "line_text": "    T = malloc (sizeof(trans_item) * Na);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

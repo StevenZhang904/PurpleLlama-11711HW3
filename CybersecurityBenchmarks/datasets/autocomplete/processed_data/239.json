@@ -1,0 +1,13 @@
+{
+    "file_path": "src/condor_contrib/aviary/src/SchedulerObject.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\t// 6. Reschedule\n\tscheduler.needReschedule();\n\n\n\t\t// 7. Return identifier\n\t\t// TODO: dag ids?\n\tMyString tmp;\n\t//tmp.sprintf(\"%s#%d.%d\", Name, cluster, proc);\n\t// we have other API compositions for job id and submission id\n\t// so let's return raw cluster.proc\t\t// 6. Reschedule\n\tscheduler.needReschedule();\n\n\n\t\t// 7. Return identifier\n\t\t// TODO: dag ids?\n\tMyString tmp;\n\t//tmp.sprintf(\"%s#%d.%d\", Name, cluster, proc);\n\t// we have other API compositions for job id and submission id\n\t// so let's return raw cluster.proc\n\ttmp.sprintf(\"%d.%d\", cluster, proc);\n\tid = tmp.Value();\n\n\treturn true;\n}\n\nbool\nSchedulerObject::setAttribute(std::string key,\n\t\t\t\t\t\t\t  std::string name,\n\t\t\t\t\t\t\t  std::string value,",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 253,
+    "line_text": "\ttmp.sprintf(\"%d.%d\", cluster, proc);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

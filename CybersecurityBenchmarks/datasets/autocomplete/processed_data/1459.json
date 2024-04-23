@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/Functional/Net/SSH2Test.php",
+    "vulnerability": null,
+    "source code": "\n\n     */\n    public function testExecWithMethodCallback($ssh)\n    {\n        $callbackObject = $this->getMockBuilder('stdClass')\n            ->setMethods(['callbackMethod'])\n            ->getMock();\n        $callbackObject\n            ->expects($this->atLeastOnce())\n            ->method('callbackMethod')\n            ->will($this->returnValue(true));     */\n    public function testExecWithMethodCallback($ssh)\n    {\n        $callbackObject = $this->getMockBuilder('stdClass')\n            ->setMethods(['callbackMethod'])\n            ->getMock();\n        $callbackObject\n            ->expects($this->atLeastOnce())\n            ->method('callbackMethod')\n            ->will($this->returnValue(true));\n        $ssh->exec('pwd', [$callbackObject, 'callbackMethod']);\n\n        return $ssh;\n    }\n\n    public function testGetServerPublicHostKey()\n    {\n        $ssh = new SSH2($this->getEnv('SSH_HOSTNAME'));\n\n        $this->assertIsString($ssh->getServerPublicHostKey());",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 121,
+    "line_text": "        $ssh->exec('pwd', [$callbackObject, 'callbackMethod']);",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

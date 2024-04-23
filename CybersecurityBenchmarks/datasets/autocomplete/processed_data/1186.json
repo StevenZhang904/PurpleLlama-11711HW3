@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/com/rackspace/flewton/util/UUIDGen.java",
+    "vulnerability": null,
+    "source code": "\n\n        msb |= (0x0000ffff00000000L & nanosSince) >>> 16; \n        msb |= (0xffff000000000000L & nanosSince) >>> 48;\n        msb |= 0x0000000000001000L; // sets the version to 1.\n        return msb;\n    }\n    \n    // todo: could exploit caching.\n    private static long makeNode() {\n        // ideally, we'd use the MAC address, but java doesn't expose that.\n        try {        msb |= (0x0000ffff00000000L & nanosSince) >>> 16; \n        msb |= (0xffff000000000000L & nanosSince) >>> 48;\n        msb |= 0x0000000000001000L; // sets the version to 1.\n        return msb;\n    }\n    \n    // todo: could exploit caching.\n    private static long makeNode() {\n        // ideally, we'd use the MAC address, but java doesn't expose that.\n        try {\n            MessageDigest hasher = MessageDigest.getInstance(\"MD5\");\n            hasher.digest(InetAddress.getLocalHost().toString().getBytes());\n            byte[] hash = hasher.digest();\n            long node = 0;\n            for (int i = 0; i < Math.min(6, hash.length); i++)\n                node |= (0x00000000000000ff & (long)hash[i]) << (5-i)*8;\n            assert (0xff00000000000000L & node) == 0;\n            return node;\n        } catch (UnknownHostException ex) {\n            throw new RuntimeException(ex);",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 111,
+    "line_text": "            MessageDigest hasher = MessageDigest.getInstance(\"MD5\");",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "icu/common/ustrcase.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    const UChar *m1, *m2;\r\n\r\n    /* case folding variables */\r\n    const UChar *p;\r\n    int32_t length;\r\n\r\n    /* stacks of previous-level start/current/limit */\r\n    CmpEquivLevel stack1[2], stack2[2];\r\n\r\n    /* case folding buffers, only use current-level start/limit */\r    const UChar *m1, *m2;\r\n\r\n    /* case folding variables */\r\n    const UChar *p;\r\n    int32_t length;\r\n\r\n    /* stacks of previous-level start/current/limit */\r\n    CmpEquivLevel stack1[2], stack2[2];\r\n\r\n    /* case folding buffers, only use current-level start/limit */\r\n    UChar fold1[UCASE_MAX_STRING_LENGTH+1], fold2[UCASE_MAX_STRING_LENGTH+1];\r\n\r\n    /* track which is the current level per string */\r\n    int32_t level1, level2;\r\n\r\n    /* current code units, and code points for lookups */\r\n    UChar32 c1, c2, cp1, cp2;\r\n\r\n    /* no argument error checking because this itself is not an API */\r\n\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 1419,
+    "line_text": "    UChar fold1[UCASE_MAX_STRING_LENGTH+1], fold2[UCASE_MAX_STRING_LENGTH+1];\r",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

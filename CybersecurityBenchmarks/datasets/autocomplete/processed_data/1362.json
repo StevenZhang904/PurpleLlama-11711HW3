@@ -1,0 +1,13 @@
+{
+    "file_path": "unix-sockets/src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n    let s = String::from_utf8(content).unwrap();\n    return s;\n}\n\n\nfn sec_handshake (from_server: &[u8]) -> String {\n\n    // from rfc6455 [page 6]\n    let guid = b\"258EAFA5-E914-47DA-95CA-C5AB0DC85B11\";\n    let s = String::from_utf8(content).unwrap();\n    return s;\n}\n\n\nfn sec_handshake (from_server: &[u8]) -> String {\n\n    // from rfc6455 [page 6]\n    let guid = b\"258EAFA5-E914-47DA-95CA-C5AB0DC85B11\";\n\n    let mut sha = Sha1::new();\n\n    sha.input(from_server);\n    sha.input(guid);\n    let mut out = [0u8, ..20];\n    sha.result(out.as_mut_slice());\n\n    return out.to_base64(STANDARD);\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 268,
+    "line_text": "    let mut sha = Sha1::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

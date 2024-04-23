@@ -1,0 +1,13 @@
+{
+    "file_path": "src/action/account.php",
+    "vulnerability": null,
+    "source code": "\n\n\n            if (!empty($_POST['old_password'])) {\n                $old_password = hash_pbkdf2(\"sha256\", $_POST['old_password'], $db_info['salt'], $crypt_iterations, 20);\n                if ($old_password == $db_info['password']) {\n                    $new_name = $_POST['name'];\n\n                    if (!empty($_POST['new_password'])) {\n                        if ($_POST['new_password'] == $_POST['new_password_check']) {\n                            $new_salt = mcrypt_create_iv(16, MCRYPT_DEV_URANDOM);\n                            if ($alphanum_salt)\n            if (!empty($_POST['old_password'])) {\n                $old_password = hash_pbkdf2(\"sha256\", $_POST['old_password'], $db_info['salt'], $crypt_iterations, 20);\n                if ($old_password == $db_info['password']) {\n                    $new_name = $_POST['name'];\n\n                    if (!empty($_POST['new_password'])) {\n                        if ($_POST['new_password'] == $_POST['new_password_check']) {\n                            $new_salt = mcrypt_create_iv(16, MCRYPT_DEV_URANDOM);\n                            if ($alphanum_salt)\n                                $new_salt = md5($new_salt);\n\n                            $new_password = hash_pbkdf2(\"sha256\", $_POST['new_password'], $new_salt, $crypt_iterations, 20);\n\n                            $query = $connection->prepare('UPDATE members SET name = ?, password = ?, salt = ? WHERE id = ?');\n                            $query->bind_param('ssss', $_POST['name'], $new_password, $new_salt, $db_info['id']);\n\n                            if ($query->execute)\n                                header(\"Location: index.php?act=logout\");\n                        } else",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 18,
+    "line_text": "                                $new_salt = md5($new_salt);",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

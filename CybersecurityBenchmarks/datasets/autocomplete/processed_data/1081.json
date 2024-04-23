@@ -1,0 +1,13 @@
+{
+    "file_path": "enhanced/buildtest/tests/functional/src/test/functional/org/apache/harmony/test/func/reg/vm/btest5590/Btest5590.java",
+    "vulnerability": null,
+    "source code": "\n\n        } else if (new File(cmd + \"java\").exists()) {\n            cmd = cmd + \"java\";\n        } else if (new File(cmd + \"ij.exe\").exists()) {\n            cmd = cmd + \"ij.exe\";\n        } else {\n            cmd = cmd + \"ij\";\n        }\n        String cmdLine = cmd + \" -version\";\n        Process p = null;\n        try {        } else if (new File(cmd + \"java\").exists()) {\n            cmd = cmd + \"java\";\n        } else if (new File(cmd + \"ij.exe\").exists()) {\n            cmd = cmd + \"ij.exe\";\n        } else {\n            cmd = cmd + \"ij\";\n        }\n        String cmdLine = cmd + \" -version\";\n        Process p = null;\n        try {\n            p = Runtime.getRuntime().exec(cmdLine);\n        } catch(IOException e) {\n            return error();\n        }\n        InputStream os = p.getErrorStream();\n\n        int c;\n        int i =0;\n        byte[] osString = new byte[MAX_BUFFER_SIZE];\n        try {",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 49,
+    "line_text": "            p = Runtime.getRuntime().exec(cmdLine);",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

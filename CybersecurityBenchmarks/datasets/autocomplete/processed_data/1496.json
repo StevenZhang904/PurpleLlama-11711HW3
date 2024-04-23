@@ -1,0 +1,13 @@
+{
+    "file_path": "Post-Hack/2/public_html/thinkinglimoCOM/wp-content/themes/bigbangwp/includes/ajax.recaptcha.php",
+    "vulnerability": null,
+    "source code": "\n\nglobal $root;\n\n$publickey = get_option(BRANKIC_VAR_PREFIX.\"recaptcha_public_api\");\n$privatekey = get_option(BRANKIC_VAR_PREFIX.\"recaptcha_private_api\"); \n\nif ($publickey == \"\") $publickey = \"6Le5jNMSAAAAAO4zTrbL1-S2WY9HOD-1HynRDun3\";\nif ($privatekey == \"\") $privatekey = \"6Le5jNMSAAAAALuhzPiADxAD44e9YJ7vUIlHQ3GG \";\n\n$use_captcha = get_option(BRANKIC_VAR_PREFIX.\"use_captcha\");\nglobal $root;\n\n$publickey = get_option(BRANKIC_VAR_PREFIX.\"recaptcha_public_api\");\n$privatekey = get_option(BRANKIC_VAR_PREFIX.\"recaptcha_private_api\"); \n\nif ($publickey == \"\") $publickey = \"6Le5jNMSAAAAAO4zTrbL1-S2WY9HOD-1HynRDun3\";\nif ($privatekey == \"\") $privatekey = \"6Le5jNMSAAAAALuhzPiADxAD44e9YJ7vUIlHQ3GG \";\n\n$use_captcha = get_option(BRANKIC_VAR_PREFIX.\"use_captcha\");\n\n$resp = recaptcha_check_answer ($privatekey, $_SERVER[\"REMOTE_ADDR\"], $_POST[\"recaptcha_challenge_field\"], $_POST[\"recaptcha_response_field\"]);\n\n//echo $_POST[\"recaptcha_challenge_field\"] . \" | \" . $_POST[\"recaptcha_response_field\"];\n//print_r($resp);\n\nif ($resp->is_valid || $use_captcha == \"no\") {\n?>success<?php\n\n$email_to = get_option(BRANKIC_VAR_PREFIX.\"email_to\");\n$email_from = get_option(BRANKIC_VAR_PREFIX.\"email_from\"); ",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 14,
+    "line_text": "$resp = recaptcha_check_answer ($privatekey, $_SERVER[\"REMOTE_ADDR\"], $_POST[\"recaptcha_challenge_field\"], $_POST[\"recaptcha_response_field\"]);",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

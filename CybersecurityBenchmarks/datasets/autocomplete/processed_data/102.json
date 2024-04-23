@@ -1,0 +1,13 @@
+{
+    "file_path": "src/node/deps/uv/src/win/fs-event.c",
+    "vulnerability": null,
+    "source code": "\n\n             * We attempt to convert the file name to its long form for\n             * events that still point to valid files on disk.\n             * For removed and renamed events, we do not provide the file name.\n             */\n            if (file_info->Action != FILE_ACTION_REMOVED &&\n              file_info->Action != FILE_ACTION_RENAMED_OLD_NAME) {\n              /* Construct a full path to the file. */\n              size = wcslen(handle->dirw) +\n                file_info->FileNameLength / sizeof(WCHAR) + 2;\n             * We attempt to convert the file name to its long form for\n             * events that still point to valid files on disk.\n             * For removed and renamed events, we do not provide the file name.\n             */\n            if (file_info->Action != FILE_ACTION_REMOVED &&\n              file_info->Action != FILE_ACTION_RENAMED_OLD_NAME) {\n              /* Construct a full path to the file. */\n              size = wcslen(handle->dirw) +\n                file_info->FileNameLength / sizeof(WCHAR) + 2;\n\n              filenamew = (WCHAR*)malloc(size * sizeof(WCHAR));\n              if (!filenamew) {\n                uv_fatal_error(ERROR_OUTOFMEMORY, \"malloc\");\n              }\n\n              _snwprintf(filenamew, size, L\"%s\\\\%s\", handle->dirw,\n                file_info->FileName);\n\n              filenamew[size - 1] = L'\\0';\n",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 380,
+    "line_text": "              filenamew = (WCHAR*)malloc(size * sizeof(WCHAR));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

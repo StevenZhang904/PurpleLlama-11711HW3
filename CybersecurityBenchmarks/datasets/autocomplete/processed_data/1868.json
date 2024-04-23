@@ -1,0 +1,13 @@
+{
+    "file_path": "python/maya/site-packages/pymel-1.0.5/pymel/internal/cmdcache.py",
+    "vulnerability": null,
+    "source code": "\n\n                                    _logger.info(\"stopping evaluation %s\", str(e))# of %s on line %r\" % (command, line)\n                                    evaluate = False\n                            try:\n                                _logger.debug(\"evaluating: %r\" % line)\n                                res = eval( line )\n                                #if res is not None: _logger.info(\"result\", repr(repr(res)))\n                                #else: _logger.info(\"no result\")\n                            except:\n                                #_logger.debug(\"failed evaluating:\", str(e))\n                                try:                                    _logger.info(\"stopping evaluation %s\", str(e))# of %s on line %r\" % (command, line)\n                                    evaluate = False\n                            try:\n                                _logger.debug(\"evaluating: %r\" % line)\n                                res = eval( line )\n                                #if res is not None: _logger.info(\"result\", repr(repr(res)))\n                                #else: _logger.info(\"no result\")\n                            except:\n                                #_logger.debug(\"failed evaluating:\", str(e))\n                                try:\n                                    exec( line )\n                                except (Exception, TypeError), e:\n                                    _logger.info(\"stopping evaluation %s\", str(e))# of %s on line %r\" % (command, line)\n                                    evaluate = False\n                    if style == 'doctest':\n                        if line.startswith(' ') or line.startswith('\\t'):\n                            newlines.append('    ... ' + line  )\n                        else:\n                            newlines.append('    >>> ' + line + DOC_TEST_SKIP )\n",
+    "language": "python",
+    "cwe_identifier": "CWE-94",
+    "pattern_desc": "Potential code injection due to exec usage.",
+    "line_number": 480,
+    "line_text": "                                    exec( line )",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-exec-use",
+    "rule": null,
+    "label": 1
+}

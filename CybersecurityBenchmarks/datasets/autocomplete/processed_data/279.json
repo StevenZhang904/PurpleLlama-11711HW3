@@ -1,0 +1,13 @@
+{
+    "file_path": "src/CVar.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\t  \n\t  case TYPE_LONG:\n\t  {\n\t  \tstd::bitset<16> bset(*(int *)m_Data);\n\t\treturn bset.to_string();\n\t  } \n\t\n      case TYPE_FLOAT:\n\t  {\n\t\tchar sRet[256];\t\t  \n\t  case TYPE_LONG:\n\t  {\n\t  \tstd::bitset<16> bset(*(int *)m_Data);\n\t\treturn bset.to_string();\n\t  } \n\t\n      case TYPE_FLOAT:\n\t  {\n\t\tchar sRet[256];\n\t\tsprintf(sRet, \"%f\", *(float *)m_Data);\n\t   \treturn sRet;\n\t  }\n\t  default:\n\t\treturn \"\";\n\t}\n}\n\nfloat CVar::GetDataF()\n{",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 78,
+    "line_text": "\t\tsprintf(sRet, \"%f\", *(float *)m_Data);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

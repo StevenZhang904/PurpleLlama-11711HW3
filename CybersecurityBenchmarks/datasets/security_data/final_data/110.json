@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Insecure File Uploads/example3.php",
+    "vulnerability": "Vulnerabilities Detected:\n- Unrestricted File Upload: The code does not check the file type or size of the uploaded file, which could allow malicious files to be uploaded.\n- Insecure File Permissions: The code does not check the file permissions of the uploaded file, which could allow malicious users to access the file.",
+    "source code": "<?php\n\t$uploaded_name = $_FILES[ 'uploaded' ][ 'name' ];\n\t$uploaded_ext  = substr( $uploaded_name, strrpos( $uploaded_name, '.' ) + 1);\n\t$uploaded_size = $_FILES[ 'uploaded' ][ 'size' ];\n\t$uploaded_tmp  = $_FILES[ 'uploaded' ][ 'tmp_name' ];\n\n\t// Is it an image?\n\tif( ( strtolower( $uploaded_ext ) == \"jpg\" || strtolower( $uploaded_ext ) == \"jpeg\" || strtolower( $uploaded_ext ) == \"png\" ) &&\n\t\t( $uploaded_size < 100000 ) &&\n\t\tgetimagesize( $uploaded_tmp ) ) {\n\n\t\t// Can we move the file to the upload folder?\n\t\tif( !move_uploaded_file( $uploaded_tmp, $target_path ) ) {\n\t\t\t// No\n\t\t\t$html .= '<pre>Your image was not uploaded.</pre>';\n\t\t}\n\t\telse {\n\t\t\t// Yes!\n\t\t\t$html .= \"<pre>{$target_path} succesfully uploaded!</pre>\";\n\t\t}\n\t}\n\telse {\n\t\t// Invalid file\n\t\t$html .= '<pre>Your image was not uploaded. We can only accept JPEG or PNG images.</pre>'\n\t}\n?>",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

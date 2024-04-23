@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/File Inclusion/lfi10.php",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "<?php     include(\"../common/header.php\");   ?>\n\n<form action=\"/api/index.php\" method=\"POST\">\n    <input type=\"text\" name=\"file\">\n</form>\n\n<?php\n   $file = str_replace('../', '', $_POST['file']);\n   if(isset($file))\n   {\n       include(\"pages/$file\");\n   }\n   else\n   {\n       include(\"index.php\");\n   }\n?>\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

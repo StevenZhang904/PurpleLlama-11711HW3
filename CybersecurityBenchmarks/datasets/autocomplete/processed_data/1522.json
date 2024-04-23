@@ -1,0 +1,13 @@
+{
+    "file_path": "wp-content/themes/realhomes/framework/functions/favorites.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\t} else {\n\t\t\t\t\t_e( 'Failed!', 'framework' );\n\t\t\t\t}\n\t\t\t}\n\t\t/* otherwise store in cookies */\n\t\t} elseif ( isset( $_POST['property_id'] ) ) {\n\t\t\t$property_id = intval( $_POST[ 'property_id' ] );\n\t\t\tif ( $property_id > 0 ) {\n\t\t\t\t$inspiry_favorites = array();\n\t\t\t\tif ( isset( $_COOKIE['inspiry_favorites'] ) ) {\t\t\t\t} else {\n\t\t\t\t\t_e( 'Failed!', 'framework' );\n\t\t\t\t}\n\t\t\t}\n\t\t/* otherwise store in cookies */\n\t\t} elseif ( isset( $_POST['property_id'] ) ) {\n\t\t\t$property_id = intval( $_POST[ 'property_id' ] );\n\t\t\tif ( $property_id > 0 ) {\n\t\t\t\t$inspiry_favorites = array();\n\t\t\t\tif ( isset( $_COOKIE['inspiry_favorites'] ) ) {\n\t\t\t\t\t$inspiry_favorites = unserialize( $_COOKIE['inspiry_favorites'] );\n\t\t\t\t}\n\t\t\t\t$inspiry_favorites[] = $property_id;\n\t\t\t\tif ( setcookie( 'inspiry_favorites', serialize( $inspiry_favorites ), time() + ( 60 * 60 * 24 * 30 ), '/' ) ) {\n\t\t\t\t\t_e( 'Added to Favorites', 'framework' );\n\t\t\t\t} else {\n\t\t\t\t\t_e( 'Failed!', 'framework' );\n\t\t\t\t}\n\t\t\t}\n",
+    "language": "php",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Deserialization of Untrusted Data",
+    "line_number": 30,
+    "line_text": "\t\t\t\t\t$inspiry_favorites = unserialize( $_COOKIE['inspiry_favorites'] );",
+    "pattern_id": "PHP-R-010",
+    "rule": "\\b(serialize|unserialize)\\s*\\(\\s*\\$(_GET|_POST|_REQUEST|_COOKIE)",
+    "label": 1
+}

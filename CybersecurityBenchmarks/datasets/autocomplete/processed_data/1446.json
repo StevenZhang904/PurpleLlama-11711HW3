@@ -1,0 +1,13 @@
+{
+    "file_path": "system/core/simpleauthdb.class.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\r\n\t/**\r\n\t * Hashes password and returns result\r\n\t *\r\n\t * @param\tstring\tpassword to be hashed\r\n\t * @return\tstring\thashed password\r\n\t * @access\tpublic\r\n\t */\r\n\tfunction get_hashed($password = false)     \r\n\t{    \t   \r\t\r\n\t/**\r\n\t * Hashes password and returns result\r\n\t *\r\n\t * @param\tstring\tpassword to be hashed\r\n\t * @return\tstring\thashed password\r\n\t * @access\tpublic\r\n\t */\r\n\tfunction get_hashed($password = false)     \r\n\t{    \t   \r\n\t\t$salt = substr(md5(uniqid(rand(), true)), 0, $this->salt_length); \r\n\t\t$password = $salt . sha1($salt . $password);\r\n\t\treturn $password;\t\t\r\n\t}\r\n\t\r\n\t/**\r\n\t * Hashes plain text password and checks agains supplied hashed password\r\n\t *\r\n\t * @param\tstring\tplain text password\r\n\t * @param\tstring\thashed password\r",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 113,
+    "line_text": "\t\t$salt = substr(md5(uniqid(rand(), true)), 0, $this->salt_length); \r",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

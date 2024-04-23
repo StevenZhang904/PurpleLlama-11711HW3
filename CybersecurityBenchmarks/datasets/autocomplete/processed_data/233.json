@@ -1,0 +1,13 @@
+{
+    "file_path": "native/dll/DShowPlayer-2/MusicVisualizer.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\treturn;\r\n\t\t}\r\n\t\t\r\n\t\tif (RegQueryValueEx(myKey, \"CurrentVersion\", 0, &readType, (LPBYTE)currVer, &hsize) != ERROR_SUCCESS)\r\n\t\t{\r\n\t\t\treturn;\r\n\t\t}\r\n\t\tRegCloseKey(myKey);\r\n\t\tchar pathKey[1024];\r\n\t\tstrcpy(pathKey, \"Software\\\\JavaSoft\\\\Java Runtime Environment\\\\\");\r\t\t\treturn;\r\n\t\t}\r\n\t\t\r\n\t\tif (RegQueryValueEx(myKey, \"CurrentVersion\", 0, &readType, (LPBYTE)currVer, &hsize) != ERROR_SUCCESS)\r\n\t\t{\r\n\t\t\treturn;\r\n\t\t}\r\n\t\tRegCloseKey(myKey);\r\n\t\tchar pathKey[1024];\r\n\t\tstrcpy(pathKey, \"Software\\\\JavaSoft\\\\Java Runtime Environment\\\\\");\r\n\t\tstrcat(pathKey, currVer);\r\n\t\tchar jvmPath[1024];\r\n\t\tif (RegOpenKeyEx(rootKey, pathKey, 0, KEY_QUERY_VALUE, &myKey) != ERROR_SUCCESS)\r\n\t\t{\r\n\t\t\treturn;\r\n\t\t}\r\n\t\thsize = sizeof(jvmPath);\r\n\t\tif (RegQueryValueEx(myKey, \"RuntimeLib\", 0, &readType, (LPBYTE)jvmPath, &hsize) != ERROR_SUCCESS)\r\n\t\t{\r\n\t\t\tRegCloseKey(myKey);\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 297,
+    "line_text": "\t\tstrcat(pathKey, currVer);\r",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

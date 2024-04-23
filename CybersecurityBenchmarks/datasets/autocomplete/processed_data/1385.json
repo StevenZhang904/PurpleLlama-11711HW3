@@ -1,0 +1,13 @@
+{
+    "file_path": "vcx/libvcx/src/utils/libindy/wallet.rs",
+    "vulnerability": null,
+    "source code": "\n\npub mod tests {\n    use super::*;\n    use utils::{get_temp_dir_path};\n    use std::thread;\n    use std::time::Duration;\n    use utils::devsetup::tests::setup_wallet_env;\n    use std::{fs, env};\n\n    pub fn export_test_wallet() -> ::std::path::PathBuf {\n        let filename_str = &settings::get_config_value(settings::CONFIG_WALLET_NAME).unwrap();pub mod tests {\n    use super::*;\n    use utils::{get_temp_dir_path};\n    use std::thread;\n    use std::time::Duration;\n    use utils::devsetup::tests::setup_wallet_env;\n    use std::{fs, env};\n\n    pub fn export_test_wallet() -> ::std::path::PathBuf {\n        let filename_str = &settings::get_config_value(settings::CONFIG_WALLET_NAME).unwrap();\n        let mut dir = env::temp_dir();\n        dir.push(filename_str);\n        if Path::new(&dir).exists() {\n            fs::remove_file(Path::new(&dir)).unwrap();\n        }\n\n        let wallet_name = settings::get_config_value(settings::CONFIG_WALLET_NAME).unwrap();\n        let backup_key = settings::get_config_value(settings::CONFIG_WALLET_BACKUP_KEY).unwrap();\n        let handle = setup_wallet_env(&wallet_name).unwrap();\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 188,
+    "line_text": "        let mut dir = env::temp_dir();",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

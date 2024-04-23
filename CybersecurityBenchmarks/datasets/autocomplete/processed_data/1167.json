@@ -1,0 +1,13 @@
+{
+    "file_path": "mvn-golang-wrapper/src/main/java/com/igormaznitsa/mvngolang/AbstractGolangMojo.java",
+    "vulnerability": null,
+    "source code": "\n\nimport org.apache.http.client.CredentialsProvider;\nimport org.apache.http.client.HttpClient;\nimport org.apache.http.client.config.RequestConfig;\nimport org.apache.http.client.methods.HttpGet;\nimport org.apache.http.config.Registry;\nimport org.apache.http.config.RegistryBuilder;\nimport org.apache.http.conn.routing.HttpRoute;\nimport org.apache.http.conn.routing.HttpRoutePlanner;\nimport org.apache.http.conn.socket.ConnectionSocketFactory;\nimport org.apache.http.conn.socket.PlainConnectionSocketFactory;import org.apache.http.client.CredentialsProvider;\nimport org.apache.http.client.HttpClient;\nimport org.apache.http.client.config.RequestConfig;\nimport org.apache.http.client.methods.HttpGet;\nimport org.apache.http.config.Registry;\nimport org.apache.http.config.RegistryBuilder;\nimport org.apache.http.conn.routing.HttpRoute;\nimport org.apache.http.conn.routing.HttpRoutePlanner;\nimport org.apache.http.conn.socket.ConnectionSocketFactory;\nimport org.apache.http.conn.socket.PlainConnectionSocketFactory;\nimport org.apache.http.conn.ssl.NoopHostnameVerifier;\nimport org.apache.http.conn.ssl.SSLConnectionSocketFactory;\nimport org.apache.http.impl.client.BasicCredentialsProvider;\nimport org.apache.http.impl.client.CloseableHttpClient;\nimport org.apache.http.impl.client.HttpClientBuilder;\nimport org.apache.http.impl.client.HttpClients;\nimport org.apache.http.impl.conn.BasicHttpClientConnectionManager;\nimport org.apache.http.impl.conn.DefaultProxyRoutePlanner;\nimport org.apache.http.protocol.HttpContext;\nimport org.apache.http.util.EntityUtils;",
+    "language": "java",
+    "cwe_identifier": "CWE-295",
+    "pattern_desc": "Unsafe hostname verification",
+    "line_number": 45,
+    "line_text": "import org.apache.http.conn.ssl.NoopHostnameVerifier;",
+    "pattern_id": "JAVA-R-021",
+    "rule": "(ALLOW_ALL_HOSTNAME_VERIFIER|new AllowAllHostnameVerifier|new NullHostnameVerifier|NoopHostnameVerifier)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "slackbot/plugins/component/ttsdriver/iflytek.py",
+    "vulnerability": null,
+    "source code": "\n\n        if ret != 0:\n            logging.error(\"QTTSSessionEnd failed, error code:{}\".format(ret))\n\n        return ('wav', fname)\n\n\nif __name__ == '__main__':\n    tts = iflytekTTS()\n    def md5sum(contents):\n        import hashlib        if ret != 0:\n            logging.error(\"QTTSSessionEnd failed, error code:{}\".format(ret))\n\n        return ('wav', fname)\n\n\nif __name__ == '__main__':\n    tts = iflytekTTS()\n    def md5sum(contents):\n        import hashlib\n        hash = hashlib.md5()\n        hash.update(contents)\n        return hash.hexdigest()\n\n    import sys\n    basename = md5sum(sys.argv[1])\n    t, f = tts.get_tts_audio(sys.argv[1], basename, 'zh');\n\n    def mplayer(f):\n        import commands",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 132,
+    "line_text": "        hash = hashlib.md5()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

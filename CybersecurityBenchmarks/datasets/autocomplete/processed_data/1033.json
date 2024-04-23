@@ -1,0 +1,13 @@
+{
+    "file_path": "java/security/crypto/src/main/java/io/aos/crypto/spl02/KeyGeneratorExample.java",
+    "vulnerability": null,
+    "source code": "\n\n        throws Exception\n    {\n        byte[]          input = new byte[] { \n                            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, \n                            0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,\n                            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07 };\n        byte[]\t\t    ivBytes = new byte[] { \n                            0x00, 0x00, 0x00, 0x01, 0x04, 0x05, 0x06, 0x07,\n                            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 };\n                throws Exception\n    {\n        byte[]          input = new byte[] { \n                            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, \n                            0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,\n                            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07 };\n        byte[]\t\t    ivBytes = new byte[] { \n                            0x00, 0x00, 0x00, 0x01, 0x04, 0x05, 0x06, 0x07,\n                            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01 };\n        \n        Cipher          cipher = Cipher.getInstance(\"AES/CTR/NoPadding\", \"BC\");\n        KeyGenerator    generator = KeyGenerator.getInstance(\"AES\", \"BC\");\n\n        generator.init(192);\n        \n        Key encryptionKey = generator.generateKey();\n        \n        System.out.println(\"key   : \" + Utils.toHex(encryptionKey.getEncoded()));\n        \n        System.out.println(\"input : \" + Utils.toHex(input));",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of RSA without OAEP padding.",
+    "line_number": 46,
+    "line_text": "        Cipher          cipher = Cipher.getInstance(\"AES/CTR/NoPadding\", \"BC\");",
+    "pattern_id": "JAVA-R-012",
+    "rule": "Cipher\\.getInstance\\(.*NoPadding\"",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "modules/scheduler/controllers/WorkflowController.php",
+    "vulnerability": null,
+    "source code": "\n\n    if(file_exists($dotFile))\n      {\n      unlink($dotFile);\n      }\n    if(file_exists($image))\n      {\n      unlink($image);\n      }\n    file_put_contents($dotFile, (string) $visitor);\n        if(file_exists($dotFile))\n      {\n      unlink($dotFile);\n      }\n    if(file_exists($image))\n      {\n      unlink($image);\n      }\n    file_put_contents($dotFile, (string) $visitor);\n    \n    exec('\"'.$command.'\" -Tpng -o \"'.$image.'\" \"'.$dotFile.'\"');\n    if(file_exists($dotFile))\n      {\n      unlink($dotFile);\n      }\n    if(!file_exists($image))\n      {\n      throw new Zend_Exception('Unable to create Graphviz');\n      }\n    return $image;",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 86,
+    "line_text": "    exec('\"'.$command.'\" -Tpng -o \"'.$image.'\" \"'.$dotFile.'\"');",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

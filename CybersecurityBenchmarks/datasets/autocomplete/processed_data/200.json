@@ -1,0 +1,13 @@
+{
+    "file_path": "test/core/security/credentials_test.c",
+    "vulnerability": null,
+    "source code": "\n\n    \"com\\\", \\\"type\\\": \\\"service_account\\\" }\";\n\n/* Test refresh token. */\nstatic const char test_refresh_token_str[] =\n    \"{ \\\"client_id\\\": \\\"32555999999.apps.googleusercontent.com\\\",\"\n    \"  \\\"client_secret\\\": \\\"EmssLNjJy1332hD4KFsecret\\\",\"\n    \"  \\\"refresh_token\\\": \\\"1/Blahblasj424jladJDSGNf-u4Sua3HDA2ngjd42\\\",\"\n    \"  \\\"type\\\": \\\"authorized_user\\\"}\";\n\nstatic const char valid_oauth2_json_response[] =    \"com\\\", \\\"type\\\": \\\"service_account\\\" }\";\n\n/* Test refresh token. */\nstatic const char test_refresh_token_str[] =\n    \"{ \\\"client_id\\\": \\\"32555999999.apps.googleusercontent.com\\\",\"\n    \"  \\\"client_secret\\\": \\\"EmssLNjJy1332hD4KFsecret\\\",\"\n    \"  \\\"refresh_token\\\": \\\"1/Blahblasj424jladJDSGNf-u4Sua3HDA2ngjd42\\\",\"\n    \"  \\\"type\\\": \\\"authorized_user\\\"}\";\n\nstatic const char valid_oauth2_json_response[] =\n    \"{\\\"access_token\\\":\\\"ya29.AHES6ZRN3-HlhAPya30GnW_bHSb_\\\",\"\n    \" \\\"expires_in\\\":3599, \"\n    \" \\\"token_type\\\":\\\"Bearer\\\"}\";\n\nstatic const char test_user_data[] = \"user data\";\n\nstatic const char test_scope[] = \"perm1 perm2\";\n\nstatic const char test_signed_jwt[] =\n    \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImY0OTRkN2M1YWU2MGRmOTcyNmM4YW\"",
+    "language": "c",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP 0Auth Token",
+    "line_number": 118,
+    "line_text": "    \"{\\\"access_token\\\":\\\"ya29.AHES6ZRN3-HlhAPya30GnW_bHSb_\\\",\"",
+    "pattern_id": "ALL-R-012",
+    "rule": "ya29\\.[A-Za-z0-9_-]+",
+    "label": 1
+}

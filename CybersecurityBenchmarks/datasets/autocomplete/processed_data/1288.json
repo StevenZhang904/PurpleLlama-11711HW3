@@ -1,0 +1,13 @@
+{
+    "file_path": "library/std/src/sys/solid/os.rs",
+    "vulnerability": null,
+    "source code": "\n\n/// In kmclib, `setenv` and `unsetenv` don't always set `errno`, so this\n/// function just returns a generic error.\nfn cvt_env(t: c_int) -> io::Result<c_int> {\n    if t == -1 {\n        Err(io::Error::new_const(io::ErrorKind::Uncategorized, &\"failure\"))\n    } else {\n        Ok(t)\n    }\n}\n/// In kmclib, `setenv` and `unsetenv` don't always set `errno`, so this\n/// function just returns a generic error.\nfn cvt_env(t: c_int) -> io::Result<c_int> {\n    if t == -1 {\n        Err(io::Error::new_const(io::ErrorKind::Uncategorized, &\"failure\"))\n    } else {\n        Ok(t)\n    }\n}\n\npub fn temp_dir() -> PathBuf {\n    panic!(\"no standard temporary directory on this platform\")\n}\n\npub fn home_dir() -> Option<PathBuf> {\n    None\n}\n\npub fn exit(_code: i32) -> ! {\n    let tid = itron::task::try_current_task_id().unwrap_or(0);",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 183,
+    "line_text": "pub fn temp_dir() -> PathBuf {",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

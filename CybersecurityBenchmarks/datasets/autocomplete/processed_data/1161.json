@@ -1,0 +1,13 @@
+{
+    "file_path": "src/java/com/estorm/framework/util/OTPUtiles.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\tString strRet = null;\n\t\tbyte[] key = strKey.getBytes();\n\t\tString strIV = strKey;\n\n\t\tif ( key == null || strIV == null ) {\n\t\t\treturn null;\n\t\t}\n\n\t\ttry {\n\t\t\tSecretKey secureKey = new SecretKeySpec(key, \"AES\");\t\tString strRet = null;\n\t\tbyte[] key = strKey.getBytes();\n\t\tString strIV = strKey;\n\n\t\tif ( key == null || strIV == null ) {\n\t\t\treturn null;\n\t\t}\n\n\t\ttry {\n\t\t\tSecretKey secureKey = new SecretKeySpec(key, \"AES\");\n\t\t\tCipher c = Cipher.getInstance(\"AES/CBC/PKCS5Padding\");\n\t\t\tc.init(Cipher.ENCRYPT_MODE, secureKey, new IvParameterSpec(strIV.getBytes()));\n\t\t\tbyte[] encrypted = c.doFinal(strTarget.getBytes(\"UTF-8\"));\n\t\t\tstrRet = Base64.getEncoder().encodeToString(encrypted);//Base64Util.getEncData(encrypted);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t}\n\n\t\treturn strRet;\n\t}",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Deprecated cryptographic algorithms being used (CBC) with PKCS5 / PKCS7 padding, might be vulnerable to Padding Oracle attacks",
+    "line_number": 141,
+    "line_text": "\t\t\tCipher c = Cipher.getInstance(\"AES/CBC/PKCS5Padding\");",
+    "pattern_id": "JAVA-R-004",
+    "rule": "Cipher\\.getInstance\\(.*\\/CBC\\/(PKCS5|PKCS7)Padding\"",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/dirTraversal.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\tfprintf(stderr,\"opendir error:%s\\n\", path);\r\n\t}\r\n\tclosedir(pdir);\r\n\treturn 1;\r\n}\r\n\r\n//interface\r\nint dirTraversal(const char *path, int recursive,file_callback xCallback,void * usr)\r\n{\r\n\tint len;\r\t\tfprintf(stderr,\"opendir error:%s\\n\", path);\r\n\t}\r\n\tclosedir(pdir);\r\n\treturn 1;\r\n}\r\n\r\n//interface\r\nint dirTraversal(const char *path, int recursive,file_callback xCallback,void * usr)\r\n{\r\n\tint len;\r\n\tchar tmp[256];\r\n\tlen = strlen(path);\r\n\tstrcpy(tmp, path);\r\n\tif(tmp[len - 1] == '/') tmp[len -1] = '\\0';\r\n\r\n\tif(isDir(tmp))\r\n\t{\r\n\t\tdoTraversal(tmp, recursive,xCallback,usr);\r\n\t}\r\n\telse\r",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 87,
+    "line_text": "\tchar tmp[256];\r",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

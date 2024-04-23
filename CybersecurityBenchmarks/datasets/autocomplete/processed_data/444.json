@@ -1,0 +1,13 @@
+{
+    "file_path": "media/filters/audio_renderer_algorithm.cc",
+    "vulnerability": null,
+    "source code": "\n\n  //              X----X----------------X---------------X-----X\n  //              <---------->                     <---------->\n  //                Candidate      ...               Candidate\n  //                   1,          ...         |num_candidate_blocks_|\n  search_block_center_offset_ = num_candidate_blocks_ / 2 +\n      (ola_window_size_ / 2 - 1);\n\n  ola_window_.reset(new float[ola_window_size_]);\n  internal::GetSymmetricHanningWindow(ola_window_size_, ola_window_.get());\n  //              X----X----------------X---------------X-----X\n  //              <---------->                     <---------->\n  //                Candidate      ...               Candidate\n  //                   1,          ...         |num_candidate_blocks_|\n  search_block_center_offset_ = num_candidate_blocks_ / 2 +\n      (ola_window_size_ / 2 - 1);\n\n  ola_window_.reset(new float[ola_window_size_]);\n  internal::GetSymmetricHanningWindow(ola_window_size_, ola_window_.get());\n\n  transition_window_.reset(new float[ola_window_size_ * 2]);\n  internal::GetSymmetricHanningWindow(2 * ola_window_size_,\n                                      transition_window_.get());\n\n  wsola_output_ = AudioBus::Create(channels_, ola_window_size_ + ola_hop_size_);\n  wsola_output_->Zero();  // Initialize for overlap-and-add of the first block.\n\n  // Auxiliary containers.\n  optimal_block_ = AudioBus::Create(channels_, ola_window_size_);\n  search_block_ = AudioBus::Create(",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 128,
+    "line_text": "  transition_window_.reset(new float[ola_window_size_ * 2]);",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "view/shared/assets/js/wb/ads/latest/criteo.js",
+    "vulnerability": null,
+    "source code": "\n\n    if (!ctag) {\n        ctag = d.createElement('script');\n        ctag.type = 'text/javascript';\n        ctag.id = ctagId;\n        ctag.async = true;\n        ctag.setAttribute('class', ctagId);\n        ctag.setAttribute('data-nid', w.CRTG_NID);\n        ctag.setAttribute('data-cookie-name', w.CRTG_COOKIE_NAME);\n        ctag.setAttribute('data-var-name', w.CRTG_VAR_NAME);\n    if (!ctag) {\n        ctag = d.createElement('script');\n        ctag.type = 'text/javascript';\n        ctag.id = ctagId;\n        ctag.async = true;\n        ctag.setAttribute('class', ctagId);\n        ctag.setAttribute('data-nid', w.CRTG_NID);\n        ctag.setAttribute('data-cookie-name', w.CRTG_COOKIE_NAME);\n        ctag.setAttribute('data-var-name', w.CRTG_VAR_NAME);\n\n        var rnd = Math.floor(Math.random() * 99999999999);\n        var url = location.protocol + '//rtax.criteo.com/delivery/rta/rta.js?netId=' + encodeURIComponent(w.CRTG_NID);\n        url += '&cookieName=' + encodeURIComponent(w.CRTG_COOKIE_NAME);\n        url += '&rnd=' + rnd;\n        url += '&varName=' + encodeURIComponent(w.CRTG_VAR_NAME);\n        ctag.src = url;\n        d.getElementsByTagName('head')[0].appendChild(ctag);\n    }\n\n    /**",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 53,
+    "line_text": "        var rnd = Math.floor(Math.random() * 99999999999);",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

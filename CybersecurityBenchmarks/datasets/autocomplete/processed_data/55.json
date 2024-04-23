@@ -1,0 +1,13 @@
+{
+    "file_path": "Version1/External/Sdl/src/video/SDL_surface.c",
+    "vulnerability": null,
+    "source code": "\n\n            palette->colors[1].r = 0x00;\n            palette->colors[1].g = 0x00;\n            palette->colors[1].b = 0x00;\n        }\n        SDL_SetSurfacePalette(surface, palette);\n        SDL_FreePalette(palette);\n    }\n\n    /* Get the pixels */\n    if (surface->w && surface->h) {            palette->colors[1].r = 0x00;\n            palette->colors[1].g = 0x00;\n            palette->colors[1].b = 0x00;\n        }\n        SDL_SetSurfacePalette(surface, palette);\n        SDL_FreePalette(palette);\n    }\n\n    /* Get the pixels */\n    if (surface->w && surface->h) {\n        surface->pixels = SDL_malloc(surface->h * surface->pitch);\n        if (!surface->pixels) {\n            SDL_FreeSurface(surface);\n            SDL_OutOfMemory();\n            return NULL;\n        }\n        /* This is important for bitmaps */\n        SDL_memset(surface->pixels, 0, surface->h * surface->pitch);\n    }\n",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 91,
+    "line_text": "        surface->pixels = SDL_malloc(surface->h * surface->pitch);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

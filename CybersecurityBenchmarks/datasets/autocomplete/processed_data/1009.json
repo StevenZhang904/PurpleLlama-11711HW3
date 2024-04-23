@@ -1,0 +1,13 @@
+{
+    "file_path": "src/org/demo/WechatJsSign.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\t// String timestamp = \"1477653916\";\n\t\t// jsapiTicket = \"jsapi_ticket\";\n\n\t\tString string1;\n\t\tString signature = \"\";\n\n\t\tstring1 = \"jsapi_ticket=\" + jsapiTicket + \"&noncestr=\" + nonce_str + \"&timestamp=\" + timestamp + \"&url=\" + url;\n\t\tLOG.debug(string1);\n\n\t\ttry {\t\t// String timestamp = \"1477653916\";\n\t\t// jsapiTicket = \"jsapi_ticket\";\n\n\t\tString string1;\n\t\tString signature = \"\";\n\n\t\tstring1 = \"jsapi_ticket=\" + jsapiTicket + \"&noncestr=\" + nonce_str + \"&timestamp=\" + timestamp + \"&url=\" + url;\n\t\tLOG.debug(string1);\n\n\t\ttry {\n\t\t\tMessageDigest crypt = MessageDigest.getInstance(\"SHA-1\");\n\t\t\tcrypt.reset();\n\t\t\tcrypt.update(string1.getBytes(\"UTF-8\"));\n\t\t\tsignature = byteToHex(crypt.digest());\n\t\t} catch (NoSuchAlgorithmException e) {\n\t\t\te.printStackTrace();\n\t\t} catch (UnsupportedEncodingException e) {\n\t\t\te.printStackTrace();\n\t\t}\n",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 54,
+    "line_text": "\t\t\tMessageDigest crypt = MessageDigest.getInstance(\"SHA-1\");",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "test/c/b+tree/main.c",
+    "vulnerability": null,
+    "source code": "\n\n\tgettimeofday (&one, NULL);\n\tlong max_nodes = (long)(pow(order,log(size)/log(order/2.0)-1) + 1);\n\tmalloc_size = size*sizeof(record) + max_nodes*sizeof(knode); \n\tmem = (char*)malloc(malloc_size);\n\tif(mem==NULL){\n\t\tprintf(\"Initial malloc error\\n\");\n\t\texit(1);\n\t}\n\tfreeptr = (long)mem;\n\tgettimeofday (&one, NULL);\n\tlong max_nodes = (long)(pow(order,log(size)/log(order/2.0)-1) + 1);\n\tmalloc_size = size*sizeof(record) + max_nodes*sizeof(knode); \n\tmem = (char*)malloc(malloc_size);\n\tif(mem==NULL){\n\t\tprintf(\"Initial malloc error\\n\");\n\t\texit(1);\n\t}\n\tfreeptr = (long)mem;\n\n\tkrecords = (record * )kmalloc(size*sizeof(record));\n\t// printf(\"%d records\\n\", size);\n\tknodes = (knode *)kmalloc(max_nodes*sizeof(knode));\n\t// printf(\"%d knodes\\n\", max_nodes);\n\n\tqueue = NULL;\n\tenqueue(root);\n\tnode * n;\n\tknode * k;\n\tint i;",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 663,
+    "line_text": "\tkrecords = (record * )kmalloc(size*sizeof(record));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

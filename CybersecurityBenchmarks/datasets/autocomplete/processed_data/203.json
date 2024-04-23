@@ -1,0 +1,13 @@
+{
+    "file_path": "src/redis.c",
+    "vulnerability": null,
+    "source code": "\n\n/* Return zero if strings are the same, non-zero if they are not.\n * The comparison is performed in a way that prevents an attacker to obtain\n * information about the nature of the strings just monitoring the execution\n * time of the function.\n *\n * Note that limiting the comparison length to strings up to 512 bytes we\n * can avoid leaking any information about the password length and any\n * possible branch misprediction related leak.\n */\nint time_independent_strcmp(char *a, char *b) {/* Return zero if strings are the same, non-zero if they are not.\n * The comparison is performed in a way that prevents an attacker to obtain\n * information about the nature of the strings just monitoring the execution\n * time of the function.\n *\n * Note that limiting the comparison length to strings up to 512 bytes we\n * can avoid leaking any information about the password length and any\n * possible branch misprediction related leak.\n */\nint time_independent_strcmp(char *a, char *b) {\n    char bufa[REDIS_AUTHPASS_MAX_LEN], bufb[REDIS_AUTHPASS_MAX_LEN];\n    /* The above two strlen perform len(a) + len(b) operations where either\n     * a or b are fixed (our password) length, and the difference is only\n     * relative to the length of the user provided string, so no information\n     * leak is possible in the following two lines of code. */\n    unsigned int alen = strlen(a);\n    unsigned int blen = strlen(b);\n    unsigned int j;\n    int diff = 0;\n",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 2426,
+    "line_text": "    char bufa[REDIS_AUTHPASS_MAX_LEN], bufb[REDIS_AUTHPASS_MAX_LEN];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "sipservice/src/main/java/org/pjsip/PjCallID.java",
+    "vulnerability": null,
+    "source code": "\n\n                return Build.getSerial();\n            } catch (SecurityException se) {\n                Crashlytics.logException(se);\n                return Build.SERIAL;\n            }\n        }\n    }\n\n    private static String getMD5Hash(String input) {\n        try {                return Build.getSerial();\n            } catch (SecurityException se) {\n                Crashlytics.logException(se);\n                return Build.SERIAL;\n            }\n        }\n    }\n\n    private static String getMD5Hash(String input) {\n        try {\n            MessageDigest md = MessageDigest.getInstance(\"MD5\");\n            byte[] digest = md.digest(input.getBytes());\n            return String.format(\"%032x\", new BigInteger(1, digest));\n        } catch (NoSuchAlgorithmException nax) {\n            Crashlytics.logException(nax);\n            return input;\n        }\n    }\n}\n",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 37,
+    "line_text": "            MessageDigest md = MessageDigest.getInstance(\"MD5\");",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

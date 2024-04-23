@@ -1,0 +1,13 @@
+{
+    "file_path": "src/GameSpy/Peer/peerMain.c",
+    "vulnerability": null,
+    "source code": "\n\n(\n\tPEER peer,\n\tconst char password[PEER_PASSWORD_LEN],\n\tpeerJoinRoomCallback callback,\n\tvoid * param,\n\tPEERBool blocking\n)\n{\n\tPEERBool success = PEERTrue;\n\tPEERJoinResult result = PEERJoinFailed;(\n\tPEER peer,\n\tconst char password[PEER_PASSWORD_LEN],\n\tpeerJoinRoomCallback callback,\n\tvoid * param,\n\tPEERBool blocking\n)\n{\n\tPEERBool success = PEERTrue;\n\tPEERJoinResult result = PEERJoinFailed;\n\tchar buffer[PI_ROOM_MAX_LEN];\n\n\tPI_OP_ID;\n\tPEER_CONNECTION;\n\tPEER_CONNECTED;\n\t\n\tassert(callback);\n\n\t// NULL password is the same as empty password.\n\t///////////////////////////////////////////////",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 1399,
+    "line_text": "\tchar buffer[PI_ROOM_MAX_LEN];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

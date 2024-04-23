@@ -1,0 +1,13 @@
+{
+    "file_path": "src/com/facebook/buck/features/apple/project/ProjectGenerator.java",
+    "vulnerability": null,
+    "source code": "\n\n                .resolve(headerSymlinkTreeRoot)\n                .resolve(entry.getKey())\n                .normalize());\n  }\n\n  private HashCode getHeaderSymlinkTreeHashCode(\n      ImmutableSortedMap<Path, Path> contents,\n      Optional<String> moduleName,\n      boolean shouldCreateHeadersSymlinks,\n      boolean shouldCreateHeaderMap) {                .resolve(headerSymlinkTreeRoot)\n                .resolve(entry.getKey())\n                .normalize());\n  }\n\n  private HashCode getHeaderSymlinkTreeHashCode(\n      ImmutableSortedMap<Path, Path> contents,\n      Optional<String> moduleName,\n      boolean shouldCreateHeadersSymlinks,\n      boolean shouldCreateHeaderMap) {\n    Hasher hasher = Hashing.sha1().newHasher();\n    hasher.putBytes(ruleKeyConfiguration.getCoreKey().getBytes(Charsets.UTF_8));\n    String symlinkState = shouldCreateHeadersSymlinks ? \"symlinks-enabled\" : \"symlinks-disabled\";\n    byte[] symlinkStateValue = symlinkState.getBytes(Charsets.UTF_8);\n    hasher.putInt(symlinkStateValue.length);\n    hasher.putBytes(symlinkStateValue);\n    String hmapState = shouldCreateHeaderMap ? \"hmap-enabled\" : \"hmap-disabled\";\n    byte[] hmapStateValue = hmapState.getBytes(Charsets.UTF_8);\n    hasher.putInt(hmapStateValue.length);\n    hasher.putBytes(hmapStateValue);",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 3100,
+    "line_text": "    Hasher hasher = Hashing.sha1().newHasher();",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

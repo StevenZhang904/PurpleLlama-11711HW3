@@ -1,0 +1,13 @@
+{
+    "file_path": "testdrive/protected/models/APIConnectors/connectorGoogle.php",
+    "vulnerability": null,
+    "source code": "\n\n * and open the template in the editor.\n */\n\n/**\n * Description of connectorGoogle\n *\n * @author fito\n */\nclass connectorGoogle {\n    //put your code here * and open the template in the editor.\n */\n\n/**\n * Description of connectorGoogle\n *\n * @author fito\n */\nclass connectorGoogle {\n    //put your code here\n    const KEY = \"AIzaSyBJpPFbTxblcXA1UPZFsERxWmPBq6XLCm0\";        \n    \n    public function __construct() {\n        ;\n    }\n    \n    public function getPlacesByLocation($location,$page=0,$params = array()){\n                \n        $url = \"https://maps.googleapis.com/maps/api/place/nearbysearch/json?\";\n        ",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 16,
+    "line_text": "    const KEY = \"AIzaSyBJpPFbTxblcXA1UPZFsERxWmPBq6XLCm0\";        ",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

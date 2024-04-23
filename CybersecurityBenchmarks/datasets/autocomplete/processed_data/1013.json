@@ -1,0 +1,13 @@
+{
+    "file_path": "addOns/retire/src/main/java/org/zaproxy/addon/retire/RetireUtil.java",
+    "vulnerability": null,
+    "source code": "\n\n\npublic class RetireUtil {\n\n    private static final Logger LOGGER = LogManager.getLogger(RetireUtil.class);\n\n    /*\n     * This utility function computes the SHA 1 hash input string\n     */\n    public static String getHash(byte[] httpbody) {\n        try {\npublic class RetireUtil {\n\n    private static final Logger LOGGER = LogManager.getLogger(RetireUtil.class);\n\n    /*\n     * This utility function computes the SHA 1 hash input string\n     */\n    public static String getHash(byte[] httpbody) {\n        try {\n            MessageDigest crypt = MessageDigest.getInstance(\"SHA-1\");\n            crypt.update(httpbody);\n            return byteToHex(crypt.digest());\n        } catch (NoSuchAlgorithmException e) {\n            LOGGER.warn(\"Unable to generate Hash.\", e);\n            return \"\";\n        }\n    }\n\n    /*",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 39,
+    "line_text": "            MessageDigest crypt = MessageDigest.getInstance(\"SHA-1\");",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

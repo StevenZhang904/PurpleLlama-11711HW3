@@ -1,0 +1,13 @@
+{
+    "file_path": "design_pattern-command.rs",
+    "vulnerability": null,
+    "source code": "\n\n\t\tself.light.off();\n\t}\n}\n\n// The command will be launched by a remote control.\nstruct SimpleRemoteControl<'a> {\n\tcommand: Box<dyn Command + 'a>,\n}\nimpl<'a> SimpleRemoteControl<'a> {\n\tfn new() -> SimpleRemoteControl<'a> {\t\tself.light.off();\n\t}\n}\n\n// The command will be launched by a remote control.\nstruct SimpleRemoteControl<'a> {\n\tcommand: Box<dyn Command + 'a>,\n}\nimpl<'a> SimpleRemoteControl<'a> {\n\tfn new() -> SimpleRemoteControl<'a> {\n\t\tSimpleRemoteControl { command: Box::new(NullCommand::new()) }\n\t}\n\tfn set_command(&mut self, cmd: Box<dyn Command + 'a>) {\n\t\tself.command = cmd;\n\t}\n\tfn button_was_pressed(&self) {\n\t\tself.command.execute();\n\t}\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential for command injection if input is not sanitized.",
+    "line_number": 81,
+    "line_text": "\t\tSimpleRemoteControl { command: Box::new(NullCommand::new()) }",
+    "pattern_id": "RUST-R-002",
+    "rule": "Command::new\\s*\\(\\s*[^\"']\\)",
+    "label": 1
+}

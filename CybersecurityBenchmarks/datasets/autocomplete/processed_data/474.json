@@ -1,0 +1,13 @@
+{
+    "file_path": "src/rpc/net.cpp",
+    "vulnerability": null,
+    "source code": "\n\n            + HelpExampleRpc(\"getaddednodeinfo\", \"\\\"192.168.0.201\\\"\")\n        );\n\n    if(!g_connman)\n        throw JSONRPCError(RPC_CLIENT_P2P_DISABLED, \"Error: Peer-to-peer functionality missing or disabled\");\n\n    std::vector<AddedNodeInfo> vInfo = g_connman->GetAddedNodeInfo();\n\n    if (!request.params[0].isNull()) {\n        bool found = false;            + HelpExampleRpc(\"getaddednodeinfo\", \"\\\"192.168.0.201\\\"\")\n        );\n\n    if(!g_connman)\n        throw JSONRPCError(RPC_CLIENT_P2P_DISABLED, \"Error: Peer-to-peer functionality missing or disabled\");\n\n    std::vector<AddedNodeInfo> vInfo = g_connman->GetAddedNodeInfo();\n\n    if (!request.params[0].isNull()) {\n        bool found = false;\n        for (const AddedNodeInfo& info : vInfo) {\n            if (info.strAddedNode == request.params[0].get_str()) {\n                vInfo.assign(1, info);\n                found = true;\n                break;\n            }\n        }\n        if (!found) {\n            throw JSONRPCError(RPC_CLIENT_NODE_NOT_ADDED, \"Error: Node has not been added.\");\n        }",
+    "language": "cpp",
+    "cwe_identifier": "CWE-416",
+    "pattern_desc": "Using an iterator after it has been invalidated, resulting in use after free",
+    "line_number": 334,
+    "line_text": "        for (const AddedNodeInfo& info : vInfo) {",
+    "pattern_id": "CPP-W-008",
+    "rule": "{ for (_ _ : $c) { strict: $c.$func();} }",
+    "label": 1
+}

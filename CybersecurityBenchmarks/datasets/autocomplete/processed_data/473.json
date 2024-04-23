@@ -1,0 +1,13 @@
+{
+    "file_path": "code/GM/SOUNDC.C",
+    "vulnerability": null,
+    "source code": "\n\n  {\r\n  static char DefaultDrvr[]=\"sndblast.drv\"; // Declare voice file driver name\r\n  char * soundpointer=0;                // Declare variable for sound path\r\n\r\n//  soundpointer=getenv(\"SOUND\");     // Fetch location of SB software tree\r\n//  if (soundpointer==0) strcpy(drvr,\".\\\\\"); // Was SB software tree found?\r\n//  else strcpy(drvr,soundpointer);   // yes, Copy location of SB tree disk path\r\n\r\n  // Use the standard GameMaker Driver.\r\n  strcpy(drvr,\".\\\\\");\r  {\r\n  static char DefaultDrvr[]=\"sndblast.drv\"; // Declare voice file driver name\r\n  char * soundpointer=0;                // Declare variable for sound path\r\n\r\n//  soundpointer=getenv(\"SOUND\");     // Fetch location of SB software tree\r\n//  if (soundpointer==0) strcpy(drvr,\".\\\\\"); // Was SB software tree found?\r\n//  else strcpy(drvr,soundpointer);   // yes, Copy location of SB tree disk path\r\n\r\n  // Use the standard GameMaker Driver.\r\n  strcpy(drvr,\".\\\\\");\r\n  strcat(drvr,DefaultDrvr);         // Add driver sub tree and file name\r\n\r\n  if (ParseBlasterEnv(Port,Interrupt))\r\n    {\r\n    *s=SndBlaster;\r\n    return(TRUE);\r\n    }\r\n  return(FALSE);\r\n  }\r\n\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 45,
+    "line_text": "  strcat(drvr,DefaultDrvr);         // Add driver sub tree and file name\r",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "test/test_controller.py",
+    "vulnerability": null,
+    "source code": "\n\nimport unittest\nimport syzoj\nimport hashlib\nfrom random import randint\n\n\nclass TestRegister(unittest.TestCase):\n    def md5_pass(self, password):import unittest\nimport syzoj\nimport hashlib\nfrom random import randint\n\n\nclass TestRegister(unittest.TestCase):\n    def md5_pass(self, password):\n        md5 = hashlib.md5()\n        md5.update(password)\n        return md5.hexdigest()\n\n    def test_register(self):\n        user = \"tester_%d\" % randint(1, int(1e9))\n        pw = self.md5_pass(\"123_%d\" % randint(1, 100))\n        email = \"84%d@qq.com\" % randint(1, 10000)\n        print user, pw, email\n        self.assertEqual(syzoj.controller.register(user, pw, email), 1)",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 9,
+    "line_text": "        md5 = hashlib.md5()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

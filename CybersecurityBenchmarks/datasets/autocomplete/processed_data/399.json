@@ -1,0 +1,13 @@
+{
+    "file_path": "Povengine/AtlasUtil/lodepng.cpp",
+    "vulnerability": null,
+    "source code": "\n\nstatic unsigned HuffmanTree_makeFromLengths2(HuffmanTree* tree)\r\n{\r\n\tuivector blcount;\r\n\tuivector nextcode;\r\n\tunsigned error = 0;\r\n\tunsigned bits, n;\r\n\r\n\tuivector_init(&blcount);\r\n\tuivector_init(&nextcode);\r\n\rstatic unsigned HuffmanTree_makeFromLengths2(HuffmanTree* tree)\r\n{\r\n\tuivector blcount;\r\n\tuivector nextcode;\r\n\tunsigned error = 0;\r\n\tunsigned bits, n;\r\n\r\n\tuivector_init(&blcount);\r\n\tuivector_init(&nextcode);\r\n\r\n\ttree->tree1d = (unsigned*)lodepng_malloc(tree->numcodes * sizeof(unsigned));\r\n\tif (!tree->tree1d) error = 83; /*alloc fail*/\r\n\r\n\tif (!uivector_resizev(&blcount, tree->maxbitlen + 1, 0)\r\n\t\t|| !uivector_resizev(&nextcode, tree->maxbitlen + 1, 0))\r\n\t\terror = 83; /*alloc fail*/\r\n\r\n\tif (!error)\r\n\t{\r\n\t\t/*step 1: count number of instances of each code length*/\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 621,
+    "line_text": "\ttree->tree1d = (unsigned*)lodepng_malloc(tree->numcodes * sizeof(unsigned));\r",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "library/Zend/Ldap/Attribute.php",
+    "vulnerability": null,
+    "source code": "\n\n                } else {\n                    $len = strlen($password);\n                    $new = '';\n                    for($i=0; $i < $len; $i++) {\n                        $new .= $password[$i] . \"\\x00\";\n                    }\n                    $password = $new;\n                }\n                return $password;\n            case self::PASSWORD_HASH_SSHA:                } else {\n                    $len = strlen($password);\n                    $new = '';\n                    for($i=0; $i < $len; $i++) {\n                        $new .= $password[$i] . \"\\x00\";\n                    }\n                    $password = $new;\n                }\n                return $password;\n            case self::PASSWORD_HASH_SSHA:\n                $salt    = substr(sha1(uniqid(mt_rand(), true), true), 0, 4);\n                $rawHash = sha1($password . $salt, true) . $salt;\n                $method  = '{SSHA}';\n                break;\n            case self::PASSWORD_HASH_SHA:\n                $rawHash = sha1($password, true);\n                $method  = '{SHA}';\n                break;\n            case self::PASSWORD_HASH_SMD5:\n                $salt    = substr(sha1(uniqid(mt_rand(), true), true), 0, 4);",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 314,
+    "line_text": "                $salt    = substr(sha1(uniqid(mt_rand(), true), true), 0, 4);",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "acidx.c",
+    "vulnerability": null,
+    "source code": "\n\n  out->r = r * 255.0;\n  out->g = g * 255.0;\n  out->b = b * 255.0;\n}\n\nint main(int argc, char*argv[]) {  \n  srand(time(0) * getpid());\n\n  hsl \n    h_bg = {  out->r = r * 255.0;\n  out->g = g * 255.0;\n  out->b = b * 255.0;\n}\n\nint main(int argc, char*argv[]) {  \n  srand(time(0) * getpid());\n\n  hsl \n    h_bg = {\n      .h = 80 + rand() % 140,\n      .s = rand() % 32 + 8,\n      .l = rand() % 16 + 28\n    },\n    h_fg = {\n      .h = (((h_bg.h - 10) + rand() % 20) + (rand() % 2) * 32) % 256,\n      .s = MIN_OF_2(255, 50 + rand() % 64 + h_bg.s / 2.0),\n      .l = MIN_OF_2(255, 222 + h_bg.l)\n    };\n  ",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 74,
+    "line_text": "      .h = 80 + rand() % 140,",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

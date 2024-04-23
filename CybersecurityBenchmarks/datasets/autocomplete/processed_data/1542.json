@@ -1,0 +1,13 @@
+{
+    "file_path": "include/functions.php",
+    "vulnerability": null,
+    "source code": "\n\n    }\n\n    // guest   \n    if($btit_settings[\"secsui_cookie_type\"]==1)\n        $id = (isset($_COOKIE[\"uid\"]) && is_numeric($_COOKIE[\"uid\"]) && $_COOKIE[\"uid\"]>1) ? $id=(int)0+$_COOKIE[\"uid\"] : $id=1;\n    elseif($btit_settings[\"secsui_cookie_type\"]==2)\n    {\n        $user_cookie_name=((isset($btit_settings[\"secsui_cookie_name\"]) && !empty($btit_settings[\"secsui_cookie_name\"]))?$btit_settings[\"secsui_cookie_name\"]:\"xbtitLoginCookie\");\n        if(isset($_COOKIE[$user_cookie_name]))\n        {    }\n\n    // guest   \n    if($btit_settings[\"secsui_cookie_type\"]==1)\n        $id = (isset($_COOKIE[\"uid\"]) && is_numeric($_COOKIE[\"uid\"]) && $_COOKIE[\"uid\"]>1) ? $id=(int)0+$_COOKIE[\"uid\"] : $id=1;\n    elseif($btit_settings[\"secsui_cookie_type\"]==2)\n    {\n        $user_cookie_name=((isset($btit_settings[\"secsui_cookie_name\"]) && !empty($btit_settings[\"secsui_cookie_name\"]))?$btit_settings[\"secsui_cookie_name\"]:\"xbtitLoginCookie\");\n        if(isset($_COOKIE[$user_cookie_name]))\n        {\n            $user_cookie=unserialize($_COOKIE[$user_cookie_name]);\n            $id=((is_numeric($user_cookie[\"id\"]) && $user_cookie[\"id\"]>1)?(int)0+$user_cookie[\"id\"]:$id=1);\n        }\n        else\n            $id=1;\n    }\n    elseif($btit_settings[\"secsui_cookie_type\"]==3)\n    {\n        if(isset($_SESSION[\"login_cookie\"]))\n        {",
+    "language": "php",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Deserialization of Untrusted Data",
+    "line_number": 476,
+    "line_text": "            $user_cookie=unserialize($_COOKIE[$user_cookie_name]);",
+    "pattern_id": "PHP-R-010",
+    "rule": "\\b(serialize|unserialize)\\s*\\(\\s*\\$(_GET|_POST|_REQUEST|_COOKIE)",
+    "label": 1
+}

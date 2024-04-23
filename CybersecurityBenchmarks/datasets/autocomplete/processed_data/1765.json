@@ -1,0 +1,13 @@
+{
+    "file_path": "python/test/mapreduce gcs/mapreduce/input_readers.py",
+    "vulnerability": null,
+    "source code": "\n\n      if shard_filenames:\n        reader = cls(\n            shard_filenames, buffer_size=buffer_size, _account_id=account_id,\n            delimiter=delimiter)\n        reader._fail_on_missing_input = fail_on_missing_input\n        readers.append(reader)\n    return readers\n\n  @classmethod\n  def from_json(cls, state):      if shard_filenames:\n        reader = cls(\n            shard_filenames, buffer_size=buffer_size, _account_id=account_id,\n            delimiter=delimiter)\n        reader._fail_on_missing_input = fail_on_missing_input\n        readers.append(reader)\n    return readers\n\n  @classmethod\n  def from_json(cls, state):\n    obj = pickle.loads(state[cls._JSON_PICKLE])\n    # fail_on_missing_input might not be set - default to False.\n    obj._fail_on_missing_input = state.get(\n        cls._JSON_FAIL_ON_MISSING_INPUT, False)\n    if obj._bucket:\n      obj._bucket_iter = iter(obj._bucket)\n    return obj\n\n  def to_json(self):\n    before_iter = self._bucket_iter",
+    "language": "python",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Potential deserialization risk due to pickle usage.",
+    "line_number": 2408,
+    "line_text": "    obj = pickle.loads(state[cls._JSON_PICKLE])",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.unsafe-pickle-use",
+    "rule": null,
+    "label": 1
+}

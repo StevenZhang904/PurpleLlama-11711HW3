@@ -1,0 +1,13 @@
+{
+    "file_path": "src/mod_usertrack.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\tds = data_response_init();\n\t}\n\tbuffer_copy_string_len(ds->key, CONST_STR_LEN(\"Set-Cookie\"));\n\tbuffer_copy_string_buffer(ds->value, p->conf.cookie_name);\n\tbuffer_append_string_len(ds->value, CONST_STR_LEN(\"=\"));\n\n\n\t/* taken from mod_auth.c */\n\n\t/* generate shared-secret */\t\tds = data_response_init();\n\t}\n\tbuffer_copy_string_len(ds->key, CONST_STR_LEN(\"Set-Cookie\"));\n\tbuffer_copy_string_buffer(ds->value, p->conf.cookie_name);\n\tbuffer_append_string_len(ds->value, CONST_STR_LEN(\"=\"));\n\n\n\t/* taken from mod_auth.c */\n\n\t/* generate shared-secret */\n\tli_MD5_Init(&Md5Ctx);\n\tli_MD5_Update(&Md5Ctx, (unsigned char *)con->uri.path->ptr, con->uri.path->used - 1);\n\tli_MD5_Update(&Md5Ctx, (unsigned char *)\"+\", 1);\n\n\t/* we assume sizeof(time_t) == 4 here, but if not it ain't a problem at all */\n\tLI_ltostr(hh, srv->cur_ts);\n\tli_MD5_Update(&Md5Ctx, (unsigned char *)hh, strlen(hh));\n\tli_MD5_Update(&Md5Ctx, (unsigned char *)srv->entropy, sizeof(srv->entropy));\n\tLI_ltostr(hh, rand());\n\tli_MD5_Update(&Md5Ctx, (unsigned char *)hh, strlen(hh));",
+    "language": "c",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure.",
+    "line_number": 221,
+    "line_text": "\tli_MD5_Init(&Md5Ctx);",
+    "pattern_id": "C-R-004",
+    "rule": "(MD5_Init\\s*\\()|(EVP_md5\\s*\\()",
+    "label": 1
+}

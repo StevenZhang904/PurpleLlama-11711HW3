@@ -1,0 +1,13 @@
+{
+    "file_path": "bsp/ls1cdev/drivers/net/synopGMAC.c",
+    "vulnerability": null,
+    "source code": "\n\ns32 synopGMAC_setup_tx_desc_queue(synopGMACdevice *gmacdev, u32 no_of_desc, u32 desc_mode)\n{\n    s32 i;\n    DmaDesc *bf1;\n\n    DmaDesc *first_desc = NULL;\n\n    dma_addr_t dma_addr;\n    gmacdev->TxDescCount = 0;\ns32 synopGMAC_setup_tx_desc_queue(synopGMACdevice *gmacdev, u32 no_of_desc, u32 desc_mode)\n{\n    s32 i;\n    DmaDesc *bf1;\n\n    DmaDesc *first_desc = NULL;\n\n    dma_addr_t dma_addr;\n    gmacdev->TxDescCount = 0;\n\n    first_desc = (DmaDesc *)plat_alloc_consistent_dmaable_memory(gmacdev, sizeof(DmaDesc) * no_of_desc, &dma_addr);\n    if (first_desc == NULL)\n    {\n        rt_kprintf(\"Error in Tx Descriptors memory allocation\\n\");\n        return -ESYNOPGMACNOMEM;\n    }\n\n    DEBUG_MES(\"tx_first_desc_addr = %p\\n\", first_desc);\n    DEBUG_MES(\"dmaadr = %p\\n\", dma_addr);\n    gmacdev->TxDescCount = no_of_desc;",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 97,
+    "line_text": "    first_desc = (DmaDesc *)plat_alloc_consistent_dmaable_memory(gmacdev, sizeof(DmaDesc) * no_of_desc, &dma_addr);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

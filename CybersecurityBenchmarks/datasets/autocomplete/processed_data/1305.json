@@ -1,0 +1,13 @@
+{
+    "file_path": "src/toyunda_player/manager.rs",
+    "vulnerability": null,
+    "source code": "\n\n                         move |request: &mut Request| {\n                             let tx_command = tx_command.lock().unwrap().clone();\n                             Self::command(request, tx_command, weak_list2.clone())\n                         },\n                         \"do_command\");\n        api_handler.get(\"listing\",\n                        move |_r: &mut Request| Self::list_request(weak_list.clone()),\n                        \"get_listing\");\n        api_handler.get(\"logs\", move |_r: &mut Request| Self::logs(), \"get_logs\");\n        let mut mount = Mount::new();                         move |request: &mut Request| {\n                             let tx_command = tx_command.lock().unwrap().clone();\n                             Self::command(request, tx_command, weak_list2.clone())\n                         },\n                         \"do_command\");\n        api_handler.get(\"listing\",\n                        move |_r: &mut Request| Self::list_request(weak_list.clone()),\n                        \"get_listing\");\n        api_handler.get(\"logs\", move |_r: &mut Request| Self::logs(), \"get_logs\");\n        let mut mount = Mount::new();\n        let web_directory = ::std::env::current_exe().unwrap().parent().unwrap().join(\"web/\");\n        mount.mount(\"/\", Static::new(&web_directory));\n        mount.mount(\"/api\", api_handler);\n        let listening = Iron::new(mount).http(address).unwrap();\n        Ok(Manager {\n            listening: listening,\n            _yaml_files: yaml_files,\n            receiver: rx,\n        })\n    }",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 284,
+    "line_text": "        let web_directory = ::std::env::current_exe().unwrap().parent().unwrap().join(\"web/\");",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

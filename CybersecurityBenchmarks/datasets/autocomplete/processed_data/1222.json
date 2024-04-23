@@ -1,0 +1,13 @@
+{
+    "file_path": "src/librustdoc/html/markdown.rs",
+    "vulnerability": null,
+    "source code": "\n\n    RefCell::new(HashMap::new())\n});\n\nthread_local!(pub static PLAYGROUND_KRATE: RefCell<Option<Option<String>>> = {\n    RefCell::new(None)\n});\n\npub fn render(w: &mut fmt::Formatter, s: &str, print_toc: bool) -> fmt::Result {\n    extern fn block(ob: *mut hoedown_buffer, orig_text: *const hoedown_buffer,\n                    lang: *const hoedown_buffer, opaque: *mut libc::c_void) {    RefCell::new(HashMap::new())\n});\n\nthread_local!(pub static PLAYGROUND_KRATE: RefCell<Option<Option<String>>> = {\n    RefCell::new(None)\n});\n\npub fn render(w: &mut fmt::Formatter, s: &str, print_toc: bool) -> fmt::Result {\n    extern fn block(ob: *mut hoedown_buffer, orig_text: *const hoedown_buffer,\n                    lang: *const hoedown_buffer, opaque: *mut libc::c_void) {\n        unsafe {\n            if orig_text.is_null() { return }\n\n            let opaque = opaque as *mut hoedown_html_renderer_state;\n            let my_opaque: &MyOpaque = &*((*opaque).opaque as *const MyOpaque);\n            let text = slice::from_raw_buf(&(*orig_text).data,\n                                           (*orig_text).size as uint);\n            let origtext = str::from_utf8(text).unwrap();\n            debug!(\"docblock: ==============\\n{:?}\\n=======\", text);\n            let rendered = if lang.is_null() {",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 192,
+    "line_text": "        unsafe {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

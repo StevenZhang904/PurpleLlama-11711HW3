@@ -1,0 +1,13 @@
+{
+    "file_path": "samples/1_Local_Operators/Gaussian_Blur/src/main.cpp",
+    "vulnerability": null,
+    "source code": "\n\n        { 0.006471, 0.023169, 0.049806, 0.064280, 0.049806, 0.023169, 0.006471 },\n        { 0.008351, 0.029902, 0.064280, 0.082959, 0.064280, 0.029902, 0.008351 },\n        { 0.006471, 0.023169, 0.049806, 0.064280, 0.049806, 0.023169, 0.006471 },\n        { 0.003010, 0.010778, 0.023169, 0.029902, 0.023169, 0.010778, 0.003010 },\n        { 0.000841, 0.003010, 0.006471, 0.008351, 0.006471, 0.003010, 0.000841 }\n#endif\n    };\n\n    // host memory for image of width x height pixels\n    uchar *input = load_data<uchar>(width, height, 1, IMAGE);        { 0.006471, 0.023169, 0.049806, 0.064280, 0.049806, 0.023169, 0.006471 },\n        { 0.008351, 0.029902, 0.064280, 0.082959, 0.064280, 0.029902, 0.008351 },\n        { 0.006471, 0.023169, 0.049806, 0.064280, 0.049806, 0.023169, 0.006471 },\n        { 0.003010, 0.010778, 0.023169, 0.029902, 0.023169, 0.010778, 0.003010 },\n        { 0.000841, 0.003010, 0.006471, 0.008351, 0.006471, 0.003010, 0.000841 }\n#endif\n    };\n\n    // host memory for image of width x height pixels\n    uchar *input = load_data<uchar>(width, height, 1, IMAGE);\n    uchar *ref_out = new uchar[width*height];\n\n    std::cout << \"Calculating Hipacc Gaussian filter ...\" << std::endl;\n\n    //************************************************************************//\n\n    // input and output image of width x height pixels\n    Image<uchar> in(width, height, input);\n    Image<uchar> out(width, height);\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 117,
+    "line_text": "    uchar *ref_out = new uchar[width*height];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

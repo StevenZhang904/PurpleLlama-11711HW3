@@ -3,11 +3,11 @@
     "vulnerability": "No vulnerabilities detected.",
     "source code": "<?php     include(\"../common/header.php\");   ?>\n\n<form action=\"/api/index.php\" method=\"POST\">\n    <input type=\"text\" name=\"file\">\n</form>\n\n\n<?php\nif (substr($_POST['file'], -4, 4) != '.php')\n echo file_get_contents($_POST['file']);\nelse\n echo 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'.\"\\n\";\n?>\n\n",
     "language": "php",
-    "cwe_identifier": "CWE-918",
-    "pattern_desc": "Server-Side Request Forgery (SSRF)",
+    "cwe_identifier": "CWE-494",
+    "pattern_desc": "Download of Code Without Integrity Check",
     "line_number": 10,
     "line_text": " echo file_get_contents($_POST['file']);",
-    "pattern_id": "PHP-R-023",
-    "rule": "\\b(?:file_get_contents|fopen|curl_exec)\\s*\\(\\s*\\$_(GET|POST|REQUEST|COOKIE)",
+    "pattern_id": "PHP-R-028",
+    "rule": "\\b(file_get_contents|curl_exec)(_once)?\\s*\\(\\s*\\$_(GET|POST|REQUEST)\\s*\\[\\s*'[^']*'\\s*\\]",
     "label": 0
 }

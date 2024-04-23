@@ -1,0 +1,13 @@
+{
+    "file_path": "site2/website/pages/en/versions.js",
+    "vulnerability": null,
+    "source code": "\n\nconst React = require('react');\n\nconst CompLibrary = require('../../core/CompLibrary');\nconst Container = CompLibrary.Container;\nconst GridBlock = CompLibrary.GridBlock;\n\nconst CWD = process.cwd();\n\nconst translate = require('../../server/translate.js').translate;\nconst React = require('react');\n\nconst CompLibrary = require('../../core/CompLibrary');\nconst Container = CompLibrary.Container;\nconst GridBlock = CompLibrary.GridBlock;\n\nconst CWD = process.cwd();\n\nconst translate = require('../../server/translate.js').translate;\n\nconst siteConfig = require(`${CWD}/siteConfig.js`);\n// versions post docusaurus\nconst versions = require(`${CWD}/versions.json`);\n// versions pre docusaurus\nconst oldversions = require(`${CWD}/oldversions.json`);\n\nfunction Versions(props) {\n    const latestStableVersion = versions[0];\n    const repoUrl = `https://github.com/${siteConfig.organizationName}/${\n      siteConfig.projectName",
+    "language": "javascript",
+    "cwe_identifier": "CWE-95",
+    "pattern_desc": "The application was found to dynamically import a module by calling `require` using a\nnon-literal string. An adversary might be able to read the first line of\narbitrary files. If they had write access to the file system, they may also be able to\nexecute arbitrary code.\n",
+    "line_number": 12,
+    "line_text": "const siteConfig = require(`${CWD}/siteConfig.js`);",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.javascript.third-party.non-literal-require",
+    "rule": null,
+    "label": 1
+}

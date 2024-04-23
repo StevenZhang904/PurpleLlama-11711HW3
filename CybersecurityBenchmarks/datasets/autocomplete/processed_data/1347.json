@@ -1,0 +1,13 @@
+{
+    "file_path": "src/test.rs",
+    "vulnerability": null,
+    "source code": "\n\n    for _ in 0..4 {\n        h.push(Buffer::from(\"a\")).unwrap();\n        h.push(Buffer::from(\"b\")).unwrap();\n    }\n    h.commit_history();\n    assert_eq!(h.len(), 2);\n}\n\n#[test]\nfn test_in_file_history_truncating() {    for _ in 0..4 {\n        h.push(Buffer::from(\"a\")).unwrap();\n        h.push(Buffer::from(\"b\")).unwrap();\n    }\n    h.commit_history();\n    assert_eq!(h.len(), 2);\n}\n\n#[test]\nfn test_in_file_history_truncating() {\n    let mut tmp_file = env::temp_dir();\n    tmp_file.push(\"liner_test_file123.txt\");\n\n    {\n        let mut h = History::new();\n        h.set_file_name(Some(String::from(tmp_file.to_string_lossy().into_owned())));\n        h.set_max_file_size(5);\n        for _ in 0..20 {\n            h.push(Buffer::from(\"a\")).unwrap();\n        }",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 88,
+    "line_text": "    let mut tmp_file = env::temp_dir();",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "ref.neo/tools/compilers/roqvq/codec.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\treturn;\n\t}\n\t//\n\t// okay, we need to wittle this down to less than 256 entries\n\t//\n\n\t// get rid of identical entries\n\n\tint i, j, x, ibase, jbase;\n\t\treturn;\n\t}\n\t//\n\t// okay, we need to wittle this down to less than 256 entries\n\t//\n\n\t// get rid of identical entries\n\n\tint i, j, x, ibase, jbase;\n\n\tbool *inuse = (bool *)_alloca( numEntries * sizeof(bool) );\n\tfloat *snrs = (float *)_alloca( numEntries * sizeof(float) );\n\tint *indexes = (int *)_alloca( numEntries * sizeof(int) );\n\tint *indexet = (int *)_alloca( numEntries * sizeof(int) );\n\n\tint numFinalEntries = numEntries;\n\tfor( i=0; i<numEntries; i++ ) {\n\t\tinuse[i] = true;\n\t\tsnrs[i] = -1.0f;\n\t\tindexes[i] = -1;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 1478,
+    "line_text": "\tbool *inuse = (bool *)_alloca( numEntries * sizeof(bool) );",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

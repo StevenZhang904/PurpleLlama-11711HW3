@@ -1,0 +1,13 @@
+{
+    "file_path": "third_party/libc++/trunk/test/depr/depr.auto.ptr/auto.ptr/auto.ptr.members/reset.pass.cpp",
+    "vulnerability": null,
+    "source code": "\n\n#include <memory>\n#include <cassert>\n\n#include \"../A.h\"\n\nvoid\ntest()\n{\n    {\n    A* p = new A(1);#include <memory>\n#include <cassert>\n\n#include \"../A.h\"\n\nvoid\ntest()\n{\n    {\n    A* p = new A(1);\n    std::auto_ptr<A> ap(p);\n    ap.reset();\n    assert(ap.get() == 0);\n    assert(A::count == 0);\n    }\n    assert(A::count == 0);\n    {\n    A* p = new A(1);\n    std::auto_ptr<A> ap(p);\n    ap.reset(p);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-665",
+    "pattern_desc": "Uses deprecated auto_ptr, which can lead to undefined behavior.",
+    "line_number": 26,
+    "line_text": "    std::auto_ptr<A> ap(p);",
+    "pattern_id": "CPP-R-001",
+    "rule": "\\bstd::auto_ptr<\\s*\\w+\\s*>",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "inc/app/COGLDev01App.hpp",
+    "vulnerability": null,
+    "source code": "\n\n    GLuint         ebo;\n    \n    app::CCamera*  pCamera;\n    \n    public:\n    COGLDev01App()\n    {\n      std::cout << \"app::COGLDev01App::COGLDev01App()\" << std::endl;\n      mConfig.mOpenGL.mMajor   = 4;\n      mConfig.mOpenGL.mMinor   = 2;    GLuint         ebo;\n    \n    app::CCamera*  pCamera;\n    \n    public:\n    COGLDev01App()\n    {\n      std::cout << \"app::COGLDev01App::COGLDev01App()\" << std::endl;\n      mConfig.mOpenGL.mMajor   = 4;\n      mConfig.mOpenGL.mMinor   = 2;\n      strcpy(mConfig.mTitle, \"COGLDev01App\");\n    }\n  \n    protected:\n    void onInit()\n    {\n      std::cout << \"app::COGLDev01App::onInit()\" << std::endl;\n      glClearColor(0.2f, 0.2f, 0.2f, 0.0f);\n      //glClearDepth(1.0f);\n      ",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 24,
+    "line_text": "      strcpy(mConfig.mTitle, \"COGLDev01App\");",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

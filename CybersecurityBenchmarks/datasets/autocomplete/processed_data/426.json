@@ -1,0 +1,13 @@
+{
+    "file_path": "gdal-1.10.0/frmts/vrt/vrtsourcedrasterband.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n/************************************************************************/\n/*                             AddSource()                              */\n/************************************************************************/\n\nCPLErr VRTSourcedRasterBand::AddSource( VRTSource *poNewSource )\n\n{\n    nSources++;\n\n/************************************************************************/\n/*                             AddSource()                              */\n/************************************************************************/\n\nCPLErr VRTSourcedRasterBand::AddSource( VRTSource *poNewSource )\n\n{\n    nSources++;\n\n    papoSources = (VRTSource **) \n        CPLRealloc(papoSources, sizeof(void*) * nSources);\n    papoSources[nSources-1] = poNewSource;\n\n    ((VRTDataset *)poDS)->SetNeedsFlush();\n\n    return CE_None;\n}\n\n/************************************************************************/",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 582,
+    "line_text": "    papoSources = (VRTSource **) ",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

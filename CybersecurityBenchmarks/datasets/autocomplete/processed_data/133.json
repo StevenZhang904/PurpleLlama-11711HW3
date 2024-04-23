@@ -1,0 +1,13 @@
+{
+    "file_path": "netbsd/sys/dev/microcode/siop/ncr53cxxx.c",
+    "vulnerability": null,
+    "source code": "\n\n\tchar *sub;\n{\n\tchar *fn;\n\n\tfn = malloc (strlen (base) + strlen (sub) + 2);\n\tstrcpy (fn, base);\n\tbase = strrchr(fn, '.');\n\tif (base)\n\t\t*base = 0;\n\tstrcat (fn, \".\");\tchar *sub;\n{\n\tchar *fn;\n\n\tfn = malloc (strlen (base) + strlen (sub) + 2);\n\tstrcpy (fn, base);\n\tbase = strrchr(fn, '.');\n\tif (base)\n\t\t*base = 0;\n\tstrcat (fn, \".\");\n\tstrcat (fn, sub);\n\treturn (fn);\n}\n\nvoid\tusage()\n{\n\tfprintf (stderr, \"usage: scc sourcfile [options]\\n\");\n\texit(1);\n}\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 1376,
+    "line_text": "\tstrcat (fn, sub);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Log Forging/logf.cs",
+    "vulnerability": "Vulnerabilities Detected:\n1. Log injection vulnerability: The code is vulnerable to log injection attacks as user input is being directly logged without any sanitization.",
+    "source code": "using Microsoft.AspNetCore.Http;\nusing Microsoft.AspNetCore.Mvc;\nusing Microsoft.Extensions.Logging;\nusing System;\nusing System.Collections.Generic;\nusing System.Linq;\nusing System.Threading.Tasks;\n\nnamespace WebFox.Controllers\n{\n    [Route(\"api/[controller]\")]\n    [ApiController]\n    public class LogInjection : ControllerBase\n    {\n        private readonly ILogger<LogInjection> _logger;\n\n\n        public LogInjection(ILogger<LogInjection> logger)\n        {\n            _logger = logger;\n        }\n\n        [HttpGet(\"{userInfo}\")]\n        public void injectLog(string userInfo)\n        {\n            _logger.LogError(\"error!! \" + userInfo);\n        }\n    }\n}",
+    "language": "csharp",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

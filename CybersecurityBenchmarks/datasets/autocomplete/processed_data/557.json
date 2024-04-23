@@ -1,0 +1,13 @@
+{
+    "file_path": "BoxedIce.ServerDensity.Agent/PayloadPoster.cs",
+    "vulnerability": null,
+    "source code": "\n\n                {\r\n                    Log.ErrorFormat(\"URL {0} returned: {1}\", url, responseText);\r\n                }\r\n\r\n                Log.Debug(responseText);\r\n            }\r\n        }\r\n\r\n        private static string MD5Hash(string input)\r\n        {\r                {\r\n                    Log.ErrorFormat(\"URL {0} returned: {1}\", url, responseText);\r\n                }\r\n\r\n                Log.Debug(responseText);\r\n            }\r\n        }\r\n\r\n        private static string MD5Hash(string input)\r\n        {\r\n            MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();\r\n            byte[] bs = Encoding.UTF8.GetBytes(input);\r\n            bs = x.ComputeHash(bs);\r\n            StringBuilder s = new StringBuilder();\r\n\r\n            foreach (byte b in bs)\r\n            {\r\n                s.Append(b.ToString(\"x2\").ToLower());\r\n            }\r\n\r",
+    "language": "csharp",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a broken or risky cryptographic algorithm. MD5 and SHA1 hash algorithms have been found to be vulnerable to producing collisions.\n",
+    "line_number": 87,
+    "line_text": "            MD5CryptoServiceProvider x = new MD5CryptoServiceProvider();\r",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.csharp.third-party.crypto-weak-hashing-function",
+    "rule": null,
+    "label": 1
+}

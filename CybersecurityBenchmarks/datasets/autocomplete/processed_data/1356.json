@@ -1,0 +1,13 @@
+{
+    "file_path": "config/src/config.rs",
+    "vulnerability": null,
+    "source code": "\n\n\n    fn derive_config_location(&mut self) -> Result<(), ConfigError> {\n        //First, check working directory\n        let mut config_path = env::current_dir().unwrap();\n        config_path.push(CONFIG_FILE_NAME);\n        if config_path.exists() {\n            self.config_file_path = Some(config_path);\n            return Ok(())\n        }\n        //Next, look in directory of executable\n    fn derive_config_location(&mut self) -> Result<(), ConfigError> {\n        //First, check working directory\n        let mut config_path = env::current_dir().unwrap();\n        config_path.push(CONFIG_FILE_NAME);\n        if config_path.exists() {\n            self.config_file_path = Some(config_path);\n            return Ok(())\n        }\n        //Next, look in directory of executable\n\t\tlet mut config_path=env::current_exe().unwrap();\n\t\tconfig_path.pop();\n\t\tconfig_path.push(CONFIG_FILE_NAME);\n        if config_path.exists() {\n            self.config_file_path = Some(config_path);\n            return Ok(())\n        }\n        //Then look in {user_home}/.grin\n        let config_path = env::home_dir();\n        if let Some(mut p) = config_path {",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 72,
+    "line_text": "\t\tlet mut config_path=env::current_exe().unwrap();",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

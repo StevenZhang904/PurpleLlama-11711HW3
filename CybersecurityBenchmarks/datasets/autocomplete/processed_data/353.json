@@ -1,0 +1,13 @@
+{
+    "file_path": "code/GM/SOUNDC.C",
+    "vulnerability": null,
+    "source code": "\n\n    {\r\n    delay(50);                          /* Wait for 50 milliseconds */\r\n    }\r\n\r\n  return;                               /* Return from subroutine */\r\n  }\r\n\r\nint LoadSnd(char *prompt,char *ext,char *path, unsigned char *addr,char *fbuffer, int remember)\r\n  {\r\n  FILE *fp;\r    {\r\n    delay(50);                          /* Wait for 50 milliseconds */\r\n    }\r\n\r\n  return;                               /* Return from subroutine */\r\n  }\r\n\r\nint LoadSnd(char *prompt,char *ext,char *path, unsigned char *addr,char *fbuffer, int remember)\r\n  {\r\n  FILE *fp;\r\n  char fname[MAXFILENAMELEN];\r\n  char result;\r\n  char srchfor[6];\r\n  register int loop;\r\n\r\n  strcpy(fname,path);\r\n  if (!getfname(5,7,prompt,ext,fname)) return(FALSE);\r\n  if ( (fp=fopen(fname,\"rb\")) ==NULL)  // must exist because getfname searches for it\r\n    {\r\n    errorbox(\"Can't Find file!\",\"(C)ontinue\");\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 350,
+    "line_text": "  char fname[MAXFILENAMELEN];\r",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "kubik/kubik-server/src/main/java/com/cspinformatique/kubik/server/domain/dilicom/service/impl/DilicomImageServiceImpl.java",
+    "vulnerability": null,
+    "source code": "\n\n\t@Override\n\tpublic String getEncryptedUrl(String ean13, String supplierEan13) {\n\t\treturn this.encryptBlowfish(\"DILICOM:\" + ean13 + \"-\" + supplierEan13).trim();\n\t}\n\n\tprivate String encryptBlowfish(String toEncrypt) {\n\t\ttry {\n\t\t\tif (base64 == null) {\n\t\t\t\tCompany company = this.companyService.findComapny().get();\n\t@Override\n\tpublic String getEncryptedUrl(String ean13, String supplierEan13) {\n\t\treturn this.encryptBlowfish(\"DILICOM:\" + ean13 + \"-\" + supplierEan13).trim();\n\t}\n\n\tprivate String encryptBlowfish(String toEncrypt) {\n\t\ttry {\n\t\t\tif (base64 == null) {\n\t\t\t\tCompany company = this.companyService.findComapny().get();\n\n\t\t\t\tcipher = Cipher.getInstance(\"Blowfish/CBC/PKCS5Padding\");\n\n\t\t\t\tcipher.init(Cipher.ENCRYPT_MODE,\n\t\t\t\t\t\tnew SecretKeySpec(company.getDilicomImageEncryptionKey().getBytes(\"UTF8\"), \"Blowfish\"),\n\t\t\t\t\t\tnew IvParameterSpec(\"00000000\".getBytes()));\n\n\t\t\t\tbase64 = new Base64(true);\n\t\t\t}\n\n\t\t\treturn base64.encodeToString(cipher.doFinal(toEncrypt.getBytes(\"UTF8\")));",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Deprecated cryptographic algorithms being used (CBC) with PKCS5 / PKCS7 padding, might be vulnerable to Padding Oracle attacks",
+    "line_number": 41,
+    "line_text": "\t\t\t\tcipher = Cipher.getInstance(\"Blowfish/CBC/PKCS5Padding\");",
+    "pattern_id": "JAVA-R-004",
+    "rule": "Cipher\\.getInstance\\(.*\\/CBC\\/(PKCS5|PKCS7)Padding\"",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "alacritty/src/logging.rs",
+    "vulnerability": null,
+    "source code": "\n\n}\n\nstruct OnDemandLogFile {\n    file: Option<LineWriter<File>>,\n    created: Arc<AtomicBool>,\n    path: PathBuf,\n}\n\nimpl OnDemandLogFile {\n    fn new() -> Self {}\n\nstruct OnDemandLogFile {\n    file: Option<LineWriter<File>>,\n    created: Arc<AtomicBool>,\n    path: PathBuf,\n}\n\nimpl OnDemandLogFile {\n    fn new() -> Self {\n        let mut path = env::temp_dir();\n        path.push(format!(\"Alacritty-{}.log\", process::id()));\n\n        // Set log path as an environment variable.\n        env::set_var(ALACRITTY_LOG_ENV, path.as_os_str());\n\n        OnDemandLogFile { path, file: None, created: Arc::new(AtomicBool::new(false)) }\n    }\n\n    fn file(&mut self) -> Result<&mut LineWriter<File>, io::Error> {",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 166,
+    "line_text": "        let mut path = env::temp_dir();",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

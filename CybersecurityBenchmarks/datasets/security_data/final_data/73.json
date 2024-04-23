@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/XSS/Spring.java",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "package com.example.springxss;\n\nimport org.springframework.http.HttpStatus;\nimport org.springframework.http.MediaType;\nimport org.springframework.http.ResponseEntity;\nimport org.springframework.stereotype.Controller;\nimport org.springframework.web.bind.annotation.GetMapping;\nimport org.springframework.web.bind.annotation.RequestParam;\nimport org.springframework.web.bind.annotation.RestController;\n\n@RestController\npublic class XSSController {\n\n    @GetMapping(\"/hello\")\n    ResponseEntity<String> hello(@RequestParam(value = \"name\", defaultValue = \"World\") String name) {\n        return new ResponseEntity<>(\"Hello World!\" + name, HttpStatus.OK);\n    }\n\n}\n",
+    "language": "java",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

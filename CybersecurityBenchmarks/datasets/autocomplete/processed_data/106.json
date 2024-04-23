@@ -1,0 +1,13 @@
+{
+    "file_path": "src/backend/cdb/motion/ic_common.c",
+    "vulnerability": null,
+    "source code": "\n\n    Assert(sendSlice &&\n           IsA(sendSlice, Slice) &&\n           sendSlice->sliceIndex > 0);\n\n    motNodeID = sendSlice->sliceIndex;\n    if (motNodeID > transportStates->size)\n\t{\n\t\t/* increase size of our table */\n\t\tChunkTransportStateEntry *newTable;\n    Assert(sendSlice &&\n           IsA(sendSlice, Slice) &&\n           sendSlice->sliceIndex > 0);\n\n    motNodeID = sendSlice->sliceIndex;\n    if (motNodeID > transportStates->size)\n\t{\n\t\t/* increase size of our table */\n\t\tChunkTransportStateEntry *newTable;\n\n\t\tnewTable = repalloc(transportStates->states, motNodeID * sizeof(ChunkTransportStateEntry));\n\t\ttransportStates->states = newTable;\n\t\t/* zero-out the new piece at the end */\n\t\tMemSet(&transportStates->states[transportStates->size], 0, (motNodeID - transportStates->size) * sizeof(ChunkTransportStateEntry));\n\t\ttransportStates->size = motNodeID;\n\t}\n\n\tpEntry = &transportStates->states[motNodeID - 1];\n\n\tif (pEntry->valid)",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 753,
+    "line_text": "\t\tnewTable = repalloc(transportStates->states, motNodeID * sizeof(ChunkTransportStateEntry));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

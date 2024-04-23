@@ -1,0 +1,13 @@
+{
+    "file_path": "core/controller/class.upload.php",
+    "vulnerability": null,
+    "source code": "\n\n                                  $this->file_dst_name_body,\r\n                                  $this->file_dst_name_ext,\r\n                                  $this->file_dst_name,\r\n                                  $this->file_dst_pathname,\r\n                                  $this->image_dst_x,\r\n                                  $this->image_dst_y,\r\n                                  date('Y-m-d'),\r\n                                  date('H:i:s'),\r\n                                  (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'n/a'),\r\n                                  (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'n/a'),\r                                  $this->file_dst_name_body,\r\n                                  $this->file_dst_name_ext,\r\n                                  $this->file_dst_name,\r\n                                  $this->file_dst_pathname,\r\n                                  $this->image_dst_x,\r\n                                  $this->image_dst_y,\r\n                                  date('Y-m-d'),\r\n                                  date('H:i:s'),\r\n                                  (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'n/a'),\r\n                                  (isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'n/a'),\r\n                                  (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'n/a'),\r\n                                  $this->gdversion(true)),\r\n                            $this->image_text);\r\n\r\n                        if (!is_numeric($this->image_text_padding)) $this->image_text_padding = 0;\r\n                        if (!is_numeric($this->image_text_line_spacing)) $this->image_text_line_spacing = 0;\r\n                        if (!is_numeric($this->image_text_padding_x)) $this->image_text_padding_x = $this->image_text_padding;\r\n                        if (!is_numeric($this->image_text_padding_y)) $this->image_text_padding_y = $this->image_text_padding;\r\n                        $this->image_text_position = strtolower($this->image_text_position);\r\n                        $this->image_text_direction = strtolower($this->image_text_direction);\r",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 4678,
+    "line_text": "                                  (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'n/a'),\r",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

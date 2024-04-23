@@ -1,0 +1,13 @@
+{
+    "file_path": "books/cs/general-purpose-algorithms/introduction-to-algorithms/3rd-edition/chapter6/C/heap_sort.c",
+    "vulnerability": null,
+    "source code": "\n\n\n#define DATASETSIZE 10\n\nvoid heap_sort(double* srcdata, int len);\nvoid main(void){\n    double srcdata[DATASETSIZE];\n    int idx, jdx;\n\n    srand(time(NULL));\n    for( idx=0; idx<DATASETSIZE; idx++ ){\n#define DATASETSIZE 10\n\nvoid heap_sort(double* srcdata, int len);\nvoid main(void){\n    double srcdata[DATASETSIZE];\n    int idx, jdx;\n\n    srand(time(NULL));\n    for( idx=0; idx<DATASETSIZE; idx++ ){\n        srcdata[idx] = rand()*1.0/RAND_MAX;\n    }\n    for( idx=0; idx<DATASETSIZE; idx++ ){\n        if(idx%10 == 0) printf(\"\\n\\n\");\n        printf(\" %f, \",srcdata[idx]);\n    }\n    printf(\"\\n\");\n    heap_sort(srcdata,DATASETSIZE);\n    for( idx=0; idx<DATASETSIZE; idx++ ){\n        if(idx%10 == 0) printf(\"\\n\\n\");",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 15,
+    "line_text": "        srcdata[idx] = rand()*1.0/RAND_MAX;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "components/http-client/src/api_client.rs",
+    "vulnerability": null,
+    "source code": "\n\n            (USER_AGENT, user_agent(product, version)?),\n            (\n                CONNECTION,\n                HeaderValue::from_str(\"close\").expect(\"Valid Connection header\"),\n            ),\n        ].into_iter());\n\n        let mut client = ReqwestClient::builder().proxy(proxy_for(&endpoint)?)\n                                                 .default_headers(headers)\n                                                 .timeout(Duration::from_secs(timeout_in_secs))            (USER_AGENT, user_agent(product, version)?),\n            (\n                CONNECTION,\n                HeaderValue::from_str(\"close\").expect(\"Valid Connection header\"),\n            ),\n        ].into_iter());\n\n        let mut client = ReqwestClient::builder().proxy(proxy_for(&endpoint)?)\n                                                 .default_headers(headers)\n                                                 .timeout(Duration::from_secs(timeout_in_secs))\n                                                 .danger_accept_invalid_certs(skip_cert_verify);\n\n        client =\n            certificates(fs_root_path)?.iter()\n                                       .map(Certificate::to_der)\n                                       .collect::<std::result::Result<Vec<_>, _>>()?\n                                       .into_iter()\n                                       .map(|raw| ReqwestCertificate::from_der(&*raw))\n                                       .collect::<std::result::Result<Vec<_>, _>>()?\n                                       .into_iter()",
+    "language": "rust",
+    "cwe_identifier": "CWE-295",
+    "pattern_desc": "Dangerous APIs: Accepting invalid tls connections",
+    "line_number": 103,
+    "line_text": "                                                 .danger_accept_invalid_certs(skip_cert_verify);",
+    "pattern_id": "RUST-R-008",
+    "rule": "danger_accept_invalid_hostnames|danger_accept_invalid_certs",
+    "label": 1
+}

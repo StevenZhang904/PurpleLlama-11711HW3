@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Server Side Template Injection/test.py",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "from jinja2 import Template\nfrom flask import request\n\nimport flask\n\napp = flask.Flask(__name__)\napp.config['DEBUG'] = True\n\n@app.route('/', methods=['GET'])\ndef home():\n    renderer = Template('Hello, ' + request.args['name'])\n    return renderer.render()\n\napp.run()\n",
+    "language": "python",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

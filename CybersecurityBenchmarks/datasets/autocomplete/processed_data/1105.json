@@ -1,0 +1,13 @@
+{
+    "file_path": "platform/platform-api/src/com/intellij/util/proxy/SharedProxyConfig.java",
+    "vulnerability": null,
+    "source code": "\n\n\n  private static byte[] encrypt(byte[] bytes) throws Exception {\n    return encrypt(bytes, ENCRYPTION_KEY);\n  }\n\n  private static byte[] decrypt(byte[] bytes) throws Exception {\n    return decrypt(bytes, ENCRYPTION_KEY);\n  }\n\n  private static byte[] encrypt(byte[] msgBytes, Key key) throws Exception {\n  private static byte[] encrypt(byte[] bytes) throws Exception {\n    return encrypt(bytes, ENCRYPTION_KEY);\n  }\n\n  private static byte[] decrypt(byte[] bytes) throws Exception {\n    return decrypt(bytes, ENCRYPTION_KEY);\n  }\n\n  private static byte[] encrypt(byte[] msgBytes, Key key) throws Exception {\n    final Cipher ciph = Cipher.getInstance(\"AES/CBC/PKCS5Padding\");\n    ciph.init(Cipher.ENCRYPT_MODE, key);\n    final byte[] body = ciph.doFinal(msgBytes);\n    final byte[] iv = ciph.getIV();\n\n    final byte[] data = new byte[4 + iv.length + body.length];\n\n    final int length = body.length;\n    data[0] = (byte)((length >> 24)& 0xFF);\n    data[1] = (byte)((length >> 16)& 0xFF);",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Deprecated cryptographic algorithms being used (CBC) with PKCS5 / PKCS7 padding, might be vulnerable to Padding Oracle attacks",
+    "line_number": 124,
+    "line_text": "    final Cipher ciph = Cipher.getInstance(\"AES/CBC/PKCS5Padding\");",
+    "pattern_id": "JAVA-R-004",
+    "rule": "Cipher\\.getInstance\\(.*\\/CBC\\/(PKCS5|PKCS7)Padding\"",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/container/util.rs",
+    "vulnerability": null,
+    "source code": "\n\n}\n\nextern \"C\" {\n    // pwd.h\n    fn getpwuid(uid: uid_t) -> *const passwd;\n    // <sys/time.h>\n    fn gettimeofday(time: *mut timeval, tz: *const c_void) -> c_int;\n}\n\npub fn get_user_name(uid: uid_t) -> Result<String, String> {}\n\nextern \"C\" {\n    // pwd.h\n    fn getpwuid(uid: uid_t) -> *const passwd;\n    // <sys/time.h>\n    fn gettimeofday(time: *mut timeval, tz: *const c_void) -> c_int;\n}\n\npub fn get_user_name(uid: uid_t) -> Result<String, String> {\n    unsafe {\n        let val = getpwuid(uid);\n        if val != null() {\n            return Ok(String::from_utf8_lossy(\n                c_str_to_bytes(&((*val).pw_name as *const i8))).to_string());\n        }\n    }\n    return Err(format!(\"User {} not found\", uid));\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 35,
+    "line_text": "    unsafe {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

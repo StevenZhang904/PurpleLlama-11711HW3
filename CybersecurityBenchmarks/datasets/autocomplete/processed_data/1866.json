@@ -1,0 +1,13 @@
+{
+    "file_path": "droidbox_scripts/droidbox_compatible.py",
+    "vulnerability": null,
+    "source code": "\n\n    def getPackage(self):\n        # One application has only one package name\n        return self.packageNames[0]\n\n    def getHashes(self, block_size=2 ** 8):\n        \"\"\"\n        Calculate MD5,SHA-1, SHA-256\n        hashes of APK input file\n        \"\"\"\n        md5 = hashlib.md5()    def getPackage(self):\n        # One application has only one package name\n        return self.packageNames[0]\n\n    def getHashes(self, block_size=2 ** 8):\n        \"\"\"\n        Calculate MD5,SHA-1, SHA-256\n        hashes of APK input file\n        \"\"\"\n        md5 = hashlib.md5()\n        sha1 = hashlib.sha1()\n        sha256 = hashlib.sha256()\n        f = open(self.filename, 'rb')\n        while True:\n            data = f.read(block_size)\n            if not data:\n                break\n\n            md5.update(data)\n            sha1.update(data)",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 603,
+    "line_text": "        sha1 = hashlib.sha1()",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

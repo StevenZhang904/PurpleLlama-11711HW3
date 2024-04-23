@@ -1,0 +1,13 @@
+{
+    "file_path": "async/examples/epoll/cli/clitst.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\tclose(socket1);\n\t\treturn 0;\n\t}\n\tprintf(\"connection established.\\n\");\n\n\tchar input[200];\n\n\twhile(1)\n\t{\n\t\tprintf(\"enter words: \");\t\tclose(socket1);\n\t\treturn 0;\n\t}\n\tprintf(\"connection established.\\n\");\n\n\tchar input[200];\n\n\twhile(1)\n\t{\n\t\tprintf(\"enter words: \");\n\t\tgets(input);\n\t\tif(!strcmp(input, \"exit\"))\n\t\t\tbreak;\n\t\telse\n\t\t{\n\t\t\twrite(socket1, input, strlen(input)+1);\n\t\t\tread(socket1, input, 200);\n\t\t\tprintf(\"msg return: %s\\n\", input);\n\t\t}\n\t}",
+    "language": "cpp",
+    "cwe_identifier": "CWE-242",
+    "pattern_desc": "Potential buffer overflow risk due to use of gets",
+    "line_number": 44,
+    "line_text": "\t\tgets(input);",
+    "pattern_id": "C-R-012",
+    "rule": "\\bgets\\s*\\(\\s*\\w*\\s*\\)",
+    "label": 1
+}

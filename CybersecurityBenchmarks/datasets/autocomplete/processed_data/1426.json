@@ -1,0 +1,13 @@
+{
+    "file_path": "vendor/jaeger/curlmulti/CurlMulti.php",
+    "vulnerability": null,
+    "source code": "\n\n\t *\n\t * @param string $url        \t\n\t * @param mixed $content\n\t *        \tarray('info','content')\n\t * @return return array|null|boolean\n\t */\n\tprivate function cache($task, $content = null) {\n\t\tif (! isset ( $this->cache ['dir'] ))\n\t\t\tthrow new Exception ( 'Cache dir is not defined' );\n\t\t$url = $task [self::TASK_ITEM_URL];\t *\n\t * @param string $url        \t\n\t * @param mixed $content\n\t *        \tarray('info','content')\n\t * @return return array|null|boolean\n\t */\n\tprivate function cache($task, $content = null) {\n\t\tif (! isset ( $this->cache ['dir'] ))\n\t\t\tthrow new Exception ( 'Cache dir is not defined' );\n\t\t$url = $task [self::TASK_ITEM_URL];\n\t\t$key = md5 ( $url );\n\t\t$isDownload = isset ( $task [self::TASK_ITEM_FILE] );\n\t\t$file = rtrim ( $this->cache ['dir'], '/' ) . '/';\n\t\tif (isset ( $this->cache ['dirLevel'] ) && $this->cache ['dirLevel'] != 0) {\n\t\t\tif ($this->cache ['dirLevel'] == 1) {\n\t\t\t\t$file .= substr ( $key, 0, 3 ) . '/' . substr ( $key, 3 );\n\t\t\t} elseif ($this->cache ['dirLevel'] == 2) {\n\t\t\t\t$file .= substr ( $key, 0, 3 ) . '/' . substr ( $key, 3, 3 ) . '/' . substr ( $key, 6 );\n\t\t\t} else {\n\t\t\t\tthrow new Exception ( 'cache dirLevel is invalid, dirLevel=' . $this->cache ['dirLevel'] );",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 579,
+    "line_text": "\t\t$key = md5 ( $url );",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

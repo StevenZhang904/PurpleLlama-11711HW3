@@ -1,0 +1,13 @@
+{
+    "file_path": "gerrit-server/src/main/java/com/google/gerrit/server/change/ChangeResource.java",
+    "vulnerability": null,
+    "source code": "\n\n    return control;\n  }\n\n  public Change getChange() {\n    return getControl().getChange();\n  }\n\n  @Override\n  public String getETag() {\n    CurrentUser user = control.getCurrentUser();    return control;\n  }\n\n  public Change getChange() {\n    return getControl().getChange();\n  }\n\n  @Override\n  public String getETag() {\n    CurrentUser user = control.getCurrentUser();\n    Hasher h = Hashing.md5().newHasher()\n      .putLong(getChange().getLastUpdatedOn().getTime())\n      .putInt(getChange().getRowVersion())\n      .putInt(user.isIdentifiedUser()\n          ? ((IdentifiedUser) user).getAccountId().get()\n          : 0);\n\n    byte[] buf = new byte[20];\n    for (ProjectState p : control.getProjectControl().getProjectState().tree()) {\n      ObjectId id = p.getConfig().getRevision();",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 57,
+    "line_text": "    Hasher h = Hashing.md5().newHasher()",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

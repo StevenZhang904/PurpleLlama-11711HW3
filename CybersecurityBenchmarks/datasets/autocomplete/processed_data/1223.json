@@ -1,0 +1,13 @@
+{
+    "file_path": "src/kernel/multiboot.rs",
+    "vulnerability": null,
+    "source code": "\n\n    end: u32,\n    /// Name of module.\n    string: u32,\n    /// Must be zero.\n    reserved: u32,\n}\n\n/// Convert a C string into a [u8 slice and from there into a &'static str.\n/// This unsafe block builds on assumption that multiboot strings are sane.\nfn convert_safe_c_string(cstring: *const u8) -> &'static str {    end: u32,\n    /// Name of module.\n    string: u32,\n    /// Must be zero.\n    reserved: u32,\n}\n\n/// Convert a C string into a [u8 slice and from there into a &'static str.\n/// This unsafe block builds on assumption that multiboot strings are sane.\nfn convert_safe_c_string(cstring: *const u8) -> &'static str {\n    unsafe {\n        let mut iter = cstring;\n        while *iter != 0 {\n            iter = iter.offset(1);\n        }\n\n        let slice = raw::Slice {\n            data: cstring,\n            len: iter as usize - cstring as usize,\n        };",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 84,
+    "line_text": "    unsafe {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

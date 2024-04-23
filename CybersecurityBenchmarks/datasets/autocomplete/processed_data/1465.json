@@ -1,0 +1,13 @@
+{
+    "file_path": "questionnaire/thanks2.php",
+    "vulnerability": null,
+    "source code": "\n\n  'regions_other' => html($_POST['regions_other']),\n  'scales' => $scales,\n  'scales_other' => html($_POST['scales_other']),\n  'materials' => (int)$_POST['materials'],\n  'materials_details' => html($_POST['materials_details']),\n  'primary_data' => (int)$_POST['primary_data'],\n  'data_type' => html($_POST['data_type']),\n  'data_details' => html($_POST['data_details']),\n  'software' => html($_POST['software']),\n  'browser' => html($_SERVER[\"HTTP_USER_AGENT\"]),  'regions_other' => html($_POST['regions_other']),\n  'scales' => $scales,\n  'scales_other' => html($_POST['scales_other']),\n  'materials' => (int)$_POST['materials'],\n  'materials_details' => html($_POST['materials_details']),\n  'primary_data' => (int)$_POST['primary_data'],\n  'data_type' => html($_POST['data_type']),\n  'data_details' => html($_POST['data_details']),\n  'software' => html($_POST['software']),\n  'browser' => html($_SERVER[\"HTTP_USER_AGENT\"]),\n  'ip' => html($_SERVER[\"REMOTE_ADDR\"]),\n  'post' => html($info),\n  );\n  $db->insert(\"questionnaire\",$post);\n  $id = $db->lastInsertId();\n  $msg = \n\"The questionnaire was filled out. \n\nName: \" . mail_clean($_POST['firstname']) . \"  \" . mail_clean($_POST['lastname']) . \"\nDate: \" . date(\"r\") . \"",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 51,
+    "line_text": "  'ip' => html($_SERVER[\"REMOTE_ADDR\"]),",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "mlfe/device_context/cpu_context.cc",
+    "vulnerability": null,
+    "source code": "\n\n#include <string>\n#include <new>\n#include <functional>\n#include \"cpu_context.h\"\n\nnamespace mlfe {\n#include <string>\n#include <new>\n#include <functional>\n#include \"cpu_context.h\"\n\nnamespace mlfe {\n\nstd::mt19937 CPUContext::rng = std::mt19937(1357);\n\nCPUContext::~CPUContext(){}\n\n} /* namespace mlfe */\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-335",
+    "pattern_desc": "Use of fixed seed for PRNG",
+    "line_number": 8,
+    "line_text": "std::mt19937 CPUContext::rng = std::mt19937(1357);",
+    "pattern_id": "CPP-R-002",
+    "rule": "\\b(std::mt19937|std::mt19937_64|std::minstd_rand|std::minstd_rand0|std::default_random_engine)\\s*(\\{|\\()\\s*\\d*\\s*(\\}|\\)|\\/)",
+    "label": 1
+}

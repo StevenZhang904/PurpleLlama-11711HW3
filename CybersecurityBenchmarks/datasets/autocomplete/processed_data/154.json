@@ -1,0 +1,13 @@
+{
+    "file_path": "platforms/linux-fs/barectf-platform-linux-fs.c",
+    "vulnerability": null,
+    "source code": "\n\n\n\tbuf = FROM_VOID_PTR(uint8_t, malloc(buf_size));\n\n\tif (!buf) {\n\t\tfree(ctx);\n\t\treturn NULL;\n\t}\n\n\tmemset(buf, 0, buf_size);\n\n\tbuf = FROM_VOID_PTR(uint8_t, malloc(buf_size));\n\n\tif (!buf) {\n\t\tfree(ctx);\n\t\treturn NULL;\n\t}\n\n\tmemset(buf, 0, buf_size);\n\n\tsprintf(stream_path, \"%s/stream\", trace_dir);\n\tctx->fh = fopen(stream_path, \"wb\");\n\n\tif (!ctx->fh) {\n\t\tfree(ctx);\n\t\tfree(buf);\n\t\treturn NULL;\n\t}\n\n\tctx->simulate_full_backend = simulate_full_backend;",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 131,
+    "line_text": "\tsprintf(stream_path, \"%s/stream\", trace_dir);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

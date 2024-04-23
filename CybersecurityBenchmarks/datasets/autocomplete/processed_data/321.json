@@ -1,0 +1,13 @@
+{
+    "file_path": "source/SoundFile/MP3/MpegDecoder.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\tif (cur != _frames)\n\t\t_frames = cur;\n\n\t_vbr = true;\n\t//**********************************************************************************\n\n\t// \u0444\u0430\u0439\u043b \u0441 \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u043c \u0431\u0438\u0442\u0440\u0435\u0439\u0442\u043e\u043c ?\n\tif (_vbr) {\n\t\t// \u0432\u044b\u0434\u0435\u043b\u0438\u043c \u043f\u0430\u043c\u044f\u0442\u044c \u043f\u043e\u0434 \u0442\u0430\u0431\u043b\u0438\u0446\u0443 \u0441\u043c\u0435\u0449\u0435\u043d\u0438\u0439 \u043d\u0430 \u0444\u0440\u0435\u0439\u043c\u044b\n#if AGSS_USE_MALLOC\tif (cur != _frames)\n\t\t_frames = cur;\n\n\t_vbr = true;\n\t//**********************************************************************************\n\n\t// \u0444\u0430\u0439\u043b \u0441 \u043f\u0435\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u043c \u0431\u0438\u0442\u0440\u0435\u0439\u0442\u043e\u043c ?\n\tif (_vbr) {\n\t\t// \u0432\u044b\u0434\u0435\u043b\u0438\u043c \u043f\u0430\u043c\u044f\u0442\u044c \u043f\u043e\u0434 \u0442\u0430\u0431\u043b\u0438\u0446\u0443 \u0441\u043c\u0435\u0449\u0435\u043d\u0438\u0439 \u043d\u0430 \u0444\u0440\u0435\u0439\u043c\u044b\n#if AGSS_USE_MALLOC\n\t\t_vbrFrameOffTable = (DWORD *) malloc(_frames * sizeof(DWORD));\n#else\n\t\t_vbrFrameOffTable = (DWORD *) GlobalAlloc(GPTR,\n\t\t\t\t\t\t\t\t\t  \t_frames * sizeof(DWORD));\n#endif\n\t\tif (!_vbrFrameOffTable)\n\t\t\treturn;\n\n\t\tcur = 0;\n\t\tpos = 0;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 2948,
+    "line_text": "\t\t_vbrFrameOffTable = (DWORD *) malloc(_frames * sizeof(DWORD));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

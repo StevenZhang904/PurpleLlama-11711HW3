@@ -1,0 +1,13 @@
+{
+    "file_path": "Injection/CWE_89/safe/CWE_89__shell_exec__CAST-cast_int_sort_of2__select_from_where-sprintf_%d_simple_quote.php",
+    "vulnerability": null,
+    "source code": "\n\nPARTICULAR PURPOSE, AND NON-INFRINGEMENT.\n\n\nTHE SOFTWARE IS PROVIDED ON AN \"AS-IS\" BASIS AND AUTHORS HAVE NO\n\nOBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR\n\nMODIFICATIONS.*/\n\nPARTICULAR PURPOSE, AND NON-INFRINGEMENT.\n\n\nTHE SOFTWARE IS PROVIDED ON AN \"AS-IS\" BASIS AND AUTHORS HAVE NO\n\nOBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR\n\nMODIFICATIONS.*/\n\n\n$tainted = shell_exec('cat /tmp/tainted.txt');\n\n$tainted = $tainted + 0;\n\n$query = sprintf(\"SELECT * FROM student where id='%d'\", $tainted);\n\n$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); // Connection to the database (address, user, password)\nmysql_select_db('dbname') ;\necho \"query : \". $query .\"<br /><br />\" ;\n",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 45,
+    "line_text": "$tainted = shell_exec('cat /tmp/tainted.txt');",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "mapping/test_filter_remapped_reads.py",
+    "vulnerability": null,
+    "source code": "\n\n    os.remove(tmp_bam_filename)\n    # rename sorted bam to output bam filename\n    os.rename(data_dir + \"/tmp.sort.bam\", bam_filename)\n\n    \ndef read_bam(bam):\n    \"\"\"\n    Read a bam file into a list where each element of the list is a line from\n    the bam file (with the newline stripped). The header is discarded.\n    \"\"\"    os.remove(tmp_bam_filename)\n    # rename sorted bam to output bam filename\n    os.rename(data_dir + \"/tmp.sort.bam\", bam_filename)\n\n    \ndef read_bam(bam):\n    \"\"\"\n    Read a bam file into a list where each element of the list is a line from\n    the bam file (with the newline stripped). The header is discarded.\n    \"\"\"\n    res = subprocess.check_output('samtools view %s' % bam, shell=True)\n    return res.strip().split('\\n')\n\n\ndef test_filter_remapped_reads_pe():\n    test_dir = \"test_data\"\n    to_remap_bam_filename = \"test_data/test.to.remap.bam\"\n    remap_bam_filename = \"test_data/test.remap.bam\"\n    keep_bam_filename = \"test_data/keep.bam\"\n",
+    "language": "python",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection due to subprocess usage with shell=True.",
+    "line_number": 148,
+    "line_text": "    res = subprocess.check_output('samtools view %s' % bam, shell=True)",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-subprocess-using-shell",
+    "rule": null,
+    "label": 1
+}

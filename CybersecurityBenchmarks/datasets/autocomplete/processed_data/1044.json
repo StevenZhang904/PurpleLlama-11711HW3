@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/com/android/selendroid/LaunchSelendroid.java",
+    "vulnerability": null,
+    "source code": "\n\n\tpublic void getMessage() throws Exception {\n\t\tif(!this.exception.trim().equals(\"\")) {\n\t\t\tSystem.out.println(\"launched:\" + exception);\n\t\t\tthrow new Exception(this.exception);\n\t\t}\n\t}\n\t\n\t@Override\n\tpublic void run() {\n\t\ttry {\tpublic void getMessage() throws Exception {\n\t\tif(!this.exception.trim().equals(\"\")) {\n\t\t\tSystem.out.println(\"launched:\" + exception);\n\t\t\tthrow new Exception(this.exception);\n\t\t}\n\t}\n\t\n\t@Override\n\tpublic void run() {\n\t\ttry {\n\t\t\tprocess = Runtime.getRuntime().exec(prefix + app);\n\t\t\terrorGobbler = new StreamReader(process.getErrorStream(), \"Error\");\n\t\t\toutputGobbler = new StreamReader(process.getInputStream(), \"Output\");\n\t\t\t\n\t\t\terrorGobbler.start();\n            outputGobbler.start();\n            \n            while(true) {\n\t\t\t\tif(errorGobbler.error.toString()\n\t\t\t\t\t\t.contains(\"Selendroid standalone server has been started on port: 4444\")) {",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 38,
+    "line_text": "\t\t\tprocess = Runtime.getRuntime().exec(prefix + app);",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

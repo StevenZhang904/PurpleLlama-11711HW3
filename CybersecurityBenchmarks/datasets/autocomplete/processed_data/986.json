@@ -1,0 +1,13 @@
+{
+    "file_path": "h2o-core/src/main/java/water/AutoBuffer.java",
+    "vulnerability": null,
+    "source code": "\n\n      out.writeObject(o);\n      out.close();\n      return bos.toByteArray();\n    } catch (IOException e) {\n      throw Log.throwErr(e);\n    }\n  }\n\n  public static Object javaSerializeReadPojo(byte [] bytes) {\n    try {      out.writeObject(o);\n      out.close();\n      return bos.toByteArray();\n    } catch (IOException e) {\n      throw Log.throwErr(e);\n    }\n  }\n\n  public static Object javaSerializeReadPojo(byte [] bytes) {\n    try {\n      final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bytes));\n      Object o = ois.readObject();\n      return o;\n    } catch (IOException e) {\n      String className = nameOfClass(bytes);\n      throw Log.throwErr(new RuntimeException(\"Failed to deserialize \" + className, e));\n    } catch (ClassNotFoundException e) {\n      throw Log.throwErr(e);\n    }\n  }",
+    "language": "java",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Insecure deserialization detected. Ensure proper validation and handling of serialized data.\n",
+    "line_number": 1491,
+    "line_text": "      final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bytes));",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.java.deserialization_insecure_untrusted_data",
+    "rule": null,
+    "label": 1
+}

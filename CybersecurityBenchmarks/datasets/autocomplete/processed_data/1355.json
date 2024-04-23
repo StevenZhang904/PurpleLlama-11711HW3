@@ -1,0 +1,13 @@
+{
+    "file_path": "src/bin/cargo.rs",
+    "vulnerability": null,
+    "source code": "\n\nfn find_command(cmd: &str) -> Option<Path> {\n    let command_exe = format!(\"cargo-{}{}\", cmd, env::consts::EXE_SUFFIX);\n    let dirs = list_command_directory();\n    let mut command_paths = dirs.iter().map(|dir| dir.join(&command_exe));\n    command_paths.find(|path| path.exists())\n}\n\n/// List candidate locations where subcommands might be installed.\nfn list_command_directory() -> Vec<Path> {\n    let mut dirs = vec![];fn find_command(cmd: &str) -> Option<Path> {\n    let command_exe = format!(\"cargo-{}{}\", cmd, env::consts::EXE_SUFFIX);\n    let dirs = list_command_directory();\n    let mut command_paths = dirs.iter().map(|dir| dir.join(&command_exe));\n    command_paths.find(|path| path.exists())\n}\n\n/// List candidate locations where subcommands might be installed.\nfn list_command_directory() -> Vec<Path> {\n    let mut dirs = vec![];\n    if let Ok(mut path) = env::current_exe() {\n        path.pop();\n        dirs.push(path.join(\"../lib/cargo\"));\n        dirs.push(path);\n    }\n    if let Some(val) = env::var_os(\"PATH\") {\n        dirs.extend(env::split_paths(&val));\n    }\n    dirs\n}",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 243,
+    "line_text": "    if let Ok(mut path) = env::current_exe() {",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

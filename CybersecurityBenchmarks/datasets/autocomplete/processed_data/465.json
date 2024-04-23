@@ -1,0 +1,13 @@
+{
+    "file_path": "src/bgfx.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t.add(Attrib::TexCoord0, 2, AttribType::Float)\n\t\t\t.end();\n\n\t\tuint16_t width  = 2048;\n\t\tuint16_t height = 24;\n\t\tuint8_t  bpp    = 1;\n\t\tuint32_t pitch  = width*bpp;\n\n\t\tconst Memory* mem;\n\t\t\t.add(Attrib::TexCoord0, 2, AttribType::Float)\n\t\t\t.end();\n\n\t\tuint16_t width  = 2048;\n\t\tuint16_t height = 24;\n\t\tuint8_t  bpp    = 1;\n\t\tuint32_t pitch  = width*bpp;\n\n\t\tconst Memory* mem;\n\n\t\tmem = alloc(pitch*height);\n\t\tuint8_t* rgba = mem->data;\n\t\tcharsetFillTexture(vga8x8, rgba, 8, pitch, bpp);\n\t\tcharsetFillTexture(vga8x16, &rgba[8*pitch], 16, pitch, bpp);\n\t\tm_texture = createTexture2D(width, height, false, 1, TextureFormat::R8\n\t\t\t\t\t\t, BGFX_TEXTURE_MIN_POINT\n\t\t\t\t\t\t| BGFX_TEXTURE_MAG_POINT\n\t\t\t\t\t\t| BGFX_TEXTURE_MIP_POINT\n\t\t\t\t\t\t| BGFX_TEXTURE_U_CLAMP\n\t\t\t\t\t\t| BGFX_TEXTURE_V_CLAMP",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 607,
+    "line_text": "\t\tmem = alloc(pitch*height);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

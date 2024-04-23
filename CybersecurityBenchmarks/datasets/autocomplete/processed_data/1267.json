@@ -1,0 +1,13 @@
+{
+    "file_path": "src/hook.rs",
+    "vulnerability": null,
+    "source code": "\n\n            hook: hook,\n        }\n    }\n\n    fn authenticate(&self, payload: &str, signature: &str) -> bool {\n        // https://developer.github.com/webhooks/securing/#validating-payloads-from-github\n        let sans_prefix = signature[5..signature.len()].as_bytes();\n        match Vec::from_hex(sans_prefix) {\n            Ok(sigbytes) => {\n                let sbytes = self.secret.as_bytes();            hook: hook,\n        }\n    }\n\n    fn authenticate(&self, payload: &str, signature: &str) -> bool {\n        // https://developer.github.com/webhooks/securing/#validating-payloads-from-github\n        let sans_prefix = signature[5..signature.len()].as_bytes();\n        match Vec::from_hex(sans_prefix) {\n            Ok(sigbytes) => {\n                let sbytes = self.secret.as_bytes();\n                let mut mac = Hmac::new(Sha1::new(), &sbytes);\n                let pbytes = payload.as_bytes();\n                mac.input(&pbytes);\n                // constant time comparison\n                mac.result() == MacResult::new(&sigbytes)\n            }\n            Err(_) => false,\n        }\n    }\n}",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 36,
+    "line_text": "                let mut mac = Hmac::new(Sha1::new(), &sbytes);",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

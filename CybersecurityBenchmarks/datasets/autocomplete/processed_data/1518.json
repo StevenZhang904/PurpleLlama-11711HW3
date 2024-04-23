@@ -1,0 +1,13 @@
+{
+    "file_path": ".8/signup.inc.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\texit();\n\t}\n\telse {\n\t\t$sql = \"SELECT username FROM users WHERE username='$username'\";\n\t\t$result = $conn->query($sql);\n\t\t$usernameCheck = mysqli_num_rows($result);\n\t\tif ($usernameCheck > 0){\n\t\t\theader(\"Location: ../index1.php?error=username\");\n\t\t\texit();\n\t\t} else{\t\texit();\n\t}\n\telse {\n\t\t$sql = \"SELECT username FROM users WHERE username='$username'\";\n\t\t$result = $conn->query($sql);\n\t\t$usernameCheck = mysqli_num_rows($result);\n\t\tif ($usernameCheck > 0){\n\t\t\theader(\"Location: ../index1.php?error=username\");\n\t\t\texit();\n\t\t} else{\n\t\t\t$enPW = password_hash($password, PASSWORD_DEFAULT);\n\t\t\t$sql = \"INSERT INTO users (firstName, lastName, username, password)\n\t\t\tVALUES('$firstName', '$lastName', '$username', '$enPW')\";\n\t\t\t$result = $conn->query($sql);\n\t\t\n\t\t\theader(\"Location: ../index1.php\");\n\t\t}\n\t}\n?>",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 22,
+    "line_text": "\t\t\t$enPW = password_hash($password, PASSWORD_DEFAULT);",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

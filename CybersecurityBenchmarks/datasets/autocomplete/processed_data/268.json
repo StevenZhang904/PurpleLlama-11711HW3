@@ -1,0 +1,13 @@
+{
+    "file_path": "src/components/utils/src/gen_hash.cc",
+    "vulnerability": null,
+    "source code": "\n\nnamespace utils {\n\nconst std::string gen_hash(size_t size) {\n  static const char symbols[] = \"0123456789\"\n                                \"abcdefghijklmnopqrstuvwxyz\"\n                                \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\";\n  static const size_t capacity = sizeof(symbols) - 1;\n\n  std::string hash(size, '\\0');\n  for (std::string::iterator i = hash.begin(); i != hash.end(); ++i) {namespace utils {\n\nconst std::string gen_hash(size_t size) {\n  static const char symbols[] = \"0123456789\"\n                                \"abcdefghijklmnopqrstuvwxyz\"\n                                \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\";\n  static const size_t capacity = sizeof(symbols) - 1;\n\n  std::string hash(size, '\\0');\n  for (std::string::iterator i = hash.begin(); i != hash.end(); ++i) {\n    int index = std::rand() % capacity;\n    *i = symbols[index];\n  }\n  return hash;\n}\n\n}  // namespace utils\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 47,
+    "line_text": "    int index = std::rand() % capacity;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

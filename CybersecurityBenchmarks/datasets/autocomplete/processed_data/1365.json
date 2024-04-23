@@ -1,0 +1,13 @@
+{
+    "file_path": "game/src/lib.rs",
+    "vulnerability": null,
+    "source code": "\n\n    server_port: u16,\n    user_data_path: PathBuf,\n    rally_point_port: u16,\n}\n\n// TODO: This function should probably cache the result instead of recomputing\n// it several times. It's not really slow relative to anything but unnecessary\n// work is unnecessary.\nfn parse_args() -> Args {\n    try_parse_args().unwrap_or_else(|| {    server_port: u16,\n    user_data_path: PathBuf,\n    rally_point_port: u16,\n}\n\n// TODO: This function should probably cache the result instead of recomputing\n// it several times. It's not really slow relative to anything but unnecessary\n// work is unnecessary.\nfn parse_args() -> Args {\n    try_parse_args().unwrap_or_else(|| {\n        let args = std::env::args_os().collect::<Vec<_>>();\n        panic!(\"Couldn't parse the following args {:?}\", args);\n    })\n}\n\nfn try_parse_args() -> Option<Args> {\n    let mut args = std::env::args_os();\n    // Skip over exe path\n    args.next()?;\n    let game_id = args.next()?.into_string().ok()?;",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 483,
+    "line_text": "        let args = std::env::args_os().collect::<Vec<_>>();",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

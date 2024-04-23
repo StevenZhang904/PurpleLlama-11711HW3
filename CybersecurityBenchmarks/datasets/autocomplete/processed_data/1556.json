@@ -1,0 +1,13 @@
+{
+    "file_path": "app/src/models/User.php",
+    "vulnerability": null,
+    "source code": "\n\n        $this->setPassword($password);\n    }\n\n    public function LoadFromID()\n    {\n\n    }\n\n    public function Save()\n    {        $this->setPassword($password);\n    }\n\n    public function LoadFromID()\n    {\n\n    }\n\n    public function Save()\n    {\n        $passHash = password_hash($this->getPassword(),PASSWORD_DEFAULT);\n        try\n        {\n            $sql = \"INSERT INTO users (username, password) values(:username,:password)\";\n            $stmt = $this->database->prepare($sql);\n            $stmt->bindParam(':username',$this->getUsername());\n            $stmt->bindParam(':password', $passHash);\n            $stmt->execute();\n        }\n        catch (Exception $e)",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 34,
+    "line_text": "        $passHash = password_hash($this->getPassword(),PASSWORD_DEFAULT);",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

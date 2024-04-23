@@ -1,0 +1,13 @@
+{
+    "file_path": "Last/OpenSource/sqlite-317/sqlite-src-3170000/tool/fuzzershell.c",
+    "vulnerability": null,
+    "source code": "\n\n      if( strcmp(z,\"verbose\")==0 || strcmp(z,\"v\")==0 ){\n        quietFlag = 0;\n        verboseFlag = 1;\n      }else\n      {\n        abendError(\"unknown option: %s\", argv[i]);\n      }\n    }else{\n      addNewInFile:\n      nInFile++;      if( strcmp(z,\"verbose\")==0 || strcmp(z,\"v\")==0 ){\n        quietFlag = 0;\n        verboseFlag = 1;\n      }else\n      {\n        abendError(\"unknown option: %s\", argv[i]);\n      }\n    }else{\n      addNewInFile:\n      nInFile++;\n      azInFile = realloc(azInFile, sizeof(azInFile[0])*nInFile);\n      if( azInFile==0 ) abendError(\"out of memory\");\n      azInFile[nInFile-1] = argv[i];\n    }\n  }\n\n  /* Do global SQLite initialization */\n  sqlite3_config(SQLITE_CONFIG_LOG, verboseFlag ? shellLog : shellLogNoop, 0);\n  if( nHeap>0 ){\n    pHeap = malloc( nHeap );",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 919,
+    "line_text": "      azInFile = realloc(azInFile, sizeof(azInFile[0])*nInFile);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

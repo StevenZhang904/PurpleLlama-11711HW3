@@ -1,0 +1,13 @@
+{
+    "file_path": "src/common/finetune_classifier.cc",
+    "vulnerability": null,
+    "source code": "\n\n  if (mode == 3)\n    multiplier = 3; // only works for compound test\n  if (mode == 4)\n    multiplier = 4;\n  // Embedding: s1 + s2 + cos_sim(s1,s2) + len(s1) + len(s2) +\n  // unigram_overlap(s1,s2) following Blacoe/Lapata 2012\n  dynamic_embedding_size = multiplier * rae.config.word_representation_size;\n\n  theta_size_ = dynamic_embedding_size * label_width * num_label_types + label_width * num_label_types;\n  if (mode == 3)\n    multiplier = 3; // only works for compound test\n  if (mode == 4)\n    multiplier = 4;\n  // Embedding: s1 + s2 + cos_sim(s1,s2) + len(s1) + len(s2) +\n  // unigram_overlap(s1,s2) following Blacoe/Lapata 2012\n  dynamic_embedding_size = multiplier * rae.config.word_representation_size;\n\n  theta_size_ = dynamic_embedding_size * label_width * num_label_types + label_width * num_label_types;\n\n  trainI_ = new Real[train_length * dynamic_embedding_size]();\n  theta_  = new Real[theta_size_];\n  WeightVectorType theta(theta_,theta_size_);\n  theta.setZero();\n  if (true) {\n    std::random_device rd;\n    std::mt19937 gen(rd());\n    //std::mt19937 gen(0);\n    float r = sqrt( 6.0 / dynamic_embedding_size);\n    std::uniform_real_distribution<> dis(-r,r);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 61,
+    "line_text": "  trainI_ = new Real[train_length * dynamic_embedding_size]();",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "vendor/samtools-0.1.19/bam_index.c",
+    "vulnerability": null,
+    "source code": "\n\n\tbam_binlist_t *l;\n\tint ret;\n\tk = kh_put(i, h, bin, &ret);\n\tl = &kh_value(h, k);\n\tif (ret) { // not present\n\t\tl->m = 1; l->n = 0;\n\t\tl->list = (pair64_t*)calloc(l->m, 16);\n\t}\n\tif (l->n == l->m) {\n\t\tl->m <<= 1;\tbam_binlist_t *l;\n\tint ret;\n\tk = kh_put(i, h, bin, &ret);\n\tl = &kh_value(h, k);\n\tif (ret) { // not present\n\t\tl->m = 1; l->n = 0;\n\t\tl->list = (pair64_t*)calloc(l->m, 16);\n\t}\n\tif (l->n == l->m) {\n\t\tl->m <<= 1;\n\t\tl->list = (pair64_t*)realloc(l->list, l->m * 16);\n\t}\n\tl->list[l->n].u = beg; l->list[l->n++].v = end;\n}\n\nstatic inline void insert_offset2(bam_lidx_t *index2, bam1_t *b, uint64_t offset)\n{\n\tint i, beg, end;\n\tbeg = b->core.pos >> BAM_LIDX_SHIFT;\n\tend = (bam_calend(&b->core, bam1_cigar(b)) - 1) >> BAM_LIDX_SHIFT;",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 87,
+    "line_text": "\t\tl->list = (pair64_t*)realloc(l->list, l->m * 16);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

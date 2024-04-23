@@ -1,0 +1,13 @@
+{
+    "file_path": "indexing-service/src/test/java/org/apache/druid/indexing/common/task/MergeTaskBaseTest.java",
+    "vulnerability": null,
+    "source code": "\n\n  public void testInterval()\n  {\n    Assert.assertEquals(Intervals.of(\"2012-01-03/2012-01-07\"), testMergeTaskBase.getInterval());\n  }\n\n  @Test\n  public void testID()\n  {\n    final String desiredPrefix =\n        \"merge_foo_\" +  public void testInterval()\n  {\n    Assert.assertEquals(Intervals.of(\"2012-01-03/2012-01-07\"), testMergeTaskBase.getInterval());\n  }\n\n  @Test\n  public void testID()\n  {\n    final String desiredPrefix =\n        \"merge_foo_\" +\n        Hashing.sha1().hashString(\n            \"2012-01-03T00:00:00.000Z_2012-01-05T00:00:00.000Z_V1_0\" +\n            \"_2012-01-04T00:00:00.000Z_2012-01-06T00:00:00.000Z_V1_0\" +\n            \"_2012-01-05T00:00:00.000Z_2012-01-07T00:00:00.000Z_V1_0\",\n            StandardCharsets.UTF_8\n        ) +\n        \"_\";\n    Assert.assertEquals(\n        desiredPrefix,\n        testMergeTaskBase.getId().substring(0, desiredPrefix.length())",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 79,
+    "line_text": "        Hashing.sha1().hashString(",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

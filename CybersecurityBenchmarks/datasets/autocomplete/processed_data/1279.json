@@ -1,0 +1,13 @@
+{
+    "file_path": "src/frame/server/response.rs",
+    "vulnerability": null,
+    "source code": "\n\n    }\n\n    /// Generate the `Sec-WebSocket-Accept` value.\n    pub fn accept_val(&self) -> io::Result<String> {\n        if self.ws_key.is_empty() {\n            Err(util::other(\"invalid Sec-WebSocket-Key\"))\n        } else {\n            let mut base = self.ws_key.clone();\n            base.push_str(KEY);\n    }\n\n    /// Generate the `Sec-WebSocket-Accept` value.\n    pub fn accept_val(&self) -> io::Result<String> {\n        if self.ws_key.is_empty() {\n            Err(util::other(\"invalid Sec-WebSocket-Key\"))\n        } else {\n            let mut base = self.ws_key.clone();\n            base.push_str(KEY);\n\n            let mut m = Sha1::new();\n            m.reset();\n            m.update(base.as_bytes());\n\n            Ok(encode(&m.digest().bytes()))\n        }\n    }\n}\n\nimpl Default for Frame {",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 151,
+    "line_text": "            let mut m = Sha1::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

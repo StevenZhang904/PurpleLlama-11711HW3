@@ -1,0 +1,13 @@
+{
+    "file_path": "compiler/rustc_session/src/filesearch.rs",
+    "vulnerability": null,
+    "source code": "\n\n            }\n            Err(e) => panic!(\"failed to get current_exe: {}\", e),\n        }\n    }\n\n    // Use env::args().next() to get the path of the executable without\n    // following symlinks/canonicalizing any component. This makes the rustc\n    // binary able to locate Rust libraries in systems using content-addressable\n    // storage (CAS).\n    fn from_env_args_next() -> Option<PathBuf> {            }\n            Err(e) => panic!(\"failed to get current_exe: {}\", e),\n        }\n    }\n\n    // Use env::args().next() to get the path of the executable without\n    // following symlinks/canonicalizing any component. This makes the rustc\n    // binary able to locate Rust libraries in systems using content-addressable\n    // storage (CAS).\n    fn from_env_args_next() -> Option<PathBuf> {\n        match env::args_os().next() {\n            Some(first_arg) => {\n                let mut p = PathBuf::from(first_arg);\n\n                // Check if sysroot is found using env::args().next() only if the rustc in argv[0]\n                // is a symlink (see #79253). We might want to change/remove it to conform with\n                // https://www.gnu.org/prep/standards/standards.html#Finding-Program-Files in the\n                // future.\n                if fs::read_link(&p).is_err() {\n                    // Path is not a symbolic link or does not exist.",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 141,
+    "line_text": "        match env::args_os().next() {",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

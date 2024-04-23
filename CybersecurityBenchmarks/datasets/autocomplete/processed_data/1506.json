@@ -1,0 +1,13 @@
+{
+    "file_path": "src/AppBundle/Entity/Reaction.php",
+    "vulnerability": null,
+    "source code": "\n\n     * @ORM\\JoinColumn(name=\"courrier_id\", referencedColumnName=\"id\")\r\n     */\r\n    private $courrier;\r\n\r\n    /**\r\n     * Constructor\r\n     */\r\n    public function __construct()\r\n    {\r\n        if (php_sapi_name() !== 'cli') {\r     * @ORM\\JoinColumn(name=\"courrier_id\", referencedColumnName=\"id\")\r\n     */\r\n    private $courrier;\r\n\r\n    /**\r\n     * Constructor\r\n     */\r\n    public function __construct()\r\n    {\r\n        if (php_sapi_name() !== 'cli') {\r\n            $this->ip = $_SERVER['REMOTE_ADDR'];\r\n        }\r\n        $this->date = new \\Datetime();\r\n        $this->status = self::STATUS_PENDING;\r\n    }\r\n\r\n    /**\r\n     * Get id\r\n     *\r\n     * @return integer\r",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 92,
+    "line_text": "            $this->ip = $_SERVER['REMOTE_ADDR'];\r",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

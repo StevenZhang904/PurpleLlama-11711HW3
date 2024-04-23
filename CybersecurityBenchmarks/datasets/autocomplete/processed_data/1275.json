@@ -1,0 +1,13 @@
+{
+    "file_path": "src/libstd/fs.rs",
+    "vulnerability": null,
+    "source code": "\n\n    impl Drop for TempDir {\n        fn drop(&mut self) {\n            // Gee, seeing how we're testing the fs module I sure hope that we\n            // at least implement this correctly!\n            let TempDir(ref p) = *self;\n            check!(fs::remove_dir_all(p));\n        }\n    }\n\n    pub fn tmpdir() -> TempDir {    impl Drop for TempDir {\n        fn drop(&mut self) {\n            // Gee, seeing how we're testing the fs module I sure hope that we\n            // at least implement this correctly!\n            let TempDir(ref p) = *self;\n            check!(fs::remove_dir_all(p));\n        }\n    }\n\n    pub fn tmpdir() -> TempDir {\n        let p = env::temp_dir();\n        let mut r = rand::thread_rng();\n        let ret = p.join(&format!(\"rust-{}\", r.next_u32()));\n        check!(fs::create_dir(&ret));\n        TempDir(ret)\n    }\n\n    #[test]\n    fn file_test_io_smoke_test() {\n        let message = \"it's alright. have a good time\";",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 1398,
+    "line_text": "        let p = env::temp_dir();",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

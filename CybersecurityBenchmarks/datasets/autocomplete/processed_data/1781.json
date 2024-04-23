@@ -1,0 +1,13 @@
+{
+    "file_path": ".vscode/extensions/ms-python.python-2021.5.842923320/pythonFiles/lib/python/debugpy/_vendored/pydevd/_pydev_runfiles/pydev_runfiles_pytest2.py",
+    "vulnerability": null,
+    "source code": "\n\n# Load filters with tests we should skip\r\n#=========================================================================\r\npy_test_accept_filter = None\r\n\r\n\r\ndef _load_filters():\r\n    global py_test_accept_filter\r\n    if py_test_accept_filter is None:\r\n        py_test_accept_filter = os.environ.get('PYDEV_PYTEST_SKIP')\r\n        if py_test_accept_filter:\r# Load filters with tests we should skip\r\n#=========================================================================\r\npy_test_accept_filter = None\r\n\r\n\r\ndef _load_filters():\r\n    global py_test_accept_filter\r\n    if py_test_accept_filter is None:\r\n        py_test_accept_filter = os.environ.get('PYDEV_PYTEST_SKIP')\r\n        if py_test_accept_filter:\r\n            py_test_accept_filter = pickle.loads(\r\n                zlib.decompress(base64.b64decode(py_test_accept_filter)))\r\n\r\n            if Path is not None:\r\n                # Newer versions of pytest resolve symlinks, so, we\r\n                # may need to filter with a resolved path too.\r\n                new_dct = {}\r\n                for filename, value in py_test_accept_filter.items():\r\n                    new_dct[canonical_normalized_path(str(Path(filename).resolve()))] = value\r\n\r",
+    "language": "python",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Potential deserialization risk due to pickle usage.",
+    "line_number": 27,
+    "line_text": "            py_test_accept_filter = pickle.loads(\r",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.unsafe-pickle-use",
+    "rule": null,
+    "label": 1
+}

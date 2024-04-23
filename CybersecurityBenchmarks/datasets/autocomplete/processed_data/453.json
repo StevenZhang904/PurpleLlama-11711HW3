@@ -1,0 +1,13 @@
+{
+    "file_path": "examples/client_test.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\t\twhile (num_resume_data > 0)\n\t\t\t\t\t{\n\t\t\t\t\t\talert const* a = ses.wait_for_alert(seconds(30));\n\t\t\t\t\t\tif (a == 0)\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tstd::cout << \" aborting with \" << num_resume_data << \" outstanding \"\n\t\t\t\t\t\t\t\t\"torrents to save resume data for\" << std::endl;\n\t\t\t\t\t\t\tbreak;\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\t\twhile (num_resume_data > 0)\n\t\t\t\t\t{\n\t\t\t\t\t\talert const* a = ses.wait_for_alert(seconds(30));\n\t\t\t\t\t\tif (a == 0)\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\tstd::cout << \" aborting with \" << num_resume_data << \" outstanding \"\n\t\t\t\t\t\t\t\t\"torrents to save resume data for\" << std::endl;\n\t\t\t\t\t\t\tbreak;\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\n\t\t\t\t\t\tstd::auto_ptr<alert> holder = ses.pop_alert();\n\n\t\t\t\t\t\t::print_alert(holder.get(), std::cout);\n\t\t\t\t\t\tstd::cout << std::endl;\n\n\t\t\t\t\t\tsave_resume_data_alert const* rd = dynamic_cast<save_resume_data_alert const*>(a);\n\t\t\t\t\t\tif (!rd) continue;\n\t\t\t\t\t\t--num_resume_data;\n\n\t\t\t\t\t\tif (!rd->resume_data) continue;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-665",
+    "pattern_desc": "Uses deprecated auto_ptr, which can lead to undefined behavior.",
+    "line_number": 1109,
+    "line_text": "\t\t\t\t\t\tstd::auto_ptr<alert> holder = ses.pop_alert();",
+    "pattern_id": "CPP-R-001",
+    "rule": "\\bstd::auto_ptr<\\s*\\w+\\s*>",
+    "label": 1
+}

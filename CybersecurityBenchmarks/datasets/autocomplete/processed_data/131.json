@@ -1,0 +1,13 @@
+{
+    "file_path": "targets/nuttx-stm32f4/jerry_main.c",
+    "vulnerability": null,
+    "source code": "\n\n * Print error value\n */\nstatic void\nprint_unhandled_exception (jerry_value_t error_value) /**< error value */\n{\n  assert (jerry_value_is_error (error_value));\n\n  error_value = jerry_get_value_from_error (error_value, false);\n  jerry_value_t err_str_val = jerry_value_to_string (error_value);\n  jerry_size_t err_str_size = jerry_get_utf8_string_size (err_str_val); * Print error value\n */\nstatic void\nprint_unhandled_exception (jerry_value_t error_value) /**< error value */\n{\n  assert (jerry_value_is_error (error_value));\n\n  error_value = jerry_get_value_from_error (error_value, false);\n  jerry_value_t err_str_val = jerry_value_to_string (error_value);\n  jerry_size_t err_str_size = jerry_get_utf8_string_size (err_str_val);\n  jerry_char_t err_str_buf[256];\n\n  jerry_release_value (error_value);\n\n  if (err_str_size >= 256)\n  {\n    const char msg[] = \"[Error message too long]\";\n    err_str_size = sizeof (msg) / sizeof (char) - 1;\n    memcpy (err_str_buf, msg, err_str_size);\n  }",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 164,
+    "line_text": "  jerry_char_t err_str_buf[256];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "Source/Server/adminTool/src/com/tle/client/harness/ServiceManagerHarness.java",
+    "vulnerability": null,
+    "source code": "\n\n    }\n\n    @Override\n    public boolean isOffline() {\n      return false;\n    }\n\n    @Override\n    public boolean showDocument(URL url) {\n      try {    }\n\n    @Override\n    public boolean isOffline() {\n      return false;\n    }\n\n    @Override\n    public boolean showDocument(URL url) {\n      try {\n        Runtime.getRuntime().exec(\"cmd /C start \" + url.toString().replaceAll(\"&\", \"\\\"&\\\"\"));\n      } catch (IOException e) {\n        throw new RuntimeException(e);\n      }\n      return false;\n    }\n\n    @Override\n    public boolean isWebBrowserSupported() {\n      return true;",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 64,
+    "line_text": "        Runtime.getRuntime().exec(\"cmd /C start \" + url.toString().replaceAll(\"&\", \"\\\"&\\\"\"));",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

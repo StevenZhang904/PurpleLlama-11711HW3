@@ -1,0 +1,13 @@
+{
+    "file_path": "src/vm_strings.c",
+    "vulnerability": null,
+    "source code": "\n\n#include <assert.h>\n\nString *String_alloc(size_t length) {\n\tString *p = (String *)calloc(1, sizeof(String) + (length+1) * sizeof(char));\n\tp->length = length;\n\treturn p;\n}\n\nString *String_new(char *orig) {\n\tString *s = String_alloc(strlen(orig));#include <assert.h>\n\nString *String_alloc(size_t length) {\n\tString *p = (String *)calloc(1, sizeof(String) + (length+1) * sizeof(char));\n\tp->length = length;\n\treturn p;\n}\n\nString *String_new(char *orig) {\n\tString *s = String_alloc(strlen(orig));\n\tstrcpy(s->str, orig);\n\treturn s;\n}\n\nString *String_dup(String *orig) {\n\tString *s = String_alloc(orig->length);\n\tstrcpy(s->str, orig->str);\n\treturn s;\n}\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 15,
+    "line_text": "\tstrcpy(s->str, orig);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

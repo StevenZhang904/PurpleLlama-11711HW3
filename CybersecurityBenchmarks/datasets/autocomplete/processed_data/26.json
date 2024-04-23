@@ -1,0 +1,13 @@
+{
+    "file_path": "src/lua-mongoc.c",
+    "vulnerability": null,
+    "source code": "\n\nvoid lmongoc_bsontype(lua_State * L, int type)\n{\n\tluamongoc_bsontype * result = NULL;\n\tbson * b = bson_create();\n\tchar string[25];\n\n\tbson_init(b);\n\tswitch(type) {\n\t\tcase 10:\n\t\t\tbson_append_null(b, \"bsontype\");void lmongoc_bsontype(lua_State * L, int type)\n{\n\tluamongoc_bsontype * result = NULL;\n\tbson * b = bson_create();\n\tchar string[25];\n\n\tbson_init(b);\n\tswitch(type) {\n\t\tcase 10:\n\t\t\tbson_append_null(b, \"bsontype\");\n\t\t\tsprintf(string, \"mongoc.null\");\n\t\tbreak;\n\t\tcase 11:\n\t\t\tbson_append_regex(b, \"bsontype\", luaL_checkstring(L, 1), luaL_checkstring(L, 2));\n\t\t\tsprintf(string, \"mongoc.RegEx: /%s/%s\", lua_tostring(L, 1), lua_tostring(L, 2));\n\t\tbreak;\n\t}\n\n\tif(bson_finish(b) != 0)\n\t{",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 769,
+    "line_text": "\t\t\tsprintf(string, \"mongoc.null\");",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

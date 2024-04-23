@@ -1,0 +1,13 @@
+{
+    "file_path": "src/libstd/sys/unix/os.rs",
+    "vulnerability": null,
+    "source code": "\n\n    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {\n        \"path segment contains separator `:`\".fmt(f)\n    }\n}\n\nimpl StdError for JoinPathsError {\n    fn description(&self) -> &str { \"failed to join paths\" }\n}\n\n#[cfg(target_os = \"freebsd\")]    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {\n        \"path segment contains separator `:`\".fmt(f)\n    }\n}\n\nimpl StdError for JoinPathsError {\n    fn description(&self) -> &str { \"failed to join paths\" }\n}\n\n#[cfg(target_os = \"freebsd\")]\npub fn current_exe() -> io::Result<PathBuf> {\n    unsafe {\n        use libc::funcs::bsd44::*;\n        use libc::consts::os::extra::*;\n        let mut mib = vec![CTL_KERN as c_int,\n                           KERN_PROC as c_int,\n                           KERN_PROC_PATHNAME as c_int,\n                           -1 as c_int];\n        let mut sz: libc::size_t = 0;\n        let err = sysctl(mib.as_mut_ptr(), mib.len() as ::libc::c_uint,",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 186,
+    "line_text": "pub fn current_exe() -> io::Result<PathBuf> {",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

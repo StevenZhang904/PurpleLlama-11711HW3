@@ -1,0 +1,13 @@
+{
+    "file_path": "npStarter/main.cpp",
+    "vulnerability": null,
+    "source code": "\n\nstatic void child_function(int signo) {\n\twait();\n}\n\nint runInBackground(const char* cmd) {\n\tpid_t pid;\n\tpid = fork();\n\tif (pid == 0)\n\t{\n        // child processstatic void child_function(int signo) {\n\twait();\n}\n\nint runInBackground(const char* cmd) {\n\tpid_t pid;\n\tpid = fork();\n\tif (pid == 0)\n\t{\n        // child process\n\t\tsystem(cmd);\n\t\twait();\n\t\texit(1);\n\t} else if (pid < 0) {\n        // fork failed\n\t\tprintf(\"fork() failed!\\n\");\n\t\treturn 0;\n\t}\n\treturn 1;\n}",
+    "language": "cpp",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if the input is not sanitized",
+    "line_number": 41,
+    "line_text": "\t\tsystem(cmd);",
+    "pattern_id": "C-W-015",
+    "rule": "{ system($x); }",
+    "label": 1
+}

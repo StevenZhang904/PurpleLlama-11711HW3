@@ -1,0 +1,13 @@
+{
+    "file_path": "src/libstd/sys/windows/os.rs",
+    "vulnerability": null,
+    "source code": "\n\nimpl fmt::Display for JoinPathsError {\n    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {\n        \"path segment contains `\\\"`\".fmt(f)\n    }\n}\n\nimpl StdError for JoinPathsError {\n    fn description(&self) -> &str { \"failed to join paths\" }\n}\nimpl fmt::Display for JoinPathsError {\n    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {\n        \"path segment contains `\\\"`\".fmt(f)\n    }\n}\n\nimpl StdError for JoinPathsError {\n    fn description(&self) -> &str { \"failed to join paths\" }\n}\n\npub fn current_exe() -> io::Result<PathBuf> {\n    super::fill_utf16_buf_new(|buf, sz| unsafe {\n        libc::GetModuleFileNameW(ptr::null_mut(), buf, sz)\n    }, super::os2path)\n}\n\npub fn getcwd() -> io::Result<PathBuf> {\n    super::fill_utf16_buf_new(|buf, sz| unsafe {\n        libc::GetCurrentDirectoryW(sz, buf)\n    }, super::os2path)",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 233,
+    "line_text": "pub fn current_exe() -> io::Result<PathBuf> {",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

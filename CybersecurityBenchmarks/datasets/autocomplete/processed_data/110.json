@@ -1,0 +1,13 @@
+{
+    "file_path": "core/deps/curl/lib/curl_ntlm_core.c",
+    "vulnerability": null,
+    "source code": "\n\n   * network encoding not the host encoding.\n   */\n  result = Curl_convert_to_network(data, (char *)pw, len * 2);\n  if(result)\n    return result;\n\n  {\n    /* Create NT hashed password. */\n#ifdef USE_OPENSSL\n    MD4_CTX MD4pw;   * network encoding not the host encoding.\n   */\n  result = Curl_convert_to_network(data, (char *)pw, len * 2);\n  if(result)\n    return result;\n\n  {\n    /* Create NT hashed password. */\n#ifdef USE_OPENSSL\n    MD4_CTX MD4pw;\n    MD4_Init(&MD4pw);\n    MD4_Update(&MD4pw, pw, 2 * len);\n    MD4_Final(ntbuffer, &MD4pw);\n#elif defined(USE_GNUTLS_NETTLE)\n    struct md4_ctx MD4pw;\n    md4_init(&MD4pw);\n    md4_update(&MD4pw, (unsigned int)(2 * len), pw);\n    md4_digest(&MD4pw, MD4_DIGEST_SIZE, ntbuffer);\n#elif defined(USE_GNUTLS)\n    gcry_md_hd_t MD4pw;",
+    "language": "c",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD2 and MD4 hash functions are considered insecure.",
+    "line_number": 557,
+    "line_text": "    MD4_Init(&MD4pw);",
+    "pattern_id": "C-R-006",
+    "rule": "(MD2_Init\\s*\\()|(EVP_md2\\s*\\()|(MD4_Init\\s*\\()|(EVP_md4\\s*\\()",
+    "label": 1
+}

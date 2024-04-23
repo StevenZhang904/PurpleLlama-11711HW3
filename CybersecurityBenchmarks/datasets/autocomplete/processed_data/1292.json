@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/support/paths.rs",
+    "vulnerability": null,
+    "source code": "\n\nuse std::io::{self, ErrorKind};\nuse std::path::{Path, PathBuf};\nuse std::sync::{Once, ONCE_INIT};\nuse std::sync::atomic::{AtomicUsize, ATOMIC_USIZE_INIT, Ordering};\n\nstatic CARGO_INTEGRATION_TEST_DIR : &'static str = \"cit\";\nstatic NEXT_ID: AtomicUsize = ATOMIC_USIZE_INIT;\nthread_local!(static TASK_ID: usize = NEXT_ID.fetch_add(1, Ordering::SeqCst));\n\npub fn root() -> PathBuf {use std::io::{self, ErrorKind};\nuse std::path::{Path, PathBuf};\nuse std::sync::{Once, ONCE_INIT};\nuse std::sync::atomic::{AtomicUsize, ATOMIC_USIZE_INIT, Ordering};\n\nstatic CARGO_INTEGRATION_TEST_DIR : &'static str = \"cit\";\nstatic NEXT_ID: AtomicUsize = ATOMIC_USIZE_INIT;\nthread_local!(static TASK_ID: usize = NEXT_ID.fetch_add(1, Ordering::SeqCst));\n\npub fn root() -> PathBuf {\n    env::current_exe().unwrap()\n                  .parent().unwrap() // chop off exe name\n                  .parent().unwrap() // chop off 'debug'\n                  .parent().unwrap() // chop off target\n                  .join(CARGO_INTEGRATION_TEST_DIR)\n                  .join(&TASK_ID.with(|my_id| format!(\"t{}\", my_id)))\n}\n\npub fn home() -> PathBuf {\n    root().join(\"home\")",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 14,
+    "line_text": "    env::current_exe().unwrap()",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

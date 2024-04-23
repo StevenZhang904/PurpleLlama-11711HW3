@@ -1,0 +1,13 @@
+{
+    "file_path": "src/js/index3.js",
+    "vulnerability": null,
+    "source code": "\n\n\n\nfunction onMouseUp(event){\n    ismousedown = false;\n    console.log(\"onMouseUp\");\n}\n\nfunction onMouseDown(event){\n    ismousedown = true;\n    console.log(\"onMouseDown\");\n\nfunction onMouseUp(event){\n    ismousedown = false;\n    console.log(\"onMouseUp\");\n}\n\nfunction onMouseDown(event){\n    ismousedown = true;\n    console.log(\"onMouseDown\");\n    nsteps = 20 + Math.random()*160;\n}\nvar nsteps = 20;\n\nfunction drawParticleUpdate()\n{\n    if(ismousedown)\n    {\n        var n = 50;\n        var nx = mousex/w +  Math.random()*0.02 ;",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 603,
+    "line_text": "    nsteps = 20 + Math.random()*160;",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

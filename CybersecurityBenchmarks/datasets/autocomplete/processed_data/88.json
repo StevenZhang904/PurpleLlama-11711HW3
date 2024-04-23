@@ -1,0 +1,13 @@
+{
+    "file_path": "jni/ffmpeg-2.2/libavformat/mpegtsenc.c",
+    "vulnerability": null,
+    "source code": "\n\n    ts->pat.pid = PAT_PID;\n    ts->pat.cc = 15; // Initialize at 15 so that it wraps and be equal to 0 for the first packet we write\n    ts->pat.write_packet = section_write_packet;\n    ts->pat.opaque = s;\n\n    ts->sdt.pid = SDT_PID;\n    ts->sdt.cc = 15;\n    ts->sdt.write_packet = section_write_packet;\n    ts->sdt.opaque = s;\n    ts->pat.pid = PAT_PID;\n    ts->pat.cc = 15; // Initialize at 15 so that it wraps and be equal to 0 for the first packet we write\n    ts->pat.write_packet = section_write_packet;\n    ts->pat.opaque = s;\n\n    ts->sdt.pid = SDT_PID;\n    ts->sdt.cc = 15;\n    ts->sdt.write_packet = section_write_packet;\n    ts->sdt.opaque = s;\n\n    pids = av_malloc(s->nb_streams * sizeof(*pids));\n    if (!pids)\n        return AVERROR(ENOMEM);\n\n    /* assign pids to each stream */\n    for(i = 0;i < s->nb_streams; i++) {\n        st = s->streams[i];\n        avpriv_set_pts_info(st, 33, 1, 90000);\n        ts_st = av_mallocz(sizeof(MpegTSWriteStream));\n        if (!ts_st) {",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 631,
+    "line_text": "    pids = av_malloc(s->nb_streams * sizeof(*pids));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

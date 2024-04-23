@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Louvain.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    g->getNodeArray().setPosition2(n, glm::vec3());\n  }\n  \n  bool is_improved = false;\n  double initial_modularity = getGraph().modularity();\n  double modularity = initial_modularity;\n\n#if 0\n  // shuffle nodes\n  for (int i = 0; i < nodes.size()-1; i++) {    g->getNodeArray().setPosition2(n, glm::vec3());\n  }\n  \n  bool is_improved = false;\n  double initial_modularity = getGraph().modularity();\n  double modularity = initial_modularity;\n\n#if 0\n  // shuffle nodes\n  for (int i = 0; i < nodes.size()-1; i++) {\n    int rand_pos = rand() % (nodes.size()-i)+i;\n    int tmp = nodes[i];\n    nodes[i] = nodes[rand_pos];\n    nodes[rand_pos] = tmp;\n  }\n#endif\n\n  // cerr << \"max_num_passes = \" << max_num_passes << endl;\n  \n  // repeat until there is no improvement in modularity, or the improvement is smaller than epsilon, or maximum number of passes have been done  ",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 80,
+    "line_text": "    int rand_pos = rand() % (nodes.size()-i)+i;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/test/run-make-fulldeps/long-linker-command-lines-cmd-exe/foo.rs",
+    "vulnerability": null,
+    "source code": "\n\n\nfn main() {\n    if !cfg!(windows) {\n        return\n    }\n\n    let tmpdir = PathBuf::from(env::var_os(\"OUT_DIR\").unwrap());\n    let ok = tmpdir.join(\"ok\");\n    let not_ok = tmpdir.join(\"not_ok\");\n    if env::var(\"YOU_ARE_A_LINKER\").is_ok() {\nfn main() {\n    if !cfg!(windows) {\n        return\n    }\n\n    let tmpdir = PathBuf::from(env::var_os(\"OUT_DIR\").unwrap());\n    let ok = tmpdir.join(\"ok\");\n    let not_ok = tmpdir.join(\"not_ok\");\n    if env::var(\"YOU_ARE_A_LINKER\").is_ok() {\n        match env::args_os().find(|a| a.to_string_lossy().contains(\"@\")) {\n            Some(file) => {\n                let file = file.to_str().unwrap();\n                fs::copy(&file[1..], &ok).unwrap();\n            }\n            None => { File::create(&not_ok).unwrap(); }\n        }\n        return\n    }\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 29,
+    "line_text": "        match env::args_os().find(|a| a.to_string_lossy().contains(\"@\")) {",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

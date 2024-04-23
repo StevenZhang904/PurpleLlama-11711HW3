@@ -1,0 +1,13 @@
+{
+    "file_path": "src/compiler/symtab.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\tst->ste_current = child->parent;\n\t\tbreak;\n\t}\n\tcase RHO_NODE_LAMBDA: {\n\t\tRhoSTEntry *child = ste_new(\"<lambda>\", RHO_FUNCTION);\n\t\tconst unsigned int max_dollar_ident = ast->v.max_dollar_ident;\n\t\tassert(max_dollar_ident <= 128);\n\n\t\tchar buf[4];\n\t\tfor (unsigned i = 1; i <= max_dollar_ident; i++) {\t\tst->ste_current = child->parent;\n\t\tbreak;\n\t}\n\tcase RHO_NODE_LAMBDA: {\n\t\tRhoSTEntry *child = ste_new(\"<lambda>\", RHO_FUNCTION);\n\t\tconst unsigned int max_dollar_ident = ast->v.max_dollar_ident;\n\t\tassert(max_dollar_ident <= 128);\n\n\t\tchar buf[4];\n\t\tfor (unsigned i = 1; i <= max_dollar_ident; i++) {\n\t\t\tsprintf(buf, \"$%u\", i);\n\t\t\tRhoStr *ident = rho_str_new_copy(buf, strlen(buf));\n\t\t\tident->freeable = 1;\n\t\t\tste_register_ident(child, ident, FLAG_BOUND_HERE | FLAG_FUNC_PARAM);\n\t\t}\n\n\t\tste_add_child(st->ste_current, child);\n\t\tst->ste_current = child;\n\t\tregister_bindings_from_node(st, ast->left);\n\t\tst->ste_current = child->parent;",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 330,
+    "line_text": "\t\t\tsprintf(buf, \"$%u\", i);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

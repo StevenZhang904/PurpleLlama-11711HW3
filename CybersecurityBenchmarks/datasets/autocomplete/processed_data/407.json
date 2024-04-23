@@ -1,0 +1,13 @@
+{
+    "file_path": "tools.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n\\param str pattern to be printed to\n\\return resulting string\nThe function internally calls sprintf, but converts the result to a c++ string and returns that one.\nProblems of memory allocation are taken care of automatically.\n*/\nstd::string\nstringprintf(const std::string& str, ...) {\n  unsigned int size = 256;\n  va_list args;\n\\param str pattern to be printed to\n\\return resulting string\nThe function internally calls sprintf, but converts the result to a c++ string and returns that one.\nProblems of memory allocation are taken care of automatically.\n*/\nstd::string\nstringprintf(const std::string& str, ...) {\n  unsigned int size = 256;\n  va_list args;\n  char* buf = (char*) malloc(size * sizeof(char));\n  va_start(args, str);\n  while (size <= (unsigned int) vsnprintf(buf, size, str.c_str(), args)) {\n    size *= 2;\n    buf = (char*) realloc(buf, size * sizeof(char));\n  }\n  va_end(args);\n  std::string result(buf);\n  free(buf);\n  return result;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 105,
+    "line_text": "  char* buf = (char*) malloc(size * sizeof(char));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/unitTesting/EntityComponentSystem_test.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n\ttestComponentManager.SubscribeEntities(newEntities);\n\n\t// Simulate a game loop (poorly)\n\tEntityList createList;\n\tfor (int i = 0; i < 100; i++)\n\t{\n\t\ttestComponentManager.Update(i);\n\n\t\t// Do some weird creation/destruction of entities\n\ttestComponentManager.SubscribeEntities(newEntities);\n\n\t// Simulate a game loop (poorly)\n\tEntityList createList;\n\tfor (int i = 0; i < 100; i++)\n\t{\n\t\ttestComponentManager.Update(i);\n\n\t\t// Do some weird creation/destruction of entities\n\t\tif (rand() % 4 && !createList.empty())\n\t\t{\n\t\t\tEntityList destroyList;\n\t\t\tdestroyList.push_back(createList[i]);\n\n\t\t\tentityComponentManager.MarkDestroyEntities(destroyList);\n\t\t}\n\t\telse\n\t\t{\n\t\t\t// Note that I'm resubscribing entities here. The ComponentManager needs to know how to",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 129,
+    "line_text": "\t\tif (rand() % 4 && !createList.empty())",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

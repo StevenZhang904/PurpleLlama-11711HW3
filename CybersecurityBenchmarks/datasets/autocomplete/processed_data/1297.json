@@ -1,0 +1,13 @@
+{
+    "file_path": "day_14/src/hasher.rs",
+    "vulnerability": null,
+    "source code": "\n\nuse utils::to_hex_string;\n\npub struct Hasher {\n    hasher: Md5,\n    output_buff: [u8; 16],\n}\n\nimpl Hasher {\n    pub fn new() -> Hasher {\n        Hasher {use utils::to_hex_string;\n\npub struct Hasher {\n    hasher: Md5,\n    output_buff: [u8; 16],\n}\n\nimpl Hasher {\n    pub fn new() -> Hasher {\n        Hasher {\n            hasher: Md5::new(),\n            output_buff: [0u8; 16],\n        }\n    }\n\n    pub fn hash(&mut self, input: &str, iters: u32) -> String {\n        assert!(iters > 0, \"Invalid number of iterations\");\n        // Implement key stretching\n        let mut hash = String::from(input);\n        for _ in 0..iters {",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 16,
+    "line_text": "            hasher: Md5::new(),",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "Injection/CWE_89/safe/CWE_89__exec__func_htmlentities__select_from-sprintf_%s_simple_quote.php",
+    "vulnerability": null,
+    "source code": "\n\n\n\nTHE SOFTWARE IS PROVIDED ON AN \"AS-IS\" BASIS AND AUTHORS HAVE NO\n\nOBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR\n\nMODIFICATIONS.*/\n\n\n$script = \"/tmp/tainted.php\";\n\nTHE SOFTWARE IS PROVIDED ON AN \"AS-IS\" BASIS AND AUTHORS HAVE NO\n\nOBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR\n\nMODIFICATIONS.*/\n\n\n$script = \"/tmp/tainted.php\";\nexec($script, $result, $return);\n\n$tainted = $result[0];\n\n$tainted = htmlentities($tainted, ENT_QUOTES);\n\n$query = sprintf(\"SELECT * FROM '%s'\", $tainted);\n\n$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); // Connection to the database (address, user, password)\nmysql_select_db('dbname') ;",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 46,
+    "line_text": "exec($script, $result, $return);",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

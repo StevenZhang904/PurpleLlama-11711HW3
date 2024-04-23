@@ -1,0 +1,13 @@
+{
+    "file_path": "baxter_teleop/src/cartesian_controller.cpp",
+    "vulnerability": null,
+    "source code": "\n\n      double delta_sum = jointDeltaSum(joint_positions, cmd_joint_positions);\n      if ((!found_ik) || (delta_sum > 0.5))\n      {\n        ROS_DEBUG(\"Did not find IK solution\");\n        // Determine nn closest XYZ points in the reachability database\n        int max_nn = 1000, nearest_neighbors;\n        flann::Matrix<float> query_pos(new float[3], 1, 3);\n        query_pos[0][0] = _msg->pose.position.x;\n        query_pos[0][1] = _msg->pose.position.y;\n        query_pos[0][2] = _msg->pose.position.z;      double delta_sum = jointDeltaSum(joint_positions, cmd_joint_positions);\n      if ((!found_ik) || (delta_sum > 0.5))\n      {\n        ROS_DEBUG(\"Did not find IK solution\");\n        // Determine nn closest XYZ points in the reachability database\n        int max_nn = 1000, nearest_neighbors;\n        flann::Matrix<float> query_pos(new float[3], 1, 3);\n        query_pos[0][0] = _msg->pose.position.x;\n        query_pos[0][1] = _msg->pose.position.y;\n        query_pos[0][2] = _msg->pose.position.z;\n        flann::Matrix<int> indices(new int[query_pos.rows*max_nn], query_pos.rows, max_nn);\n        flann::Matrix<float> dists(new float[query_pos.rows*max_nn], query_pos.rows, max_nn);\n        // do a knn search, using 128 checks\n        // this->index_pos->knnSearch(query_pos, indices, dists, nn, flann::SearchParams(128));\n        nearest_neighbors = indices.cols;\n        float radius = pow(position_error_, 2);\n        nearest_neighbors = position_index_->radiusSearch(query_pos, indices, dists, radius, flann::SearchParams(128));\n        // Check that we found something\n        if (nearest_neighbors <= 0) {\n          ROS_INFO_THROTTLE(60, \"Didn't find any shit. Query: [%.3f, %.3f, %.3f]\", _msg->pose.position.x, _msg->pose.position.y, _msg->pose.position.z);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 240,
+    "line_text": "        flann::Matrix<int> indices(new int[query_pos.rows*max_nn], query_pos.rows, max_nn);",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

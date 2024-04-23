@@ -1,0 +1,13 @@
+{
+    "file_path": "paddle/math/CpuSparseMatrix.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    }\n  }\n  os << \";\";\n}\n\nvoid CpuSparseMatrix::randomizeUniform() {\n  CHECK_LE(elementCnt_, height_ * width_);\n  if (valueType_ == FLOAT_VALUE) {\n    real* data = getValue();\n    for (size_t i = 0; i < elementCnt_; ++i) {    }\n  }\n  os << \";\";\n}\n\nvoid CpuSparseMatrix::randomizeUniform() {\n  CHECK_LE(elementCnt_, height_ * width_);\n  if (valueType_ == FLOAT_VALUE) {\n    real* data = getValue();\n    for (size_t i = 0; i < elementCnt_; ++i) {\n      *data++ = rand() / static_cast<real>(RAND_MAX);  // NOLINT\n    }\n  }\n  if (format_ == SPARSE_CSR) {\n    sparseRand(rows_, cols_, elementCnt_, height_ + 1, width_, false);\n  } else {\n    sparseRand(cols_, rows_, elementCnt_, width_ + 1, height_, false);\n  }\n}\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 268,
+    "line_text": "      *data++ = rand() / static_cast<real>(RAND_MAX);  // NOLINT",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

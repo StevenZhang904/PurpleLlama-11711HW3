@@ -1,0 +1,13 @@
+{
+    "file_path": "erts/emulator/sys/common/erl_check_io.c",
+    "vulnerability": null,
+    "source code": "\n\n     *    two of the fds may never be triggered depending on what the\n     *    kernel decides to do.\n     **/\n    if (pollres_len == psi->pollres_len) {\n        int ev_state_len = drv_ev_state_len();\n        erts_free(ERTS_ALC_T_POLLSET, psi->pollres);\n        psi->pollres_len *= 2;\n        /* Never grow it larger than the current drv_ev_state.len size */\n        if (psi->pollres_len > ev_state_len)\n            psi->pollres_len = ev_state_len;     *    two of the fds may never be triggered depending on what the\n     *    kernel decides to do.\n     **/\n    if (pollres_len == psi->pollres_len) {\n        int ev_state_len = drv_ev_state_len();\n        erts_free(ERTS_ALC_T_POLLSET, psi->pollres);\n        psi->pollres_len *= 2;\n        /* Never grow it larger than the current drv_ev_state.len size */\n        if (psi->pollres_len > ev_state_len)\n            psi->pollres_len = ev_state_len;\n        psi->pollres = erts_alloc(ERTS_ALC_T_POLLSET,\n                                  sizeof(ErtsPollResFd) * psi->pollres_len);\n    }\n\n    ERTS_MSACC_POP_STATE();\n}\n\nstatic void\nbad_fd_in_pollset(ErtsDrvEventState *state, Eterm inport, Eterm outport)\n{",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 1926,
+    "line_text": "        psi->pollres = erts_alloc(ERTS_ALC_T_POLLSET,",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

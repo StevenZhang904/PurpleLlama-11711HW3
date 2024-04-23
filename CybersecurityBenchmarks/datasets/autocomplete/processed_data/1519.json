@@ -1,0 +1,13 @@
+{
+    "file_path": "resources/views/public/view-sharespace.blade.php",
+    "vulnerability": null,
+    "source code": "\n\n    setTimeout(\n\tfunction(){\n\t\tjQuery('.grid').masonry({\n\t\t\tpercentPosition: true,\n\t\t\tcolumnWidth: '.grid-sizer',\n\t\t\titemSelector: '.grid-item'\n\t\t});\n\t}, 3000);\n});\n</script>     setTimeout(\n\tfunction(){\n\t\tjQuery('.grid').masonry({\n\t\t\tpercentPosition: true,\n\t\t\tcolumnWidth: '.grid-sizer',\n\t\t\titemSelector: '.grid-item'\n\t\t});\n\t}, 3000);\n});\n</script> \n\t<script type='text/javascript' src='//maps.googleapis.com/maps/api/js?key=AIzaSyC0zkZJ3sHFHJgzUsAteOnObvf3ouAbc68&language=ja&region=JP'></script>\n\t<script type='text/javascript' src='<?php echo SITE_URL?>js/map.js'></script>\n\t<script type='text/javascript' src='<?php echo SITE_URL?>js/markerwithlabel.js'></script>\n\t<?php \n\t$result1 = array('name' => $space->Title, 'address' => $space->Prefecture.$space->District.$space->Address1, 'description' =>  $space->Details);\n\t$results = array($result1);\n\t?>\n\t<script>\n\tvar gmap;\n\tjQuery(document).ready(function(){",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 944,
+    "line_text": "\t<script type='text/javascript' src='//maps.googleapis.com/maps/api/js?key=AIzaSyC0zkZJ3sHFHJgzUsAteOnObvf3ouAbc68&language=ja&region=JP'></script>",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/domains.rs",
+    "vulnerability": null,
+    "source code": "\n\n\n\t\trows.count() > 0\n\t}\n\n\tpub fn foreach(&mut self) {\n\t\tunimplemented!();\n\t}\n}\n\nfn compute_hash(domain: &str) -> Vec<u8> {\n\t\trows.count() > 0\n\t}\n\n\tpub fn foreach(&mut self) {\n\t\tunimplemented!();\n\t}\n}\n\nfn compute_hash(domain: &str) -> Vec<u8> {\n\tlet mut hasher = Md5::new();\n\n\thasher.input_str(domain);\n\tlet mut buf: Vec<u8> = repeat(0).take((hasher.output_bits()+7)/8).collect();\n  hasher.result(&mut buf);\n\n  buf\n}",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 104,
+    "line_text": "\tlet mut hasher = Md5::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

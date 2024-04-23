@@ -1,0 +1,13 @@
+{
+    "file_path": "src/test/ui/panic-runtime/lto-unwind.rs",
+    "vulnerability": null,
+    "source code": "\n\n\nstruct Bomb;\n\nimpl Drop for Bomb {\n    fn drop(&mut self) {\n        println!(\"hurray you ran me\");\n    }\n}\n\nfn main() {\nstruct Bomb;\n\nimpl Drop for Bomb {\n    fn drop(&mut self) {\n        println!(\"hurray you ran me\");\n    }\n}\n\nfn main() {\n    let mut args = env::args_os();\n    let me = args.next().unwrap();\n\n    if let Some(s) = args.next() {\n        if &*s == \"foo\" {\n\n            let _bomb = Bomb;\n\n            panic!(\"try to catch me\");\n        }",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 22,
+    "line_text": "    let mut args = env::args_os();",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

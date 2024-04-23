@@ -1,0 +1,13 @@
+{
+    "file_path": "trunk/third_party/icu/source/test/cintltst/creststn.c",
+    "vulnerability": null,
+    "source code": "\n\n    int32_t i;\n    static UBool initialized = FALSE;\n    if (!initialized)\n    {\n        srand((unsigned)time(NULL));\n        initialized = TRUE;\n    }\n    /* Assume rand has at least 12 bits of precision */\n    \n    for (i=0; i<sizeof(l); ++i)    int32_t i;\n    static UBool initialized = FALSE;\n    if (!initialized)\n    {\n        srand((unsigned)time(NULL));\n        initialized = TRUE;\n    }\n    /* Assume rand has at least 12 bits of precision */\n    \n    for (i=0; i<sizeof(l); ++i)\n        ((char*)&l)[i] = (char)((rand() & 0x0FF0) >> 4);\n    return l;\n}\n\n/**\n * Return a random double x where 0.0 <= x < 1.0.\n */\nstatic double\nrandd()\n{",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 61,
+    "line_text": "        ((char*)&l)[i] = (char)((rand() & 0x0FF0) >> 4);",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

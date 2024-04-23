@@ -1,0 +1,13 @@
+{
+    "file_path": "presentations/20170726-meetup-embedded-gr/hal.stm.stm32PeripheralLib/Project/STM32F4xx_StdPeriph_Examples/ADC/ADC_DMA/main.c",
+    "vulnerability": null,
+    "source code": "\n\n  */\r\nstatic void Display(void)\r\n{\r\n  uint32_t uwVoltage = 0;\r\n  uint32_t uwMVoltage = 0;\r\n  uint8_t  aTextBuffer[50];\r\n\r\n  uwVoltage = (uwADCxConvertedVoltage)/1000;\r\n  uwMVoltage = (uwADCxConvertedVoltage%1000)/100;\r\n\r  */\r\nstatic void Display(void)\r\n{\r\n  uint32_t uwVoltage = 0;\r\n  uint32_t uwMVoltage = 0;\r\n  uint8_t  aTextBuffer[50];\r\n\r\n  uwVoltage = (uwADCxConvertedVoltage)/1000;\r\n  uwMVoltage = (uwADCxConvertedVoltage%1000)/100;\r\n\r\n  sprintf((char*)aTextBuffer, MESSAGE5, uwVoltage, uwMVoltage);\r\n  LCD_DisplayStringLine(LCD_LINE_6, aTextBuffer);\r\n}\r\n\r\n/**\r\n  * @brief  Display Init (LCD)\r\n  * @param  None\r\n  * @retval None\r\n  */\r\nstatic void Display_Init(void)\r",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 214,
+    "line_text": "  sprintf((char*)aTextBuffer, MESSAGE5, uwVoltage, uwMVoltage);\r",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

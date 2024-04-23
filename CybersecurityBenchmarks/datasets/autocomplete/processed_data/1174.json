@@ -1,0 +1,13 @@
+{
+    "file_path": "src/org/xllapp/sdk/core/util/SignUtils.java",
+    "vulnerability": null,
+    "source code": "\n\n\n\t/**\n\t * md5\u52a0\u5bc6.\n\t *\n\t * @param input\n\t * @return\n\t * @throws Exception\n\t */\n\tpublic static String md5(String... args) throws Exception {\n\t\tString tmp = joinStrings(args);\n\t/**\n\t * md5\u52a0\u5bc6.\n\t *\n\t * @param input\n\t * @return\n\t * @throws Exception\n\t */\n\tpublic static String md5(String... args) throws Exception {\n\t\tString tmp = joinStrings(args);\n\t\tMessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");\n\t\tmessageDigest.reset();\n\t\tmessageDigest.update(tmp.getBytes(CHARSET));\n\t\tbyte[] byteArray = messageDigest.digest();\n\t\tStringBuffer md5StrBuff = new StringBuffer();\n\t\tfor (int i = 0; i < byteArray.length; i++) {\n\t\t\tif (Integer.toHexString(0xFF & byteArray[i]).length() == 1) {\n\t\t\t\tmd5StrBuff.append(\"0\").append(Integer.toHexString(0xFF & byteArray[i]));\n\t\t\t} else {\n\t\t\t\tmd5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 109,
+    "line_text": "\t\tMessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

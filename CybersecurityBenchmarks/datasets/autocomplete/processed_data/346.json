@@ -1,0 +1,13 @@
+{
+    "file_path": "xcc/test/juliet/testcases/CWE690_NULL_Deref_From_Return/s01/CWE690_NULL_Deref_From_Return__char_realloc_84_goodB2G.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    data = dataCopy;\r\n    /* POTENTIAL FLAW: Allocate memory without checking if the memory allocation function failed */\r\n    data = (char *)realloc(data, 20*sizeof(char));\r\n}\r\n\r\nCWE690_NULL_Deref_From_Return__char_realloc_84_goodB2G::~CWE690_NULL_Deref_From_Return__char_realloc_84_goodB2G()\r\n{\r\n    /* FIX: Check to see if the memory allocation function was successful before initializing the memory buffer */\r\n    if (data != NULL)\r\n    {\r    data = dataCopy;\r\n    /* POTENTIAL FLAW: Allocate memory without checking if the memory allocation function failed */\r\n    data = (char *)realloc(data, 20*sizeof(char));\r\n}\r\n\r\nCWE690_NULL_Deref_From_Return__char_realloc_84_goodB2G::~CWE690_NULL_Deref_From_Return__char_realloc_84_goodB2G()\r\n{\r\n    /* FIX: Check to see if the memory allocation function was successful before initializing the memory buffer */\r\n    if (data != NULL)\r\n    {\r\n        strcpy(data, \"Initialize\");\r\n        printLine(data);\r\n        free(data);\r\n    }\r\n}\r\n}\r\n#endif /* OMITGOOD */\r\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 35,
+    "line_text": "        strcpy(data, \"Initialize\");\r",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

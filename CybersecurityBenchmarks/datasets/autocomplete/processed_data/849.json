@@ -1,0 +1,13 @@
+{
+    "file_path": "test/lib/mootools-core-1.4.5.js",
+    "vulnerability": null,
+    "source code": "\n\n\n// fixes NaN returning as Number\n\nNumber.prototype.$family = function(){\n\treturn isFinite(this) ? 'number' : 'null';\n}.hide();\n\n// Number.random\n\nNumber.extend('random', function(min, max){\n// fixes NaN returning as Number\n\nNumber.prototype.$family = function(){\n\treturn isFinite(this) ? 'number' : 'null';\n}.hide();\n\n// Number.random\n\nNumber.extend('random', function(min, max){\n\treturn Math.floor(Math.random() * (max - min + 1) + min);\n});\n\n// forEach, each\n\nvar hasOwnProperty = Object.prototype.hasOwnProperty;\nObject.extend('forEach', function(object, fn, bind){\n\tfor (var key in object){\n\t\tif (hasOwnProperty.call(object, key)) fn.call(bind, object[key], key, object);\n\t}",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 312,
+    "line_text": "\treturn Math.floor(Math.random() * (max - min + 1) + min);",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

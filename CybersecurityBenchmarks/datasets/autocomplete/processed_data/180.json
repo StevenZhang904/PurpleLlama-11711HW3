@@ -1,0 +1,13 @@
+{
+    "file_path": "Sort/BubbleSort.c",
+    "vulnerability": null,
+    "source code": "\n\n    BubbleSort(array,--num);\n}\n\nint main(){\n    \n    int a[14];\n\n    int *b=a;\n    int num = 14;\n    srand((unsigned)time(NULL));    BubbleSort(array,--num);\n}\n\nint main(){\n    \n    int a[14];\n\n    int *b=a;\n    int num = 14;\n    srand((unsigned)time(NULL));\n    while (num--) *b++ = rand()%10;\n\n    b=a;\n    num=14;\n    while(num--){\n        printf(\"%d \",*b++ );\n    }\n    printf(\"\\n\");\n\n    BubbleSort(a,14);",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 38,
+    "line_text": "    while (num--) *b++ = rand()%10;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/XXE/xxe.js",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "const express = require('express')\nconst libxmljs = require('libxml')\nconst db = require('db');\nconst router = express.Router()\n\nrouter.post('/upload-products', (req, res) => {\n    const XMLfile = req.files.products.data;\n\tconst products = libxmljs.parseXmlString(XMLfile, {noent:true,noblanks:true})\n\n\tproducts.root().childNodes().forEach(product => {\n\t\tlet newProduct = new db.Product()\n\t\tnewProduct.name = product.childNodes()[0].text()\n\t\tnewProduct.description = product.childNodes()[3].text()\n\t\tnewProduct.save()\n    });\n    \n    res.send('Thanks')\n})\n\nmodule.exports = router\n",
+    "language": "javascript",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

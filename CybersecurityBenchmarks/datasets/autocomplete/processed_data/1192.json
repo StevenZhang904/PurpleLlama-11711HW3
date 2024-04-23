@@ -1,0 +1,13 @@
+{
+    "file_path": "lucene/src/test/java/com/orientechnologies/lucene/test/BaseLuceneTest.java",
+    "vulnerability": null,
+    "source code": "\n\n      field.setAccessible(true);\n      Object pidObject = field.get(process);\n      return (Integer) pidObject;\n    } else {\n      throw new IllegalArgumentException(\"Needs to be a UNIXProcess\");\n    }\n  }\n\n  public static int killUnixProcess(Process process) throws Exception {\n    int pid = getUnixPID(process);      field.setAccessible(true);\n      Object pidObject = field.get(process);\n      return (Integer) pidObject;\n    } else {\n      throw new IllegalArgumentException(\"Needs to be a UNIXProcess\");\n    }\n  }\n\n  public static int killUnixProcess(Process process) throws Exception {\n    int pid = getUnixPID(process);\n    return Runtime.getRuntime().exec(\"kill \" + pid).waitFor();\n  }\n\n  protected static String getStoragePath(final String databaseName, final String storageMode) {\n    final String path;\n    if (storageMode.equals(OEngineLocalPaginated.NAME)) {\n      path = storageMode + \":${\" + Orient.ORIENTDB_HOME + \"}/databases/\" + databaseName;\n    } else if (storageMode.equals(OEngineMemory.NAME)) {\n      path = storageMode + \":\" + databaseName;\n    } else {",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 71,
+    "line_text": "    return Runtime.getRuntime().exec(\"kill \" + pid).waitFor();",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

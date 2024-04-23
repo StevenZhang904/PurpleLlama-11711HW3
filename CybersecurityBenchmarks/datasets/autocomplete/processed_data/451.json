@@ -1,0 +1,13 @@
+{
+    "file_path": "Code/Sources/AbleDiskTool/AbleDiskEngine.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\tstrcpy(local_path_name,extracted_path_name);\n\t\t\t\t\n\t\t\tk = AbleDiskToolAskForRename(ASK_FOR_FILE_NAME_DIALOG_ID, mac_entity_name, local_path_name, extracted_file_name, new_file_name);\n\t\t\n\t\t\tif (k < 0)\t\t\t\t\t\t\t\t\t// couldn't open dialog or other error - proceed to bomb out with bad name & report it\n\t\t\t\tbreak;\n\n\t\t\tif (k == 0)\t\t\t\t\t\t\t\t\t// new name chosen\n\t\t\t{\n\t\t\t\tstrcpy(local_level_name,    extracted_path_name);\t\t\t\tstrcpy(local_path_name,extracted_path_name);\n\t\t\t\t\n\t\t\tk = AbleDiskToolAskForRename(ASK_FOR_FILE_NAME_DIALOG_ID, mac_entity_name, local_path_name, extracted_file_name, new_file_name);\n\t\t\n\t\t\tif (k < 0)\t\t\t\t\t\t\t\t\t// couldn't open dialog or other error - proceed to bomb out with bad name & report it\n\t\t\t\tbreak;\n\n\t\t\tif (k == 0)\t\t\t\t\t\t\t\t\t// new name chosen\n\t\t\t{\n\t\t\t\tstrcpy(local_level_name,    extracted_path_name);\n\t\t\t\tstrcat(local_level_name,    new_file_name);\n\t\t\t\tstrcpy(extracted_file_name, new_file_name);\n\n\t\t\t\tallow_replace = false;\t\t\t\t\t// in case replacement name was also invalid; ask again\n\t\t\t\t\n\t\t\t\tcontinue;\t\t\t\t\n\t\t\t}\n\t\t\t\n\t\t\tif (k == 1)\t\t\t\t\t\t\t\t\t// skip\n\t\t\t\treturn (Prompt_skip);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 950,
+    "line_text": "\t\t\t\tstrcat(local_level_name,    new_file_name);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

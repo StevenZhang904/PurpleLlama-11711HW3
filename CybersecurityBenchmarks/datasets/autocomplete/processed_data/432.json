@@ -1,0 +1,13 @@
+{
+    "file_path": "flaw-font-icu/src/icu/source/test/intltest/rbbitst.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    //\n    //  Open and read the test data file, put it into a UnicodeString.\n    //\n    const char *testDataDirectory = IntlTest::getSourceTestData(status);\n    char testFileName[1000];\n    if (testDataDirectory == NULL || strlen(testDataDirectory) >= sizeof(testFileName)) {\n        dataerrln(\"Can't open test data.  Path too long.\");\n        return;\n    }\n    strcpy(testFileName, testDataDirectory);    //\n    //  Open and read the test data file, put it into a UnicodeString.\n    //\n    const char *testDataDirectory = IntlTest::getSourceTestData(status);\n    char testFileName[1000];\n    if (testDataDirectory == NULL || strlen(testDataDirectory) >= sizeof(testFileName)) {\n        dataerrln(\"Can't open test data.  Path too long.\");\n        return;\n    }\n    strcpy(testFileName, testDataDirectory);\n    strcat(testFileName, fileName);\n\n    logln(\"Opening data file %s\\n\", fileName);\n\n    int    len;\n    UChar *testFile = ReadAndConvertFile(testFileName, len, \"UTF-8\", status);\n    if (status != U_FILE_ACCESS_ERROR) {\n        TEST_ASSERT_SUCCESS(status);\n        TEST_ASSERT(testFile != NULL);\n    }",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 1738,
+    "line_text": "    strcat(testFileName, fileName);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

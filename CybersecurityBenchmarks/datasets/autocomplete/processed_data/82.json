@@ -1,0 +1,13 @@
+{
+    "file_path": "source/lib/kernel/tls.c",
+    "vulnerability": null,
+    "source code": "\n\n     * just after loading all initial modules, we record the size we need\n     * to statically allocate. Note that the size will be:\n     *  (number of initial modules + 1)\n     * because the first DTV entry is the \"generation number\". This is used\n     * to record the current size of the DTV to allow it to be dynamically\n     * resized. */\n    if(!static_dtv_size)\n        static_dtv_size = next_image_id;\n\n    /* Create the dynamic thread vector. */     * just after loading all initial modules, we record the size we need\n     * to statically allocate. Note that the size will be:\n     *  (number of initial modules + 1)\n     * because the first DTV entry is the \"generation number\". This is used\n     * to record the current size of the DTV to allow it to be dynamically\n     * resized. */\n    if(!static_dtv_size)\n        static_dtv_size = next_image_id;\n\n    /* Create the dynamic thread vector. */\n    dtv = malloc(static_dtv_size * sizeof(ptr_t));\n    if(!dtv)\n        return STATUS_NO_MEMORY;\n\n    /* Store the current size. */\n    dtv[0] = static_dtv_size;\n\n    /* Allocate the TLS block. */\n    size = round_up(initial_block_size(), page_size);\n    ret = kern_vm_map(&alloc, size, VM_ADDRESS_ANY,",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 180,
+    "line_text": "    dtv = malloc(static_dtv_size * sizeof(ptr_t));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

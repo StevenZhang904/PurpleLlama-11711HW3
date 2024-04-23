@@ -1,0 +1,13 @@
+{
+    "file_path": "cgi/models/ModelUser.php",
+    "vulnerability": null,
+    "source code": "\n\nclass ModelUser extends Model{\n\tfunction password(){\n\t\ttry{\n\t\t\t$url = $_SERVER['SCRIPT_NAME'].'?/homepage/show/';\n\t\t\tif(isset($_POST['email']) && isset($_POST['candidate']) && isset($_POST['password']) && isset($_POST['password2'])){\n\t\t\t\tif($_POST['password'] == $_POST['password2']){\n\t\t\t\t\tValidator::validatePassword($_POST['password']);\n\t\t\t\t\tif($_POST['candidate'] == md5($_SESSION['tmp_user']->getEmail().$_SESSION['tmp_user']->getPwsHash()) && $_SESSION['tmp_user']->getEmail() == $_POST['email']){\n\t\t\t\t\t\t$_SESSION['tmp_user']->setPwsHash(md5($_POST['password']),md5($_POST['password2']));\n\t\t\t\t\t\t$usrDAO = $this->factory->getUserDAO();class ModelUser extends Model{\n\tfunction password(){\n\t\ttry{\n\t\t\t$url = $_SERVER['SCRIPT_NAME'].'?/homepage/show/';\n\t\t\tif(isset($_POST['email']) && isset($_POST['candidate']) && isset($_POST['password']) && isset($_POST['password2'])){\n\t\t\t\tif($_POST['password'] == $_POST['password2']){\n\t\t\t\t\tValidator::validatePassword($_POST['password']);\n\t\t\t\t\tif($_POST['candidate'] == md5($_SESSION['tmp_user']->getEmail().$_SESSION['tmp_user']->getPwsHash()) && $_SESSION['tmp_user']->getEmail() == $_POST['email']){\n\t\t\t\t\t\t$_SESSION['tmp_user']->setPwsHash(md5($_POST['password']),md5($_POST['password2']));\n\t\t\t\t\t\t$usrDAO = $this->factory->getUserDAO();\n\t\t\t\t\t\t$bool = $usrDAO->update($_SESSION['tmp_user']);\n\t\t\t\t\t\tif(!$bool){\n\t\t\t\t\t\t\ttrigger_error(\"ERR_FAILED_UPDATE\", E_USER_ERROR);\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t}else{\n\t\t\t\t\t\t\t//stop form session\n\t\t\t\t\t\t\tunset($_SESSION['tmp_user']);\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}else{",
+    "language": "php",
+    "cwe_identifier": "CWE-306",
+    "pattern_desc": "Missing Authentication for Critical Function",
+    "line_number": 19,
+    "line_text": "\t\t\t\t\t\t$bool = $usrDAO->update($_SESSION['tmp_user']);",
+    "pattern_id": "PHP-R-027",
+    "rule": "(update|delete|create)(_once)?\\s*\\(\\s*\\$_(SESSION|COOKIE)\\s*\\[\\s*'[^']*'\\s*\\]",
+    "label": 1
+}

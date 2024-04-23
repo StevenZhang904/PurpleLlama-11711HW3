@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Code Injection/eval.php",
+    "vulnerability": "?>\n\nVulnerabilities Detected:\n1. Unsanitized user input: The user input from the $_GET variable is not being sanitized, which could lead to malicious code injection.\n2. Use of eval(): The use of eval() is discouraged as it can lead to code injection attacks.",
+    "source code": "<?php\n\nrequire_once('../_helpers/strip.php');\n\n$variable = strlen($_GET['variable']) > 0 ? $_GET['variable'] : 'empty';\n$empty = 'No variable given';\neval('echo $' . $variable . ';');\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

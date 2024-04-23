@@ -1,0 +1,13 @@
+{
+    "file_path": "opencv/sources/modules/videoio/src/cap_images.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n        strcat(name, \"%0\");\n\n        int i;\n        char *extension;\n        for(i = 0, extension = at; isdigit(at[i]); i++, extension++)\n            ;\n        char places[10];\n        sprintf(places, \"%dd\", i);\n\n        strcat(name, \"%0\");\n\n        int i;\n        char *extension;\n        for(i = 0, extension = at; isdigit(at[i]); i++, extension++)\n            ;\n        char places[10];\n        sprintf(places, \"%dd\", i);\n\n        strcat(name, places);\n        strcat(name, extension);\n    }\n\n    return name;\n}\n\n\nbool CvCapture_Images::open(const char * _filename)\n{",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 251,
+    "line_text": "        strcat(name, places);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

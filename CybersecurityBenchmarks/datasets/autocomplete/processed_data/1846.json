@@ -1,0 +1,13 @@
+{
+    "file_path": "flux/utils.py",
+    "vulnerability": null,
+    "source code": "\n\n    return session.pop('flux_flash', None)\n  else:\n    session['flux_flash'] = message\n\n\ndef make_secret():\n  return str(uuid.uuid4())\n\n\ndef hash_pw(pw):    return session.pop('flux_flash', None)\n  else:\n    session['flux_flash'] = message\n\n\ndef make_secret():\n  return str(uuid.uuid4())\n\n\ndef hash_pw(pw):\n  return hashlib.md5(pw.encode('utf8')).hexdigest()\n\n\ndef makedirs(path):\n  ''' Shorthand that creates a directory and stays silent when it\n  already exists. '''\n\n  if not os.path.exists(path):\n    os.makedirs(path)\n",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 222,
+    "line_text": "  return hashlib.md5(pw.encode('utf8')).hexdigest()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

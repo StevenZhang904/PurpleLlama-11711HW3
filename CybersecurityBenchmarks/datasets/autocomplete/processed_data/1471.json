@@ -1,0 +1,13 @@
+{
+    "file_path": "application/controllers/home.php",
+    "vulnerability": null,
+    "source code": "\n\n    $this->form_validation->set_rules('gender', 'Gender', 'trim|required');\n\t\t$this->form_validation->set_error_delimiters(\"<div class='text-danger'>\",\"</div>\");\n\t\tif($this->form_validation->run()){\n\t\t  \n          $data = [\n\n                  'NomC'       => $this->input->post('first_name'),\n                  'prenomC'    => $this->input->post('last_name'),\n                  'telephone'  => $this->input->post('mobile'),\n                  'email'      => $this->input->post('email'),    $this->form_validation->set_rules('gender', 'Gender', 'trim|required');\n\t\t$this->form_validation->set_error_delimiters(\"<div class='text-danger'>\",\"</div>\");\n\t\tif($this->form_validation->run()){\n\t\t  \n          $data = [\n\n                  'NomC'       => $this->input->post('first_name'),\n                  'prenomC'    => $this->input->post('last_name'),\n                  'telephone'  => $this->input->post('mobile'),\n                  'email'      => $this->input->post('email'),\n                  'password'   => password_hash($this->input->post('password'), PASSWORD_DEFAULT),\n                  'adresse'    => $this->input->post('address'),\n                  'CP'         => $this->input->post('postal_code'),\n                  'Ville'      => $this->input->post('village'),\n                  'gender'      => $this->input->post('gender'),\n             \n\n                  ];\n                  if($this->home_model->add_signup($data)){\n                  $this->session->set_flashdata('confirmation_success','Your Email Is Successfully Confirm Now Login!');",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 41,
+    "line_text": "                  'password'   => password_hash($this->input->post('password'), PASSWORD_DEFAULT),",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

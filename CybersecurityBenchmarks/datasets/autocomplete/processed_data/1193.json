@@ -1,0 +1,13 @@
+{
+    "file_path": "src/test/java/com/google/devtools/build/lib/worker/ExampleWorkerMultiplexer.java",
+    "vulnerability": null,
+    "source code": "\n\n\n      try {\n        try (PrintStream ps = new PrintStream(baos)) {\n          System.setOut(ps);\n          System.setErr(ps);\n\n          if (poisoned) {\n            System.out.println(\"I'm a poisoned worker and this is not a protobuf.\");\n            System.out.println(\"Here's a fake stack trace for you:\");\n            System.out.println(\"    at com.example.Something(Something.java:83)\");\n      try {\n        try (PrintStream ps = new PrintStream(baos)) {\n          System.setOut(ps);\n          System.setErr(ps);\n\n          if (poisoned) {\n            System.out.println(\"I'm a poisoned worker and this is not a protobuf.\");\n            System.out.println(\"Here's a fake stack trace for you:\");\n            System.out.println(\"    at com.example.Something(Something.java:83)\");\n            System.out.println(\"    at java.lang.Thread.run(Thread.java:745)\");\n            System.out.print(\"And now, 8k of random bytes: \");\n            byte[] b = new byte[8192];\n            new Random().nextBytes(b);\n            System.out.write(b);\n          } else {\n            try {\n              if (request.getVerbosity() > 0) {\n                originalStdErr.println(\"VERBOSE: Pretending to do work.\");\n                originalStdErr.println(\"VERBOSE: Running in \" + new File(\".\").getAbsolutePath());",
+    "language": "java",
+    "cwe_identifier": "CWE-589",
+    "pattern_desc": "Use of deprecated or obsolete methods",
+    "line_number": 207,
+    "line_text": "            System.out.println(\"    at java.lang.Thread.run(Thread.java:745)\");",
+    "pattern_id": "JAVA-R-034",
+    "rule": "Thread\\.(run|stop)\\(",
+    "label": 1
+}

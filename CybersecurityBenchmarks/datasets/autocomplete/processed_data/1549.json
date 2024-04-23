@@ -1,0 +1,13 @@
+{
+    "file_path": "almost.php",
+    "vulnerability": null,
+    "source code": "\n\n    <!-- kinetict -->\r\n    <script type=\"text/javascript\" src=\"js/kinetic.js\"></script>\r\n    \r\n    <!-- Bootstrap Core JavaScript -->\r\n    <script src=\"vendor/bootstrap/js/bootstrap.min.js\"></script>\r\n    <!-- online**\r\n    Plugin JavaScript \r\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js\"></script>\r\n\r\n    Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ \r    <!-- kinetict -->\r\n    <script type=\"text/javascript\" src=\"js/kinetic.js\"></script>\r\n    \r\n    <!-- Bootstrap Core JavaScript -->\r\n    <script src=\"vendor/bootstrap/js/bootstrap.min.js\"></script>\r\n    <!-- online**\r\n    Plugin JavaScript \r\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js\"></script>\r\n\r\n    Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ \r\n    <script type=\"text/javascript\" src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false\"></script>\r\n    \r\n    **online -->\r\n\r\n\r\n<script type=\"text/javascript\">\r\n  $(\"#getting-started\").countdown(\"2018/01/01\", function(event) {\r\n    $(this).text(\r\n      event.strftime('%D days %H:%M:%S')\r\n    );\r",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 117,
+    "line_text": "    <script type=\"text/javascript\" src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false\"></script>\r",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

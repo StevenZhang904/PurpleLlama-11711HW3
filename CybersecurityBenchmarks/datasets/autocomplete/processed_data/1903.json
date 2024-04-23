@@ -1,0 +1,13 @@
+{
+    "file_path": "registration/models.py",
+    "vulnerability": null,
+    "source code": "\n\n    def create_profile(self, user):\n        \"\"\"\n        Create a ``RegistrationProfile`` for a given\n        ``User``, and return the ``RegistrationProfile``.\n\n        The activation key for the ``RegistrationProfile`` will be a\n        SHA1 hash, generated from a combination of the ``User``'s\n        pk and a random salt.\n\n        \"\"\"    def create_profile(self, user):\n        \"\"\"\n        Create a ``RegistrationProfile`` for a given\n        ``User``, and return the ``RegistrationProfile``.\n\n        The activation key for the ``RegistrationProfile`` will be a\n        SHA1 hash, generated from a combination of the ``User``'s\n        pk and a random salt.\n\n        \"\"\"\n        salt = hashlib.sha1(six.text_type(random.random())\n                            .encode('ascii')).hexdigest()[:5]\n        salt = salt.encode('ascii')\n        user_pk = str(user.pk)\n        if isinstance(user_pk, six.text_type):\n            user_pk = user_pk.encode('utf-8')\n        activation_key = hashlib.sha1(salt+user_pk).hexdigest()\n        return self.create(user=user,\n                           activation_key=activation_key)\n",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 111,
+    "line_text": "        salt = hashlib.sha1(six.text_type(random.random())",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

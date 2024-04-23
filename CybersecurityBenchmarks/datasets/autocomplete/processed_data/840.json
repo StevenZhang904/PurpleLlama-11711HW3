@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/end-to-end/api/09-rooms.js",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\t})\n\t\t\t\t.end(done);\n\t\t});\n\t});\n\n\tdescribe('[/rooms.info]', () => {\n\t\tlet testChannel;\n\t\tlet testGroup;\n\t\tlet testDM;\n\t\tconst expectedKeys = ['_id', 'name', 'fname', 't', 'msgs', 'usersCount', 'u', 'customFields', 'ts', 'ro', 'sysMes', 'default', '_updatedAt'];\t\t\t\t})\n\t\t\t\t.end(done);\n\t\t});\n\t});\n\n\tdescribe('[/rooms.info]', () => {\n\t\tlet testChannel;\n\t\tlet testGroup;\n\t\tlet testDM;\n\t\tconst expectedKeys = ['_id', 'name', 'fname', 't', 'msgs', 'usersCount', 'u', 'customFields', 'ts', 'ro', 'sysMes', 'default', '_updatedAt'];\n\t\tconst testChannelName = `channel.test.${ Date.now() }-${ Math.random() }`;\n\t\tconst testGroupName = `group.test.${ Date.now() }-${ Math.random() }`;\n\t\tafter((done) => {\n\t\t\tcloseRoom({ type: 'd', roomId: testDM._id })\n\t\t\t\t.then(done);\n\t\t});\n\t\tit('create an channel', (done) => {\n\t\t\tcreateRoom({ type: 'c', name: testChannelName })\n\t\t\t\t.end((err, res) => {\n\t\t\t\t\ttestChannel = res.body.channel;",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 282,
+    "line_text": "\t\tconst testChannelName = `channel.test.${ Date.now() }-${ Math.random() }`;",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

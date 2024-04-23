@@ -1,0 +1,13 @@
+{
+    "file_path": "vendors/openssl/include/openssl/evp.h",
+    "vulnerability": null,
+    "source code": "\n\n#ifndef OPENSSL_NO_RC2\nconst EVP_CIPHER *EVP_rc2_ecb(void);\nconst EVP_CIPHER *EVP_rc2_cbc(void);\nconst EVP_CIPHER *EVP_rc2_40_cbc(void);\nconst EVP_CIPHER *EVP_rc2_64_cbc(void);\nconst EVP_CIPHER *EVP_rc2_cfb64(void);\n# define EVP_rc2_cfb EVP_rc2_cfb64\nconst EVP_CIPHER *EVP_rc2_ofb(void);\n#endif\n#ifndef OPENSSL_NO_BF#ifndef OPENSSL_NO_RC2\nconst EVP_CIPHER *EVP_rc2_ecb(void);\nconst EVP_CIPHER *EVP_rc2_cbc(void);\nconst EVP_CIPHER *EVP_rc2_40_cbc(void);\nconst EVP_CIPHER *EVP_rc2_64_cbc(void);\nconst EVP_CIPHER *EVP_rc2_cfb64(void);\n# define EVP_rc2_cfb EVP_rc2_cfb64\nconst EVP_CIPHER *EVP_rc2_ofb(void);\n#endif\n#ifndef OPENSSL_NO_BF\nconst EVP_CIPHER *EVP_bf_ecb(void);\nconst EVP_CIPHER *EVP_bf_cbc(void);\nconst EVP_CIPHER *EVP_bf_cfb64(void);\n# define EVP_bf_cfb EVP_bf_cfb64\nconst EVP_CIPHER *EVP_bf_ofb(void);\n#endif\n#ifndef OPENSSL_NO_CAST\nconst EVP_CIPHER *EVP_cast5_ecb(void);\nconst EVP_CIPHER *EVP_cast5_cbc(void);\nconst EVP_CIPHER *EVP_cast5_cfb64(void);",
+    "language": "c",
+    "cwe_identifier": "CWE-1240",
+    "pattern_desc": "The Blowfish encryption algorithm has suboptimal security and speed. Please avoid using it.",
+    "line_number": 762,
+    "line_text": "const EVP_CIPHER *EVP_bf_ecb(void);",
+    "pattern_id": "C-R-007",
+    "rule": "(EVP_bf_\\w+\\s*\\()|(BF_\\w+crypt\\s*\\()",
+    "label": 1
+}

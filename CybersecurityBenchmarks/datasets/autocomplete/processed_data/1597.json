@@ -1,0 +1,13 @@
+{
+    "file_path": "cinder/utils.py",
+    "vulnerability": null,
+    "source code": "\n\n    hostname = re.sub('[ _]', '-', hostname)\n    hostname = re.sub('[^\\w.-]+', '', hostname)\n    hostname = hostname.lower()\n    hostname = hostname.strip('.-')\n\n    return hostname\n\n\ndef hash_file(file_like_object):\n    \"\"\"Generate a hash for the contents of a file.\"\"\"    hostname = re.sub('[ _]', '-', hostname)\n    hostname = re.sub('[^\\w.-]+', '', hostname)\n    hostname = hostname.lower()\n    hostname = hostname.strip('.-')\n\n    return hostname\n\n\ndef hash_file(file_like_object):\n    \"\"\"Generate a hash for the contents of a file.\"\"\"\n    checksum = hashlib.sha1()\n    any(map(checksum.update, iter(lambda: file_like_object.read(32768), b'')))\n    return checksum.hexdigest()\n\n\ndef service_is_up(service):\n    \"\"\"Check whether a service is up based on last heartbeat.\"\"\"\n    last_heartbeat = service['updated_at'] or service['created_at']\n    # Timestamps in DB are UTC.\n    elapsed = (timeutils.utcnow(with_timezone=True) -",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 502,
+    "line_text": "    checksum = hashlib.sha1()",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

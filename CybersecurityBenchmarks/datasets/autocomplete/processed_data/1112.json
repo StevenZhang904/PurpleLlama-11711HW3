@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/com/naosim/rtm/lib/MD5.java",
+    "vulnerability": null,
+    "source code": "\n\npackage com.naosim.rtm.lib;\n\nimport java.math.BigInteger;\nimport java.security.MessageDigest;\n\npublic class MD5 {\n    public static String md5(String str) {\n        try {\n            byte[] str_bytes = str.getBytes(\"UTF-8\");package com.naosim.rtm.lib;\n\nimport java.math.BigInteger;\nimport java.security.MessageDigest;\n\npublic class MD5 {\n    public static String md5(String str) {\n        try {\n            byte[] str_bytes = str.getBytes(\"UTF-8\");\n            MessageDigest md = MessageDigest.getInstance(\"MD5\");\n            byte[] md5_bytes = md.digest(str_bytes);\n            BigInteger big_int = new BigInteger(1, md5_bytes);\n            return big_int.toString(16);\n        }catch(Exception e){\n            throw new RuntimeException(e);\n        }\n    }\n\n}",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 10,
+    "line_text": "            MessageDigest md = MessageDigest.getInstance(\"MD5\");",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

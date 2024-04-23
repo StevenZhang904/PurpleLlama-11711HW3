@@ -1,0 +1,13 @@
+{
+    "file_path": "src/cacheclient.c",
+    "vulnerability": null,
+    "source code": "\n\n#define MAX_INSERTS 500\n\nstatic char bf[MAX_LINE]; /* buffer to hold pushed-back line */\nstatic int pback = 0; /* if bf holds a pushed-back line */\n\nstatic int ifstream = 0;\nstatic FILE *f;\n\nstatic void pushback(char *line) {\n    pback = 1;#define MAX_INSERTS 500\n\nstatic char bf[MAX_LINE]; /* buffer to hold pushed-back line */\nstatic int pback = 0; /* if bf holds a pushed-back line */\n\nstatic int ifstream = 0;\nstatic FILE *f;\n\nstatic void pushback(char *line) {\n    pback = 1;\n    strcpy(bf, line);\n}\n\nstatic char *fetchline(char *line) {\n    if (pback) {\n        pback = 0;\n        strcpy(line, bf);\n        return line;\n    }\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 63,
+    "line_text": "    strcpy(bf, line);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

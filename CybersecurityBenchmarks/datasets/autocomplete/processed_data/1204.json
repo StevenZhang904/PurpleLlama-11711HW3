@@ -1,0 +1,13 @@
+{
+    "file_path": "src/libstd/rt/uv/net.rs",
+    "vulnerability": null,
+    "source code": "\n\nuse str;\nuse from_str::{FromStr};\nuse num;\n\nenum UvIpAddr {\n    UvIpv4(*sockaddr_in),\n    UvIpv6(*sockaddr_in6),\n}\n\nfn sockaddr_to_UvIpAddr(addr: *uvll::sockaddr) -> UvIpAddr {use str;\nuse from_str::{FromStr};\nuse num;\n\nenum UvIpAddr {\n    UvIpv4(*sockaddr_in),\n    UvIpv6(*sockaddr_in6),\n}\n\nfn sockaddr_to_UvIpAddr(addr: *uvll::sockaddr) -> UvIpAddr {\n    unsafe {\n        assert!((is_ip4_addr(addr) || is_ip6_addr(addr)));\n        assert!(!(is_ip4_addr(addr) && is_ip6_addr(addr)));\n        match addr {\n            _ if is_ip4_addr(addr) => UvIpv4(as_sockaddr_in(addr)),\n            _ if is_ip6_addr(addr) => UvIpv6(as_sockaddr_in6(addr)),\n            _ => fail!(),\n        }\n    }\n}",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 31,
+    "line_text": "    unsafe {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

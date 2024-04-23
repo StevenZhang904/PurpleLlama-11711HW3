@@ -1,0 +1,13 @@
+{
+    "file_path": "test/filterintra_predictors_test.cc",
+    "vulnerability": null,
+    "source code": "\n\n public:\n  virtual ~AV1FilterIntraPredOptimzTest() {}\n  virtual void SetUp() {\n    PredFuncMode funcMode = GET_PARAM(0);\n    predFuncRef_ = std::tr1::get<0>(funcMode);\n    predFunc_ = std::tr1::get<1>(funcMode);\n    mode_ = std::tr1::get<2>(funcMode);\n    blockSize_ = GET_PARAM(1);\n\n    alloc_ = new uint8_t[3 * MaxBlkSize + 2]; public:\n  virtual ~AV1FilterIntraPredOptimzTest() {}\n  virtual void SetUp() {\n    PredFuncMode funcMode = GET_PARAM(0);\n    predFuncRef_ = std::tr1::get<0>(funcMode);\n    predFunc_ = std::tr1::get<1>(funcMode);\n    mode_ = std::tr1::get<2>(funcMode);\n    blockSize_ = GET_PARAM(1);\n\n    alloc_ = new uint8_t[3 * MaxBlkSize + 2];\n    predRef_ = new uint8_t[MaxBlkSize * MaxBlkSize];\n    pred_ = new uint8_t[MaxBlkSize * MaxBlkSize];\n  }\n\n  virtual void TearDown() {\n    delete[] alloc_;\n    delete[] predRef_;\n    delete[] pred_;\n    libaom_test::ClearSystemState();\n  }",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 73,
+    "line_text": "    predRef_ = new uint8_t[MaxBlkSize * MaxBlkSize];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

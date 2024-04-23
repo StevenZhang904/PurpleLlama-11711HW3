@@ -1,0 +1,13 @@
+{
+    "file_path": "oltpdbsim/src/main/java/utils/Utility.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\treturn (Integer.toString(prefix) + key);\n\t}\n\t\n\t// Returns a Java hash value\n\tpublic static long javaHash(String key) {\n\t\treturn key.hashCode();\n\t}\t\n\t\n\t// Returns a MD5 hash value\n\tpublic static long md5Hash(String key) {\t\treturn (Integer.toString(prefix) + key);\n\t}\n\t\n\t// Returns a Java hash value\n\tpublic static long javaHash(String key) {\n\t\treturn key.hashCode();\n\t}\t\n\t\n\t// Returns a MD5 hash value\n\tpublic static long md5Hash(String key) {\n\t\tbyte[] value = DigestUtils.md5(key.getBytes());\n\t\treturn Utility.convertByteToUnsignedLong(value);\n\t}\n\t\n\t// Knuth's Multiplication Method\n\tpublic static int intHash(int key) {\n//\t\tint w = 4; // Number of bits\n//\t\tint p = Global.partitions; // number of slots i.e., 16 partitions\n//\t\tint m = 2^p; // \n//\t\tint s = 13; // Must have 0 < s < 2^w. Let, s = 9973 (Prime number)",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 199,
+    "line_text": "\t\tbyte[] value = DigestUtils.md5(key.getBytes());",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "index.js",
+    "vulnerability": null,
+    "source code": "\n\n/**\n  @file Export all functions in yuv-video to user\n  @author Gilson Varghese<gilsonvarghese7@gmail.com>\n  @date 13 Oct, 2016\n**/\n\n/**\n  Module includes\n*/\n/**\n  @file Export all functions in yuv-video to user\n  @author Gilson Varghese<gilsonvarghese7@gmail.com>\n  @date 13 Oct, 2016\n**/\n\n/**\n  Module includes\n*/\n\nvar frameReader = require(./lib/framereader); \nvar frameWriter = require(./lib/framewriter);\nvar frameConverter = require(./lib/frameconverter);\n/**\n  Global variables\n*/\n\nvar version = \"1.0.0\";\n\n/**",
+    "language": "javascript",
+    "cwe_identifier": "CWE-95",
+    "pattern_desc": "The application was found to dynamically import a module by calling `require` using a\nnon-literal string. An adversary might be able to read the first line of\narbitrary files. If they had write access to the file system, they may also be able to\nexecute arbitrary code.\n",
+    "line_number": 11,
+    "line_text": "var frameReader = require(./lib/framereader); ",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.javascript.third-party.non-literal-require",
+    "rule": null,
+    "label": 1
+}

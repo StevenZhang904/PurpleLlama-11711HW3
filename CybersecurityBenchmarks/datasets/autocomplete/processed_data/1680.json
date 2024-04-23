@@ -1,0 +1,13 @@
+{
+    "file_path": "cairis/test/test_AssetAPI.py",
+    "vulnerability": null,
+    "source code": "\n\n      postResponse = rv.data\n    self.logger.debug('[%s] Response data: %s', method, postResponse)\n    json_resp = jsonpickle.decode(postResponse)\n    self.assertIsNotNone(json_resp, 'No results after deserialization')\n    ackMsg = json_resp.get('message', None)\n    self.assertEqual(ackMsg,'Test asset type created')\n\n    rv = self.app.delete('/api/assets/types/name/%s?session_id=test' % quote(self.prepare_new_asset_type().theName))\n    delResponse = rv.data.decode('utf-8')\n    self.assertIsNotNone(delResponse, 'No response')      postResponse = rv.data\n    self.logger.debug('[%s] Response data: %s', method, postResponse)\n    json_resp = jsonpickle.decode(postResponse)\n    self.assertIsNotNone(json_resp, 'No results after deserialization')\n    ackMsg = json_resp.get('message', None)\n    self.assertEqual(ackMsg,'Test asset type created')\n\n    rv = self.app.delete('/api/assets/types/name/%s?session_id=test' % quote(self.prepare_new_asset_type().theName))\n    delResponse = rv.data.decode('utf-8')\n    self.assertIsNotNone(delResponse, 'No response')\n    json_resp = jsonpickle.decode(delResponse)\n    self.assertIsInstance(json_resp, dict, 'The response cannot be converted to a dictionary')\n    message = json_resp.get('message', None)\n    self.assertIsNotNone(message, 'No message in response')\n    self.assertEqual(message,'Test asset type deleted')\n\n  def test_types_put(self):\n    method = 'test_types_put'\n    url = '/api/assets/types'\n    self.logger.info('[%s] URL: %s', method, url)",
+    "language": "python",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Potential deserialization risk due to pickle usage.",
+    "line_number": 264,
+    "line_text": "    json_resp = jsonpickle.decode(delResponse)",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.unsafe-json-pickle-use",
+    "rule": null,
+    "label": 1
+}

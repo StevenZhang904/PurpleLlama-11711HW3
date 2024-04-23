@@ -1,0 +1,13 @@
+{
+    "file_path": "src/metadata.rs",
+    "vulnerability": null,
+    "source code": "\n\npub trait MetadataDict {\n    fn to_metadata (&self) -> Option<Metadata>;\n}\n\nimpl MetadataDict for HashMap<String, Bencode> {\n    /// Extracts information from this HashMap into a Metadata instance, if valid. Currently if it\n    /// is invalid, it will just throw a runtime exception\n    fn to_metadata (&self) -> Option<Metadata> {\n        let announce = self.get_string(\"announce\").unwrap_or_else(||panic!(\"no key found for announce\"));\n        let info_dict = self.get_dict(\"info\").unwrap_or_else(||panic!(\"no key found for info\")).to_owned();pub trait MetadataDict {\n    fn to_metadata (&self) -> Option<Metadata>;\n}\n\nimpl MetadataDict for HashMap<String, Bencode> {\n    /// Extracts information from this HashMap into a Metadata instance, if valid. Currently if it\n    /// is invalid, it will just throw a runtime exception\n    fn to_metadata (&self) -> Option<Metadata> {\n        let announce = self.get_string(\"announce\").unwrap_or_else(||panic!(\"no key found for announce\"));\n        let info_dict = self.get_dict(\"info\").unwrap_or_else(||panic!(\"no key found for info\")).to_owned();\n        let mut sha = Sha1::new();\n        let info_as_text = Bencode::Dict(info_dict.clone()).to_bencode_string();\n        // println!(\"info_dict: {}\", info_as_text);\n        sha.input(&Bencode::Dict(info_dict.clone()).to_bencode_string());\n        let mut info_hash:[u8; 20] = [0; 20];\n        let _ = sha.result(&mut info_hash);\n\n        println!(\"info_hash: {:?}\", info_hash);\n\n        let mode_info = match info_dict.get_list(\"files\") {",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 90,
+    "line_text": "        let mut sha = Sha1::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

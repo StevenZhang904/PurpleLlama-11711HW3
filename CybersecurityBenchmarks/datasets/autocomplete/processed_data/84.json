@@ -1,0 +1,13 @@
+{
+    "file_path": "src/olc_hedit.c",
+    "vulnerability": null,
+    "source code": "\n\n    fAll    = !str_cmp( arg, \"all\" );\n    found   = FALSE;\n\n    for ( pHelp = help_first; pHelp ; pHelp=pHelp->next )\n    {\n\tif ( pHelp->area==pArea && (fAll || is_name( arg, pHelp->keyword )) )\n\t{\n\t    found = TRUE;\n\t    sprintf( buf, \"[%8p] %-15.14s\",\n\t\t    pHelp, pHelp->keyword );    fAll    = !str_cmp( arg, \"all\" );\n    found   = FALSE;\n\n    for ( pHelp = help_first; pHelp ; pHelp=pHelp->next )\n    {\n\tif ( pHelp->area==pArea && (fAll || is_name( arg, pHelp->keyword )) )\n\t{\n\t    found = TRUE;\n\t    sprintf( buf, \"[%8p] %-15.14s\",\n\t\t    pHelp, pHelp->keyword );\n\t    strcat( buf1, buf );\n\t    if ( ++col % 3 == 0 ) strcat( buf1, \"\\n\\r\" );\n\t}\n    }\n\n    if ( !found )\n    {\n\tsend_to_char( \"No help found in this area.\\n\\r\", ch);\n\treturn FALSE;\n    }",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 190,
+    "line_text": "\t    strcat( buf1, buf );",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

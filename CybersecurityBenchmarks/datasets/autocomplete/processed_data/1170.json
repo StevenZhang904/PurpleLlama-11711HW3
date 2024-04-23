@@ -1,0 +1,13 @@
+{
+    "file_path": "web/plugins/structured-ingest/core/src/main/java/org/visallo/web/structuredingest/core/util/GraphBuilderParserHandler.java",
+    "vulnerability": null,
+    "source code": "\n\n                    boolean alreadyCreated = createdEdgeIds.contains(edgeBuilder.getEdgeId());\n                    createdEdgeIds.add(edgeBuilder.getEdgeId());\n                    edgeBuilders.add(edgeBuilder);\n                    if (!alreadyCreated) {\n                        incrementEdges(edgeMapping, !graph.doesEdgeExist(edgeBuilder.getEdgeId(), authorizations));\n                    }\n                }\n            }\n\n            if (!dryRun) {                    boolean alreadyCreated = createdEdgeIds.contains(edgeBuilder.getEdgeId());\n                    createdEdgeIds.add(edgeBuilder.getEdgeId());\n                    edgeBuilders.add(edgeBuilder);\n                    if (!alreadyCreated) {\n                        incrementEdges(edgeMapping, !graph.doesEdgeExist(edgeBuilder.getEdgeId(), authorizations));\n                    }\n                }\n            }\n\n            if (!dryRun) {\n                HashFunction hash = Hashing.sha1();\n                for (VertexBuilder vertexBuilder : vertexBuilders) {\n                    Vertex newVertex = vertexBuilder.save(authorizations);\n                    EdgeBuilder hasSourceEdgeBuilder = graph.prepareEdge(\n                            hash.newHasher()\n                                    .putString(newVertex.getId())\n                                    .putString(structuredFileVertex.getId())\n                                    .hash()\n                                    .toString(),\n                            newVertex,",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 205,
+    "line_text": "                HashFunction hash = Hashing.sha1();",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

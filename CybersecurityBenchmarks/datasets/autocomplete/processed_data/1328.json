@@ -1,0 +1,13 @@
+{
+    "file_path": "src/rust/engine/src/context.rs",
+    "vulnerability": null,
+    "source code": "\n\n\n    let process_execution_metadata = ProcessMetadata {\n      instance_name: remote_instance_name,\n      cache_key_gen_version: remote_execution_process_cache_namespace,\n      platform_properties: remote_execution_extra_platform_properties,\n    };\n\n    let local_command_runner = process_execution::local::CommandRunner::new(\n      store.clone(),\n      executor.clone(),\n    let process_execution_metadata = ProcessMetadata {\n      instance_name: remote_instance_name,\n      cache_key_gen_version: remote_execution_process_cache_namespace,\n      platform_properties: remote_execution_extra_platform_properties,\n    };\n\n    let local_command_runner = process_execution::local::CommandRunner::new(\n      store.clone(),\n      executor.clone(),\n      std::env::temp_dir(),\n      process_execution_cleanup_local_dirs,\n    );\n\n    let maybe_nailgunnable_local_command_runner: Box<dyn process_execution::CommandRunner> =\n      if process_execution_local_enable_nailgun {\n        Box::new(process_execution::nailgun::CommandRunner::new(\n          local_command_runner,\n          process_execution_metadata.clone(),\n          std::env::temp_dir(),",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 178,
+    "line_text": "      std::env::temp_dir(),",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

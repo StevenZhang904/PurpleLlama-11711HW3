@@ -1,0 +1,13 @@
+{
+    "file_path": "third-party/qemu-orp/block.c",
+    "vulnerability": null,
+    "source code": "\n\n            QDECREF(bs->full_open_options);\n            bs->full_open_options = NULL;\n        }\n\n        opts = qdict_new();\n        has_open_options = append_open_options(opts, bs);\n\n        /* If no specific options have been given for this BDS, the filename of\n         * the underlying file should suffice for this one as well */\n        if (bs->file->exact_filename[0] && !has_open_options) {            QDECREF(bs->full_open_options);\n            bs->full_open_options = NULL;\n        }\n\n        opts = qdict_new();\n        has_open_options = append_open_options(opts, bs);\n\n        /* If no specific options have been given for this BDS, the filename of\n         * the underlying file should suffice for this one as well */\n        if (bs->file->exact_filename[0] && !has_open_options) {\n            strcpy(bs->exact_filename, bs->file->exact_filename);\n        }\n        /* Reconstructing the full options QDict is simple for most format block\n         * drivers, as long as the full options are known for the underlying\n         * file BDS. The full options QDict of that file BDS should somehow\n         * contain a representation of the filename, therefore the following\n         * suffices without querying the (exact_)filename of this BDS. */\n        if (bs->file->full_open_options) {\n            qdict_put_obj(opts, \"driver\",\n                          QOBJECT(qstring_from_str(drv->format_name)));",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 5948,
+    "line_text": "            strcpy(bs->exact_filename, bs->file->exact_filename);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

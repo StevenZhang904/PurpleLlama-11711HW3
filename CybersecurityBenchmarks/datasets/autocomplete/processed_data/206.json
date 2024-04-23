@@ -1,0 +1,13 @@
+{
+    "file_path": "sys/net80211/ieee80211_ioctl.c",
+    "vulnerability": null,
+    "source code": "\n\n * build system would be awkward.\n */\nstatic __noinline int\nieee80211_ioctl_get80211(struct ieee80211vap *vap, u_long cmd,\n    struct ieee80211req *ireq)\n{\n#define\tMS(_v, _f)\t(((_v) & _f) >> _f##_S)\n\tstruct ieee80211com *ic = vap->iv_ic;\n\tu_int kid, len;\n\tuint8_t tmpkey[IEEE80211_KEYBUF_SIZE]; * build system would be awkward.\n */\nstatic __noinline int\nieee80211_ioctl_get80211(struct ieee80211vap *vap, u_long cmd,\n    struct ieee80211req *ireq)\n{\n#define\tMS(_v, _f)\t(((_v) & _f) >> _f##_S)\n\tstruct ieee80211com *ic = vap->iv_ic;\n\tu_int kid, len;\n\tuint8_t tmpkey[IEEE80211_KEYBUF_SIZE];\n\tchar tmpssid[IEEE80211_NWID_LEN];\n\tint error = 0;\n\n\tswitch (ireq->i_type) {\n\tcase IEEE80211_IOC_SSID:\n\t\tswitch (vap->iv_state) {\n\t\tcase IEEE80211_S_INIT:\n\t\tcase IEEE80211_S_SCAN:\n\t\t\tireq->i_len = vap->iv_des_ssid[0].len;\n\t\t\tmemcpy(tmpssid, vap->iv_des_ssid[0].ssid, ireq->i_len);",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 794,
+    "line_text": "\tchar tmpssid[IEEE80211_NWID_LEN];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

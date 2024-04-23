@@ -1,0 +1,13 @@
+{
+    "file_path": "module_kits/vtk_kit/__init__.py",
+    "vulnerability": null,
+    "source code": "\n\n    oldflags = setDLFlags()\n\n    percentStep = 100.0 / len(vtkImportList)\n    currentPercent = 0.0\n\n    # do the imports\n    for module, message in vtkImportList:\n        currentPercent += percentStep\n        progressMethod(currentPercent, 'Initialising vtk_kit: %s' % (message,),\n                       noTime=True)    oldflags = setDLFlags()\n\n    percentStep = 100.0 / len(vtkImportList)\n    currentPercent = 0.0\n\n    # do the imports\n    for module, message in vtkImportList:\n        currentPercent += percentStep\n        progressMethod(currentPercent, 'Initialising vtk_kit: %s' % (message,),\n                       noTime=True)\n        exec('import %s' % (module,))\n\n    # restore previous dynamic loading flags\n    resetDLFlags(oldflags)\n\ndef setDLFlags():\n    # brought over from ITK Wrapping/CSwig/Python\n\n    # Python \"help(sys.setdlopenflags)\" states:\n    #",
+    "language": "python",
+    "cwe_identifier": "CWE-94",
+    "pattern_desc": "Potential code injection due to exec usage.",
+    "line_number": 49,
+    "line_text": "        exec('import %s' % (module,))",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-exec-use",
+    "rule": null,
+    "label": 1
+}

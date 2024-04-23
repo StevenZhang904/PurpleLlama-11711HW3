@@ -1,0 +1,13 @@
+{
+    "file_path": "final.c",
+    "vulnerability": null,
+    "source code": "\n\n    printf(\"Cash Bet: $\");\n    scanf(\"%d\",&c);\n\n   return c;\n}\n\n//rolling the wheel\nint roll_wheel(){\n     float m,n;\n     int wh1,wh2,res;    printf(\"Cash Bet: $\");\n    scanf(\"%d\",&c);\n\n   return c;\n}\n\n//rolling the wheel\nint roll_wheel(){\n     float m,n;\n     int wh1,wh2,res;\n     m=rand()/32768.0;\n     n=rand()/32768.0;\n     wh1=(int) (m*9);\n     wh2=(int) (n*9);\n     res=w[wh1][wh2];\n     w[wh1][wh2]=249;\n     return res;\n}\n\n//rolling the dice",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 141,
+    "line_text": "     m=rand()/32768.0;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

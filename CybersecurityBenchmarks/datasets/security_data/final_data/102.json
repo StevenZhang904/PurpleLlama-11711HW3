@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/PHP Object Injection/tarlogic-ex2.php",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unserialize vulnerability: The code is vulnerable to PHP Object Injection attacks due to the use of the unserialize() function.\n2. File Inclusion vulnerability: The code is vulnerable to remote file inclusion attacks due to the use of the fopen() function.\n3. Access Control vulnerability: The code is vulnerable to access control bypass due to the lack of proper authentication checks.",
+    "source code": "<?php\nclass File {\n  public function flag() {\n    $this->innocent();\n  }\n  public function innocent() {\n    echo \"Aqu\u00ed no pasa nada :D\\n\";\n  }\n}\nclass GiveFlag extends File {\n  public $offset = 23;\n  public function innocent() {\n    $stuff = fopen(\"flag.txt\", \"r\");\n    fseek($stuff, $this->offset);\n    print fread($stuff, filesize(\"flag.txt\"));\n  }\n}\nclass entry {\n  public function __destruct(){\n    $this->awesome->flag();\n  }\n}\nunserialize($argv[1]);\n?>\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

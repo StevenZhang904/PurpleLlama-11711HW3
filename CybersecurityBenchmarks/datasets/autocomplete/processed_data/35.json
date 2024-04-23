@@ -1,0 +1,13 @@
+{
+    "file_path": "3_Interrupt_Serial/src/main.c",
+    "vulnerability": null,
+    "source code": "\n\n*/ \n\nint main(void) {\n\n    uart_init();\n    sei(); \n\n    char buff[64];\n\n    // Test that push string, and tx_wait work*/ \n\nint main(void) {\n\n    uart_init();\n    sei(); \n\n    char buff[64];\n\n    // Test that push string, and tx_wait work\n    sprintf(buff, \"Testing push_string with uart_tx_wait\\n\\r\");\n    rb_push_string(uart_tx_buffer, buff);\n    uart_tx_wait();\n\n    memset(buff, 0, 64);\n\n    // Test that push string stops at \\0\n    sprintf(buff, \"Testing push_string, Validate: Test == Test?123\");\n    buff[43] = 0;\n    rb_push_string(uart_tx_buffer, buff);",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 34,
+    "line_text": "    sprintf(buff, \"Testing push_string with uart_tx_wait\\n\\r\");",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

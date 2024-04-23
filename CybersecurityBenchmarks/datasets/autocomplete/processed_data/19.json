@@ -1,0 +1,13 @@
+{
+    "file_path": "src.clean/commands/lex/initscan.c",
+    "vulnerability": null,
+    "source code": "\n\n#define MARK_END_OF_PROLOG mark_prolog();\r\n\r\n#define YY_DECL \\\r\n\tint flexscan()\r\n\r\n#define RETURNCHAR \\\r\n\tyylval = (unsigned char) yytext[0]; \\\r\n\treturn CHAR;\r\n\r\n#define RETURNNAME \\\r#define MARK_END_OF_PROLOG mark_prolog();\r\n\r\n#define YY_DECL \\\r\n\tint flexscan()\r\n\r\n#define RETURNCHAR \\\r\n\tyylval = (unsigned char) yytext[0]; \\\r\n\treturn CHAR;\r\n\r\n#define RETURNNAME \\\r\n\tstrcpy( nmstr, yytext ); \\\r\n\treturn NAME;\r\n\r\n#define PUT_BACK_STRING(str, start) \\\r\n\tfor ( i = strlen( str ) - 1; i >= start; --i ) \\\r\n\t\tunput((str)[i])\r\n\r\n#define CHECK_REJECT(str) \\\r\n\tif ( all_upper( str ) ) \\\r\n\t\treject = true;\r",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 1295,
+    "line_text": "\tstrcpy( nmstr, yytext ); \\\r",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

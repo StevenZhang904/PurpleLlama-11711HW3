@@ -1,0 +1,13 @@
+{
+    "file_path": "src/texture_loader.rs",
+    "vulnerability": null,
+    "source code": "\n\n        self.textures[index]\n    }\n}\n\npub fn load_texture(texture_path: ~str, color_mod: GLenum) -> GLuint {\n    let raw_tex = match stb::image::load(texture_path.clone()) {\n    ImageU8(i)  => i,\n    _           => fail!(\"Cannot load asset: {}\", texture_path)\n    };\n    let mut tex = 0;        self.textures[index]\n    }\n}\n\npub fn load_texture(texture_path: ~str, color_mod: GLenum) -> GLuint {\n    let raw_tex = match stb::image::load(texture_path.clone()) {\n    ImageU8(i)  => i,\n    _           => fail!(\"Cannot load asset: {}\", texture_path)\n    };\n    let mut tex = 0;\n    unsafe {\n        gl::GenTextures(1, &mut tex);\n        gl::BindTexture(gl::TEXTURE_2D, tex);\n        gl::TexImage2D(gl::TEXTURE_2D, \n            0, \n            color_mod as i32, \n            raw_tex.width as i32, \n            raw_tex.height as i32, \n            0, \n            color_mod, ",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 74,
+    "line_text": "    unsafe {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

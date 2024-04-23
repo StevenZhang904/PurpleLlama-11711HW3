@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/test_dsu.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    for (auto i = 1; i < n; ++i) {\n        BOOST_TEST((dsu.find(xs[0]) == dsu.find(xs[i])));\n    }\n}\n\n\nBOOST_DATA_TEST_CASE(check_xs_ys, xrange(2, 256) * xrange(10), n, s) {\n    auto xs = create_vector(n, s);\n    auto ys = xs;\n    for (auto i = 1; i < n; ++i) {\n        BOOST_TEST((dsu.find(xs[0]) == dsu.find(xs[i])));\n    }\n}\n\n\nBOOST_DATA_TEST_CASE(check_xs_ys, xrange(2, 256) * xrange(10), n, s) {\n    auto xs = create_vector(n, s);\n    auto ys = xs;\n\n    auto engine = std::default_random_engine{};\n    std::shuffle(ys.begin(), ys.end(), engine);\n\n    auto dsu = DisjointSetUnion<int>(xs.begin(), xs.end());\n\n    for (auto i = 0; i < n; ++i) {\n        dsu.unite(xs[i], ys[i]);\n    }\n\n    for (auto i = 0; i < n; ++i) {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-335",
+    "pattern_desc": "Use of fixed seed for PRNG",
+    "line_number": 74,
+    "line_text": "    auto engine = std::default_random_engine{};",
+    "pattern_id": "CPP-R-002",
+    "rule": "\\b(std::mt19937|std::mt19937_64|std::minstd_rand|std::minstd_rand0|std::default_random_engine)\\s*(\\{|\\()\\s*\\d*\\s*(\\}|\\)|\\/)",
+    "label": 1
+}

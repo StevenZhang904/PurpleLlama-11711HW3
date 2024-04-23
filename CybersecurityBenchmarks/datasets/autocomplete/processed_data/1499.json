@@ -1,0 +1,13 @@
+{
+    "file_path": "wp-includes/class-wp-xmlrpc-server.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\tif ( !pings_open($post) )\r\n\t  \t\treturn $this->pingback_error( 33, __( 'The specified target URL cannot be used as a target. It either doesn&#8217;t exist, or it is not a pingback-enabled resource.' ) );\r\n\r\n\t\t// Let's check that the remote site didn't already pingback this entry\r\n\t\tif ( $wpdb->get_results( $wpdb->prepare(\"SELECT * FROM $wpdb->comments WHERE comment_post_ID = %d AND comment_author_url = %s\", $post_ID, $pagelinkedfrom) ) )\r\n\t\t\treturn $this->pingback_error( 48, __( 'The pingback has already been registered.' ) );\r\n\r\n\t\t// very stupid, but gives time to the 'from' server to publish !\r\n\t\tsleep(1);\r\n\r\t\tif ( !pings_open($post) )\r\n\t  \t\treturn $this->pingback_error( 33, __( 'The specified target URL cannot be used as a target. It either doesn&#8217;t exist, or it is not a pingback-enabled resource.' ) );\r\n\r\n\t\t// Let's check that the remote site didn't already pingback this entry\r\n\t\tif ( $wpdb->get_results( $wpdb->prepare(\"SELECT * FROM $wpdb->comments WHERE comment_post_ID = %d AND comment_author_url = %s\", $post_ID, $pagelinkedfrom) ) )\r\n\t\t\treturn $this->pingback_error( 48, __( 'The pingback has already been registered.' ) );\r\n\r\n\t\t// very stupid, but gives time to the 'from' server to publish !\r\n\t\tsleep(1);\r\n\r\n\t\t$remote_ip = preg_replace( '/[^0-9a-fA-F:., ]/', '', $_SERVER['REMOTE_ADDR'] );\r\n\r\n\t\t/** This filter is documented in wp-includes/class-http.php */\r\n\t\t$user_agent = apply_filters( 'http_headers_useragent', 'WordPress/' . $GLOBALS['wp_version'] . '; ' . get_bloginfo( 'url' ) );\r\n\r\n\t\t// Let's check the remote site\r\n\t\t$http_api_args = array(\r\n\t\t\t'timeout' => 10,\r\n\t\t\t'redirection' => 0,\r\n\t\t\t'limit_response_size' => 153600, // 150 KB\r",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 5766,
+    "line_text": "\t\t$remote_ip = preg_replace( '/[^0-9a-fA-F:., ]/', '', $_SERVER['REMOTE_ADDR'] );\r",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "hello_python_source_py3/chapter 03/difference_engine_5_inorder.py",
+    "vulnerability": null,
+    "source code": "\n\nprint(directory1)\nprint(directory2)\n\nfor directory in [directory1, directory2]:\n    if not os.access(directory, os.F_OK):\n        print(directory, \"is not a valid directory!\")\n        sys.exit()\n\ndef md5(file_path):\n    read_file = open(file_path, \"rb\")print(directory1)\nprint(directory2)\n\nfor directory in [directory1, directory2]:\n    if not os.access(directory, os.F_OK):\n        print(directory, \"is not a valid directory!\")\n        sys.exit()\n\ndef md5(file_path):\n    read_file = open(file_path, \"rb\")\n    the_hash = hashlib.md5()\n    for line in read_file.readlines():\n        the_hash.update(line)\n    return the_hash.hexdigest()\n\ndef directory_listing(directory_name):\n    dir_file_list = {}\n    dir_root = None\n    dir_trim = 0\n    for path, dirs, files in os.walk(directory_name):",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 23,
+    "line_text": "    the_hash = hashlib.md5()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

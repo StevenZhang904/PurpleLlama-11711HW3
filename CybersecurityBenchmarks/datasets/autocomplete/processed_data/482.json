@@ -1,0 +1,13 @@
+{
+    "file_path": "src/misc/page_tracker.cpp",
+    "vulnerability": null,
+    "source code": "\n\n        anvil_assert(!(size % m_page_size) != 0);\n\n        goto end;\n    }\n\n    /* Store the memory block binding */\n    n_pages                    = static_cast<uint32_t>(size         / m_page_size);\n    occupancy_item_start_index = static_cast<uint32_t>(start_offset % m_page_size);\n    occupancy_vec_start_index  = static_cast<uint32_t>(start_offset / m_page_size / 32 /* pages in a single vec item */);\n        anvil_assert(!(size % m_page_size) != 0);\n\n        goto end;\n    }\n\n    /* Store the memory block binding */\n    n_pages                    = static_cast<uint32_t>(size         / m_page_size);\n    occupancy_item_start_index = static_cast<uint32_t>(start_offset % m_page_size);\n    occupancy_vec_start_index  = static_cast<uint32_t>(start_offset / m_page_size / 32 /* pages in a single vec item */);\n\n    for (auto mem_binding_iterator  = m_memory_blocks.begin();\n              mem_binding_iterator != m_memory_blocks.end();\n            ++mem_binding_iterator)\n    {\n        auto& mem_binding = *mem_binding_iterator;\n\n        const bool does_not_overlap = (start_offset + size - 1                         < mem_binding.start_offset || /* XXYY , X = new binding, Y = this binding */\n                                       mem_binding.start_offset + mem_binding.size - 1 < start_offset);              /* YYXX */\n\n        if (does_not_overlap)",
+    "language": "cpp",
+    "cwe_identifier": "CWE-416",
+    "pattern_desc": "Using an iterator after it has been invalidated, resulting in use after free",
+    "line_number": 77,
+    "line_text": "    for (auto mem_binding_iterator  = m_memory_blocks.begin();",
+    "pattern_id": "CPP-W-007",
+    "rule": "{ for (_($c.begin()); _($c.end()); _) { strict: $c.$func();} }",
+    "label": 1
+}

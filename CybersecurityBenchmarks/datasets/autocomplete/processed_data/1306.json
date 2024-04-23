@@ -1,0 +1,13 @@
+{
+    "file_path": "src/settings.rs",
+    "vulnerability": null,
+    "source code": "\n\n            best_rect: vec![284.0, 12.0, 96.0, 48.0,],\n            score_rect: vec![176.0, 12.0, 96.0, 48.0],\n            label_color: vec![187.0, 173.0, 160.0],\n            button_color: vec![142.0, 122.0, 102.0],\n            text_dark_color: vec![119.0, 110.0, 101.0],\n            text_light_color: vec![249.0, 246.0, 242.0],\n        }\n    }\n\n    pub fn load() -> SettingsInJson {            best_rect: vec![284.0, 12.0, 96.0, 48.0,],\n            score_rect: vec![176.0, 12.0, 96.0, 48.0],\n            label_color: vec![187.0, 173.0, 160.0],\n            button_color: vec![142.0, 122.0, 102.0],\n            text_dark_color: vec![119.0, 110.0, 101.0],\n            text_light_color: vec![249.0, 246.0, 242.0],\n        }\n    }\n\n    pub fn load() -> SettingsInJson {\n        let exe_path = current_exe();\n\n        if exe_path.is_err() {\n            return SettingsInJson::default_settings();\n        }\n\n        let mut exe_path = exe_path.unwrap();\n        exe_path.pop();\n        let path = exe_path.join(Path::new(SETTING_FILENAME));\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 212,
+    "line_text": "        let exe_path = current_exe();",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

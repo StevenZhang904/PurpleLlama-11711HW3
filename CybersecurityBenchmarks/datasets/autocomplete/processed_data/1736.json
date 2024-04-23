@@ -1,0 +1,13 @@
+{
+    "file_path": "sct_initdb.py",
+    "vulnerability": null,
+    "source code": "\n\n#drop if collections exists\ndbh.drop_collection(\"resetpass\")\n\n#drop if collections exists\ndbh.drop_collection(\"employees\")\n\neh = dbh.employees\nne = [\n      {\n          \"username\" : \"tedhi@jawdat.com\",#drop if collections exists\ndbh.drop_collection(\"resetpass\")\n\n#drop if collections exists\ndbh.drop_collection(\"employees\")\n\neh = dbh.employees\nne = [\n      {\n          \"username\" : \"tedhi@jawdat.com\",\n          \"secret\" : hashlib.md5(\"J@wdat12345\").hexdigest(),\n          \"first_login\" : True,\n          \"jawdat_id\" : \"001\",\n          \"roles\" : [\"manager\", \"director\"],\n          \"fullname\" : \"Tedhi Achdiana\",\n          \"position\" : \"Managing Director\",\n          \"division\" : \"bod\",\n          \"supervisor\" : \"tedhi@jawdat.com\",\n          \"profpic\" : \"tedhi.jpg\",\n      },",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 21,
+    "line_text": "          \"secret\" : hashlib.md5(\"J@wdat12345\").hexdigest(),",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

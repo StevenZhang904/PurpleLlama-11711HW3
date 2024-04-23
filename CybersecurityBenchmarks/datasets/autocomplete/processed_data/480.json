@@ -1,0 +1,13 @@
+{
+    "file_path": "include/classes/reversible.hpp",
+    "vulnerability": null,
+    "source code": "\n\n\n    /**\n     * \\brief Sets all bits according to a Bernoulli(p) distribution\n     *\n     * \\param p Probability\n     * \\return Reference to the current instance\n     */\n    Dynamic_bitset& rand(double p = 0.5) {\n        idx bitset_size = size();\n        for (idx i = 0; i < bitset_size; ++i) {\n    /**\n     * \\brief Sets all bits according to a Bernoulli(p) distribution\n     *\n     * \\param p Probability\n     * \\return Reference to the current instance\n     */\n    Dynamic_bitset& rand(double p = 0.5) {\n        idx bitset_size = size();\n        for (idx i = 0; i < bitset_size; ++i) {\n            this->rand(i, p);\n        }\n\n        return *this;\n    }\n\n    /**\n     * \\brief Sets the bit at position \\a pos to false\n     *\n     * \\param pos Position in the bitset",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 238,
+    "line_text": "            this->rand(i, p);",
+    "pattern_id": "C-W-018",
+    "rule": "{ rand(_); }",
+    "label": 1
+}

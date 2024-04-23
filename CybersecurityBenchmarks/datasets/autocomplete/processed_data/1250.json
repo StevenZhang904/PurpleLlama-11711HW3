@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/test_server.rs",
+    "vulnerability": null,
+    "source code": "\n\n                let errmsg = Value::from(e.description());\n                let res = Response::new(msgid, errcode, errmsg);\n                let val: Value = res.into();\n                self.shutdown();\n                return future::ok::<Value, io::Error>(val).boxed()\n            },\n            Ok(req) => req\n        };\n\n        // Return an ok response                let errmsg = Value::from(e.description());\n                let res = Response::new(msgid, errcode, errmsg);\n                let val: Value = res.into();\n                self.shutdown();\n                return future::ok::<Value, io::Error>(val).boxed()\n            },\n            Ok(req) => req\n        };\n\n        // Return an ok response\n        let req_args = req.message_args();\n        let result = req_args[0].clone();\n\n        let msgid = req.message_id();\n        let errcode = ErrorResponse::Nil;\n        // let result = Value::Nil;\n        let res = Response::new(msgid, errcode, result);\n        let val: Value = res.into();\n\n        self.shutdown();",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 157,
+    "line_text": "        let req_args = req.message_args();",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

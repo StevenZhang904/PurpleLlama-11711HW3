@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/BotManagerTest.php",
+    "vulnerability": null,
+    "source code": "\n\n                'database' => PHPUNIT_DB_DATABASE,\n            ],\n        ];\n    }\n\n    /**\n     * To test the live commands, act as if we're being called by Telegram.\n     */\n    protected function makeRequestValid(): void\n    {                'database' => PHPUNIT_DB_DATABASE,\n            ],\n        ];\n    }\n\n    /**\n     * To test the live commands, act as if we're being called by Telegram.\n     */\n    protected function makeRequestValid(): void\n    {\n        $_SERVER['REMOTE_ADDR'] = '149.154.167.197';\n    }\n\n    public function testSetParameters(): void\n    {\n        $botManager = new BotManager(array_merge(ParamsTest::$demo_vital_params, [\n            'admins' => [1],            // valid\n            'paths'  => [               // valid\n                'upload' => '/upload/path',\n            ],",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 55,
+    "line_text": "        $_SERVER['REMOTE_ADDR'] = '149.154.167.197';",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

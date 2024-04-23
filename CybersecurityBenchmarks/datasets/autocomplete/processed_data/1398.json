@@ -1,0 +1,13 @@
+{
+    "file_path": "src/mysql.rs",
+    "vulnerability": null,
+    "source code": "\n\n                    sent\n                );\n            }\n        }\n\n        #[test]\n        fn write_numeric_type() {\n            let connection = diesel::MysqlConnection::establish(&get_mysql_url()).expect(\"Establish connection\");\n            for &(precision, scale, sent, expected) in TEST_DECIMALS.iter() {\n                let items: Vec<Test> =                    sent\n                );\n            }\n        }\n\n        #[test]\n        fn write_numeric_type() {\n            let connection = diesel::MysqlConnection::establish(&get_mysql_url()).expect(\"Establish connection\");\n            for &(precision, scale, sent, expected) in TEST_DECIMALS.iter() {\n                let items: Vec<Test> =\n                    sql_query(format!(\"SELECT CAST($1 AS DECIMAL({}, {})) AS value\", precision, scale))\n                        .bind::<Text, _>(sent)\n                        .load(&connection)\n                        .expect(\"Unable to query value\");\n                assert_eq!(\n                    expected,\n                    items.first().unwrap().value.to_string(),\n                    \"DECIMAL({}, {}) sent: {}\",\n                    precision,\n                    scale,",
+    "language": "rust",
+    "cwe_identifier": "CWE-89",
+    "pattern_desc": "Potential sql injection vulnerability. Please consider using a prepared statement instead.",
+    "line_number": 135,
+    "line_text": "                    sql_query(format!(\"SELECT CAST($1 AS DECIMAL({}, {})) AS value\", precision, scale))",
+    "pattern_id": "RUST-R-001",
+    "rule": "sql_query\\s*\\(\\s*[^\"].*\\)",
+    "label": 1
+}

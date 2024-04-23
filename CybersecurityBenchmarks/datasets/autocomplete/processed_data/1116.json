@@ -1,0 +1,13 @@
+{
+    "file_path": "src/java/org/apache/cassandra/config/Schema.java",
+    "vulnerability": null,
+    "source code": "\n\n\n    private volatile UUID version;\n\n    // 59adb24e-f3cd-3e02-97f0-5b395827453f\n    public static final UUID emptyVersion;\n\n    static\n    {\n        try\n        {\n    private volatile UUID version;\n\n    // 59adb24e-f3cd-3e02-97f0-5b395827453f\n    public static final UUID emptyVersion;\n\n    static\n    {\n        try\n        {\n            emptyVersion = UUID.nameUUIDFromBytes(MessageDigest.getInstance(\"MD5\").digest());\n        }\n        catch (NoSuchAlgorithmException e)\n        {\n            throw new AssertionError();\n        }\n    }\n\n    /**\n     * Initialize empty schema object and load the hardcoded system tables",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 76,
+    "line_text": "            emptyVersion = UUID.nameUUIDFromBytes(MessageDigest.getInstance(\"MD5\").digest());",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

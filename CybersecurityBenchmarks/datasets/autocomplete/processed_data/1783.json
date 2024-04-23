@@ -1,0 +1,13 @@
+{
+    "file_path": "registration/managers.py",
+    "vulnerability": null,
+    "source code": "\n\n            return profile.activate()\n\n    def create_profile(self, user):\n        \"\"\"Create a ``RegistrationProfile`` for a given ``User``, and return\n        the ``RegistrationProfile``.\n\n        The activation key for the ``RegistrationProfile`` will be a SHA1 hash,\n        generated from a combination of the ``User``'s username and a random\n        salt.\n        \"\"\"            return profile.activate()\n\n    def create_profile(self, user):\n        \"\"\"Create a ``RegistrationProfile`` for a given ``User``, and return\n        the ``RegistrationProfile``.\n\n        The activation key for the ``RegistrationProfile`` will be a SHA1 hash,\n        generated from a combination of the ``User``'s username and a random\n        salt.\n        \"\"\"\n        salt = hashlib.sha1(str(random.random())).hexdigest()[:5]\n        username = user.username\n\n        if isinstance(username, unicode):\n            username = username.encode('utf-8')\n\n        activation_key = hashlib.sha1(salt+username).hexdigest()\n        return self.create(user=user, activation_key=activation_key)\n",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 46,
+    "line_text": "        salt = hashlib.sha1(str(random.random())).hexdigest()[:5]",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

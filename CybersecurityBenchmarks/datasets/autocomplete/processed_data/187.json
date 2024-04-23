@@ -1,0 +1,13 @@
+{
+    "file_path": "sys/kern/tty_outq.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\tto->to_end -= TTYOUTQ_DATASIZE;\n\n\t\t\t/* Temporary unlock and copy the data to userspace. */\n\t\t\ttty_unlock(tp);\n\t\t\terror = uiomove(tob->tob_data + cbegin, clen, uio);\n\t\t\ttty_lock(tp);\n\n\t\t\t/* Block can now be readded to the list. */\n\t\t\tTTYOUTQ_RECYCLE(to, tob);\n\t\t} else {\t\t\t\tto->to_end -= TTYOUTQ_DATASIZE;\n\n\t\t\t/* Temporary unlock and copy the data to userspace. */\n\t\t\ttty_unlock(tp);\n\t\t\terror = uiomove(tob->tob_data + cbegin, clen, uio);\n\t\t\ttty_lock(tp);\n\n\t\t\t/* Block can now be readded to the list. */\n\t\t\tTTYOUTQ_RECYCLE(to, tob);\n\t\t} else {\n\t\t\tchar ob[TTYOUTQ_DATASIZE - 1];\n\n\t\t\t/*\n\t\t\t * Slow path: store data in a temporary buffer.\n\t\t\t */\n\t\t\tmemcpy(ob, tob->tob_data + cbegin, clen);\n\t\t\tto->to_begin += clen;\n\t\t\tMPASS(to->to_begin < TTYOUTQ_DATASIZE);\n\n\t\t\t/* Temporary unlock and copy the data to userspace. */",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 249,
+    "line_text": "\t\t\tchar ob[TTYOUTQ_DATASIZE - 1];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

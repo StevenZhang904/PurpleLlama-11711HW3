@@ -1,0 +1,13 @@
+{
+    "file_path": "storage/blockdevice/COMPONENT_SD/tests/TESTS/filesystem/seek/main.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n    {\n        size_t size;\n        res = MBED_TEST_FILESYSTEM::format(&bd);\n        TEST_ASSERT_EQUAL(0, res);\n        res = fs.mount(&bd);\n        TEST_ASSERT_EQUAL(0, res);\n        res = fs.mkdir(\"hello\", 0777);\n        TEST_ASSERT_EQUAL(0, res);\n        for (int i = 0; i < 132; i++) {\n    {\n        size_t size;\n        res = MBED_TEST_FILESYSTEM::format(&bd);\n        TEST_ASSERT_EQUAL(0, res);\n        res = fs.mount(&bd);\n        TEST_ASSERT_EQUAL(0, res);\n        res = fs.mkdir(\"hello\", 0777);\n        TEST_ASSERT_EQUAL(0, res);\n        for (int i = 0; i < 132; i++) {\n            sprintf((char *)buffer, \"hello/kitty%d\", i);\n            res = file[0].open(&fs, (char *)buffer,\n                               O_WRONLY | O_CREAT | O_APPEND);\n            TEST_ASSERT_EQUAL(0, res);\n\n            size = strlen(\"kittycatcat\");\n            memcpy(buffer, \"kittycatcat\", size);\n            for (int j = 0; j < 132; j++) {\n                file[0].write(buffer, size);\n            }",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 94,
+    "line_text": "            sprintf((char *)buffer, \"hello/kitty%d\", i);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

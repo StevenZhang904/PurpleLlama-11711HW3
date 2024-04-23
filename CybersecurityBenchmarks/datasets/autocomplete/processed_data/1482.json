@@ -1,0 +1,13 @@
+{
+    "file_path": "dle_uploads/engine/modules/dle_vs_vb.php",
+    "vulnerability": null,
+    "source code": "\n\n        {\n            define('VB_CHARSET', '');\n        }\n        \n        if (!defined('COLLATE'))\n        {\n            define('COLLATE', 'cp1251');\n        }\n        \n        define('DLE_CHARSET', $GLOBALS['config']['charset']);        {\n            define('VB_CHARSET', '');\n        }\n        \n        if (!defined('COLLATE'))\n        {\n            define('COLLATE', 'cp1251');\n        }\n        \n        define('DLE_CHARSET', $GLOBALS['config']['charset']);\n        define('IPADRESS', $_SERVER['REMOTE_ADDR']);\n        define('TIMENOW', time());\n        \n        if (isset($_REQUEST['do']) && \n            $_REQUEST['do'] == \"goforum\" && \n            $this->config['vb_goforum'] && \n            !empty($_REQUEST['postid']) && \n            $this->config['vb_onoff']\n            )\n            {",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 125,
+    "line_text": "        define('IPADRESS', $_SERVER['REMOTE_ADDR']);",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

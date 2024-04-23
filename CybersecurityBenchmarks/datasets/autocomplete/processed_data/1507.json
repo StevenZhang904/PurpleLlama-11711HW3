@@ -1,0 +1,13 @@
+{
+    "file_path": "application/controllers/Store.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\tif ( $storeTitle != false ) {\n\t\t\t$this->data['title']              = $storeTitle->store_title;\n\t\t\t$this->data['url']                = $storeTitle->store_url;\n\t\t\t$this->data['affiliateNetworkId'] = $storeTitle->fk_affiliate_network_id;\n\t\t} else {\n\t\t\tredirect( base_url() );\n\t\t}\n\t\t$this->data['url'] = $this->prepURL( $this->data['affiliateNetworkId'], $this->data['url'] );\n\t\t\n\t\t//record members exiting Karmora to adevertizer\t\tif ( $storeTitle != false ) {\n\t\t\t$this->data['title']              = $storeTitle->store_title;\n\t\t\t$this->data['url']                = $storeTitle->store_url;\n\t\t\t$this->data['affiliateNetworkId'] = $storeTitle->fk_affiliate_network_id;\n\t\t} else {\n\t\t\tredirect( base_url() );\n\t\t}\n\t\t$this->data['url'] = $this->prepURL( $this->data['affiliateNetworkId'], $this->data['url'] );\n\t\t\n\t\t//record members exiting Karmora to adevertizer\n\t\t$memberIP = $_SERVER['REMOTE_ADDR'];\n\t\t$this->storemodel->insertKarmoraMemberExfil( $detail[\"userid\"], $store_id, $this->data['title'], $this->data['url'], $memberIP );\n\t\t$this->loadLayout( $this->data, 'frontend/store/thanku' );\n\t}\n\t\n\t// function for store details\n\tpublic function storeDetail( $storeId, $username = null, $type = null, $advertisement_id = null ) {\n\t\t$this->verifyUser( $username );\n\t\t$detail                      = $this->currentUser;\n        if(is_array($detail[0])){",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 112,
+    "line_text": "\t\t$memberIP = $_SERVER['REMOTE_ADDR'];",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

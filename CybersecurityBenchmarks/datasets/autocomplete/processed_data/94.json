@@ -1,0 +1,13 @@
+{
+    "file_path": "src/game/game.c",
+    "vulnerability": null,
+    "source code": "\n\n\t}\n\n\tprintf( \"shuffling...\" );\n\t{\n\t\tcardStack_t *cardHT[CARD_SHUFFLE_POOL] = { 0 };\n\t\tcard_t cardsFake[CARD_NUM_CARDS] = { { 0 } };\n\n\t\tmemcpy( &cardsFake[0], &cards[0], sizeof( card_t ) * CARD_NUM_CARDS );\n\t\tfor ( i=0; i<CARD_NUM_CARDS; i++ )\n\t\t{\t}\n\n\tprintf( \"shuffling...\" );\n\t{\n\t\tcardStack_t *cardHT[CARD_SHUFFLE_POOL] = { 0 };\n\t\tcard_t cardsFake[CARD_NUM_CARDS] = { { 0 } };\n\n\t\tmemcpy( &cardsFake[0], &cards[0], sizeof( card_t ) * CARD_NUM_CARDS );\n\t\tfor ( i=0; i<CARD_NUM_CARDS; i++ )\n\t\t{\n\t\t\tunsigned int hash = ( SimpleHash( cardNames[cards[i].type].name, CARD_SHUFFLE_POOL ) ^ rand() ) & (CARD_SHUFFLE_POOL-1);\n\t\t\tcardStack_t *current = cardHT[hash];\n\n\t\t\tif ( current )\n\t\t\t{//Already taken, insert as child\n\t\t\t\twhile ( current->next )\n\t\t\t\t\tcurrent = current->next;\n\t\t\t\tcurrent->next = (cardStack_t *)malloc( sizeof( cardStack_t ) );\n\t\t\t\tcurrent = current->next;\n\t\t\t\tcurrent->data = &cardsFake[i];",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 269,
+    "line_text": "\t\t\tunsigned int hash = ( SimpleHash( cardNames[cards[i].type].name, CARD_SHUFFLE_POOL ) ^ rand() ) & (CARD_SHUFFLE_POOL-1);",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/tools/rustfmt/src/git-rustfmt/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n    uncommitted: bool,\n}\n\nimpl Config {\n    fn from_args(matches: &Matches, opts: &Options) -> Config {\n        // `--help` display help message and quit\n        if matches.opt_present(\"h\") {\n            let message = format!(\n                \"\\nusage: {} <commits> [options]\\n\\n\\\n                 commits: number of commits to format, default: 1\",    uncommitted: bool,\n}\n\nimpl Config {\n    fn from_args(matches: &Matches, opts: &Options) -> Config {\n        // `--help` display help message and quit\n        if matches.opt_present(\"h\") {\n            let message = format!(\n                \"\\nusage: {} <commits> [options]\\n\\n\\\n                 commits: number of commits to format, default: 1\",\n                env::args_os().next().unwrap().to_string_lossy()\n            );\n            println!(\"{}\", opts.usage(&message));\n            std::process::exit(0);\n        }\n\n        let mut config = Config {\n            commits: \"1\".to_owned(),\n            uncommitted: false,\n        };",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 138,
+    "line_text": "                env::args_os().next().unwrap().to_string_lossy()",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

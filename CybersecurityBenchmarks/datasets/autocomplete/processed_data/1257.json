@@ -1,0 +1,13 @@
+{
+    "file_path": "src/delivery/cli/job.rs",
+    "vulnerability": null,
+    "source code": "\n\n            \"-b --branch=[branch] 'Branch to merge'\",\n            \"-S --shasum=[gitsha] 'Git SHA of change'\",\n            \"--change-id=[id] 'The change ID'\",\n            \"--skip-default 'skip default'\",\n            \"--docker=[image] 'Docker image'\"\n        ])\n        .args_from_usage(\n            \"<stage> 'Stage for the run'\n                          <phases> 'One or more phases'\",\n        )            \"-b --branch=[branch] 'Branch to merge'\",\n            \"-S --shasum=[gitsha] 'Git SHA of change'\",\n            \"--change-id=[id] 'The change ID'\",\n            \"--skip-default 'skip default'\",\n            \"--docker=[image] 'Docker image'\"\n        ])\n        .args_from_usage(\n            \"<stage> 'Stage for the run'\n                          <phases> 'One or more phases'\",\n        )\n        .args(&u_e_s_o_args())\n        .args(&pipeline_arg())\n        .args(&project_specific_args())\n        .args(&vec![a2_mode_arg()])\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 172,
+    "line_text": "        .args(&u_e_s_o_args())",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

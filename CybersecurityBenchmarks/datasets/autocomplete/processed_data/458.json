@@ -1,0 +1,13 @@
+{
+    "file_path": "NE/HyperNEAT/cake_fixeddepth/dblookup.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\r\n\t\t\t\t// Check for too many indices.\r\n\t\t\t\tif (num == maxidx) {\r\n\t\t\t\t\tprintf(\"reached maxidx\\n\");\r\n\t\t\t\t\treturn -2;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\t// We stopped reading numbers. \r\n\t\t\tdbpointer->numberofblocks = num;\r\r\n\t\t\t\t// Check for too many indices.\r\n\t\t\t\tif (num == maxidx) {\r\n\t\t\t\t\tprintf(\"reached maxidx\\n\");\r\n\t\t\t\t\treturn -2;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\t// We stopped reading numbers. \r\n\t\t\tdbpointer->numberofblocks = num;\r\n\t\t\tdbpointer->idx = (int*)malloc(num * sizeof(int));\r\n\t\t\tbytesallocated += num*sizeof(int);\r\n\t\t\tif (dbpointer->idx == NULL) {\r\n\t\t\t\tprintf(\"malloc error for idx array!\\n\");\r\n\t\t\t\treturn -2;\r\n\t\t\t}\r\n\t\t\tmemcpy(dbpointer->idx, idx, num * sizeof(int));\r\n\t\t}\r\n\t\telse {\r\n\t\t\tswitch (stat) {\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 1427,
+    "line_text": "\t\t\tdbpointer->idx = (int*)malloc(num * sizeof(int));\r",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

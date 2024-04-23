@@ -1,0 +1,13 @@
+{
+    "file_path": "src/utils/system.rs",
+    "vulnerability": null,
+    "source code": "\n\n        if let Some(code) = status.code() {\n            process::exit(code);\n        } else {\n            process::exit(1);\n        }\n    }\n}\n\n#[cfg(not(windows))]\nfn is_homebrew_install_result() -> Result<bool, Error> {        if let Some(code) = status.code() {\n            process::exit(code);\n        } else {\n            process::exit(1);\n        }\n    }\n}\n\n#[cfg(not(windows))]\nfn is_homebrew_install_result() -> Result<bool, Error> {\n    let mut exe = env::current_exe()?.canonicalize()?;\n    exe.pop();\n    exe.set_file_name(\"INSTALL_RECEIPT.json\");\n    Ok(exe.is_file())\n}\n\n#[cfg(windows)]\nfn is_homebrew_install_result() -> Result<bool, Error> {\n    Ok(false)\n}",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 75,
+    "line_text": "    let mut exe = env::current_exe()?.canonicalize()?;",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

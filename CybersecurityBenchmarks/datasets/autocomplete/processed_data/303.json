@@ -1,0 +1,13 @@
+{
+    "file_path": "RenderSystems/GL/src/GLX/OgreGLXWindow.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\t\t (GLsizei)dst.getWidth(), (GLsizei)dst.getHeight(),\n\t\t\t\t\t format, type, dst.data);\n\t\t\n\t\t// restore default alignment\n\t\tglPixelStorei(GL_PACK_ALIGNMENT, 4);\n\t\t\n\t\t//vertical flip\n\t\t{\n\t\t\tsize_t rowSpan = dst.getWidth() * PixelUtil::getNumElemBytes(dst.format);\n\t\t\tsize_t height = dst.getHeight();\t\t\t\t\t (GLsizei)dst.getWidth(), (GLsizei)dst.getHeight(),\n\t\t\t\t\t format, type, dst.data);\n\t\t\n\t\t// restore default alignment\n\t\tglPixelStorei(GL_PACK_ALIGNMENT, 4);\n\t\t\n\t\t//vertical flip\n\t\t{\n\t\t\tsize_t rowSpan = dst.getWidth() * PixelUtil::getNumElemBytes(dst.format);\n\t\t\tsize_t height = dst.getHeight();\n\t\t\tuchar *tmpData = new uchar[rowSpan * height];\n\t\t\tuchar *srcRow = (uchar *)dst.data, *tmpRow = tmpData + (height - 1) * rowSpan;\n\t\t\t\n\t\t\twhile (tmpRow >= tmpData)\n\t\t\t{\n\t\t\t\tmemcpy(tmpRow, srcRow, rowSpan);\n\t\t\t\tsrcRow += rowSpan;\n\t\t\t\ttmpRow -= rowSpan;\n\t\t\t}\n\t\t\tmemcpy(dst.data, tmpData, rowSpan * height);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 747,
+    "line_text": "\t\t\tuchar *tmpData = new uchar[rowSpan * height];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

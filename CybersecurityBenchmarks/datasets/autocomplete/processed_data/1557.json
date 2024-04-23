@@ -1,0 +1,13 @@
+{
+    "file_path": "frontend/assets/AppAsset.php",
+    "vulnerability": null,
+    "source code": "\n\n        'css/car-class-choice.css',\n        'css/loader.css',\n        'css/bootstrap-datetimepicker-custom.css',\n        'css/site-preloader.css'\n    ];\n//    public $jsOptions = ['position'=>\\yii\\web\\view::POS_HEAD];\n    public $js = [\n        'scripts/birthdayPicker.js',\n        'scripts/script.js',\n                'css/car-class-choice.css',\n        'css/loader.css',\n        'css/bootstrap-datetimepicker-custom.css',\n        'css/site-preloader.css'\n    ];\n//    public $jsOptions = ['position'=>\\yii\\web\\view::POS_HEAD];\n    public $js = [\n        'scripts/birthdayPicker.js',\n        'scripts/script.js',\n        \n        'https://maps.googleapis.com/maps/api/js?key=AIzaSyBB19cyGLWQeSz1amgo9wJN6ZeXlQtHZCU&signed_in=true&libraries=places&callback=Autocomplete&language=en'\n        \n    ];\n     public $depends = [\n        'yii\\web\\YiiAsset',\n        'yii\\bootstrap\\BootstrapAsset', \n        'yii\\jui\\JuiAsset',\n    ];\n     \n}",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 39,
+    "line_text": "        'https://maps.googleapis.com/maps/api/js?key=AIzaSyBB19cyGLWQeSz1amgo9wJN6ZeXlQtHZCU&signed_in=true&libraries=places&callback=Autocomplete&language=en'",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

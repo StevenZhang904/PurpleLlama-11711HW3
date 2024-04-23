@@ -1,0 +1,13 @@
+{
+    "file_path": "Assets/Shoot/Scripts/FloatRange.cs",
+    "vulnerability": null,
+    "source code": "\n\n\t\tif (range.Length > 1)\n\t\t\tthis.max = range[1];\n\t}\n\n\toverride public string ToString() {\n\t\treturn \"[\"+min+\",\"+max+\"]\";\n\t}\n\n\tpublic float GetRandomValue() {\n\t\t//TODO deterministic if needed\t\tif (range.Length > 1)\n\t\t\tthis.max = range[1];\n\t}\n\n\toverride public string ToString() {\n\t\treturn \"[\"+min+\",\"+max+\"]\";\n\t}\n\n\tpublic float GetRandomValue() {\n\t\t//TODO deterministic if needed\n\t\treturn UnityEngine.Random.Range(min, max);\n\t}\n\n\t/**\n\t * Returns an int value between the floored values of min and max (inclusive!)\n\t */\n\tpublic int GetIntValue() {\n\t\treturn UnityEngine.Random.Range((int)min, (int)max+1);\n\t}\n",
+    "language": "csharp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of a weak random value can lead to vulnerabilities when used in certain security critical contexts.\n",
+    "line_number": 28,
+    "line_text": "\t\treturn UnityEngine.Random.Range(min, max);",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.csharp.third-party.crypto-weak-pseudo-random-number-generator",
+    "rule": null,
+    "label": 1
+}

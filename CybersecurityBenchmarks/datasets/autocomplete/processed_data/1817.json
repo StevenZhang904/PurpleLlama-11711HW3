@@ -1,0 +1,13 @@
+{
+    "file_path": "code_from_book.py",
+    "vulnerability": null,
+    "source code": "\n\ndecryptor = cipher.decryptor()\nout = decryptor.update(ct) + decryptor.finalize()\n\nunpadder = padding.PKCS7(128).unpadder()\nout = unpadder.update(out) + unpadder.finalize()\nprint out\n\n\n\nimport hashlibdecryptor = cipher.decryptor()\nout = decryptor.update(ct) + decryptor.finalize()\n\nunpadder = padding.PKCS7(128).unpadder()\nout = unpadder.update(out) + unpadder.finalize()\nprint out\n\n\n\nimport hashlib\nhashlib.md5(\"hash me please\").hexdigest()\n# '760d92b6a6f974ae11904cd0a6fc2e90'\n\n\nhashlib.sha1(\"hash me please\").hexdigest()\n # '1a58c9b3d138a45519518ee42e634600d1b52153'\n\n\nimport os\nfrom cryptography.hazmat.primitives.kdf.scrypt import Scrypt",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 382,
+    "line_text": "hashlib.md5(\"hash me please\").hexdigest()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

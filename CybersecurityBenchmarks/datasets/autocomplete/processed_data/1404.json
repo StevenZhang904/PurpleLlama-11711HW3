@@ -1,0 +1,13 @@
+{
+    "file_path": "application/modules/master/models/manage_hp.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\tcatch (Exception $e) {\n\t\t\t$this->db->trans_rollback();\n\t\t\t$ret_msg = array('return' => log_message('error', sprintf('%s : %s : DB transaction failed. Error no: %s, Error msg:%s, Last query: %s', __CLASS__, __FUNCTION__, $e->getCode(), $e->getMessage(), print_r($this->main_db->last_query(), TRUE))));\n\t\t} \n\t\treturn $ret_msg;\t\t\n\t\t\n\t\t\n\t}\n\t\n\tpublic function enable_clinic_details($clinicID = '', $author_id = ''){\t\tcatch (Exception $e) {\n\t\t\t$this->db->trans_rollback();\n\t\t\t$ret_msg = array('return' => log_message('error', sprintf('%s : %s : DB transaction failed. Error no: %s, Error msg:%s, Last query: %s', __CLASS__, __FUNCTION__, $e->getCode(), $e->getMessage(), print_r($this->main_db->last_query(), TRUE))));\n\t\t} \n\t\treturn $ret_msg;\t\t\n\t\t\n\t\t\n\t}\n\t\n\tpublic function enable_clinic_details($clinicID = '', $author_id = ''){\n\t\t$ipAddress = $_SERVER['REMOTE_ADDR'];\n\t\t$clinic['status'] \t= '1';\n\t\t$clinic['last_modified_ip'] = $ipAddress;\n\t\t$clinic['last_modified_date'] = date('Y-m-d H:i:s');\n\t\t$clinic['last_modified_by'] = $author_id;\n\t\t\n\t\t$this->db->update($this->table_name, $clinic, array('clinic_id' => $clinicID));\n\t\t//$this->db->update($this->clinic_table_name, $clinic, array('clinic_id' => $clinicID));\n\t\tif ($this->db->affected_rows() == '1') {\n\t\t\treturn 'success';",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 218,
+    "line_text": "\t\t$ipAddress = $_SERVER['REMOTE_ADDR'];",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

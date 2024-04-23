@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Insecure File Uploads/WishList.php",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "<?php\nclass Challenge {\n    const UPLOAD_DIRECTORY = './solutions/';\n    private $file;\n    private $whitelist;\n\n    public function __construct($file) {\n        $this->file = $file;\n        $this->whitelist = range(1, 24);\n    }\n\n    public function __destruct() {\n        if (in_array($this->file['name'], $this->whitelist)) {\n            move_uploaded_file(\n                $this->file['tmp_name'],\n                self::UPLOAD_DIRECTORY . $this->file['name']\n            );\n        }\n    }\n}\n\n$challenge = new Challenge($_FILES['solution']);\n?>",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

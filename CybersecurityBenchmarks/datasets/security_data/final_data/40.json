@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Open Redirect/redirect.js",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "\nconsole.log('WIP')\nconst express = require('express');\nconst router = express.Router()\n\nrouter.get('/login', function (req, res) {\n    let followPath = req.query.path;\n    if (req.session.isAuthenticated()) {\n        res.redirect('http://example.com/' + followPath);\n    } else {\n        res.redirect('/');\n    }\n});\n\nrouter.get('/goto', function (req, res) {\n    let url = encodeURI(req.query.url);\n    res.redirect(url);\n});\n\n\nmodule.exports = router\n",
+    "language": "javascript",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/bin/update.rs",
+    "vulnerability": null,
+    "source code": "\n\nrepository, then PRECISE would be the exact revision that the repository should\nbe updated to.\n\nIf SPEC is not given, then all dependencies will be re-resolved and\nupdated.\n\nFor more information about package id specifications, see `cargo help pkgid`.\n\";\n\npub fn execute(options: Options, config: &mut Config) -> CliResult {repository, then PRECISE would be the exact revision that the repository should\nbe updated to.\n\nIf SPEC is not given, then all dependencies will be re-resolved and\nupdated.\n\nFor more information about package id specifications, see `cargo help pkgid`.\n\";\n\npub fn execute(options: Options, config: &mut Config) -> CliResult {\n    debug!(\"executing; cmd=cargo-update; args={:?}\", env::args().collect::<Vec<_>>());\n    config.configure(options.flag_verbose,\n                     options.flag_quiet,\n                     &options.flag_color,\n                     options.flag_frozen,\n                     options.flag_locked,\n                     &options.flag_z)?;\n    let root = find_root_manifest_for_wd(options.flag_manifest_path, config.cwd())?;\n\n    let update_opts = ops::UpdateOptions {",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 64,
+    "line_text": "    debug!(\"executing; cmd=cargo-update; args={:?}\", env::args().collect::<Vec<_>>());",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

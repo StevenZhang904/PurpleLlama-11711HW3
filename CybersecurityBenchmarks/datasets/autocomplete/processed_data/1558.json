@@ -1,0 +1,13 @@
+{
+    "file_path": "module/Application/src/Application/Controller/VideosController.php",
+    "vulnerability": null,
+    "source code": "\n\n * Pagina inicial\n * \n * @category Application\n * @package Controller\n * @author  Gaba\n */\nclass VideosController extends ActionController\n{\n\tpublic function indexAction()\n\t{ * Pagina inicial\n * \n * @category Application\n * @package Controller\n * @author  Gaba\n */\nclass VideosController extends ActionController\n{\n\tpublic function indexAction()\n\t{\n\t\t$apikey = 'AIzaSyAgZvS-6hEiNXOa-ORLGBFYHR1ZlIi8hhQ';\n\t\t$playlistid = 'PLskO3Yw7pe4JXIp626OPPLkQKmelJqsYf';\n\n\t\t$client = new \\Google_Client();\n\t\t$client->setDeveloperKey($apikey);\n\t\t$client->setScopes('https://www.googleapis.com/auth/youtube');\n\t\t$redirect = filter_var('http://catafesta.com', FILTER_SANITIZE_URL);\n\t\t$client->setRedirectUri($redirect);\n\n\t\t$youtube = new \\Google_Service_YouTube($client);",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 21,
+    "line_text": "\t\t$apikey = 'AIzaSyAgZvS-6hEiNXOa-ORLGBFYHR1ZlIi8hhQ';",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

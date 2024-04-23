@@ -1,0 +1,13 @@
+{
+    "file_path": "src/com/transmem/action/RegisterAction.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t{\n\t\t\t\tusr.setUsername(usrname);\n\t\t\t\tString passwd = param.getParameter(\"password\");\n\t\t\t\tif (passwd == null || passwd.equals(\"\"))\n\t\t\t\t{\n\t\t\t\t\tlog_.warning(\"param.getParameter('password') returned null or empty\");\n\t\t\t\t\tsession.setAttribute(\"tuser_error\", REGISTER_ERROR_NOPASSWORD);\n\t\t\t\t}\n\t\t\t\telse\n\t\t\t\t{\t\t\t{\n\t\t\t\tusr.setUsername(usrname);\n\t\t\t\tString passwd = param.getParameter(\"password\");\n\t\t\t\tif (passwd == null || passwd.equals(\"\"))\n\t\t\t\t{\n\t\t\t\t\tlog_.warning(\"param.getParameter('password') returned null or empty\");\n\t\t\t\t\tsession.setAttribute(\"tuser_error\", REGISTER_ERROR_NOPASSWORD);\n\t\t\t\t}\n\t\t\t\telse\n\t\t\t\t{\n\t\t\t\t\tString passmd5 = Security.md5(passwd);\n\t\t\t\t\tusr.setPassword(passmd5);\n\t\t\t\t\tString email = param.getParameter(\"email\");\n\t\t\t\t\tif (email == null || email.equals(\"\"))\n\t\t\t\t\t{\n\t\t\t\t\t\tlog_.warning(\"param.getParameter('email') returned null or empty\");\n\t\t\t\t\t\tsession.setAttribute(\"tuser_error\", REGISTER_ERROR_NOEMAIL);\n\t\t\t\t\t}\n\t\t\t\t\telse\n\t\t\t\t\t{",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 85,
+    "line_text": "\t\t\t\t\tString passmd5 = Security.md5(passwd);",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

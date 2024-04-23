@@ -1,0 +1,13 @@
+{
+    "file_path": "bulldog-board-beagleboneblack/src/main/java/io/silverspoon/bulldog/beagleboneblack/devicetree/DeviceTreeCompiler.java",
+    "vulnerability": null,
+    "source code": "\n\n   public static void compileOverlay(String overlay, String deviceName) throws IOException, InterruptedException {\n      String objectFile = String.format(OBJECT_FILE_PATTERN, FIRMWARE_PATH, deviceName);\n      String overlayFile = String.format(DEFINITION_FILE_PATTERN, FIRMWARE_PATH, deviceName);\n\n      File file = new File(overlayFile);\n      FileOutputStream outputStream = new FileOutputStream(file);\n      PrintWriter writer = new PrintWriter(outputStream);\n      writer.write(overlay);\n      writer.close();\n   public static void compileOverlay(String overlay, String deviceName) throws IOException, InterruptedException {\n      String objectFile = String.format(OBJECT_FILE_PATTERN, FIRMWARE_PATH, deviceName);\n      String overlayFile = String.format(DEFINITION_FILE_PATTERN, FIRMWARE_PATH, deviceName);\n\n      File file = new File(overlayFile);\n      FileOutputStream outputStream = new FileOutputStream(file);\n      PrintWriter writer = new PrintWriter(outputStream);\n      writer.write(overlay);\n      writer.close();\n\n      Process compile = Runtime.getRuntime().exec(String.format(COMPILER_CALL, objectFile, overlayFile));\n      int code = compile.waitFor();\n      if (code > 0) {\n         throw new RuntimeException(\"Device Tree Overlay compilation failed: \" + overlayFile + \" could not be compiled\");\n      }\n   }\n\n}\n",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 25,
+    "line_text": "      Process compile = Runtime.getRuntime().exec(String.format(COMPILER_CALL, objectFile, overlayFile));",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

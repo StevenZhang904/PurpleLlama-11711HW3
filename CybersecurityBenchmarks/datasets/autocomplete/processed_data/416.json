@@ -1,0 +1,13 @@
+{
+    "file_path": "third_party/skia/samplecode/SampleWarp.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\nMesh& Mesh::operator=(const Mesh& src) {\n    delete[] fPts;\n    delete[] fIndices;\n\n    fBounds = src.fBounds;\n    fRows = src.fRows;\n    fCols = src.fCols;\n\n    fCount = src.fCount;\nMesh& Mesh::operator=(const Mesh& src) {\n    delete[] fPts;\n    delete[] fIndices;\n\n    fBounds = src.fBounds;\n    fRows = src.fRows;\n    fCols = src.fCols;\n\n    fCount = src.fCount;\n    fPts = new SkPoint[fCount * 2];\n    fTex = fPts + fCount;\n    memcpy(fPts, src.fPts, fCount * 2 * sizeof(SkPoint));\n\n    delete[] fIndices;\n    fIndexCount = src.fIndexCount;\n    fIndices = new uint16_t[fIndexCount];\n    memcpy(fIndices, src.fIndices, fIndexCount * sizeof(uint16_t));\n\n    return *this;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 256,
+    "line_text": "    fPts = new SkPoint[fCount * 2];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

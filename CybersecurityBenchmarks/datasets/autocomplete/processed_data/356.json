@@ -1,0 +1,13 @@
+{
+    "file_path": "OpenGL-ES/Lesson-3/gles.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\r\n\t// Check that the shader compiled\r\n\tGLint isShaderCompiled;\r\n\tglGetShaderiv(shader, GL_COMPILE_STATUS, &isShaderCompiled);\r\n\tif (!isShaderCompiled) {\r\n\t\t// If an error happened, first retrieve the length of the log message\r\n\t\tint infoLogLength, charactersWritten;\r\n\t\tglGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);\r\n\r\n\t\t// Allocate enough space for the message and retrieve it\r\r\n\t// Check that the shader compiled\r\n\tGLint isShaderCompiled;\r\n\tglGetShaderiv(shader, GL_COMPILE_STATUS, &isShaderCompiled);\r\n\tif (!isShaderCompiled) {\r\n\t\t// If an error happened, first retrieve the length of the log message\r\n\t\tint infoLogLength, charactersWritten;\r\n\t\tglGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);\r\n\r\n\t\t// Allocate enough space for the message and retrieve it\r\n\t\tauto infoLog = std::auto_ptr<char>(new char[infoLogLength]);\r\n\t\tglGetShaderInfoLog(shader, infoLogLength, &charactersWritten, infoLog.get());\r\n\t\tglDeleteShader(shader);\r\n\r\n\t\tthrow gles_error(infoLog.get());\r\n\t}\r\n\r\n\treturn shader;\r\n}\r\n\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-665",
+    "pattern_desc": "Uses deprecated auto_ptr, which can lead to undefined behavior.",
+    "line_number": 88,
+    "line_text": "\t\tauto infoLog = std::auto_ptr<char>(new char[infoLogLength]);\r",
+    "pattern_id": "CPP-R-001",
+    "rule": "\\bstd::auto_ptr<\\s*\\w+\\s*>",
+    "label": 1
+}

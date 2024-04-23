@@ -1,0 +1,13 @@
+{
+    "file_path": "lib/bridgedb/Tests.py",
+    "vulnerability": null,
+    "source code": "\n\n\n        for b in d.splitter.bridges:\n            # china blocks some transports\n            for pt in b.transports:\n                if random.choice(xrange(2)) > 0:\n                    key = \"%s:%s\" % (pt.address, pt.port)\n                    b.blockingCountries[key] = set(['cn'])\n            for address, portlist in b.or_addresses.items():\n                # china blocks some transports\n                for port in portlist:\n        for b in d.splitter.bridges:\n            # china blocks some transports\n            for pt in b.transports:\n                if random.choice(xrange(2)) > 0:\n                    key = \"%s:%s\" % (pt.address, pt.port)\n                    b.blockingCountries[key] = set(['cn'])\n            for address, portlist in b.or_addresses.items():\n                # china blocks some transports\n                for port in portlist:\n                    if random.choice(xrange(2)) > 0:\n                        key = \"%s:%s\" % (address, port)\n                        b.blockingCountries[key] = set(['cn'])\n            key = \"%s:%s\" % (b.ip, b.orport)\n            b.blockingCountries[key] = set(['cn'])\n\n        # we probably will get at least one bridge back!\n        # it's pretty unlikely to lose a coin flip 250 times in a row\n        for i in xrange(5):\n            b = d.getBridgesForIP(randomIPString(), \"x\", 1,",
+    "language": "python",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "The default random module in Python should not be used for cryptographic applications. Prefer the secrets module for these uses (https://docs.python.org/3/library/random.html).",
+    "line_number": 417,
+    "line_text": "                    if random.choice(xrange(2)) > 0:",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-crypto-prng-random",
+    "rule": null,
+    "label": 1
+}

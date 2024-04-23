@@ -1,0 +1,13 @@
+{
+    "file_path": "Library/MOC-V/Core/SecureKernel/Vendor/PhpSecLib/0.3.9/phpseclib/Crypt/Twofish.php",
+    "vulnerability": null,
+    "source code": "\n\n    function _setupInlineCrypt()\n    {\n\n        $lambda_functions =& Crypt_Twofish::_getLambdaFunctions();\n\n        // Max. 10 Ultra-Hi-optimized inline-crypt functions. After that, we'll (still) create very fast code, but not the ultimate fast one.\n        $gen_hi_opt_code = (bool)( count( $lambda_functions ) < 10 );\n\n        switch (true) {\n            case $gen_hi_opt_code:    function _setupInlineCrypt()\n    {\n\n        $lambda_functions =& Crypt_Twofish::_getLambdaFunctions();\n\n        // Max. 10 Ultra-Hi-optimized inline-crypt functions. After that, we'll (still) create very fast code, but not the ultimate fast one.\n        $gen_hi_opt_code = (bool)( count( $lambda_functions ) < 10 );\n\n        switch (true) {\n            case $gen_hi_opt_code:\n                $code_hash = md5( str_pad( \"Crypt_Twofish, {$this->mode}, \", 32, \"\\0\" ).$this->key );\n                break;\n            default:\n                $code_hash = \"Crypt_Twofish, {$this->mode}\";\n        }\n\n        if (!isset( $lambda_functions[$code_hash] )) {\n            switch (true) {\n                case $gen_hi_opt_code:\n                    $K = $this->K;",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 2122,
+    "line_text": "                $code_hash = md5( str_pad( \"Crypt_Twofish, {$this->mode}, \", 32, \"\\0\" ).$this->key );",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

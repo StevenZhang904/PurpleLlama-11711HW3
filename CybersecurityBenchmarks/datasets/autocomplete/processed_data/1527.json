@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/Twilio/Integration/Api/V2010/Account/NewSigningKeyTest.php",
+    "vulnerability": null,
+    "source code": "\n\n            'post',\n            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SigningKeys.json'\n        ));\n    }\n\n    public function testCreateResponse(): void {\n        $this->holodeck->mock(new Response(\n            201,\n            '\n            {            'post',\n            'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SigningKeys.json'\n        ));\n    }\n\n    public function testCreateResponse(): void {\n        $this->holodeck->mock(new Response(\n            201,\n            '\n            {\n                \"sid\": \"SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n                \"friendly_name\": \"foo\",\n                \"date_created\": \"Mon, 13 Jun 2016 22:50:08 +0000\",\n                \"date_updated\": \"Mon, 13 Jun 2016 22:50:08 +0000\",\n                \"secret\": \"foobar\"\n            }\n            '\n        ));\n\n        $actual = $this->twilio->api->v2010->accounts(\"ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\")",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "Twilio API Key",
+    "line_number": 39,
+    "line_text": "                \"sid\": \"SKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",",
+    "pattern_id": "ALL-R-014",
+    "rule": "SK[0-9a-fA-F]{32}",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/com/mypcr/function/Functions.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\t\r\n\tpublic static Action[] loadProtocol(String protocolName) throws Exception {\r\n\t\tFile protocolDir = new File(protocolPath);\tprotocolDir.mkdirs();\r\n\t\tprotocolDir = new File(protocolPath + (isMac ? \"/\" : \"\\\\\") + protocolName);\r\n\t\tAction[] action = null;\r\n\t\t\r\n\t\tFileInputStream fis = new FileInputStream(protocolDir);\r\t\t\t}\r\n\t\t}\r\n\t}\r\n\t\r\n\tpublic static Action[] loadProtocol(String protocolName) throws Exception {\r\n\t\tFile protocolDir = new File(protocolPath);\tprotocolDir.mkdirs();\r\n\t\tprotocolDir = new File(protocolPath + (isMac ? \"/\" : \"\\\\\") + protocolName);\r\n\t\tAction[] action = null;\r\n\t\t\r\n\t\tFileInputStream fis = new FileInputStream(protocolDir);\r\n\t\tObjectInputStream ois = new ObjectInputStream(fis);\r\n\t\t\r\n\t\taction = (Action[])ois.readObject();\r\n\t\tois.close();\r\n\t\t\r\n\t\treturn action;\r\n\t}\r\n\t\r\n\tpublic static void saveProtocol(Action[] action, String protocolName){\r\n\t\tFile protocolDir = new File(protocolPath);\tprotocolDir.mkdirs();\r",
+    "language": "java",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Insecure deserialization detected. Ensure proper validation and handling of serialized data.\n",
+    "line_number": 138,
+    "line_text": "\t\tObjectInputStream ois = new ObjectInputStream(fis);\r",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.java.deserialization_insecure_untrusted_data",
+    "rule": null,
+    "label": 1
+}

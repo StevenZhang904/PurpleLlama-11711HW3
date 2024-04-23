@@ -1,0 +1,13 @@
+{
+    "file_path": "server/JPC.py",
+    "vulnerability": null,
+    "source code": "\n\n    def __init__(self, filepath_config):\n        import hashlib\n        # \u8a2d\u5b9a\u30d5\u30a1\u30a4\u30eb\u3092\u30ed\u30fc\u30c9\n        fp = open(filepath_config, 'r')\n        config = json.load(fp)\n        fp.close()\n        # \u8a2d\u5b9a\u3092\u30af\u30e9\u30b9\u5909\u6570\u306b\u683c\u7d0d\n        self.host        = config['host']\n        self.port        = config['port']\n        self.langlist    = json.load(open(config['langfile'], 'r'))    def __init__(self, filepath_config):\n        import hashlib\n        # \u8a2d\u5b9a\u30d5\u30a1\u30a4\u30eb\u3092\u30ed\u30fc\u30c9\n        fp = open(filepath_config, 'r')\n        config = json.load(fp)\n        fp.close()\n        # \u8a2d\u5b9a\u3092\u30af\u30e9\u30b9\u5909\u6570\u306b\u683c\u7d0d\n        self.host        = config['host']\n        self.port        = config['port']\n        self.langlist    = json.load(open(config['langfile'], 'r'))\n        self.enckey      = hashlib.md5(config['key']).digest()\n        self.db_host     = config['db_host']\n        self.db_name     = config['db_name']\n        self.db_username = config['db_username']\n        self.db_password = config['db_password']\n        return\n\n    #\n    # \u30c1\u30a7\u30c3\u30af\n    #",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 22,
+    "line_text": "        self.enckey      = hashlib.md5(config['key']).digest()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

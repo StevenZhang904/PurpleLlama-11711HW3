@@ -1,0 +1,13 @@
+{
+    "file_path": "resources/views/objects.blade.php",
+    "vulnerability": null,
+    "source code": "\n\n        }\n\n        .result ul li {\n            background: white;\n            padding: 10px;\n            cursor: pointer;\n            border-bottom: 1px solid gray;\n        }\n    </style>\n    <script type=\"text/javascript\"        }\n\n        .result ul li {\n            background: white;\n            padding: 10px;\n            cursor: pointer;\n            border-bottom: 1px solid gray;\n        }\n    </style>\n    <script type=\"text/javascript\"\n      src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyAsG0HASpEYzpIE3phZy9uw0Iw-gS_V3hc\">\n    </script>\n\n</head>\n\n<body ng-controller=\"KartaCtrl\">\n\n\n\n    <div class=\"menu\">",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 89,
+    "line_text": "      src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyAsG0HASpEYzpIE3phZy9uw0Iw-gS_V3hc\">",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "files/soundcloud/index.php",
+    "vulnerability": null,
+    "source code": "\n\n    try {\r\n        $access_token = $client->accessToken($_GET['code']);\r\n        $_SESSION['access_token'] = $access_token['access_token'];\r\n        $_SESSION['refresh_token'] = $access_token['refresh_token'];\r\n    } catch (Exception $e) {\r\n        echo \"eeor in token code<br>\";\r\n    }\r\n}\r\n\r\nif ($_GET['error'])\r    try {\r\n        $access_token = $client->accessToken($_GET['code']);\r\n        $_SESSION['access_token'] = $access_token['access_token'];\r\n        $_SESSION['refresh_token'] = $access_token['refresh_token'];\r\n    } catch (Exception $e) {\r\n        echo \"eeor in token code<br>\";\r\n    }\r\n}\r\n\r\nif ($_GET['error'])\r\n    die($_GET['error'].' '.$_GET['error_description']);\r\n\r\nif (isset($_SESSION['access_token']))\r\n{\r\n    try {\r\n        $client->setAccessToken($_SESSION['access_token']);\r\n        $current_user = json_decode($client->get('me'));\r\n\r\n        $_SESSION['last_leeched'] = 0;\r\n\r",
+    "language": "php",
+    "cwe_identifier": "CWE-209",
+    "pattern_desc": "Information Exposure Through an Error Message",
+    "line_number": 29,
+    "line_text": "    die($_GET['error'].' '.$_GET['error_description']);\r",
+    "pattern_id": "PHP-R-019",
+    "rule": "\\b(die|exit)\\s*\\(\\s*\\$(_GET|_POST|_REQUEST|_COOKIE)",
+    "label": 1
+}

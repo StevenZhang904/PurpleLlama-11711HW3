@@ -1,0 +1,13 @@
+{
+    "file_path": "src/libstd/env.rs",
+    "vulnerability": null,
+    "source code": "\n\n/// ```\n/// use std::env;\n///\n/// // Prints each argument on a separate line\n/// for argument in env::args() {\n///     println!(\"{}\", argument);\n/// }\n/// ```\n#[stable(feature = \"env\", since = \"1.0.0\")]\npub fn args() -> Args {/// ```\n/// use std::env;\n///\n/// // Prints each argument on a separate line\n/// for argument in env::args() {\n///     println!(\"{}\", argument);\n/// }\n/// ```\n#[stable(feature = \"env\", since = \"1.0.0\")]\npub fn args() -> Args {\n    Args { inner: args_os() }\n}\n\n/// Returns the arguments which this program was started with (normally passed\n/// via the command line).\n///\n/// The first element is traditionally the path to the executable, but it can be\n/// set to arbitrary text, and it may not even exist, so this property should\n/// not be relied upon for security purposes.\n///",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 541,
+    "line_text": "    Args { inner: args_os() }",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

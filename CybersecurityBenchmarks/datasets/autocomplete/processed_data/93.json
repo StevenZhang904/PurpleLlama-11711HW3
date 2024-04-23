@@ -1,0 +1,13 @@
+{
+    "file_path": "src/vm_strings.c",
+    "vulnerability": null,
+    "source code": "\n\n\treturn s;\n}\n\nString *String_from_char(char c) {\n\tchar buf[2] = {c, '\\0'};\n\treturn String_new(buf);\n}\n\nString *String_from_int(int value) {\n\tchar buf[50];\treturn s;\n}\n\nString *String_from_char(char c) {\n\tchar buf[2] = {c, '\\0'};\n\treturn String_new(buf);\n}\n\nString *String_from_int(int value) {\n\tchar buf[50];\n\tsprintf(buf,\"%d\",value);\n\treturn String_new(buf);\n}\n\nint String_len(String *s) {\n\tif (s == NULL) {\n\t\tfprintf(stderr, \"len() cannot be applied to NULL string object\\n\");\n\t\treturn -1;\n\t}\n\treturn (int)s->length;",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 32,
+    "line_text": "\tsprintf(buf,\"%d\",value);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

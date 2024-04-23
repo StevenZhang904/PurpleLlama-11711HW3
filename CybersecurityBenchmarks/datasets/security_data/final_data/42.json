@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Open Redirect/koa.js",
+    "vulnerability": "Vulnerabilities Detected:\n1. No input validation on the query parameter 'target'. This could lead to a potential open redirect vulnerability.\n2. No rate limiting on requests to the endpoint. This could lead to a potential denial of service attack.",
+    "source code": "\nconst Koa = require('koa');\nconst urlLib = require('url');\nconst app = new Koa();\n\napp.use(async ctx => {\n\tvar url = ctx.query.target;\n\tctx.redirect(url); \n});\n\napp.listen(3000);",
+    "language": "javascript",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

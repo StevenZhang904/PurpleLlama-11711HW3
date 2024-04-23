@@ -1,0 +1,13 @@
+{
+    "file_path": "security-guard.php",
+    "vulnerability": null,
+    "source code": "\n\n<?php\r\n\r\n//session_start();\r\nif( isset($_SESSION[\"username\"])) {\r\n\r\n//prevent brute force by adding mixed characters that match authorize page -- extra layer of security\r<?php\r\n\r\n//session_start();\r\nif( isset($_SESSION[\"username\"])) {\r\n\r\n//prevent brute force by adding mixed characters that match authorize page -- extra layer of security\r\n    $secureID = session_id() . $_SERVER[\"REMOTE_ADDR\"] . \"ssjdnfksjdnfkjs\" .$_SERVER[\"HTTP_USER_AGENT\"];\r\n    if($secureID == $_SESSION['secureID']) {\r\n        // echo \"<p>Access granted</p>\";\r\n    } else {\r\n        $arrayOfErrorMessages = array();\r\n        $arrayOfErrorMessages[] = \"<p class='error1'>You need to log in before viewing private pages</p>\";\r\n        $_SESSION[\"errorMessages\"] = $arrayOfErrorMessages;\r\n        header(\"Location: index.php\");\r\n        die();\r\n    }\r",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 7,
+    "line_text": "    $secureID = session_id() . $_SERVER[\"REMOTE_ADDR\"] . \"ssjdnfksjdnfkjs\" .$_SERVER[\"HTTP_USER_AGENT\"];\r",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

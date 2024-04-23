@@ -1,0 +1,13 @@
+{
+    "file_path": "test/runtime/tmp-tests/one-thread-test.cpp",
+    "vulnerability": null,
+    "source code": "\n\n// RUN: %srcroot/test/runtime/run-scheduler-test.py %s -gxx \"%gxx\" -objroot \"%objroot\" -ternruntime \"%ternruntime\" -ternannotlib \"%ternannotlib\"\n\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <pthread.h>\n\npthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;\n\nint main(int argc, char *argv[], char *env[]) {// RUN: %srcroot/test/runtime/run-scheduler-test.py %s -gxx \"%gxx\" -objroot \"%objroot\" -ternruntime \"%ternruntime\" -ternannotlib \"%ternannotlib\"\n\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <pthread.h>\n\npthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;\n\nint main(int argc, char *argv[], char *env[]) {\n  char buf0[64], buf1[64], buf2[64];\n  sprintf(buf1, \"this is a test. \");\n  sprintf(buf2, \"another test.\");\n  strcpy(buf0, buf1);\n  strcat(buf0, buf2);\n  printf(\"%s\\n\", buf0);\n  pthread_mutex_lock(&m);\n  pthread_mutex_unlock(&m);\n  return 0;\n}",
+    "language": "cpp",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 29,
+    "line_text": "  char buf0[64], buf1[64], buf2[64];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

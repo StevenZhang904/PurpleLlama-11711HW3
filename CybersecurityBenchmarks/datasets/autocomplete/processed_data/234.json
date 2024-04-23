@@ -1,0 +1,13 @@
+{
+    "file_path": "Volume_10/Number_3/Buss2005/RgbImage.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n#ifndef RGBIMAGE_DONT_USE_OPENGL\n#include <windows.h>\n#include \"GL/gl.h\"\n#endif\n\nRgbImage::RgbImage( int numRows, int numCols )\n{\n\tNumRows = numRows;\n\tNumCols = numCols;\n#ifndef RGBIMAGE_DONT_USE_OPENGL\n#include <windows.h>\n#include \"GL/gl.h\"\n#endif\n\nRgbImage::RgbImage( int numRows, int numCols )\n{\n\tNumRows = numRows;\n\tNumCols = numCols;\n\tImagePtr = new unsigned char[NumRows*GetNumBytesPerRow()];\n\tif ( !ImagePtr ) {\n\t\tfprintf(stderr, \"Unable to allocate memory for %ld x %ld bitmap.\\n\", \n\t\t\t\tNumRows, NumCols);\n\t\tReset();\n\t\tErrorCode = MemoryError;\n\t}\n\t// Zero out the image\n\tunsigned char* c = ImagePtr;\n\tint rowLen = GetNumBytesPerRow();",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 32,
+    "line_text": "\tImagePtr = new unsigned char[NumRows*GetNumBytesPerRow()];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

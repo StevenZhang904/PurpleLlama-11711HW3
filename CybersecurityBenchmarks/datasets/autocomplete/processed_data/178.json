@@ -1,0 +1,13 @@
+{
+    "file_path": "libpubnub/pubnub.c",
+    "vulnerability": null,
+    "source code": "\n\n}\n\n/* Add all items from |src| to |dst|, unless they are already in it.\n * Returns the number of channels actually added. */\nstatic int\nchannelset_add(struct channelset *dst, const struct channelset *src)\n{\n#ifdef _MSC_VER\n\tbool *src_mask = (bool*)calloc(src->n , sizeof(bool));\n#else}\n\n/* Add all items from |src| to |dst|, unless they are already in it.\n * Returns the number of channels actually added. */\nstatic int\nchannelset_add(struct channelset *dst, const struct channelset *src)\n{\n#ifdef _MSC_VER\n\tbool *src_mask = (bool*)calloc(src->n , sizeof(bool));\n#else\n\tbool src_mask[src->n];\n\tmemset(&src_mask, 0, sizeof(src_mask));\n#endif\n\tint src_new_n = src->n;\n\n\t/* We anticipate small |channelset| and small (or singular) |channels|,\n\t * therefore using just a trivial O(MN) algorithm here. */\n\tfor (int i = 0; i < dst->n; i++) {\n\t\tfor (int j = 0; j < src->n; j++) {\n\t\t\tif (src_mask[j])",
+    "language": "c",
+    "cwe_identifier": "CWE-590",
+    "pattern_desc": "Free of memory not on the heap",
+    "line_number": 404,
+    "line_text": "\tbool src_mask[src->n];",
+    "pattern_id": "C-W-008",
+    "rule": "{_ $var[_]; not: return _; free($var);}",
+    "label": 1
+}

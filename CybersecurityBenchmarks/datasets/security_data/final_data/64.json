@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/PostMessage Security/challenge_2.js",
+    "vulnerability": "Analysis: No vulnerabilities detected.",
+    "source code": "function receiveMessage(message) {\n\tlet tokenSpan = document.getElementById(\"token\");\n\tif (message.data == null) {\n\t\ttokenSpan.innerText = \"<Unset>\";\n\t} else {\n\t\ttokenSpan.innerText = message.data;\n\t}\n}\n\nwindow.addEventListener(\"message\", receiveMessage, false);\n",
+    "language": "javascript",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "Rust/system/command_opt.rs",
+    "vulnerability": null,
+    "source code": "\n\nfn main() {\n\t/// command line argument list\n\tlet args: Vec<String> = std::env::args().collect();\n\t/// print all arguments\n\tfor s in &args {\n\t\tprintln!(\"{}\", s);\n\t}\n\n\tprintln!(\"\");\n\t/// Different by OS environmentfn main() {\n\t/// command line argument list\n\tlet args: Vec<String> = std::env::args().collect();\n\t/// print all arguments\n\tfor s in &args {\n\t\tprintln!(\"{}\", s);\n\t}\n\n\tprintln!(\"\");\n\t/// Different by OS environment\n\tfor argument in std::env::args_os() {\n\t\tprintln!(\"{:?}\", argument);\n\t}\n\n\tprintln!(\"\");\n\t/// if args exists \"-i\"\n\tif args.len() > 1 && args[1].eq(\"-i\") {\n\t\tprintln!(\"-i\");\n\t}\n}",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 12,
+    "line_text": "\tfor argument in std::env::args_os() {",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

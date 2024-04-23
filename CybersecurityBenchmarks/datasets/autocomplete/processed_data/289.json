@@ -1,0 +1,13 @@
+{
+    "file_path": "HW4/5.cpp",
+    "vulnerability": null,
+    "source code": "\n\nusing namespace std;\n\nint n;\nvoid print(int* s);\nint* lastNode(int s, int *c);\nint eval(int i, int k, int *c, int *t);\n\nint main() {\n\tcin >> n;\nusing namespace std;\n\nint n;\nvoid print(int* s);\nint* lastNode(int s, int *c);\nint eval(int i, int k, int *c, int *t);\n\nint main() {\n\tcin >> n;\n\n\tint *c = new int[2 * n]; // saving each node childs in two index like 1:{6,5}, 2:{0,0}...6:{4,0}\n\tfill_n(c, 2 * n, 0);\n\n\tint q = 0;\n\tfor (int i = 0; i < n - 1; i++) {\n\t\tcin >> q;\n\t\tif (c[(q - 1) * 2 + 1]) {\n\t\t\tc[(q - 1) * 2] = i + 2;\n\t\t} else {\n\t\t\tc[(q - 1) * 2 + 1] = i + 2;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 13,
+    "line_text": "\tint *c = new int[2 * n]; // saving each node childs in two index like 1:{6,5}, 2:{0,0}...6:{4,0}",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

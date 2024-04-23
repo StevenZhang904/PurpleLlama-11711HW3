@@ -1,0 +1,13 @@
+{
+    "file_path": "src/com/facebook/buck/android/SplitZipStep.java",
+    "vulnerability": null,
+    "source code": "\n\n        if (m.matches()) {\n          return m.group(1).replace('/', '.');\n        }\n      }\n    }\n    return null;\n  }\n\n  private static String hexSha1(Path file) throws IOException {\n    Preconditions.checkState(file.isAbsolute());        if (m.matches()) {\n          return m.group(1).replace('/', '.');\n        }\n      }\n    }\n    return null;\n  }\n\n  private static String hexSha1(Path file) throws IOException {\n    Preconditions.checkState(file.isAbsolute());\n    return MorePaths.asByteSource(file).hash(Hashing.sha1()).toString();\n  }\n\n  @Override\n  public String getShortName() {\n    return \"split_zip\";\n  }\n\n  @Override\n  public String getDescription(ExecutionContext context) {",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 481,
+    "line_text": "    return MorePaths.asByteSource(file).hash(Hashing.sha1()).toString();",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

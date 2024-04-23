@@ -1,0 +1,13 @@
+{
+    "file_path": "src/test/run-pass/issue-13352.rs",
+    "vulnerability": null,
+    "source code": "\n\n// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your\n// option. This file may not be copied, modified, or distributed\n// except according to those terms.\n\nextern crate libc;\n\nfn foo(_: proc()) {}\n\nfn main() {\n    foo(loop {// <LICENSE-MIT or http://opensource.org/licenses/MIT>, at your\n// option. This file may not be copied, modified, or distributed\n// except according to those terms.\n\nextern crate libc;\n\nfn foo(_: proc()) {}\n\nfn main() {\n    foo(loop {\n        unsafe { libc::exit(0 as libc::c_int); }\n    });\n    2u + (loop {});\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 17,
+    "line_text": "        unsafe { libc::exit(0 as libc::c_int); }",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

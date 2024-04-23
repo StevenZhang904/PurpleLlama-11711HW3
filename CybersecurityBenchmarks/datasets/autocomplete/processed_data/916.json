@@ -1,0 +1,13 @@
+{
+    "file_path": "public/docs/api/latest/@stdlib/stats/base/dists/exponential/pdf/benchmark_bundle.js",
+    "vulnerability": null,
+    "source code": "\n\n* var b1 = fromArray( [ 1, 2, 3, 4 ] );\n* // returns <Buffer>\n*\n* var b2 = fromBuffer( b1 );\n* // returns <Buffer>\n*/\nfunction fromBuffer( buffer ) {\n\tif ( !isBuffer( buffer ) ) {\n\t\tthrow new TypeError( 'invalid argument. Must provide a Buffer. Value: `' + buffer + '`' );\n\t}* var b1 = fromArray( [ 1, 2, 3, 4 ] );\n* // returns <Buffer>\n*\n* var b2 = fromBuffer( b1 );\n* // returns <Buffer>\n*/\nfunction fromBuffer( buffer ) {\n\tif ( !isBuffer( buffer ) ) {\n\t\tthrow new TypeError( 'invalid argument. Must provide a Buffer. Value: `' + buffer + '`' );\n\t}\n\treturn new Buffer( buffer ); // eslint-disable-line no-buffer-constructor\n}\n\n\n// EXPORTS //\n\nmodule.exports = fromBuffer;\n\n},{\"@stdlib/assert/is-buffer\":88,\"@stdlib/buffer/ctor\":229}],235:[function(require,module,exports){\n/**",
+    "language": "javascript",
+    "cwe_identifier": "CWE-770",
+    "pattern_desc": "The application was found calling  the `new Buffer` constructor which has been deprecated\nsince Node 8.\nBy passing in a non-literal value, an adversary could allocate large amounts of memory.\n",
+    "line_number": 13675,
+    "line_text": "\treturn new Buffer( buffer ); // eslint-disable-line no-buffer-constructor",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.javascript.third-party.detect-new-buffer",
+    "rule": null,
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "bomberman/src/core/game/map.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    Vec2u pos(rand() % this->size.x(), rand() % this->size.y());\n\n    Tile &tile = at(pos);\n    tile = Tile::EMPTY;\n\n    return pos;\n}\n\nMap *Map::load_str(unsigned int width, unsigned int height, const char *data)\n{    Vec2u pos(rand() % this->size.x(), rand() % this->size.y());\n\n    Tile &tile = at(pos);\n    tile = Tile::EMPTY;\n\n    return pos;\n}\n\nMap *Map::load_str(unsigned int width, unsigned int height, const char *data)\n{\n    Map::Tile *tiles = new Map::Tile[width * height];\n    for (unsigned int y = 0; y < height; ++y)\n    {\n        for (unsigned int x = 0; x < width; ++x)\n        {\n            unsigned int index = y * width + x;\n            Map::Tile *tile = &(tiles[index]);\n\n            switch (data[index])\n            {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 97,
+    "line_text": "    Map::Tile *tiles = new Map::Tile[width * height];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/wsf.c",
+    "vulnerability": null,
+    "source code": "\n\nPHP_MINIT_FUNCTION(wsf) {\n    zend_class_entry ce;\n\n    char *home_folder = NULL;\n\n    ZEND_INIT_MODULE_GLOBALS(wsf, ws_init_globals, NULL);\n\n    REGISTER_INI_ENTRIES();\n    if (INI_STR(\"extension_dir\")) {\n        char *home_dir = pemalloc(strlen(INI_STR(\"extension_dir\")) + strlen(\"/wsf_c\") + 1, 1);PHP_MINIT_FUNCTION(wsf) {\n    zend_class_entry ce;\n\n    char *home_folder = NULL;\n\n    ZEND_INIT_MODULE_GLOBALS(wsf, ws_init_globals, NULL);\n\n    REGISTER_INI_ENTRIES();\n    if (INI_STR(\"extension_dir\")) {\n        char *home_dir = pemalloc(strlen(INI_STR(\"extension_dir\")) + strlen(\"/wsf_c\") + 1, 1);\n        strcpy(home_dir, INI_STR(\"extension_dir\"));\n        strcat(home_dir, \"/wsf_c\");\n        home_folder = home_dir;\n    }\n\n    memcpy(&ws_object_handlers, zend_get_std_object_handlers(), sizeof (zend_object_handlers));\n\n    ws_object_handlers.clone_obj = NULL;\n\n    REGISTER_WSF_CLASS(ce, \"WSClient\", NULL,",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 316,
+    "line_text": "        strcpy(home_dir, INI_STR(\"extension_dir\"));",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

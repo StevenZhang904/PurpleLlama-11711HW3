@@ -1,0 +1,13 @@
+{
+    "file_path": "UVa/12503 - Robot Instructions.cpp",
+    "vulnerability": null,
+    "source code": "\n\nusing namespace std;\r\nint main(void)\r\n{\r\n\tint t, n;\r\n\tint a[105];\r\n\tchar s[10];\r\n\tscanf(\"%d\", &t);\r\n\twhile(t--) {\r\n\t\tscanf(\"%d\", &n);\r\n\t\tfor(int i = 1; i <= n; i++) {\rusing namespace std;\r\nint main(void)\r\n{\r\n\tint t, n;\r\n\tint a[105];\r\n\tchar s[10];\r\n\tscanf(\"%d\", &t);\r\n\twhile(t--) {\r\n\t\tscanf(\"%d\", &n);\r\n\t\tfor(int i = 1; i <= n; i++) {\r\n\t\t\tscanf(\"%s\", &s);\r\n\t\t\t\r\n\t\t\tif(!strcmp(s, \"LEFT\"))\r\n\t\t\t\ta[i] = -1;\r\n\t\t\telse if(!strcmp(s, \"RIGHT\"))\r\n\t\t\t\ta[i] = 1;\r\n\t\t\telse {\r\n\t\t\t\tchar aa[10];\r\n\t\t\t\tint pos;\r\n\t\t\t\tscanf(\"%s %d\", aa, &pos);\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 13,
+    "line_text": "\t\t\tscanf(\"%s\", &s);\r",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

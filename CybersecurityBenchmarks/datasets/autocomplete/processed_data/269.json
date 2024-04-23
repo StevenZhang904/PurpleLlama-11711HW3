@@ -1,0 +1,13 @@
+{
+    "file_path": "attic/knl/tmp-04.cpp",
+    "vulnerability": null,
+    "source code": "\n\n#include <iostream>\n#include <vector>\n#include <sys/time.h>\n\n#include <omp.h>\n#include <hbwmalloc.h>\n\nusing namespace std;\n\ndouble drand() {#include <iostream>\n#include <vector>\n#include <sys/time.h>\n\n#include <omp.h>\n#include <hbwmalloc.h>\n\nusing namespace std;\n\ndouble drand() {\n  return double(rand()) / double(RAND_MAX);\n}\n\n\ndouble wctime() {\n  struct timeval tv;\n  gettimeofday(&tv,NULL);\n  return (double)tv.tv_sec + (double)tv.tv_usec*1e-6;\n}\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 12,
+    "line_text": "  return double(rand()) / double(RAND_MAX);",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

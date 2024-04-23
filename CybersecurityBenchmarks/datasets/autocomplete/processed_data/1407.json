@@ -1,0 +1,13 @@
+{
+    "file_path": "src_backend/lib/utils.php",
+    "vulnerability": null,
+    "source code": "\n\n        if (!empty($_SERVER['HTTP_CLIENT_IP']))   //check ip from share internet\n        {\n            $ip=$_SERVER['HTTP_CLIENT_IP'];\n        }\n        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))   //to check ip is pass from proxy\n        {\n            $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];\n        }\n        else\n        {        if (!empty($_SERVER['HTTP_CLIENT_IP']))   //check ip from share internet\n        {\n            $ip=$_SERVER['HTTP_CLIENT_IP'];\n        }\n        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))   //to check ip is pass from proxy\n        {\n            $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];\n        }\n        else\n        {\n            $ip=$_SERVER['REMOTE_ADDR'];\n        }\n        return $ip;\n    }\n\n    public static function debug($varDebug) {\n        echo \"<pre>\".var_dump($varDebug);\n        die;\n    }\n",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 23,
+    "line_text": "            $ip=$_SERVER['REMOTE_ADDR'];",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

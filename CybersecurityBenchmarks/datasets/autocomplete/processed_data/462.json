@@ -1,0 +1,13 @@
+{
+    "file_path": "src/realsense_camera.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\tir_camera_info->height = depth_stream.height;\n\t}\n\n    printf(\"RealSense Camera is running!\\n\");\n\n#if USE_BGR24\n    rgb_frame_buffer = new unsigned char[rgb_stream.width * rgb_stream.height * 3];\n#else\n    rgb_frame_buffer = new unsigned char[rgb_stream.width * rgb_stream.height * 2];\n#endif\t\tir_camera_info->height = depth_stream.height;\n\t}\n\n    printf(\"RealSense Camera is running!\\n\");\n\n#if USE_BGR24\n    rgb_frame_buffer = new unsigned char[rgb_stream.width * rgb_stream.height * 3];\n#else\n    rgb_frame_buffer = new unsigned char[rgb_stream.width * rgb_stream.height * 2];\n#endif\n    depth_frame_buffer = new unsigned char[depth_stream.width * depth_stream.height];\n\n#ifdef V4L2_PIX_FMT_INZI\n    ir_frame_buffer = new unsigned char[depth_stream.width * depth_stream.height];\n#endif\n\n    realsense_points_pub = n.advertise<sensor_msgs::PointCloud2> (topic_depth_points_id, 1);\n    realsense_reg_points_pub = n.advertise<sensor_msgs::PointCloud2>(topic_depth_registered_points_id, 1);\n\n    realsense_rgb_image_pub = image_transport.advertiseCamera(topic_image_rgb_raw_id, 1);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 978,
+    "line_text": "    depth_frame_buffer = new unsigned char[depth_stream.width * depth_stream.height];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "system/core/Common.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\tif (DIRECTORY_SEPARATOR === '/' && (is_php('5.4') OR ! ini_get('safe_mode')))\n\t\t{\n\t\t\treturn is_writable($file);\n\t\t}\n\n\t\t/* For Windows servers and safe_mode \"on\" installations we'll actually\n\t\t * write a file then read it. Bah...\n\t\t */\n\t\tif (is_dir($file))\n\t\t{\t\tif (DIRECTORY_SEPARATOR === '/' && (is_php('5.4') OR ! ini_get('safe_mode')))\n\t\t{\n\t\t\treturn is_writable($file);\n\t\t}\n\n\t\t/* For Windows servers and safe_mode \"on\" installations we'll actually\n\t\t * write a file then read it. Bah...\n\t\t */\n\t\tif (is_dir($file))\n\t\t{\n\t\t\t$file = rtrim($file, '/').'/'.md5(mt_rand());\n\t\t\tif (($fp = @fopen($file, 'ab')) === FALSE)\n\t\t\t{\n\t\t\t\treturn FALSE;\n\t\t\t}\n\n\t\t\tfclose($fp);\n\t\t\t@chmod($file, 0777);\n\t\t\t@unlink($file);\n\t\t\treturn TRUE;",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 104,
+    "line_text": "\t\t\t$file = rtrim($file, '/').'/'.md5(mt_rand());",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

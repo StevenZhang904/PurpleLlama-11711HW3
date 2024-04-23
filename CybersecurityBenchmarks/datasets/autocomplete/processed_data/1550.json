@@ -1,0 +1,13 @@
+{
+    "file_path": "pimcore/lib/Pimcore/Helper/SocialMedia.php",
+    "vulnerability": null,
+    "source code": "\n\n    }\r\n\r\n    public static function getGooglePlusShares($urls) {\r\n\r\n        $urls = (array) $urls;\r\n\r\n        $results = array();\r\n\r\n        foreach ($urls as $url) {\r\n            $client = Pimcore_Tool::getHttpClient();\r    }\r\n\r\n    public static function getGooglePlusShares($urls) {\r\n\r\n        $urls = (array) $urls;\r\n\r\n        $results = array();\r\n\r\n        foreach ($urls as $url) {\r\n            $client = Pimcore_Tool::getHttpClient();\r\n            $client->setUri(\"https://clients6.google.com/rpc?key=AIzaSyCKSbrvQasunBoV16zDH9R33D88CeLr9gQ\");\r\n            $client->setHeaders(\"Content-Type\", \"application/json\");\r\n            $client->setRawData('[{\"method\":\"pos.plusones.get\",\"id\":\"p\",\"params\":{\"nolog\":true,\"id\":\"' . $url . '\",\"source\":\"widget\",\"userId\":\"@viewer\",\"groupId\":\"@self\"},\"jsonrpc\":\"2.0\",\"key\":\"p\",\"apiVersion\":\"v1\"}]');\r\n\r\n            try {\r\n                $response = $client->request(Zend_Http_Client::POST);\r\n                if($response->isSuccessful()) {\r\n                    $data = $response->getBody();\r\n                    if($data) {\r\n                        $data = Zend_Json::decode($data);\r",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 53,
+    "line_text": "            $client->setUri(\"https://clients6.google.com/rpc?key=AIzaSyCKSbrvQasunBoV16zDH9R33D88CeLr9gQ\");\r",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

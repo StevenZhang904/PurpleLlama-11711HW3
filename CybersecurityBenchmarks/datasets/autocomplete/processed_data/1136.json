@@ -1,0 +1,13 @@
+{
+    "file_path": "log4j-flume-ng/src/main/java/org/apache/logging/log4j/flume/appender/FlumeEmbeddedManager.java",
+    "vulnerability": null,
+    "source code": "\n\n            sb.append(']');\n        } else {\n            String sep = Strings.EMPTY;\n            sb.append(name).append('-');\n            final StringBuilder props = new StringBuilder();\n            for (final Property prop : properties) {\n                props.append(sep);\n                props.append(prop.getName()).append('=').append(prop.getValue());\n                sep = \"_\";\n            }            sb.append(']');\n        } else {\n            String sep = Strings.EMPTY;\n            sb.append(name).append('-');\n            final StringBuilder props = new StringBuilder();\n            for (final Property prop : properties) {\n                props.append(sep);\n                props.append(prop.getName()).append('=').append(prop.getValue());\n                sep = \"_\";\n            }\n            sb.append(NameUtil.md5(props.toString()));\n        }\n        return getManager(sb.toString(), factory,\n                new FactoryData(name, agents, properties, batchSize, dataDir));\n    }\n\n    @Override\n    public void send(final Event event) {\n        try {\n            agent.put(event);",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 106,
+    "line_text": "            sb.append(NameUtil.md5(props.toString()));",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

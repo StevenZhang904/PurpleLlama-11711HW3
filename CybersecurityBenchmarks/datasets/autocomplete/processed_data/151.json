@@ -1,0 +1,13 @@
+{
+    "file_path": "examples/CPSAT/rijndael-test-fst.c",
+    "vulnerability": null,
+    "source code": "\n\n\r\n\tfprintf(fp,\r\n\t\t\"\\n\"\r\n\t\t\"==========\\n\"\r\n\t\t\"\\n\"\r\n\t\t\"KEYSIZE=%d\\n\",\r\n\t\tkeyLength);\r\n\tfflush(fp);\r\n\tmemset(keyMaterial, 0, sizeof (keyMaterial));\r\n\tfor (i = 0; i < keyLength/8; i++) {\r\r\n\tfprintf(fp,\r\n\t\t\"\\n\"\r\n\t\t\"==========\\n\"\r\n\t\t\"\\n\"\r\n\t\t\"KEYSIZE=%d\\n\",\r\n\t\tkeyLength);\r\n\tfflush(fp);\r\n\tmemset(keyMaterial, 0, sizeof (keyMaterial));\r\n\tfor (i = 0; i < keyLength/8; i++) {\r\n\t\tsprintf(&keyMaterial[2*i], \"%02X\", i);\r\n\t}\r\n\tfprintf(fp, \"KEY=%s\\n\", keyMaterial);\r\n\t\r\n\tfor (i = 0; i < 16; i++) {\r\n\t\tpt[i] = i;\r\n\t}\r\n\t\r\n\tfprintf(fp, \"\\nIntermediate Ciphertext Values (Encryption)\\n\\n\");\r\n\tmakeKey(&keyInst, DIR_ENCRYPT, keyLength, keyMaterial);\r",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 244,
+    "line_text": "\t\tsprintf(&keyMaterial[2*i], \"%02X\", i);\r",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/ops/craft_doc.rs",
+    "vulnerability": null,
+    "source code": "\n\n    let mut methods = Vec::new();\n    // trying $BROWSER\n    if let Ok(name) = env::var(\"BROWSER\") {\n        match Command::new(name).arg(path).status() {\n            Ok(_) => return Ok(\"$BROWSER\"),\n            Err(_) => methods.push(\"$BROWSER\"),\n        }\n    }\n\n    for m in [\"xdg-open\", \"gnome-open\", \"kde-open\"].iter() {    let mut methods = Vec::new();\n    // trying $BROWSER\n    if let Ok(name) = env::var(\"BROWSER\") {\n        match Command::new(name).arg(path).status() {\n            Ok(_) => return Ok(\"$BROWSER\"),\n            Err(_) => methods.push(\"$BROWSER\"),\n        }\n    }\n\n    for m in [\"xdg-open\", \"gnome-open\", \"kde-open\"].iter() {\n        match Command::new(m).arg(path).status() {\n            Ok(_) => return Ok(m),\n            Err(_) => methods.push(m),\n        }\n    }\n\n    Err(methods)\n}\n\n#[cfg(target_os = \"windows\")]",
+    "language": "rust",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential for command injection if input is not sanitized.",
+    "line_number": 94,
+    "line_text": "        match Command::new(m).arg(path).status() {",
+    "pattern_id": "RUST-R-002",
+    "rule": "Command::new\\s*\\(\\s*[^\"']\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/User/Password/PasswordHash.php",
+    "vulnerability": null,
+    "source code": "\n\n\n\n    public function __construct($password = null)\n    {\n        $this->password = $password;\n    }\n\n\n    public function getHashPassword()\n    {\n\n    public function __construct($password = null)\n    {\n        $this->password = $password;\n    }\n\n\n    public function getHashPassword()\n    {\n        $hash = password_hash($this->password, PASSWORD_DEFAULT);\n        return $hash;\n    }\n\n\n}",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 25,
+    "line_text": "        $hash = password_hash($this->password, PASSWORD_DEFAULT);",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

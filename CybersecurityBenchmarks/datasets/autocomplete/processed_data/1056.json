@@ -1,0 +1,13 @@
+{
+    "file_path": "processed/decompiled/slimegames-volleyball-power/Slime2P.java",
+    "vulnerability": null,
+    "source code": "\n\n         fm = g.getFontMetrics();\n         g.setColor(new Color(255, 255, 255));\n         fm = g.getFontMetrics();\n         g.drawString(\"Written by Quin Pendragon\", this.nWidth / 2 - fm.stringWidth(\"Written by Quin Pendragon\") / 2, this.nHeight / 2 + fm.getHeight() * 2 + 20);\n         g.drawString(\"Mod by Tim Lightfoot\", this.nWidth / 2 - fm.stringWidth(\"Mod by Tim Lightfoot\") / 2, this.nHeight / 2 + fm.getHeight() * 2 + 35);\n      }\n\n   }\n\n   public void destroy() {         fm = g.getFontMetrics();\n         g.setColor(new Color(255, 255, 255));\n         fm = g.getFontMetrics();\n         g.drawString(\"Written by Quin Pendragon\", this.nWidth / 2 - fm.stringWidth(\"Written by Quin Pendragon\") / 2, this.nHeight / 2 + fm.getHeight() * 2 + 20);\n         g.drawString(\"Mod by Tim Lightfoot\", this.nWidth / 2 - fm.stringWidth(\"Mod by Tim Lightfoot\") / 2, this.nHeight / 2 + fm.getHeight() * 2 + 35);\n      }\n\n   }\n\n   public void destroy() {\n      this.gameThread.stop();\n      this.gameThread = null;\n   }\n\n   private void ReplayFrame(int i, int j, int k, int l, int i1, boolean flag) {\n      if(flag) {\n         this.ballX = this.ballOldX = -50000000;\n         this.ballY = this.ballOldY = 100000;\n         this.p1OldX = this.p1OldY = this.p2OldX = this.p2OldY = -10000;\n      } else {",
+    "language": "java",
+    "cwe_identifier": "CWE-589",
+    "pattern_desc": "Use of deprecated or obsolete methods",
+    "line_number": 388,
+    "line_text": "      this.gameThread.stop();",
+    "pattern_id": "JAVA-R-034",
+    "rule": "Thread\\.(run|stop)\\(",
+    "label": 1
+}

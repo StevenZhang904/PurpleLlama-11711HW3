@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Path Traversal/phpexample.php",
+    "vulnerability": "Vulnerabilities Detected:\n- Potential directory traversal vulnerability due to lack of input validation on the $_GET['file'] parameter.\n- Potential remote file inclusion vulnerability due to lack of input validation on the $_GET['file'] parameter.\n- Potential file disclosure vulnerability due to lack of input validation on the $_GET['file'] parameter.\n- Potential information leakage due to lack of proper HTTP headers.",
+    "source code": "\n<?php\n\n$UploadDir = '/var/www/';\n\nif (!(isset($_GET['file'])))\n  die();\n\n\n$file = $_GET['file'];\n\n$path = $UploadDir . $file;\n\nif (!is_file($path))\n  die();\n\nheader('Cache-Control: must-revalidate, post-check=0, pre-check=0');\nheader('Cache-Control: public');\nheader('Content-Disposition: inline; filename=\"' . basename($path) . '\";');\nheader('Content-Transfer-Encoding: binary');\nheader('Content-Length: ' . filesize($path));\n\n$handle = fopen($path, 'rb');\n\ndo {\n$data = fread($handle, 8192);\nif (strlen($data) == 0) {\nbreak;\n}\necho($data);\n} while (true);\n\nfclose($handle);\nexit();\n?>\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

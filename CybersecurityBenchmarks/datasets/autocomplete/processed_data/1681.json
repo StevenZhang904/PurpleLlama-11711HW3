@@ -1,0 +1,13 @@
+{
+    "file_path": "Tests/Marketplace/marketplace_services.py",
+    "vulnerability": null,
+    "source code": "\n\n            subprocess.call('chmod +x ./encryptor', shell=True)\n\n            output_file = zip_pack_path.replace(\"_not_encrypted.zip\", \".zip\")\n            full_command = f'./encryptor ./{pack_name}_not_encrypted.zip {output_file} \"{encryption_key}\"'\n            subprocess.call(full_command, shell=True)\n\n            secondary_encryption_key_output_file = zip_pack_path.replace(\"_not_encrypted.zip\", \".enc2.zip\")\n            full_command_with_secondary_encryption = f'./encryptor ./{pack_name}_not_encrypted.zip ' \\\n                                                     f'{secondary_encryption_key_output_file}' \\\n                                                     f' \"{secondary_encryption_key}\"'            subprocess.call('chmod +x ./encryptor', shell=True)\n\n            output_file = zip_pack_path.replace(\"_not_encrypted.zip\", \".zip\")\n            full_command = f'./encryptor ./{pack_name}_not_encrypted.zip {output_file} \"{encryption_key}\"'\n            subprocess.call(full_command, shell=True)\n\n            secondary_encryption_key_output_file = zip_pack_path.replace(\"_not_encrypted.zip\", \".enc2.zip\")\n            full_command_with_secondary_encryption = f'./encryptor ./{pack_name}_not_encrypted.zip ' \\\n                                                     f'{secondary_encryption_key_output_file}' \\\n                                                     f' \"{secondary_encryption_key}\"'\n            subprocess.call(full_command_with_secondary_encryption, shell=True)\n\n            new_artefacts = os.path.join(current_working_dir, private_artifacts_dir)\n            if os.path.exists(new_artefacts):\n                shutil.rmtree(new_artefacts)\n            os.mkdir(path=new_artefacts)\n            shutil.copy(zip_pack_path, os.path.join(new_artefacts, f'{pack_name}_not_encrypted.zip'))\n            shutil.copy(output_file, os.path.join(new_artefacts, f'{pack_name}.zip'))\n            shutil.copy(secondary_encryption_key_output_file, os.path.join(new_artefacts, f'{pack_name}.enc2.zip'))\n            os.chdir(current_working_dir)",
+    "language": "python",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection due to subprocess usage with shell=True.",
+    "line_number": 810,
+    "line_text": "            subprocess.call(full_command_with_secondary_encryption, shell=True)",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-subprocess-using-shell",
+    "rule": null,
+    "label": 1
+}

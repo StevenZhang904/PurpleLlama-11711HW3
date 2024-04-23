@@ -1,0 +1,13 @@
+{
+    "file_path": "libindy/src/utils/environment.rs",
+    "vulnerability": null,
+    "source code": "\n\n    path\n}\n\npub fn pool_path(pool_name: &str) -> PathBuf {\n    let mut path = pool_home_path();\n    path.push(pool_name);\n    path\n}\n\npub fn tmp_path() -> PathBuf {    path\n}\n\npub fn pool_path(pool_name: &str) -> PathBuf {\n    let mut path = pool_home_path();\n    path.push(pool_name);\n    path\n}\n\npub fn tmp_path() -> PathBuf {\n    let mut path = env::temp_dir();\n    path.push(\"indy_client\");\n    path\n}\n\npub fn tmp_file_path(file_name: &str) -> PathBuf {\n    let mut path = tmp_path();\n    path.push(file_name);\n    path\n}",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 53,
+    "line_text": "    let mut path = env::temp_dir();",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/XSS/sc.cs",
+    "vulnerability": "Vulnerabilities Detected:\n1. The cookie is not marked as secure, which means it can be sent over an unencrypted connection.\n2. The cookie is not marked as HttpOnly, which means it can be accessed by client-side scripts.\n3. The cookie does not have an expiration date, which means it will remain active until the user closes their browser.\n4. The cookie is not marked as SameSite, which means it can be sent with cross-site requests.",
+    "source code": "using System.Net;\nusing System.Security.Cryptography;\nusing Microsoft.AspNetCore.Http;\nusing Microsoft.AspNetCore.Mvc;\n\nnamespace WebFox.Controllers\n{\n    public class SecureCookieTest1: ControllerBase\n    {\n        [HttpGet(\"{response}\")]\n        [HttpGet(\"{request}\")]\n        \n        // HttpCookie myCookie = new HttpCookie(\"Sensitive cookie\");\n        public void DoPost(HttpWebResponse response, HttpWebRequest request)\n        {\n            DoGet(response, request);\n        }\n\n        public void DoGet(HttpWebResponse response, HttpWebRequest request)\n        {\n            Unsafe(response, request);\n        }\n\n        public void Unsafe(HttpWebResponse response, HttpWebRequest request)\n        {\n            string password = \"p-\" + RandomNumberGenerator.GetInt32(200000000, 2000000000);\n            \n            Cookie cookie = new Cookie(\"password\",password);\n            cookie.Path = \"/\";\n            cookie.Domain = \"\";\n            cookie.Comment = \"Cookie Description\";\n            response.Cookies.Add(cookie);\n        }\n    }\n}\n",
+    "language": "csharp",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

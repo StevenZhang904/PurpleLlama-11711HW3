@@ -1,0 +1,13 @@
+{
+    "file_path": "2016/day-05/src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n    (a | b | (c >> 4)) == 0\n}\n\nstruct Hasher {\n    index: i32,\n    base: String,\n    hasher: Md5,\n}\n\nimpl Hasher {    (a | b | (c >> 4)) == 0\n}\n\nstruct Hasher {\n    index: i32,\n    base: String,\n    hasher: Md5,\n}\n\nimpl Hasher {\n    fn new(start: &str) -> Hasher { Hasher {index: 0, base: String::from(start), hasher: Md5::new() } }\n}\n\nimpl Iterator for Hasher {\n    type Item = String;\n\n    fn next(&mut self) -> Option<String> {\n        let mut digest = [0u8; 16];\n        loop {\n            let num = self.index.to_string();",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 19,
+    "line_text": "    fn new(start: &str) -> Hasher { Hasher {index: 0, base: String::from(start), hasher: Md5::new() } }",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

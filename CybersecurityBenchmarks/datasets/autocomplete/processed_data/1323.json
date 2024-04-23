@@ -1,0 +1,13 @@
+{
+    "file_path": "src/framework/standard/create_group.rs",
+    "vulnerability": null,
+    "source code": "\n\n            CommandOrAlias::Command(Arc::new(cmd)),\n        );\n\n        self\n    }\n\n    /// Adds a command to group with simplified API.\n    /// You can return Err(string) if there's an error.\n    pub fn on<F>(mut self, command_name: &str, f: F) -> Self\n        where F: Fn(&mut Context, &Message, Args) -> Result<(), String> + Send + Sync + 'static {            CommandOrAlias::Command(Arc::new(cmd)),\n        );\n\n        self\n    }\n\n    /// Adds a command to group with simplified API.\n    /// You can return Err(string) if there's an error.\n    pub fn on<F>(mut self, command_name: &str, f: F) -> Self\n        where F: Fn(&mut Context, &Message, Args) -> Result<(), String> + Send + Sync + 'static {\n        let cmd = Arc::new(Command::new(f));\n\n        self.0.commands.insert(\n            command_name.to_owned(),\n            CommandOrAlias::Command(cmd),\n        );\n\n        self\n    }\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential for command injection if input is not sanitized.",
+    "line_number": 78,
+    "line_text": "        let cmd = Arc::new(Command::new(f));",
+    "pattern_id": "RUST-R-002",
+    "rule": "Command::new\\s*\\(\\s*[^\"']\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "drivers/raw/ioat/ioat_rawdev_test.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\tchar *src_data;\n\n\t\tif (split_batches && i == RTE_DIM(srcs) / 2)\n\t\t\trte_ioat_perform_ops(dev_id);\n\n\t\tsrcs[i] = rte_pktmbuf_alloc(pool);\n\t\tdsts[i] = rte_pktmbuf_alloc(pool);\n\t\tsrc_data = rte_pktmbuf_mtod(srcs[i], char *);\n\n\t\tfor (j = 0; j < COPY_LEN; j++)\t\tchar *src_data;\n\n\t\tif (split_batches && i == RTE_DIM(srcs) / 2)\n\t\t\trte_ioat_perform_ops(dev_id);\n\n\t\tsrcs[i] = rte_pktmbuf_alloc(pool);\n\t\tdsts[i] = rte_pktmbuf_alloc(pool);\n\t\tsrc_data = rte_pktmbuf_mtod(srcs[i], char *);\n\n\t\tfor (j = 0; j < COPY_LEN; j++)\n\t\t\tsrc_data[j] = rand() & 0xFF;\n\n\t\tif (rte_ioat_enqueue_copy(dev_id,\n\t\t\t\tsrcs[i]->buf_iova + srcs[i]->data_off,\n\t\t\t\tdsts[i]->buf_iova + dsts[i]->data_off,\n\t\t\t\tCOPY_LEN,\n\t\t\t\t(uintptr_t)srcs[i],\n\t\t\t\t(uintptr_t)dsts[i]) != 1) {\n\t\t\tPRINT_ERR(\"Error with rte_ioat_enqueue_copy for buffer %u\\n\",\n\t\t\t\t\ti);",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 57,
+    "line_text": "\t\t\tsrc_data[j] = rand() & 0xFF;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

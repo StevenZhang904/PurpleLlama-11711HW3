@@ -1,0 +1,13 @@
+{
+    "file_path": "0.63_My_PuTTY/WINDOWS/WINDOW.C",
+    "vulnerability": null,
+    "source code": "\n\n\tchar buffer[4096] = \"\" ;\r\n\r\n\tif( (conf_get_int(conf,CONF_protocol)/*cfg.protocol*/ == PROT_SSH) && (!backend_connected) ) break ; // On sort si en SSH on n'est pas connecte\r\n\t// Lancement d'une (ou plusieurs separees par \\\\n) commande(s) automatique(s) a l'initialisation\r\n\tKillTimer( hwnd, TIMER_INIT ) ;\r\n\r\n\tif( conf_get_int(conf,CONF_protocol) == PROT_TELNET ) {\r\n\t\tif( strlen( conf_get_str(conf,CONF_username) ) > 0 ) {\r\n\t\t\tif( strlen( conf_get_str(conf,CONF_password) ) > 0 ) {\r\n\t\t\t\tchar bufpass[256]; strcpy(bufpass,conf_get_str(conf,CONF_password)) ;\r\tchar buffer[4096] = \"\" ;\r\n\r\n\tif( (conf_get_int(conf,CONF_protocol)/*cfg.protocol*/ == PROT_SSH) && (!backend_connected) ) break ; // On sort si en SSH on n'est pas connecte\r\n\t// Lancement d'une (ou plusieurs separees par \\\\n) commande(s) automatique(s) a l'initialisation\r\n\tKillTimer( hwnd, TIMER_INIT ) ;\r\n\r\n\tif( conf_get_int(conf,CONF_protocol) == PROT_TELNET ) {\r\n\t\tif( strlen( conf_get_str(conf,CONF_username) ) > 0 ) {\r\n\t\t\tif( strlen( conf_get_str(conf,CONF_password) ) > 0 ) {\r\n\t\t\t\tchar bufpass[256]; strcpy(bufpass,conf_get_str(conf,CONF_password)) ;\r\n\t\t\t\tMASKPASS(bufpass); strcat(buffer,bufpass); memset(bufpass,0,strlen(bufpass));\r\n\t\t\t\tstrcat( buffer, \"\\\\n\" ) ;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\tif( strlen( conf_get_str(conf,CONF_autocommand)/*cfg.autocommand*/ ) > 0 ) {\r\n\t\t\tstrcat( buffer, \"\\\\n\\\\p\" ) ; \r\n\t\t\tstrcat( buffer, conf_get_str(conf,CONF_autocommand)/*cfg.autocommand*/ ) ;\r\n\t\t\tstrcat( buffer, \"\\\\n\" ) ;\r\n\t\t\t}\r\n\t\tif( strlen(buffer) > 0 ) { \r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 2858,
+    "line_text": "\t\t\t\tMASKPASS(bufpass); strcat(buffer,bufpass); memset(bufpass,0,strlen(bufpass));\r",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

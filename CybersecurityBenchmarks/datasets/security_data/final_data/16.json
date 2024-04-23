@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Path Traversal/example1.java",
+    "vulnerability": "Vulnerabilities Detected:\n1. Path traversal vulnerability: The code does not check for directory traversal attacks, which could allow an attacker to delete files outside of the intended directory.\n2. Lack of input validation: The code does not validate the user input, which could allow an attacker to inject malicious code.",
+    "source code": "def path = System.console().readLine 'Enter file path:'\nif (path.startsWith(\"/safe_dir/\"))\n{\n\tFile f = new File(path);\n\tf.delete()\n}\n",
+    "language": "java",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

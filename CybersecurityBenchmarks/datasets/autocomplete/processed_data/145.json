@@ -1,0 +1,13 @@
+{
+    "file_path": "TRAPSat_cFS/cfs/cfe/fsw/cfe-core/src/tbl/cfe_tbl_task_cmds.c",
+    "vulnerability": null,
+    "source code": "\n\n        OS_close(FileDescriptor);\n    }\n\n    /* Create a new dump file, overwriting anything that may have existed previously */\n    FileDescriptor = OS_creat(DumpFilename, OS_WRITE_ONLY);\n\n    if (FileDescriptor >= OS_FS_SUCCESS)\n    {\n        /* Initialize the standard cFE File Header for the Dump File */\n        StdFileHeader.SubType = CFE_FS_TBL_IMG_SUBTYPE;        OS_close(FileDescriptor);\n    }\n\n    /* Create a new dump file, overwriting anything that may have existed previously */\n    FileDescriptor = OS_creat(DumpFilename, OS_WRITE_ONLY);\n\n    if (FileDescriptor >= OS_FS_SUCCESS)\n    {\n        /* Initialize the standard cFE File Header for the Dump File */\n        StdFileHeader.SubType = CFE_FS_TBL_IMG_SUBTYPE;\n        strcpy(&StdFileHeader.Description[0], \"Table Dump Image\");\n\n        /* Output the Standard cFE File Header to the Dump File */\n        Status = CFE_FS_WriteHeader(FileDescriptor, &StdFileHeader);\n\n        if (Status == sizeof(CFE_FS_Header_t))\n        {\n            /* Initialize the Table Image Header for the Dump File */\n            CFE_PSP_MemCpy(TblFileHeader.TableName, TableName, CFE_TBL_MAX_FULL_NAME_LEN);\n            TblFileHeader.Offset = 0;",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 884,
+    "line_text": "        strcpy(&StdFileHeader.Description[0], \"Table Dump Image\");",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

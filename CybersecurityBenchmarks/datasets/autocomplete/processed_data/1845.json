@@ -1,0 +1,13 @@
+{
+    "file_path": "src/olympia/amo/management/commands/compress_assets.py",
+    "vulnerability": null,
+    "source code": "\n\n\n        def _parse(url):\n            return self._cachebust_regex(url, css_file)\n\n        css_parsed = re.sub('url\\(([^)]*?)\\)', _parse, css_content)\n\n        with open(css_file, 'w') as css_out:\n            css_out.write(css_parsed)\n\n        # Return bundle hash for cachebusting JS/CSS files.\n        def _parse(url):\n            return self._cachebust_regex(url, css_file)\n\n        css_parsed = re.sub('url\\(([^)]*?)\\)', _parse, css_content)\n\n        with open(css_file, 'w') as css_out:\n            css_out.write(css_parsed)\n\n        # Return bundle hash for cachebusting JS/CSS files.\n        file_hash = hashlib.md5(css_parsed).hexdigest()[0:7]\n        self.checked_hash[css_file] = file_hash\n\n        if self.missing_files:\n            self.stdout.write(\n                ' - Error finding %s images\\n' % (self.missing_files,))\n            self.missing_files = 0\n\n        return file_hash\n",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 186,
+    "line_text": "        file_hash = hashlib.md5(css_parsed).hexdigest()[0:7]",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

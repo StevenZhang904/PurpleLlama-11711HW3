@@ -1,0 +1,13 @@
+{
+    "file_path": "loup-filemanager/src/main/java/at/loup/filemanager/entities/BinaryEntity.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\tresult.setUploaderIp(uploaderIp);\r\n\t\treturn result;\r\n\t}\r\n\r\n\tpublic static byte[] createCollisionHash(byte[] input) {\r\n\t\tArgumentRuleUtilities.notNull(\"input\", input);\r\n\t\tMessageDigest messageDigestMD5;\r\n\t\tMessageDigest messageDigestMD2;\r\n\t\ttry {\r\n\t\t\tmessageDigestMD5 = MessageDigest.getInstance(\"MD5\");\r\t\tresult.setUploaderIp(uploaderIp);\r\n\t\treturn result;\r\n\t}\r\n\r\n\tpublic static byte[] createCollisionHash(byte[] input) {\r\n\t\tArgumentRuleUtilities.notNull(\"input\", input);\r\n\t\tMessageDigest messageDigestMD5;\r\n\t\tMessageDigest messageDigestMD2;\r\n\t\ttry {\r\n\t\t\tmessageDigestMD5 = MessageDigest.getInstance(\"MD5\");\r\n\t\t\tmessageDigestMD2 = MessageDigest.getInstance(\"MD2\");\r\n\t\t} catch (NoSuchAlgorithmException e) {\r\n\t\t\tthrow new RuntimeException(e);\r\n\t\t}\r\n\t\t// MD5 & MD2 hashes are each 128 bit long\r\n\t\tbyte[] md5Hash = messageDigestMD5.digest(input);\r\n\t\tbyte[] md2Hash = messageDigestMD2.digest(input);\r\n\t\tbyte[] result = new byte[32];\r\n\r\n\t\tSystem.arraycopy(md5Hash, 0, result, 0, 16);\r",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 106,
+    "line_text": "\t\t\tmessageDigestMD2 = MessageDigest.getInstance(\"MD2\");\r",
+    "pattern_id": "JAVA-R-013",
+    "rule": "\\.getMd2Digest\\(\\)|\\.md2\\(|\\.md2Hex\\(|\\.getInstance\\(\"(MD2|md2)\"",
+    "label": 1
+}

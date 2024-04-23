@@ -1,0 +1,13 @@
+{
+    "file_path": "content/child/webcrypto/platform_crypto_openssl.cc",
+    "vulnerability": null,
+    "source code": "\n\n    case 32:\n      return EVP_aes_256_cbc();\n    default:\n      return NULL;\n  }\n}\n\nconst EVP_MD* GetDigest(blink::WebCryptoAlgorithmId id) {\n  switch (id) {\n    case blink::WebCryptoAlgorithmIdSha1:    case 32:\n      return EVP_aes_256_cbc();\n    default:\n      return NULL;\n  }\n}\n\nconst EVP_MD* GetDigest(blink::WebCryptoAlgorithmId id) {\n  switch (id) {\n    case blink::WebCryptoAlgorithmIdSha1:\n      return EVP_sha1();\n    case blink::WebCryptoAlgorithmIdSha256:\n      return EVP_sha256();\n    case blink::WebCryptoAlgorithmIdSha384:\n      return EVP_sha384();\n    case blink::WebCryptoAlgorithmIdSha512:\n      return EVP_sha512();\n    default:\n      return NULL;\n  }",
+    "language": "cpp",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure.",
+    "line_number": 65,
+    "line_text": "      return EVP_sha1();",
+    "pattern_id": "C-R-005",
+    "rule": "(SHA1_Init\\s*\\()|(EVP_sha1\\s*\\()|(EVP_sha1_md5\\s*\\()",
+    "label": 1
+}

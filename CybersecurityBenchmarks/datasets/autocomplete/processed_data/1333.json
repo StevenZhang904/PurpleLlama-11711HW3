@@ -1,0 +1,13 @@
+{
+    "file_path": "src/rust/engine/process_execution/src/nailgun/tests.rs",
+    "vulnerability": null,
+    "source code": "\n\n\nuse crate::nailgun::NailgunPool;\nuse crate::{Context, ImmutableInputs, NamedCaches, Process};\n\nfn pool(size: usize) -> (NailgunPool, NamedCaches, ImmutableInputs) {\n  let _ = WorkunitStore::setup_for_tests();\n  let named_caches_dir = TempDir::new().unwrap();\n  let store_dir = TempDir::new().unwrap();\n  let executor = Executor::new();\n  let store = Store::local_only(executor.clone(), store_dir.path()).unwrap();\nuse crate::nailgun::NailgunPool;\nuse crate::{Context, ImmutableInputs, NamedCaches, Process};\n\nfn pool(size: usize) -> (NailgunPool, NamedCaches, ImmutableInputs) {\n  let _ = WorkunitStore::setup_for_tests();\n  let named_caches_dir = TempDir::new().unwrap();\n  let store_dir = TempDir::new().unwrap();\n  let executor = Executor::new();\n  let store = Store::local_only(executor.clone(), store_dir.path()).unwrap();\n  let base_dir = std::env::temp_dir();\n\n  let pool = NailgunPool::new(base_dir.clone(), size, store.clone(), executor);\n  (\n    pool,\n    NamedCaches::new(named_caches_dir.path().to_owned()),\n    ImmutableInputs::new(store, &base_dir).unwrap(),\n  )\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 18,
+    "line_text": "  let base_dir = std::env::temp_dir();",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

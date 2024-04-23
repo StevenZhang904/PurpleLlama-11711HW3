@@ -1,0 +1,13 @@
+{
+    "file_path": "include/libtorrent/alert.hpp",
+    "vulnerability": null,
+    "source code": "\n\n\n\t\tvirtual char const* what() const = 0;\n\t\tvirtual std::string message() const = 0;\n\t\tvirtual int category() const = 0;\n\n#ifndef TORRENT_NO_DEPRECATE\n\t\tTORRENT_DEPRECATED_PREFIX\n\t\tseverity_t severity() const TORRENT_DEPRECATED { return warning; }\n#endif\n\n\t\tvirtual char const* what() const = 0;\n\t\tvirtual std::string message() const = 0;\n\t\tvirtual int category() const = 0;\n\n#ifndef TORRENT_NO_DEPRECATE\n\t\tTORRENT_DEPRECATED_PREFIX\n\t\tseverity_t severity() const TORRENT_DEPRECATED { return warning; }\n#endif\n\n\t\tvirtual std::auto_ptr<alert> clone() const = 0;\n\n\tprivate:\n\t\tptime m_timestamp;\n\t};\n\n\ttemplate <class T>\n\tT* alert_cast(alert* a)\n\t{\n\t\treturn dynamic_cast<T*>(a);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-665",
+    "pattern_desc": "Uses deprecated auto_ptr, which can lead to undefined behavior.",
+    "line_number": 110,
+    "line_text": "\t\tvirtual std::auto_ptr<alert> clone() const = 0;",
+    "pattern_id": "CPP-R-001",
+    "rule": "\\bstd::auto_ptr<\\s*\\w+\\s*>",
+    "label": 1
+}

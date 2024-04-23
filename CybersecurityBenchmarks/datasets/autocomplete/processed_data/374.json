@@ -1,0 +1,13 @@
+{
+    "file_path": "src/jsoncpp.cpp",
+    "vulnerability": null,
+    "source code": "\n\n  char buffer[32];\n  int len = -1;\n\n// Print into the buffer. We need not request the alternative representation\n// that always has a decimal point because JSON doesn't distingish the\n// concepts of reals and integers.\n#if defined(_MSC_VER) && defined(__STDC_SECURE_LIB__) // Use secure version with\n                                                      // visual studio 2005 to\n                                                      // avoid warning.\n#if defined(WINCE)  char buffer[32];\n  int len = -1;\n\n// Print into the buffer. We need not request the alternative representation\n// that always has a decimal point because JSON doesn't distingish the\n// concepts of reals and integers.\n#if defined(_MSC_VER) && defined(__STDC_SECURE_LIB__) // Use secure version with\n                                                      // visual studio 2005 to\n                                                      // avoid warning.\n#if defined(WINCE)\n  len = _snprintf(buffer, sizeof(buffer), \"%.17g\", value);\n#else\n  len = sprintf_s(buffer, sizeof(buffer), \"%.17g\", value);\n#endif\n#else\n  if (isfinite(value)) {\n    len = snprintf(buffer, sizeof(buffer), \"%.17g\", value);\n  } else {\n    // IEEE standard states that NaN values will not compare to themselves\n    if (value != value) {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential out of bounds access due to improper validation of return values of .*snprintf.* functions",
+    "line_number": 4057,
+    "line_text": "  len = _snprintf(buffer, sizeof(buffer), \"%.17g\", value);",
+    "pattern_id": "C-W-003",
+    "rule": "{ $ret = $snprintf_family($b); not: $ret < _;  _($b + $ret);}",
+    "label": 1
+}

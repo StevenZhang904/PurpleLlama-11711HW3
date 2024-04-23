@@ -1,0 +1,13 @@
+{
+    "file_path": "src/librustdoc/test.rs",
+    "vulnerability": null,
+    "source code": "\n\n           cfgs: Vec<String>,\n           libs: SearchPaths,\n           externs: core::Externs,\n           mut test_args: Vec<String>,\n           crate_name: Option<String>)\n           -> int {\n    let input_path = Path::new(input);\n    let input = config::Input::File(input_path.clone());\n\n    let sessopts = config::Options {           cfgs: Vec<String>,\n           libs: SearchPaths,\n           externs: core::Externs,\n           mut test_args: Vec<String>,\n           crate_name: Option<String>)\n           -> int {\n    let input_path = Path::new(input);\n    let input = config::Input::File(input_path.clone());\n\n    let sessopts = config::Options {\n        maybe_sysroot: Some(env::current_exe().unwrap().dir_path().dir_path()),\n        search_paths: libs.clone(),\n        crate_types: vec!(config::CrateTypeDylib),\n        externs: externs.clone(),\n        unstable_features: get_unstable_features_setting(),\n        ..config::basic_options().clone()\n    };\n\n    let codemap = CodeMap::new();\n    let diagnostic_handler = diagnostic::default_handler(diagnostic::Auto, None, true);",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 49,
+    "line_text": "        maybe_sysroot: Some(env::current_exe().unwrap().dir_path().dir_path()),",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

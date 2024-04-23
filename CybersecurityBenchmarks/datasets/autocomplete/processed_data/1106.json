@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/com/fincatto/documentofiscal/nfe400/utils/qrcode20/NFGeraQRCode20.java",
+    "vulnerability": null,
+    "source code": "\n\n    public static String createHash(final String campos, final String csc) throws NoSuchAlgorithmException {\n        return sha1(campos + csc);\n    }\n\n    public static String toHex(final String arg) {\n        return String.format(\"%040x\", new BigInteger(1, arg.getBytes(Charset.forName(\"UTF-8\"))));\n    }\n\n    public static String sha1(final String input) throws NoSuchAlgorithmException {\n        final StringBuilder sb = new StringBuilder();    public static String createHash(final String campos, final String csc) throws NoSuchAlgorithmException {\n        return sha1(campos + csc);\n    }\n\n    public static String toHex(final String arg) {\n        return String.format(\"%040x\", new BigInteger(1, arg.getBytes(Charset.forName(\"UTF-8\"))));\n    }\n\n    public static String sha1(final String input) throws NoSuchAlgorithmException {\n        final StringBuilder sb = new StringBuilder();\n        for (final byte element : MessageDigest.getInstance(\"SHA1\").digest(input.getBytes(Charset.forName(\"UTF-8\")))) {\n            sb.append(Integer.toString((element & 0xff) + 0x100, 16).substring(1));\n        }\n        return sb.toString().toUpperCase();\n    }\n\n    public String urlConsultaChaveAcesso(){\n        return this.config.getAmbiente().equals(DFAmbiente.PRODUCAO) ? this.nota.getInfo().getIdentificacao().getUf().getConsultaChaveAcessoProducao() : this.nota.getInfo().getIdentificacao().getUf().getConsultaChaveAcessoHomologacao();\n    }\n}",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 66,
+    "line_text": "        for (final byte element : MessageDigest.getInstance(\"SHA1\").digest(input.getBytes(Charset.forName(\"UTF-8\")))) {",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

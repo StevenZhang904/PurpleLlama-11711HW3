@@ -1,0 +1,13 @@
+{
+    "file_path": "lib/validator/sfGuardValidatorUser.class.php",
+    "vulnerability": null,
+    "source code": "\n\n    return $values;\n  }\n\n  private function checkSecurityAttack($username)\n  {\n    $login_failure_max_attempts_per_user = sfConfig::get('app_sf_guard_secure_plugin_login_failure_max_attempts_per_user', 3);\n    $login_failure_max_attempts_per_ip   = sfConfig::get('app_sf_guard_secure_plugin_login_failure_max_attempts_per_ip', 10);    \n    $login_failure_time_window           = sfConfig::get('app_sf_guard_secure_plugin_login_failure_time_window', 90); \n  \n    $failures_for_username = sfGuardLoginFailurePeer::doCountForUsernameInTimeWindow($username, $login_failure_time_window*60);    return $values;\n  }\n\n  private function checkSecurityAttack($username)\n  {\n    $login_failure_max_attempts_per_user = sfConfig::get('app_sf_guard_secure_plugin_login_failure_max_attempts_per_user', 3);\n    $login_failure_max_attempts_per_ip   = sfConfig::get('app_sf_guard_secure_plugin_login_failure_max_attempts_per_ip', 10);    \n    $login_failure_time_window           = sfConfig::get('app_sf_guard_secure_plugin_login_failure_time_window', 90); \n  \n    $failures_for_username = sfGuardLoginFailurePeer::doCountForUsernameInTimeWindow($username, $login_failure_time_window*60);\n    $failures_for_ip   = sfGuardLoginFailurePeer::doCountForIpInTimeWindow($_SERVER['REMOTE_ADDR'] , $login_failure_time_window*60 );\n\n    $user = sfContext::getInstance()->getUser();\n\n    if(($failures_for_username > $login_failure_max_attempts_per_user ) || ($failures_for_ip > $login_failure_max_attempts_per_ip))\n    {\n      $user->setAttribute('sf_guard_secure_plugin_login_failure_detected', 1);\n    }\n  }\n",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 99,
+    "line_text": "    $failures_for_ip   = sfGuardLoginFailurePeer::doCountForIpInTimeWindow($_SERVER['REMOTE_ADDR'] , $login_failure_time_window*60 );",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

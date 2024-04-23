@@ -1,0 +1,13 @@
+{
+    "file_path": "chapter21/git-toy/src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\nextern crate libc;\n\nmod git;\n\nfn main() {extern crate libc;\n\nmod git;\n\nfn main() {\n    let path = std::env::args_os().nth(1).expect(\"usage: git-toy PATH\");\n\n    let repo = git::Repository::open(&path).expect(\"opening repository\");\n\n    let commit_oid = repo.reference_name_to_id(\"HEAD\").expect(\n        \"looking up 'HEAD' reference\",\n    );\n\n    let commit = repo.find_commit(&commit_oid).expect(\"looking up commit\");\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 6,
+    "line_text": "    let path = std::env::args_os().nth(1).expect(\"usage: git-toy PATH\");",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

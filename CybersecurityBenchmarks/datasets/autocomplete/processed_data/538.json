@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Web/Bloggable.Web/Areas/Administration/Controllers/SettingsController.cs",
+    "vulnerability": null,
+    "source code": "\n\n            return this.GridOperation(request, model);\n        }\n\n        [HttpPost]\n        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ViewModel model)\n        {\n            this.DestroyEntity(model.Id);\n            return this.GridOperation(request, model);\n        }\n            return this.GridOperation(request, model);\n        }\n\n        [HttpPost]\n        public ActionResult Destroy([DataSourceRequest]DataSourceRequest request, ViewModel model)\n        {\n            this.DestroyEntity(model.Id);\n            return this.GridOperation(request, model);\n        }\n\n        [HttpPost]\n        public ActionResult RefreshSettingsInCache()\n        {\n            this.cache.Remove(CacheConstants.Settings);\n            return this.EmptyResult();\n        }\n    }\n}",
+    "language": "csharp",
+    "cwe_identifier": "CWE-352",
+    "pattern_desc": "The application failed to protect against Cross-Site Request Forgery (CSRF)\ndue to not including the `[ValidateAntiForgeryToken]` attribute on an\nHTTP method handler that could change user state (usually in the form of POST or PUT\nmethods).\n",
+    "line_number": 71,
+    "line_text": "        [HttpPost]",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.csharp.third-party.csrf",
+    "rule": null,
+    "label": 1
+}

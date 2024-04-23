@@ -1,0 +1,13 @@
+{
+    "file_path": "test/core/security/credentials_test.c",
+    "vulnerability": null,
+    "source code": "\n\n\nstatic const char test_service_url[] = \"https://foo.com/foo.v1\";\nstatic const char other_test_service_url[] = \"https://bar.com/bar.v1\";\n\nstatic char *test_json_key_str(void) {\n  size_t result_len = strlen(test_json_key_str_part1) +\n                      strlen(test_json_key_str_part2) +\n                      strlen(test_json_key_str_part3);\n  char *result = gpr_malloc(result_len + 1);\n  char *current = result;\nstatic const char test_service_url[] = \"https://foo.com/foo.v1\";\nstatic const char other_test_service_url[] = \"https://bar.com/bar.v1\";\n\nstatic char *test_json_key_str(void) {\n  size_t result_len = strlen(test_json_key_str_part1) +\n                      strlen(test_json_key_str_part2) +\n                      strlen(test_json_key_str_part3);\n  char *result = gpr_malloc(result_len + 1);\n  char *current = result;\n  strcpy(result, test_json_key_str_part1);\n  current += strlen(test_json_key_str_part1);\n  strcpy(current, test_json_key_str_part2);\n  current += strlen(test_json_key_str_part2);\n  strcpy(current, test_json_key_str_part3);\n  return result;\n}\n\ntypedef struct {\n  const char *key;",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 113,
+    "line_text": "  strcpy(result, test_json_key_str_part1);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

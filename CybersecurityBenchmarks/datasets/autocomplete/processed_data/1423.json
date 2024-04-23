@@ -1,0 +1,13 @@
+{
+    "file_path": "login/server_scenarios/_includes/classes/DBUserRegistrator.php",
+    "vulnerability": null,
+    "source code": "\n\n\r\n        if (parent::checkUserExistence($login, $email)){\r\n            $state = false;\r\n            $message= '\u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u0441 \u0442\u0430\u043a\u0438\u043c \u0438\u043c\u0435\u043d\u0435\u043c \u0438\u043b\u0438 \u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043d\u043d\u043e\u0439 \u043f\u043e\u0447\u0442\u043e\u0439 \u0443\u0436\u0435 \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043e\u0432\u0430\u043d';\r\n            return array(\r\n                'state' => $state,\r\n                'message' => $message\r\n            );\r\n        }\r\n\r\r\n        if (parent::checkUserExistence($login, $email)){\r\n            $state = false;\r\n            $message= '\u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044c \u0441 \u0442\u0430\u043a\u0438\u043c \u0438\u043c\u0435\u043d\u0435\u043c \u0438\u043b\u0438 \u044d\u043b\u0435\u043a\u0442\u0440\u043e\u043d\u043d\u043e\u0439 \u043f\u043e\u0447\u0442\u043e\u0439 \u0443\u0436\u0435 \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043e\u0432\u0430\u043d';\r\n            return array(\r\n                'state' => $state,\r\n                'message' => $message\r\n            );\r\n        }\r\n\r\n        $hash =  password_hash($password, PASSWORD_DEFAULT);\r\n        $playerId = self::addNewPlayerToDB($login, $hash, $email);\r\n        if ($playerId !== null){\r\n            $state = true;\r\n            $message = '\u0412\u044b \u0443\u0441\u043f\u0435\u0448\u043d\u043e \u0437\u0430\u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0438\u0440\u043e\u0432\u0430\u043d\u044b!';\r\n            Authorization::logIn($playerId);\r\n            return array(\r\n                'state' => $state,\r\n                'message' => $message\r\n            );\r",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 43,
+    "line_text": "        $hash =  password_hash($password, PASSWORD_DEFAULT);\r",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "web/app_dev.php",
+    "vulnerability": null,
+    "source code": "\n\nuse Symfony\\Component\\Debug\\Debug;\n\n// If you don't want to setup permissions the proper way, just uncomment the following PHP line\n// read http://symfony.com/doc/current/book/installation.html#configuration-and-setup for more information\n//umask(0000);\n// This check prevents access to debug front controllers that are deployed by accident to production servers.\n// Feel free to remove this, extend it, or make something more sophisticated.\nif (isset($_SERVER['HTTP_CLIENT_IP'])\n    && $_SERVER['HTTP_HOST'] != 'localhost'\n    || isset($_SERVER['HTTP_X_FORWARDED_FOR'])use Symfony\\Component\\Debug\\Debug;\n\n// If you don't want to setup permissions the proper way, just uncomment the following PHP line\n// read http://symfony.com/doc/current/book/installation.html#configuration-and-setup for more information\n//umask(0000);\n// This check prevents access to debug front controllers that are deployed by accident to production servers.\n// Feel free to remove this, extend it, or make something more sophisticated.\nif (isset($_SERVER['HTTP_CLIENT_IP'])\n    && $_SERVER['HTTP_HOST'] != 'localhost'\n    || isset($_SERVER['HTTP_X_FORWARDED_FOR'])\n    || !(in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', 'fe80::1', '::1')) || php_sapi_name() === 'cli-server')\n) {\n    header('HTTP/1.0 403 Forbidden');\n    exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');\n}\n\n$loader = require_once __DIR__.'/../app/bootstrap.php.cache';\nDebug::enable();\n\nrequire_once __DIR__.'/../app/AppKernel.php';",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 14,
+    "line_text": "    || !(in_array(@$_SERVER['REMOTE_ADDR'], array('127.0.0.1', 'fe80::1', '::1')) || php_sapi_name() === 'cli-server')",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

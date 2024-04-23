@@ -1,0 +1,13 @@
+{
+    "file_path": "enhanced/java/jdktools/modules/jpda/src/main/native/jdwp/common/agent/core/OptionParser.cpp",
+    "vulnerability": null,
+    "source code": "\n\n            }\n            if (i+1 < len && str[i+1] != ',') {\n                throw IllegalArgumentException();\n            }\n        }\n    }\n    m_optionCount++;\n\n    m_optionString = reinterpret_cast<char*>(AgentBase::GetMemoryManager().\n        Allocate(len + 1 JDWP_FILE_LINE));            }\n            if (i+1 < len && str[i+1] != ',') {\n                throw IllegalArgumentException();\n            }\n        }\n    }\n    m_optionCount++;\n\n    m_optionString = reinterpret_cast<char*>(AgentBase::GetMemoryManager().\n        Allocate(len + 1 JDWP_FILE_LINE));\n    strcpy(m_optionString, str);\n\n    m_options = reinterpret_cast<Option*>(AgentBase::GetMemoryManager().\n        Allocate(m_optionCount * sizeof(Option) JDWP_FILE_LINE));\n\n    m_options[0].name = m_optionString;\n    m_options[0].value = \"\";\n    k = 0;\n    bool waitEndOfOption = false;\n    for (i = 0; i < len && k < m_optionCount; i++) {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 99,
+    "line_text": "    strcpy(m_optionString, str);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

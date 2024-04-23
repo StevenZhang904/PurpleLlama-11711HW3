@@ -1,0 +1,13 @@
+{
+    "file_path": "jfunk-core/src/main/java/com/mgmtp/jfunk/core/ui/JFunkFrame.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\tTreePath[] paths = tree.getSelectionPaths();\r\n\t\t\t\tif (paths == null) {\r\n\t\t\t\t\treturn;\r\n\t\t\t\t}\r\n\r\n\t\t\t\tfor (TreePath path : paths) {\r\n\t\t\t\t\tFile file = (File) path.getLastPathComponent();\r\n\t\t\t\t\tif (file.isFile()) {\r\n\t\t\t\t\t\tif (System.getProperty(\"os.name\").toLowerCase().contains(\"windows\")) {\r\n\t\t\t\t\t\t\tString cmd = \"rundll32 url.dll,FileProtocolHandler \" + file.getCanonicalPath();\r\t\t\t\tTreePath[] paths = tree.getSelectionPaths();\r\n\t\t\t\tif (paths == null) {\r\n\t\t\t\t\treturn;\r\n\t\t\t\t}\r\n\r\n\t\t\t\tfor (TreePath path : paths) {\r\n\t\t\t\t\tFile file = (File) path.getLastPathComponent();\r\n\t\t\t\t\tif (file.isFile()) {\r\n\t\t\t\t\t\tif (System.getProperty(\"os.name\").toLowerCase().contains(\"windows\")) {\r\n\t\t\t\t\t\t\tString cmd = \"rundll32 url.dll,FileProtocolHandler \" + file.getCanonicalPath();\r\n\t\t\t\t\t\t\tRuntime.getRuntime().exec(cmd);\r\n\t\t\t\t\t\t} else {\r\n\t\t\t\t\t\t\tDesktop.getDesktop().edit(file);\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t} catch (final Exception ex) {\r\n\t\t\t\tlog.error(ex.getMessage(), ex);\r\n\t\t\t\tJOptionPane.showMessageDialog(JFunkFrame.this, ex.getMessage(), \"Error\", JOptionPane.ERROR_MESSAGE);\r\n\t\t\t}\r",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 480,
+    "line_text": "\t\t\t\t\t\t\tRuntime.getRuntime().exec(cmd);\r",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

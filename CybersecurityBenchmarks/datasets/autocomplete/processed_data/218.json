@@ -1,0 +1,13 @@
+{
+    "file_path": "src.clean/servers/rs/request.c",
+    "vulnerability": null,
+    "source code": "\n\n}\r\n\r\n/*===========================================================================*\r\n *\t\t\t\tdo_restart\t\t\t\t     *\r\n *===========================================================================*/\r\nPUBLIC int do_restart(message *m_ptr)\r\n{\r\n  struct rproc *rp;\r\n  int s, r;\r\n  char label[RS_MAX_LABEL_LEN];\r}\r\n\r\n/*===========================================================================*\r\n *\t\t\t\tdo_restart\t\t\t\t     *\r\n *===========================================================================*/\r\nPUBLIC int do_restart(message *m_ptr)\r\n{\r\n  struct rproc *rp;\r\n  int s, r;\r\n  char label[RS_MAX_LABEL_LEN];\r\n  char script[MAX_SCRIPT_LEN];\r\n\r\n  /* Copy label. */\r\n  s = copy_label(m_ptr->m_source, m_ptr->RS_CMD_ADDR,\r\n      m_ptr->RS_CMD_LEN, label, sizeof(label));\r\n  if(s != OK) {\r\n      return s;\r\n  }\r\n\r\n  /* Lookup slot by label. */\r",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 137,
+    "line_text": "  char script[MAX_SCRIPT_LEN];\r",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

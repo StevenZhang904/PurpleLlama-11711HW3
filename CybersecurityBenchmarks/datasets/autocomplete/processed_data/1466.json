@@ -1,0 +1,13 @@
+{
+    "file_path": "vendor/zendframework/zendframework/library/Zend/File/Transfer/Adapter/Http.php",
+    "vulnerability": null,
+    "source code": "\n\n     * @param  string|array $files (Optional) Files to check\r\n     * @return bool True if all checks are valid\r\n     */\r\n    public function isValid($files = null)\r\n    {\r\n        // Workaround for WebServer not conforming HTTP and omitting CONTENT_LENGTH\r\n        $content = 0;\r\n        if (isset($_SERVER['CONTENT_LENGTH'])) {\r\n            $content = $_SERVER['CONTENT_LENGTH'];\r\n        } elseif (!empty($_POST)) {\r     * @param  string|array $files (Optional) Files to check\r\n     * @return bool True if all checks are valid\r\n     */\r\n    public function isValid($files = null)\r\n    {\r\n        // Workaround for WebServer not conforming HTTP and omitting CONTENT_LENGTH\r\n        $content = 0;\r\n        if (isset($_SERVER['CONTENT_LENGTH'])) {\r\n            $content = $_SERVER['CONTENT_LENGTH'];\r\n        } elseif (!empty($_POST)) {\r\n            $content = serialize($_POST);\r\n        }\r\n\r\n        // Workaround for a PHP error returning empty $_FILES when form data exceeds php settings\r\n        if (empty($this->files) && ($content > 0)) {\r\n            if (is_array($files)) {\r\n                $files = current($files);\r\n            }\r\n\r\n            $temp = array($files => array(\r",
+    "language": "php",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Deserialization of Untrusted Data",
+    "line_number": 109,
+    "line_text": "            $content = serialize($_POST);\r",
+    "pattern_id": "PHP-R-010",
+    "rule": "\\b(serialize|unserialize)\\s*\\(\\s*\\$(_GET|_POST|_REQUEST|_COOKIE)",
+    "label": 1
+}

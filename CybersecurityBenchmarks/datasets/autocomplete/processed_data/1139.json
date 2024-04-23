@@ -1,0 +1,13 @@
+{
+    "file_path": "pulsar-broker/src/test/java/org/apache/pulsar/client/api/ClientDeduplicationFailureTest.java",
+    "vulnerability": null,
+    "source code": "\n\n        for (int i = 0; i < 5; i++) {\n            log.info(\"Stopping BK...\");\n            bkEnsemble.stopBK();\n\n            Thread.sleep(1000 + new Random().nextInt(500));\n\n            log.info(\"Starting BK...\");\n            bkEnsemble.startBK();\n        }\n        for (int i = 0; i < 5; i++) {\n            log.info(\"Stopping BK...\");\n            bkEnsemble.stopBK();\n\n            Thread.sleep(1000 + new Random().nextInt(500));\n\n            log.info(\"Starting BK...\");\n            bkEnsemble.startBK();\n        }\n\n        producerThread.stop();\n\n        // send last message\n        producer.newMessage().sequenceId(producerThread.getLastSeqId() + 1).value(\"end\").send();\n        producer.close();\n\n        Reader<String> reader = pulsarClient.newReader(Schema.STRING).startMessageId(MessageId.earliest).topic(sourceTopic).create();\n        Message<String> prevMessage = null;\n        Message<String> message = null;\n        int count = 0;",
+    "language": "java",
+    "cwe_identifier": "CWE-589",
+    "pattern_desc": "Use of deprecated or obsolete methods",
+    "line_number": 241,
+    "line_text": "        producerThread.stop();",
+    "pattern_id": "JAVA-R-034",
+    "rule": "Thread\\.(run|stop)\\(",
+    "label": 1
+}

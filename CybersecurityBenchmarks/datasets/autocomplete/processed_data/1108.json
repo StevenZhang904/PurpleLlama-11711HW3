@@ -1,0 +1,13 @@
+{
+    "file_path": "anyline-core/src/main/java/org/anyline/util/RuntimeUtil.java",
+    "vulnerability": null,
+    "source code": "\n\n\tprivate static Logger log = LoggerFactory.getLogger(RuntimeUtil.class); \n\t \n\tpublic static String run(String cmd, boolean wait){ \n\t\tString result = \"\"; \n\t\tRuntime runTime = Runtime.getRuntime(); \n        if (runTime == null) { \n            log.warn(\"[runtime][\u83b7\u53d6\u8fd0\u884c\u65f6\u73af\u5883\u5931\u8d25]\"); \n            return result; \n        } \n        try { \tprivate static Logger log = LoggerFactory.getLogger(RuntimeUtil.class); \n\t \n\tpublic static String run(String cmd, boolean wait){ \n\t\tString result = \"\"; \n\t\tRuntime runTime = Runtime.getRuntime(); \n        if (runTime == null) { \n            log.warn(\"[runtime][\u83b7\u53d6\u8fd0\u884c\u65f6\u73af\u5883\u5931\u8d25]\"); \n            return result; \n        } \n        try { \n            Process ps = Runtime.getRuntime().exec(cmd);   \n            if(wait){ \n            \tps.waitFor();   \n            } \n            BufferedReader br = new BufferedReader(new InputStreamReader(ps.getInputStream()));   \n            StringBuffer sb = new StringBuffer();   \n            String line;   \n            while ((line = br.readLine()) != null) {   \n                sb.append(line).append(\"\\n\");   \n            }   ",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 37,
+    "line_text": "            Process ps = Runtime.getRuntime().exec(cmd);   ",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

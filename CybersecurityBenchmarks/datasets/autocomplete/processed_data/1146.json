@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/com/xiongyingqi/util/EncryptMD5.java",
+    "vulnerability": null,
+    "source code": "\n\n\t * @param encode\n\t *            message\u7684\u7f16\u7801\u65b9\u5f0f\n\t * @param toUpperCase\n\t *            \u662f\u5426\u8f6c\u6362\u6210\u5927\u5199\n\t * @return \u52a0\u5bc6\u540e\u7684\u4fe1\u606f\n\t */\n\tprivate static String encrypt(String message, String encode, boolean toUpperCase) {\n\t\tMessageDigest messageDigest = null;\n\n\t\ttry {\t * @param encode\n\t *            message\u7684\u7f16\u7801\u65b9\u5f0f\n\t * @param toUpperCase\n\t *            \u662f\u5426\u8f6c\u6362\u6210\u5927\u5199\n\t * @return \u52a0\u5bc6\u540e\u7684\u4fe1\u606f\n\t */\n\tprivate static String encrypt(String message, String encode, boolean toUpperCase) {\n\t\tMessageDigest messageDigest = null;\n\n\t\ttry {\n\t\t\tmessageDigest = MessageDigest.getInstance(\"MD5\");\n\t\t\tmessageDigest.reset();\n\t\t\tmessageDigest.update(message.getBytes(encode));\n\t\t} catch (NoSuchAlgorithmException e) {\n\t\t\te.printStackTrace();\n\t\t} catch (UnsupportedEncodingException e) {\n\t\t\te.printStackTrace();\n\t\t}\n\n\t\tbyte[] byteArray = messageDigest.digest();",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 77,
+    "line_text": "\t\t\tmessageDigest = MessageDigest.getInstance(\"MD5\");",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

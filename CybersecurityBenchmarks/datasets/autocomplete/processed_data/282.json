@@ -1,0 +1,13 @@
+{
+    "file_path": "icu/common/caniter.cpp",
+    "vulnerability": null,
+    "source code": "\n\n        cp = source.char32At(i);\r\n        if (nfcImpl.isCanonSegmentStarter(cp)) {\r\n            source.extract(start, i-start, list[list_length++]); // add up to i\r\n            start = i;\r\n        }\r\n    }\r\n    source.extract(start, i-start, list[list_length++]); // add last one\r\n\r\n\r\n    // allocate the arrays, and find the strings that are CE to each segment\r        cp = source.char32At(i);\r\n        if (nfcImpl.isCanonSegmentStarter(cp)) {\r\n            source.extract(start, i-start, list[list_length++]); // add up to i\r\n            start = i;\r\n        }\r\n    }\r\n    source.extract(start, i-start, list[list_length++]); // add last one\r\n\r\n\r\n    // allocate the arrays, and find the strings that are CE to each segment\r\n    pieces = (UnicodeString **)uprv_malloc(list_length * sizeof(UnicodeString *));\r\n    pieces_length = list_length;\r\n    pieces_lengths = (int32_t*)uprv_malloc(list_length * sizeof(int32_t));\r\n    current = (int32_t*)uprv_malloc(list_length * sizeof(int32_t));\r\n    current_length = list_length;\r\n    if (pieces == NULL || pieces_lengths == NULL || current == NULL) {\r\n        status = U_MEMORY_ALLOCATION_ERROR;\r\n        goto CleanPartialInitialization;\r\n    }\r\n\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 231,
+    "line_text": "    pieces = (UnicodeString **)uprv_malloc(list_length * sizeof(UnicodeString *));\r",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

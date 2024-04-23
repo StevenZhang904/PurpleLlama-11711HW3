@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/ruboweb/pushetta/back/model/User.java",
+    "vulnerability": null,
+    "source code": "\n\n\t *            the token to set\r\n\t */\r\n\tpublic void setToken(String token) {\r\n\t\tthis.token = token;\r\n\t}\r\n\r\n\tprivate String generateToken() {\r\n\t\ttry {\r\n\t\t\tSecureRandom prng = SecureRandom.getInstance(\"SHA1PRNG\");\r\n\t\t\tString randomNum = new Integer(prng.nextInt()).toString();\r\t *            the token to set\r\n\t */\r\n\tpublic void setToken(String token) {\r\n\t\tthis.token = token;\r\n\t}\r\n\r\n\tprivate String generateToken() {\r\n\t\ttry {\r\n\t\t\tSecureRandom prng = SecureRandom.getInstance(\"SHA1PRNG\");\r\n\t\t\tString randomNum = new Integer(prng.nextInt()).toString();\r\n\t\t\tMessageDigest sha = MessageDigest.getInstance(\"SHA-1\");\r\n\t\t\tbyte[] bytes = sha.digest(randomNum.getBytes());\r\n\t\t\tStringBuilder result = new StringBuilder();\r\n\t\t\tchar[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',\r\n\t\t\t\t\t'a', 'b', 'c', 'd', 'e', 'f' };\r\n\t\t\tbyte b;\r\n\t\t\tfor (int idx = 0; idx < bytes.length; ++idx) {\r\n\t\t\t\tb = bytes[idx];\r\n\t\t\t\tresult.append(digits[(b & 240) >> 4]);\r\n\t\t\t\tresult.append(digits[b & 15]);\r",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 71,
+    "line_text": "\t\t\tMessageDigest sha = MessageDigest.getInstance(\"SHA-1\");\r",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "programs/cmm/installer/add_appl_dir.c",
+    "vulnerability": null,
+    "source code": "\n\nstruct sysdir\n{\n   char name[64];\n   char path[64];\n} sysdir;\n\n\n:int SetAddApplDir(dword tName, tPath)\n{\n\tint i;struct sysdir\n{\n   char name[64];\n   char path[64];\n} sysdir;\n\n\n:int SetAddApplDir(dword tName, tPath)\n{\n\tint i;\n\tstrcpy(#sysdir.name, tName);\n\tstrcpy(#sysdir.path, tPath);\n\tdebug(#sysdir.name);\n\tdebug(#sysdir.path);\n\t$mov eax, 30\n\t$mov ebx, 3\n\tECX = #sysdir;\n\t$int 0x40\n}\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 12,
+    "line_text": "\tstrcpy(#sysdir.name, tName);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

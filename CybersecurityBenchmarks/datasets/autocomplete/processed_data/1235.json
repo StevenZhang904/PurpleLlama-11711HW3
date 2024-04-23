@@ -1,0 +1,13 @@
+{
+    "file_path": "src/librustc/metadata/filesearch.rs",
+    "vulnerability": null,
+    "source code": "\n\npub fn get_or_default_sysroot() -> Path {\n    // Follow symlinks.  If the resolved path is relative, make it absolute.\n    fn canonicalize(path: Option<Path>) -> Option<Path> {\n        path.and_then(|path|\n            match myfs::realpath(&path) {\n                Ok(canon) => Some(canon),\n                Err(e) => panic!(\"failed to get realpath: {}\", e),\n            })\n    }\npub fn get_or_default_sysroot() -> Path {\n    // Follow symlinks.  If the resolved path is relative, make it absolute.\n    fn canonicalize(path: Option<Path>) -> Option<Path> {\n        path.and_then(|path|\n            match myfs::realpath(&path) {\n                Ok(canon) => Some(canon),\n                Err(e) => panic!(\"failed to get realpath: {}\", e),\n            })\n    }\n\n    match canonicalize(env::current_exe().ok()) {\n        Some(mut p) => { p.pop(); p.pop(); p }\n        None => panic!(\"can't determine value for sysroot\")\n    }\n}\n\n#[cfg(windows)]\nstatic PATH_ENTRY_SEPARATOR: &'static str = \";\";\n#[cfg(not(windows))]\nstatic PATH_ENTRY_SEPARATOR: &'static str = \":\";",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 197,
+    "line_text": "    match canonicalize(env::current_exe().ok()) {",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

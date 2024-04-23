@@ -1,0 +1,13 @@
+{
+    "file_path": "pods/bugs_authentication/login.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\n\t\t$_GET['redirect'] .= \"?\";\n\t\tforeach ($_GET as $key=>$val) { \n\t\t\tif ($key !='redirect' && $key!='checklogin') { \n\t\t\t\t$_GET['redirect'] .= \"{$key}={$val}&\";\n\t\t\t}\n\t\t}\n\t}\t\n\t\n\tif ($_GET['checklogin'] && $POD->isAuthenticated()) { \t\n\t\t$_GET['redirect'] .= \"?\";\n\t\tforeach ($_GET as $key=>$val) { \n\t\t\tif ($key !='redirect' && $key!='checklogin') { \n\t\t\t\t$_GET['redirect'] .= \"{$key}={$val}&\";\n\t\t\t}\n\t\t}\n\t}\t\n\t\n\tif ($_GET['checklogin'] && $POD->isAuthenticated()) { \n\t\theader(\"Location: \" . $_GET['redirect']);\n\t\texit;\n\t}\n\t\t\n\tif ($_POST) { \n\t\t// if we have a form being submitted, handle the login\n\t \tif ($_POST['email'] && $_POST['password']) {\n\t \t\t$POD = new PeoplePod(array('authSecret'=>md5($_POST['email'].$_POST['password'])));\n\t \t\tif (!$POD->success())  {\n\t\t\t\t$msg = $POD->error();",
+    "language": "php",
+    "cwe_identifier": "CWE-601",
+    "pattern_desc": "Open redirect vulnerability due to unsanitized URL parameter",
+    "line_number": 33,
+    "line_text": "\t\theader(\"Location: \" . $_GET['redirect']);",
+    "pattern_id": "PHP-R-025",
+    "rule": "header\\s*\\(\\s*['\"]Location:.*\\$_(GET|POST|REQUEST|COOKIE)",
+    "label": 1
+}

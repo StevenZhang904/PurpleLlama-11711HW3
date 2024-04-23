@@ -1,0 +1,13 @@
+{
+    "file_path": "src/kadimus_socket.c",
+    "vulnerability": null,
+    "source code": "\n\n\t}\n\n\tif( (sock_con = accept(sock, (struct sockaddr *) &cli_addr, &sockaddr_len)) == -1 )\n\t\tdie(\"accept() error\",1);\n\n\tif(cli_addr.sa_family == AF_INET){\n\t\tinet_ntop(AF_INET, &((struct sockaddr_in *)&cli_addr)->sin_addr, ip_connection, INET_ADDRSTRLEN);\n\t} else if(cli_addr.sa_family == AF_INET6){\n\t\tinet_ntop(AF_INET6, &(((struct sockaddr_in6 *)&cli_addr)->sin6_addr), ip_connection, INET6_ADDRSTRLEN);\n\t} else {\t}\n\n\tif( (sock_con = accept(sock, (struct sockaddr *) &cli_addr, &sockaddr_len)) == -1 )\n\t\tdie(\"accept() error\",1);\n\n\tif(cli_addr.sa_family == AF_INET){\n\t\tinet_ntop(AF_INET, &((struct sockaddr_in *)&cli_addr)->sin_addr, ip_connection, INET_ADDRSTRLEN);\n\t} else if(cli_addr.sa_family == AF_INET6){\n\t\tinet_ntop(AF_INET6, &(((struct sockaddr_in6 *)&cli_addr)->sin6_addr), ip_connection, INET6_ADDRSTRLEN);\n\t} else {\n\t\tstrcpy(ip_connection, \"unknow\");\n\t}\n\n\tprintf(\"Connection from: %s\\n\\n\", ip_connection);\n\n\tpfds[1].fd = 0;\n\tpfds[1].events = POLLIN;\n\tpfds[0].fd = sock_con;\n\tpfds[0].events = POLLIN;\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 133,
+    "line_text": "\t\tstrcpy(ip_connection, \"unknow\");",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

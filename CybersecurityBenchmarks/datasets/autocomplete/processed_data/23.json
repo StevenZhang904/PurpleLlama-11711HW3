@@ -1,0 +1,13 @@
+{
+    "file_path": "thirdparty/libmemcached-1.0.18/clients/ms_setting.c",
+    "vulnerability": null,
+    "source code": "\n\n  int units= (int)ms_setting.win_size / UNIT_ITEMS_COUNT;\n\n  /* calculate average value size and key size */\n  ms_calc_avg_size();\n\n  ms_setting.char_blk_size= RAND_CHAR_SIZE;\n  int key_scope_size=\n    (int)((ms_setting.char_blk_size - RESERVED_RAND_CHAR_SIZE)\n          / UNIT_ITEMS_COUNT);\n  int units= (int)ms_setting.win_size / UNIT_ITEMS_COUNT;\n\n  /* calculate average value size and key size */\n  ms_calc_avg_size();\n\n  ms_setting.char_blk_size= RAND_CHAR_SIZE;\n  int key_scope_size=\n    (int)((ms_setting.char_blk_size - RESERVED_RAND_CHAR_SIZE)\n          / UNIT_ITEMS_COUNT);\n\n  ms_setting.distr= (ms_distr_t *)malloc(\n    sizeof(ms_distr_t) * ms_setting.win_size);\n  if (ms_setting.distr == NULL)\n  {\n    fprintf(stderr, \"Can't allocate distribution array.\");\n    exit(1);\n  }\n\n  /**\n   *  character block is divided by how many different key",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 650,
+    "line_text": "  ms_setting.distr= (ms_distr_t *)malloc(",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

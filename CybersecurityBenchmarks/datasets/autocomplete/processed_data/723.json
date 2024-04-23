@@ -1,0 +1,13 @@
+{
+    "file_path": "ajax/libs/forerunnerdb/1.3.505/fdb-core.js",
+    "vulnerability": null,
+    "source code": "\n\n\t */\n\tobjectId: function (str) {\n\t\tvar id,\n\t\t\tpow = Math.pow(10, 17);\n\n\t\tif (!str) {\n\t\t\tidCounter++;\n\n\t\t\tid = (idCounter + (\n\t\t\t\tMath.random() * pow +\t */\n\tobjectId: function (str) {\n\t\tvar id,\n\t\t\tpow = Math.pow(10, 17);\n\n\t\tif (!str) {\n\t\t\tidCounter++;\n\n\t\t\tid = (idCounter + (\n\t\t\t\tMath.random() * pow +\n\t\t\t\tMath.random() * pow +\n\t\t\t\tMath.random() * pow +\n\t\t\t\tMath.random() * pow\n\t\t\t)).toString(16);\n\t\t} else {\n\t\t\tvar val = 0,\n\t\t\t\tcount = str.length,\n\t\t\t\ti;\n\n\t\t\tfor (i = 0; i < count; i++) {",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Depending on the context, generating weak random numbers may expose cryptographic functions,\nwhich rely on these numbers, to be exploitable. When generating numbers for sensitive values\nsuch as tokens, nonces, and cryptographic keys, it is recommended that the `randomBytes` method\nof the `crypto` module be used instead of `pseudoRandomBytes`.\n",
+    "line_number": 6249,
+    "line_text": "\t\t\t\tMath.random() * pow +",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.javascript.third-party.pseudo-random-bytes",
+    "rule": null,
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "support/android/builder.py",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\twithout_extension = chopped\n\t\t\t\tif re.search(\"\\\\..*$\", chopped):\n\t\t\t\t\tif chopped.endswith('.9.png'):\n\t\t\t\t\t\textension = '9.png'\n\t\t\t\t\t\twithout_extension = chopped[:-6]\n\t\t\t\t\telse:\n\t\t\t\t\t\textension = chopped.split(\".\")[-1]\n\t\t\t\t\t\twithout_extension = chopped[:-(len(extension)+1)]\n\t\t\t\tcleaned_without_extension = re.sub(r'[^a-z0-9_]', '_', without_extension)\n\t\t\t\tcleaned_extension = re.sub(r'[^a-z0-9\\._]', '_', extension)\t\t\t\twithout_extension = chopped\n\t\t\t\tif re.search(\"\\\\..*$\", chopped):\n\t\t\t\t\tif chopped.endswith('.9.png'):\n\t\t\t\t\t\textension = '9.png'\n\t\t\t\t\t\twithout_extension = chopped[:-6]\n\t\t\t\t\telse:\n\t\t\t\t\t\textension = chopped.split(\".\")[-1]\n\t\t\t\t\t\twithout_extension = chopped[:-(len(extension)+1)]\n\t\t\t\tcleaned_without_extension = re.sub(r'[^a-z0-9_]', '_', without_extension)\n\t\t\t\tcleaned_extension = re.sub(r'[^a-z0-9\\._]', '_', extension)\n\t\t\t\tresult = cleaned_without_extension[:80] + \"_\" + hashlib.md5(for_hash).hexdigest()[:10]\n\t\t\t\tif extension:\n\t\t\t\t\tresult += \".\" + extension\n\t\t\t\treturn result\n\t\t\telse:\n\t\t\t\ttrace(\"Regexp for resource drawable file %s failed\" % orig)\n\t\t\t\treturn None\n\n\t\tdef delete_resource_drawable(orig):\n\t\t\tfolder = resource_drawable_folder(orig)",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 519,
+    "line_text": "\t\t\t\tresult = cleaned_without_extension[:80] + \"_\" + hashlib.md5(for_hash).hexdigest()[:10]",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

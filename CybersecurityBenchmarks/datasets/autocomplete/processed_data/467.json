@@ -1,0 +1,13 @@
+{
+    "file_path": "src/tunneling.cpp",
+    "vulnerability": null,
+    "source code": "\n\n            ca_crt_client += \"/client.crt\";\n\n            string ca_key_client;\n            ca_key_client = CHttpBase::m_ca_client_base_dir;\n            ca_key_client += \"/\";\n            ca_key_client += m_address;\n            ca_key_client += \"/client.key\";\n\n            string ca_password_file;\n            ca_password_file = CHttpBase::m_ca_client_base_dir;            ca_crt_client += \"/client.crt\";\n\n            string ca_key_client;\n            ca_key_client = CHttpBase::m_ca_client_base_dir;\n            ca_key_client += \"/\";\n            ca_key_client += m_address;\n            ca_key_client += \"/client.key\";\n\n            string ca_password_file;\n            ca_password_file = CHttpBase::m_ca_client_base_dir;\n            ca_password_file += \"/\";\n            ca_password_file += m_address;\n            ca_password_file += \"/client.pwd\";\n\n            struct stat file_stat;\n            if(stat(ca_crt_root.c_str(), &file_stat) == 0\n                && stat(ca_crt_client.c_str(), &file_stat) == 0 && stat(ca_key_client.c_str(), &file_stat) == 0\n                && stat(ca_password_file.c_str(), &file_stat) == 0)\n            {\n                string ca_password;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "Use of hardcoded keys/credentials. Prefer using a key/secret management system.",
+    "line_number": 164,
+    "line_text": "            ca_password_file += \"/\";",
+    "pattern_id": "C-W-016",
+    "rule": "{ $secret = \"_\";}",
+    "label": 1
+}

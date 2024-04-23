@@ -1,0 +1,13 @@
+{
+    "file_path": "compiler/rustc_span/src/symbol.rs",
+    "vulnerability": null,
+    "source code": "\n\n    /// Maps a string to its interned representation.\n    pub fn intern(string: &str) -> Self {\n        with_session_globals(|session_globals| session_globals.symbol_interner.intern(string))\n    }\n\n    /// Convert to a `SymbolStr`. This is a slowish operation because it\n    /// requires locking the symbol interner.\n    pub fn as_str(self) -> SymbolStr {\n        with_session_globals(|session_globals| {\n            let symbol_str = session_globals.symbol_interner.get(self);    /// Maps a string to its interned representation.\n    pub fn intern(string: &str) -> Self {\n        with_session_globals(|session_globals| session_globals.symbol_interner.intern(string))\n    }\n\n    /// Convert to a `SymbolStr`. This is a slowish operation because it\n    /// requires locking the symbol interner.\n    pub fn as_str(self) -> SymbolStr {\n        with_session_globals(|session_globals| {\n            let symbol_str = session_globals.symbol_interner.get(self);\n            unsafe { SymbolStr { string: std::mem::transmute::<&str, &str>(symbol_str) } }\n        })\n    }\n\n    pub fn as_u32(self) -> u32 {\n        self.0.as_u32()\n    }\n\n    pub fn is_empty(self) -> bool {\n        self == kw::Empty",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 1648,
+    "line_text": "            unsafe { SymbolStr { string: std::mem::transmute::<&str, &str>(symbol_str) } }",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "deps/boost_1_77_0/libs/numeric/conversion/test/udt_support_test.cpp",
+    "vulnerability": null,
+    "source code": "\n\n//\n// Test here\n//\n\nvoid test_udt_conversions_with_defaults()\n{\n  cout << \"Testing UDT conversion with default policies\\n\" ;\n\n  // MyInt <--> int\n//\n// Test here\n//\n\nvoid test_udt_conversions_with_defaults()\n{\n  cout << \"Testing UDT conversion with default policies\\n\" ;\n\n  // MyInt <--> int\n\n    int mibv = rand();\n    MyInt miv(mibv);\n    TEST_SUCCEEDING_CONVERSION_DEF(MyInt,int,miv,mibv);\n    TEST_SUCCEEDING_CONVERSION_DEF(int,MyInt,mibv,miv);\n\n  // MyFloat <--> double\n\n    double mfbv = static_cast<double>(rand()) / 3.0 ;\n    MyFloat mfv (mfbv);\n    TEST_SUCCEEDING_CONVERSION_DEF(MyFloat,double,mfv,mfbv);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 229,
+    "line_text": "    int mibv = rand();",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

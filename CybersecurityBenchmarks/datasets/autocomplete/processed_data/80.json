@@ -1,0 +1,13 @@
+{
+    "file_path": "src/ToolBox/SOS/Strike/util.h",
+    "vulnerability": null,
+    "source code": "\n\n        /* Converts this object into a Wide char string.  This allows you to write the following code:\n         *    WString foo = L\"bar \" + ObjectPtr(obj);\n         * Where ObjectPtr is a subclass/typedef of this Format class.\n         */\n        operator WString() const\n        {\n            String str = *this;\n            const char *cstr = (const char *)str;\n        \n            int len = MultiByteToWideChar(CP_ACP, 0, cstr, -1, NULL, 0);        /* Converts this object into a Wide char string.  This allows you to write the following code:\n         *    WString foo = L\"bar \" + ObjectPtr(obj);\n         * Where ObjectPtr is a subclass/typedef of this Format class.\n         */\n        operator WString() const\n        {\n            String str = *this;\n            const char *cstr = (const char *)str;\n        \n            int len = MultiByteToWideChar(CP_ACP, 0, cstr, -1, NULL, 0);\n            WCHAR *buffer = (WCHAR *)alloca(len*sizeof(WCHAR));\n        \n            MultiByteToWideChar(CP_ACP, 0, cstr, -1, buffer, len);\n        \n            return WString(buffer);\n        }\n    \n        /* Converts this object into a String object.  This allows you to write the following code:\n         *    String foo = \"bar \" + ObjectPtr(obj);\n         * Where ObjectPtr is a subclass/typedef of this Format class.",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 785,
+    "line_text": "            WCHAR *buffer = (WCHAR *)alloca(len*sizeof(WCHAR));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "lib/mta-vs-native.js",
+    "vulnerability": null,
+    "source code": "\n\n// This is the wrapper for the native side\n/*\nprelim: start a server from the lib dir:\npython -m SimpleHTTPServer (python 2.x) (linux)\npython -m http.server  (python 3.x) (windows)\n\n1a) load jquery (note: may need a real active file open for this to work)\nNote: get message 'VM148:52 Uncaught (in promise) TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.(\u2026)'\nif a real file is not open and active, when loading the second file.\nNote: refer to yaml libray as 'jsyaml' e.g. 'jsyaml.load()'// This is the wrapper for the native side\n/*\nprelim: start a server from the lib dir:\npython -m SimpleHTTPServer (python 2.x) (linux)\npython -m http.server  (python 3.x) (windows)\n\n1a) load jquery (note: may need a real active file open for this to work)\nNote: get message 'VM148:52 Uncaught (in promise) TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.(\u2026)'\nif a real file is not open and active, when loading the second file.\nNote: refer to yaml libray as 'jsyaml' e.g. 'jsyaml.load()'\nfetch('http://code.jquery.com/jquery-latest.min.js').then(r => r.text()).then(r => {eval(r); eval(r);});\n\n1b) make sure you're editing a real file.\ntest: make sure:\ndocument.getElementById('workbench.editors.files.textFileEditor')\n\n1c) load all the other files\nNote: you'll get this message if not in a split-panel\n  'editor-theme-change-listener.js:39 Uncaught (in promise) TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node''\n",
+    "language": "javascript",
+    "cwe_identifier": "CWE-319",
+    "pattern_desc": "Usage of unencrypted communication channel",
+    "line_number": 13,
+    "line_text": "fetch('http://code.jquery.com/jquery-latest.min.js').then(r => r.text()).then(r => {eval(r); eval(r);});",
+    "pattern_id": "JS-R-012",
+    "rule": "fetch\\(['\"`]http:\\/\\/[^\\s'\"`]+['\"`]\\)",
+    "label": 1
+}

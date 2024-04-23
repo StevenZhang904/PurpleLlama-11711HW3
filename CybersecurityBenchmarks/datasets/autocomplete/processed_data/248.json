@@ -1,0 +1,13 @@
+{
+    "file_path": "tags/release-2.0/Modules/BasilarMembraneNonlinearGammatone/BasilarMembraneNonlinearGammatone.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\tmLogger->Log(\"    Unload: %s\", mModuleName);\n\treturn 1;\n}\n\nvoid BasilarMembraneNonlinearGammatone::SetModuleName(char *ModuleName)\n{\n\tif (mModuleName != NULL)\n\t\tdelete [] mModuleName;\n\n\tmModuleName = new char[strlen(ModuleName) + 1];\tmLogger->Log(\"    Unload: %s\", mModuleName);\n\treturn 1;\n}\n\nvoid BasilarMembraneNonlinearGammatone::SetModuleName(char *ModuleName)\n{\n\tif (mModuleName != NULL)\n\t\tdelete [] mModuleName;\n\n\tmModuleName = new char[strlen(ModuleName) + 1];\n\tstrcpy(mModuleName, ModuleName);\n}\n\nvoid BasilarMembraneNonlinearGammatone::SetLogger(Logger *TheLogger)\n{\n\tif (mLogger != NULL)\n\t\tdelete mLogger;\n\tmLogger = TheLogger;\n}\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 237,
+    "line_text": "\tstrcpy(mModuleName, ModuleName);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

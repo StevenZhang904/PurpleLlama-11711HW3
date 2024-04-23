@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main.js",
+    "vulnerability": null,
+    "source code": "\n\n// This code is excluded from production bundle\nif (__DEV__ && module.hot) {\n  const renderApp = render\n  const renderError = (error) => {\n    const RedBox = require('redbox-react')\n\n    ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)\n  }\n  render = () => {\n    try {// This code is excluded from production bundle\nif (__DEV__ && module.hot) {\n  const renderApp = render\n  const renderError = (error) => {\n    const RedBox = require('redbox-react')\n\n    ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)\n  }\n  render = () => {\n    try {\n      renderApp(Math.random())\n    } catch (error) {\n      renderError(error)\n    }\n  }\n  module.hot.accept(['./routes/index'], () => render())\n}\n\n// ========================================================\n// Go!",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 70,
+    "line_text": "      renderApp(Math.random())",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

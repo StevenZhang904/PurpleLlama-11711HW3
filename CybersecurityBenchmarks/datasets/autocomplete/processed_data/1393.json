@@ -1,0 +1,13 @@
+{
+    "file_path": "src/message/header/mod.rs",
+    "vulnerability": null,
+    "source code": "\n\n                \" guess that's it!\\r\\n\"\n            )\n        );\n    }\n\n    #[test]\n    fn format_ascii_with_folding_very_long_line() {\n        let mut headers = Headers::new();\n        headers.insert_raw(\n            HeaderName::new_from_ascii_str(\"Subject\"),                \" guess that's it!\\r\\n\"\n            )\n        );\n    }\n\n    #[test]\n    fn format_ascii_with_folding_very_long_line() {\n        let mut headers = Headers::new();\n        headers.insert_raw(\n            HeaderName::new_from_ascii_str(\"Subject\"),\n            \"Hello! IGuessTheLastLineWasntLongEnoughSoLetsTryAgainShallWeWhatDoYouThinkItsGoingToHappenIGuessWereAboutToFindOut! I don't know\".to_string()\n        );\n\n        assert_eq!(\n            headers.to_string(),\n            concat!(\n                \"Subject: Hello! IGuessTheLastLineWasntLongEnoughSoLetsTryAgainShallWeWhatDoY\\r\\n\",\n                \" ouThinkItsGoingToHappenIGuessWereAboutToFindOut! I don't know\\r\\n\",\n            )\n        );",
+    "language": "rust",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "Graph API Access Token",
+    "line_number": 662,
+    "line_text": "            \"Hello! IGuessTheLastLineWasntLongEnoughSoLetsTryAgainShallWeWhatDoYouThinkItsGoingToHappenIGuessWereAboutToFindOut! I don't know\".to_string()",
+    "pattern_id": "ALL-R-008",
+    "rule": "([^a-zA-Z0-9]|^)(AR|ANA|AMA|BUL|CP|DL|EAA|EP|EX|XWF|FRL|HACK|HW|IG|LPT|LIBRA|MLY|MDC|MINT|MO|NPE|OC|ON|OB|PLC|PL|SC|SPK|ST|TI|UN|WAWIT)[a-zA-Z0-9]{90,400}",
+    "label": 1
+}

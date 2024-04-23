@@ -1,0 +1,13 @@
+{
+    "file_path": "third_party/webrtc/src/webrtc/modules/audio_coding/codecs/ilbc/test/iLBC_testLib.c",
+    "vulnerability": null,
+    "source code": "\n\n    len_int=WebRtcIlbcfix_Encode(Enc_Inst, data, readlen, encoded_data);\n    if (len_int < 0) {\n      fprintf(stderr, \"Error encoding\\n\");\n      exit(0);\n    }\n    len = (size_t)len_int;\n    fprintf(stderr, \"\\r\");\n\n#ifdef JUNK_DATA\n    for ( i = 0; i < len; i++) {    len_int=WebRtcIlbcfix_Encode(Enc_Inst, data, readlen, encoded_data);\n    if (len_int < 0) {\n      fprintf(stderr, \"Error encoding\\n\");\n      exit(0);\n    }\n    len = (size_t)len_int;\n    fprintf(stderr, \"\\r\");\n\n#ifdef JUNK_DATA\n    for ( i = 0; i < len; i++) {\n      encoded_data[i] = (short) (encoded_data[i] + (short) rand());\n    }\n#endif\n    /* write byte file */\n    if(len != 0){ //len may be 0 in 10ms split case\n      fwrite(encoded_data,1,len,efileid);\n\n      /* get channel data if provided */\n      if (argc==6) {\n        if (fread(&pli, sizeof(int16_t), 1, chfileid)) {",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 149,
+    "line_text": "      encoded_data[i] = (short) (encoded_data[i] + (short) rand());",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

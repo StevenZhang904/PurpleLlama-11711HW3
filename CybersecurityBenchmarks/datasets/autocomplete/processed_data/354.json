@@ -1,0 +1,13 @@
+{
+    "file_path": "src/tmp-files.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\t    return -1;\n\t    }\n\n\t    // creating unique fileName\n\t    if ( tmpnam(tmp_string) == NULL ) {\n\t\t    fprintf(stderr, \"Error on the generation of a unique temp file name.\\n\");\n\t\t    return -1;\n\t    }\n\n\t    // concat temp file name\t\t    return -1;\n\t    }\n\n\t    // creating unique fileName\n\t    if ( tmpnam(tmp_string) == NULL ) {\n\t\t    fprintf(stderr, \"Error on the generation of a unique temp file name.\\n\");\n\t\t    return -1;\n\t    }\n\n\t    // concat temp file name\n\t    strcat(tmp_name,tmp_string);\n    #endif\n\n\treturn 0;\n}\n\n// removing temporary files from the HDD\nint rm_tmp_file(char* tmp_name) {\n\tchar *command;\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 36,
+    "line_text": "\t    strcat(tmp_name,tmp_string);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

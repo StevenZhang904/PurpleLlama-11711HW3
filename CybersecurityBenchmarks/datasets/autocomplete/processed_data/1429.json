@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Helpers/UUID.php",
+    "vulnerability": null,
+    "source code": "\n\n\n    // Binary Value\n    $nstr = '';\n\n    // Convert Namespace UUID to bits\n    for($i = 0; $i < strlen($nhex); $i+=2) {\n      $nstr .= chr(hexdec($nhex[$i].$nhex[$i+1]));\n    }\n\n    // Calculate hash value\n    // Binary Value\n    $nstr = '';\n\n    // Convert Namespace UUID to bits\n    for($i = 0; $i < strlen($nhex); $i+=2) {\n      $nstr .= chr(hexdec($nhex[$i].$nhex[$i+1]));\n    }\n\n    // Calculate hash value\n    $hash = sha1($nstr . $name);\n\n    return \n      sprintf('%08s-%04s-%04x-%04x-%12s',\n      // 32 bits for \"time_low\"\n      substr($hash, 0, 8),\n      // 16 bits for \"time_mid\"\n      substr($hash, 8, 4),\n      // 16 bits for \"time_hi_and_version\",\n      // four most significant bits holds version number 5",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 80,
+    "line_text": "    $hash = sha1($nstr . $name);",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

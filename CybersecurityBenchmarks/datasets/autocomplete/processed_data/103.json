@@ -1,0 +1,13 @@
+{
+    "file_path": "pandas/_libs/src/ujson/lib/ultrajsondec.c",
+    "vulnerability": null,
+    "source code": "\n\n    ds->lastType = JT_INVALID;\n    ds->start++;\n\n    if ((size_t)(ds->end - ds->start) > escLen) {\n        size_t newSize = (ds->end - ds->start);\n\n        if (ds->escHeap) {\n            if (newSize > (SIZE_MAX / sizeof(wchar_t))) {\n                return SetError(ds, -1, \"Could not reserve memory block\");\n            }    ds->lastType = JT_INVALID;\n    ds->start++;\n\n    if ((size_t)(ds->end - ds->start) > escLen) {\n        size_t newSize = (ds->end - ds->start);\n\n        if (ds->escHeap) {\n            if (newSize > (SIZE_MAX / sizeof(wchar_t))) {\n                return SetError(ds, -1, \"Could not reserve memory block\");\n            }\n            escStart = (wchar_t *)ds->dec->realloc(ds->escStart,\n                                                   newSize * sizeof(wchar_t));\n            if (!escStart) {\n                ds->dec->free(ds->escStart);\n                return SetError(ds, -1, \"Could not reserve memory block\");\n            }\n            ds->escStart = escStart;\n        } else {\n            wchar_t *oldStart = ds->escStart;\n            if (newSize > (SIZE_MAX / sizeof(wchar_t))) {",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 700,
+    "line_text": "            escStart = (wchar_t *)ds->dec->realloc(ds->escStart,",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

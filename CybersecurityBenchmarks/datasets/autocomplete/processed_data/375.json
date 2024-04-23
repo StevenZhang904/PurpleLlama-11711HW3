@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Clients/Cimop/Cimop.cpp",
+    "vulnerability": null,
+    "source code": "\n\n  {\n    cout << \"setProperty for arrays not yet implemented\" << endl;\n    return 1;\n  }\n\n  char v[1024];\n  // If value was not specified, ask for one\n  if (argc < 4)\n  {\n    cout << \"Value? \" << flush;  {\n    cout << \"setProperty for arrays not yet implemented\" << endl;\n    return 1;\n  }\n\n  char v[1024];\n  // If value was not specified, ask for one\n  if (argc < 4)\n  {\n    cout << \"Value? \" << flush;\n    gets(v);\n  }\n  else strcpy(v,argv[3]);\n\ncout << \"namespace: \" << _nameSpace << endl;\ncout << \"reference: \" << ref.toString() << endl;\ncout << \"propName:  \" << pDef.getName().getString() << endl;\ncout << \"value:     \" << _makeValue(v,pDef).toString() << endl;\n\n  // Now we can call setProperty()",
+    "language": "cpp",
+    "cwe_identifier": "CWE-242",
+    "pattern_desc": "Potential buffer overflow risk due to use of gets",
+    "line_number": 705,
+    "line_text": "    gets(v);",
+    "pattern_id": "C-R-012",
+    "rule": "\\bgets\\s*\\(\\s*\\w*\\s*\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "llvm-3.3/tools/llvm-nm/llvm-nm.cpp",
+    "vulnerability": null,
+    "source code": "\n\n      continue;\n    if ((i->TypeChar == 'U') && DefinedOnly)\n      continue;\n    if (SizeSort && !PrintAddress && i->Size == UnknownAddressOrSize)\n      continue;\n\n    char SymbolAddrStr[10] = \"\";\n    char SymbolSizeStr[10] = \"\";\n\n    if (OutputFormat == sysv || i->Address == object::UnknownAddressOrSize)      continue;\n    if ((i->TypeChar == 'U') && DefinedOnly)\n      continue;\n    if (SizeSort && !PrintAddress && i->Size == UnknownAddressOrSize)\n      continue;\n\n    char SymbolAddrStr[10] = \"\";\n    char SymbolSizeStr[10] = \"\";\n\n    if (OutputFormat == sysv || i->Address == object::UnknownAddressOrSize)\n      strcpy(SymbolAddrStr, \"        \");\n    if (OutputFormat == sysv)\n      strcpy(SymbolSizeStr, \"        \");\n\n    if (i->Address != object::UnknownAddressOrSize)\n      format(\"%08\" PRIx64, i->Address).print(SymbolAddrStr,\n                                             sizeof(SymbolAddrStr));\n    if (i->Size != object::UnknownAddressOrSize)\n      format(\"%08\" PRIx64, i->Size).print(SymbolSizeStr, sizeof(SymbolSizeStr));\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 220,
+    "line_text": "      strcpy(SymbolAddrStr, \"        \");",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

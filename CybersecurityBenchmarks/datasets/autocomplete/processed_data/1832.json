@@ -1,0 +1,13 @@
+{
+    "file_path": "Algorithmia/util.py",
+    "vulnerability": null,
+    "source code": "\n\n        return parent_path, parts[-1]\n\n\ndef pathJoin(parent, base):\n    if parent.endswith('/'):\n        return parent + base\n    return parent + '/' + base\n\n\ndef md5_for_file(fname):        return parent_path, parts[-1]\n\n\ndef pathJoin(parent, base):\n    if parent.endswith('/'):\n        return parent + base\n    return parent + '/' + base\n\n\ndef md5_for_file(fname):\n    hash_md5 = hashlib.md5()\n    with open(fname, \"rb\") as f:\n        for chunk in iter(lambda: f.read(4096), b\"\"):\n            hash_md5.update(chunk)\n    return str(hash_md5.hexdigest())\n\n\ndef md5_for_str(content):\n    hash_md5 = hashlib.md5()\n    hash_md5.update(content.encode())",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 39,
+    "line_text": "    hash_md5 = hashlib.md5()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

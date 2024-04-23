@@ -1,0 +1,13 @@
+{
+    "file_path": "libs/config.php",
+    "vulnerability": null,
+    "source code": "\n\ndefine('LL_FACEBOOK', 'http://www.facebook.com/lifelink.org');\n//define('LL_FACEBOOK_RSS', 'http://www.facebook.com/feeds/page.php?format=atom10&id=7259019019');\ndefine('LL_FACEBOOK_RSS', 'http://www.facebook.com/feeds/page.php?format=rss20&id=7259019019');\ndefine('LL_FACEBOOK_NOTES_RSS', 'http://www.facebook.com/feeds/notes.php?id=7259019019&viewer=1004642413&key=1cdc64b353&format=rss20');\ndefine('LL_FACEBOOK_UID', 1780871734);\n\n/* Reports */\ndefine('LL_REPORT_MEDIA', realpath(LL_ROOT . '/../files.life-link.org/action_photos'));\n\n/* Google Maps, Delicious API */define('LL_FACEBOOK', 'http://www.facebook.com/lifelink.org');\n//define('LL_FACEBOOK_RSS', 'http://www.facebook.com/feeds/page.php?format=atom10&id=7259019019');\ndefine('LL_FACEBOOK_RSS', 'http://www.facebook.com/feeds/page.php?format=rss20&id=7259019019');\ndefine('LL_FACEBOOK_NOTES_RSS', 'http://www.facebook.com/feeds/notes.php?id=7259019019&viewer=1004642413&key=1cdc64b353&format=rss20');\ndefine('LL_FACEBOOK_UID', 1780871734);\n\n/* Reports */\ndefine('LL_REPORT_MEDIA', realpath(LL_ROOT . '/../files.life-link.org/action_photos'));\n\n/* Google Maps, Delicious API */\ndefine('LL_GMAPS_KEY', 'AIzaSyDMUjjzgXybDtNOhjo3qR7UOloxRuQuFwY');\nif (LL_AT_HOME) {\n\t//life-link.org\n\tdefine('LL_YAHOO_KEY', 'dj0yJmk9QUROYUFOS3ZKeWIzJmQ9WVdrOVREWTJXVnBFTXpBbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD02Mw');\n\tdefine('LL_YAHOO_SECRET', 'd36946247f2d268f9fb75fcbee76646aa3a8e4fa');\n} else {\n\t//life-link.se\n}\n\nrequire_once 'config/auto_post.php';",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 61,
+    "line_text": "define('LL_GMAPS_KEY', 'AIzaSyDMUjjzgXybDtNOhjo3qR7UOloxRuQuFwY');",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

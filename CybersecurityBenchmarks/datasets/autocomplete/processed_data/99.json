@@ -1,0 +1,13 @@
+{
+    "file_path": "org.yafra.tdb.classic/gui/gbook.c",
+    "vulnerability": null,
+    "source code": "\n\n\t/*--- Reset all booked regions ---*/\n\txGRbook_temp_reset();\n\n\t/*--- book new -------------------*/\n\tregion->temp = True;\n\n\tXClearArea(display, grawindows.graphik, 0, 0, 0, 0, True);\n\n\txmstring = xGRregion_name( region, 0);\n\tXmStringGetLtoR( xmstring, XmSTRING_DEFAULT_CHARSET, &string);\t/*--- Reset all booked regions ---*/\n\txGRbook_temp_reset();\n\n\t/*--- book new -------------------*/\n\tregion->temp = True;\n\n\tXClearArea(display, grawindows.graphik, 0, 0, 0, 0, True);\n\n\txmstring = xGRregion_name( region, 0);\n\tXmStringGetLtoR( xmstring, XmSTRING_DEFAULT_CHARSET, &string);\n\tstrcpy(ptr, string);\n\tXtFree((void *)string);\n\n\t/*--- get BM menu ----*/\n\tb = xBMmenuActive();\n\tif (b)\n\t\tMENUNR = (unsigned char) _RESERVATION;   /* bm_ix is _BMCATIX */\n\telse\n\t\tMENUNR = (unsigned char)aktmenuobj[aktmenuz];\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 124,
+    "line_text": "\tstrcpy(ptr, string);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "tess-two/jni/com_googlecode_leptonica_android/src/src/pixabasic.c",
+    "vulnerability": null,
+    "source code": "\n\nl_int32\npixaExtendArrayToSize(PIXA    *pixa,\n                      l_int32  size)\n{\n    PROCNAME(\"pixaExtendArrayToSize\");\n\n    if (!pixa)\n        return ERROR_INT(\"pixa not defined\", procName, 1);\n\n    if (size > pixa->nalloc) {l_int32\npixaExtendArrayToSize(PIXA    *pixa,\n                      l_int32  size)\n{\n    PROCNAME(\"pixaExtendArrayToSize\");\n\n    if (!pixa)\n        return ERROR_INT(\"pixa not defined\", procName, 1);\n\n    if (size > pixa->nalloc) {\n        if ((pixa->pix = (PIX **)reallocNew((void **)&pixa->pix,\n                                 sizeof(PIX *) * pixa->nalloc,\n                                 size * sizeof(PIX *))) == NULL)\n            return ERROR_INT(\"new ptr array not returned\", procName, 1);\n        pixa->nalloc = size;\n    }\n    return boxaExtendArrayToSize(pixa->boxa, size);\n}\n\n",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 506,
+    "line_text": "        if ((pixa->pix = (PIX **)reallocNew((void **)&pixa->pix,",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

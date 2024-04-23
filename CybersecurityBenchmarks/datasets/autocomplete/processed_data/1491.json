@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Ivanhoe/SDK/SessionResource.php",
+    "vulnerability": null,
+    "source code": "\n\n    protected function userInfo()\n    {\n        if (PHP_SAPI === 'cli') {\n            return array();\n        }\n\n        return array(\n            'hostname'      => $_SERVER['SERVER_NAME'],\n            'user_agent'    => array_key_exists('HTTP_USER_AGENT', $_SERVER) ? $_SERVER['HTTP_USER_AGENT'] : '',\n            'referrer'      => array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER'] : '',    protected function userInfo()\n    {\n        if (PHP_SAPI === 'cli') {\n            return array();\n        }\n\n        return array(\n            'hostname'      => $_SERVER['SERVER_NAME'],\n            'user_agent'    => array_key_exists('HTTP_USER_AGENT', $_SERVER) ? $_SERVER['HTTP_USER_AGENT'] : '',\n            'referrer'      => array_key_exists('HTTP_REFERER', $_SERVER) ? $_SERVER['HTTP_REFERER'] : '',\n            'user_ip'       => array_key_exists('REMOTE_ADDR', $_SERVER) ? $_SERVER['REMOTE_ADDR'] : '',\n            'language'      => array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '',\n            'document_path' => array_key_exists('PATH_INFO', $_SERVER) ? $_SERVER['PATH_INFO'] : '',\n        );\n    }\n\n    /**\n     * @return string\n     */\n    protected function getUrl()",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 76,
+    "line_text": "            'user_ip'       => array_key_exists('REMOTE_ADDR', $_SERVER) ? $_SERVER['REMOTE_ADDR'] : '',",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

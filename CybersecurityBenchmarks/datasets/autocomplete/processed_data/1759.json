@@ -1,0 +1,13 @@
+{
+    "file_path": "crits/screenshots/handlers.py",
+    "vulnerability": null,
+    "source code": "\n\n                    for x in source:\n                        if isinstance(x, EmbeddedSource):\n                            s.add_source(x, method=method, reference=reference,\n                                         analyst=analyst, tlp=tlp)\n                s.add_tags(tags)\n                s.save()\n                obj.screenshots.append(screenshot_id)\n                obj.save()\n                final_screenshots.append(s)\n    else:                    for x in source:\n                        if isinstance(x, EmbeddedSource):\n                            s.add_source(x, method=method, reference=reference,\n                                         analyst=analyst, tlp=tlp)\n                s.add_tags(tags)\n                s.save()\n                obj.screenshots.append(screenshot_id)\n                obj.save()\n                final_screenshots.append(s)\n    else:\n        md5 = hashlib.md5(screenshot.read()).hexdigest()\n        check = Screenshot.objects(md5=md5).first()\n        if check:\n            s = check\n            s.add_tags(tags)\n        else:\n            s = Screenshot()\n            s.analyst = analyst\n            s.description = description\n            s.md5 = md5",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 173,
+    "line_text": "        md5 = hashlib.md5(screenshot.read()).hexdigest()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/debug/daccess/dacdbiimpl.cpp",
+    "vulnerability": null,
+    "source code": "\n\n//                             to get the type handle for this particular function pointer type.\n//            retrieveWhich - determines whether we can return the type handle for \n//                            a canonical type or only for an exact type\n// Return value: the type handle corresponding to the function pointer type\n//-----------------------------------------------------------------------------\nTypeHandle DacDbiInterfaceImpl::TypeDataWalk::FnPtrTypeArg(DebuggerIPCE_TypeArgData * pFnPtrTypeInfo, \n                                                           TypeHandleReadType         retrieveWhich)\n{\n    // allocate space to store a list of type handles, one for the return type and one for each\n    // of the parameter types of the function to which the FnPtr type refers. //                             to get the type handle for this particular function pointer type.\n//            retrieveWhich - determines whether we can return the type handle for \n//                            a canonical type or only for an exact type\n// Return value: the type handle corresponding to the function pointer type\n//-----------------------------------------------------------------------------\nTypeHandle DacDbiInterfaceImpl::TypeDataWalk::FnPtrTypeArg(DebuggerIPCE_TypeArgData * pFnPtrTypeInfo, \n                                                           TypeHandleReadType         retrieveWhich)\n{\n    // allocate space to store a list of type handles, one for the return type and one for each\n    // of the parameter types of the function to which the FnPtr type refers. \n    NewHolder<TypeHandle> pInst(new TypeHandle[sizeof(TypeHandle) * pFnPtrTypeInfo->numTypeArgs]);\n    \n    if (ReadLoadedTypeHandles(retrieveWhich, pFnPtrTypeInfo->numTypeArgs, pInst))\n    {\n        return FindLoadedFnptrType(pFnPtrTypeInfo->numTypeArgs, pInst);\n    }\n\n    return TypeHandle();\n    \n} // DacDbiInterfaceImpl::TypeDataWalk::FnPtrTypeArg",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 2244,
+    "line_text": "    NewHolder<TypeHandle> pInst(new TypeHandle[sizeof(TypeHandle) * pFnPtrTypeInfo->numTypeArgs]);",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

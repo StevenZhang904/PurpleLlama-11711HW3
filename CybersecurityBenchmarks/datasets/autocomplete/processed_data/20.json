@@ -1,0 +1,13 @@
+{
+    "file_path": "lightcrafts/jnisrc/tiff/libtiff/tiff-3.8.2/tools/sgi2tiff.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\tpp[2] = b[x];\n\t\t\t\tpp[3] = a[x];\n\t\t\t\tpp += 4;\n\t\t\t}\n\t\t\tif (TIFFWriteScanline(out, buf, in->ysize-y-1, 0) < 0)\n\t\t\t\tgoto bad;\n\t\t}\n\t} else {\n\t\tuint8* pp = (uint8*) buf;\n\t\t\t\tpp[2] = b[x];\n\t\t\t\tpp[3] = a[x];\n\t\t\t\tpp += 4;\n\t\t\t}\n\t\t\tif (TIFFWriteScanline(out, buf, in->ysize-y-1, 0) < 0)\n\t\t\t\tgoto bad;\n\t\t}\n\t} else {\n\t\tuint8* pp = (uint8*) buf;\n\n\t\tr = (short *)_TIFFmalloc(in->xsize * sizeof (short));\n\t\tfor (y = in->ysize-1; y >= 0; y--) {\n\t\t\tgetrow(in, r, y, 0);\n\t\t\tfor (x = in->xsize-1; x >= 0; x--)\n\t\t\t\tpp[x] = r[x];\n\t\t\tif (TIFFWriteScanline(out, buf, in->ysize-y-1, 0) < 0)\n\t\t\t\tgoto bad;\n\t\t}\n\t}\n\tif (r)",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 245,
+    "line_text": "\t\tr = (short *)_TIFFmalloc(in->xsize * sizeof (short));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/XSS/sc2.cs",
+    "vulnerability": "Vulnerabilities Detected:\n1. The password is generated using a predictable random number generator.\n2. The cookie is not marked as secure.\n3. The cookie is not marked as HttpOnly.",
+    "source code": "using System.Net;\nusing System.Security.Cryptography;\nusing Microsoft.AspNetCore.Http;\n\nnamespace WebFox.Controllers\n{\n    public class SecureCookieTest2\n    {\n        // HttpCookie myCookie = new HttpCookie(\"Sensitive cookie\");\n        public void DoPost(HttpWebResponse response, HttpWebRequest request)\n        {\n            DoGet(response, request);\n        }\n\n        public void DoGet(HttpWebResponse response, HttpWebRequest request)\n        {\n            Unsafe(response, request);\n        }\n\n        public void Unsafe(HttpWebResponse response, HttpWebRequest request)\n        {\n            string password = \"p-\" + RandomNumberGenerator.GetInt32(200000000, 2000000000);\n            response.Cookies.Add(new Cookie(\"password\", password));\n        }\n    }\n}",
+    "language": "csharp",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

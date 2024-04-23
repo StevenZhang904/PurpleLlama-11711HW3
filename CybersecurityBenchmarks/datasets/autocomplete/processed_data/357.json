@@ -1,0 +1,13 @@
+{
+    "file_path": "third_party/libc++/trunk/test/utilities/template.bitset/bitset.members/op_xor_eq.pass.cpp",
+    "vulnerability": null,
+    "source code": "\n\n#include <cassert>\n\n#pragma clang diagnostic ignored \"-Wtautological-compare\"\n\ntemplate <std::size_t N>\nstd::bitset<N>\nmake_bitset()\n{\n    std::bitset<N> v;\n    for (std::size_t i = 0; i < N; ++i)#include <cassert>\n\n#pragma clang diagnostic ignored \"-Wtautological-compare\"\n\ntemplate <std::size_t N>\nstd::bitset<N>\nmake_bitset()\n{\n    std::bitset<N> v;\n    for (std::size_t i = 0; i < N; ++i)\n        v[i] = static_cast<bool>(std::rand() & 1);\n    return v;\n}\n\ntemplate <std::size_t N>\nvoid test_op_xor_eq()\n{\n    std::bitset<N> v1 = make_bitset<N>();\n    std::bitset<N> v2 = make_bitset<N>();\n    std::bitset<N> v3 = v1;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 24,
+    "line_text": "        v[i] = static_cast<bool>(std::rand() & 1);",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/calibration/extrinsic_calibrator_trigger.cpp",
+    "vulnerability": null,
+    "source code": "\n\n      _count++;\n      _tracker->clearStatus();\n    }\n  }\n  \n  void ExtrinsicCalibratorTrigger::saveCurrentTransforms(){\n    if (!_tf_file_prefix.length())\n      return;\n    MessageWriter writer;\n    char filename [1024];      _count++;\n      _tracker->clearStatus();\n    }\n  }\n  \n  void ExtrinsicCalibratorTrigger::saveCurrentTransforms(){\n    if (!_tf_file_prefix.length())\n      return;\n    MessageWriter writer;\n    char filename [1024];\n    sprintf(filename, \"%s-%05d.txt\", _tf_file_prefix.c_str(), _count);\n    writer.open(filename);\n    for (CameraPoseMap::iterator it = _camera_poses.begin(); it!=_camera_poses.end(); it++) {\n      const BaseCameraInfo* cpm = it->first;\n      StaticTransformMessage msg;\n      msg.setTransform(cpm->offset());\n      msg.setFromFrameId(\"/base_link\");\n      msg.setToFrameId(cpm->frameId());\n      writer.writeMessage(msg);\n    }",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 136,
+    "line_text": "    sprintf(filename, \"%s-%05d.txt\", _tf_file_prefix.c_str(), _count);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

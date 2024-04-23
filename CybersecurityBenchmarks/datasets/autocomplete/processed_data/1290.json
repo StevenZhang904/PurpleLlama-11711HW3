@@ -1,0 +1,13 @@
+{
+    "file_path": "sw/host/opentitansession/src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n    port: u16,\n}\n\n/// Spawn a child process, passing all the same arguments to the child, letting it instantiate a\n/// Transport based on the command line arguments, listen on a TCP socket, and run as a daemon\n/// process serving network requests.  Success of the child is verified by means of a\n/// `SessionStartResult` JSON message sent through the standard output pipe.\nfn start_session(run_file_fn: impl FnOnce(u16) -> PathBuf) -> Result<Box<dyn Serialize>> {\n    let mut child = Command::new(env::current_exe()?) // Same executable\n        .arg(\"--child\") // Add argument to let the new process know it is the daemon child    port: u16,\n}\n\n/// Spawn a child process, passing all the same arguments to the child, letting it instantiate a\n/// Transport based on the command line arguments, listen on a TCP socket, and run as a daemon\n/// process serving network requests.  Success of the child is verified by means of a\n/// `SessionStartResult` JSON message sent through the standard output pipe.\nfn start_session(run_file_fn: impl FnOnce(u16) -> PathBuf) -> Result<Box<dyn Serialize>> {\n    let mut child = Command::new(env::current_exe()?) // Same executable\n        .arg(\"--child\") // Add argument to let the new process know it is the daemon child\n        .args(args_os().skip(1)) // Propagate all existing arguments: --interface, etc.\n        .stdin(Stdio::null()) // Not used by child, disconnect from terminal\n        .stdout(Stdio::piped()) // Used for signalling completion of daemon startup\n        .stderr(Stdio::inherit()) // May be used for error messages during daemon startup\n        .current_dir(\"/\")\n        .spawn()?;\n\n    match serde_json::from_reader::<&mut ChildStdout, Result<SessionStartResult, String>>(\n        child.stdout.as_mut().unwrap(),\n    ) {",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 134,
+    "line_text": "        .args(args_os().skip(1)) // Propagate all existing arguments: --interface, etc.",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

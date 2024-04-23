@@ -1,0 +1,13 @@
+{
+    "file_path": "ch9/ex9_28.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\tforward_list<string> fst{ \"pen\", \"pineapple\", \"apple\", \"pen\" };\r\n\tinsert(fst, \"pen\", \"and\");\r\n\tfor (auto& i : fst)\r\n\t\tcout << i << \" \";\r\n\tcout << endl;\r\n\treturn 0;\r\n}\r\n\r\nvoid insert(forward_list<string>& fst, const string& to_find, const string& to_add) {\r\n\tauto prev = fst.before_begin();\r\tforward_list<string> fst{ \"pen\", \"pineapple\", \"apple\", \"pen\" };\r\n\tinsert(fst, \"pen\", \"and\");\r\n\tfor (auto& i : fst)\r\n\t\tcout << i << \" \";\r\n\tcout << endl;\r\n\treturn 0;\r\n}\r\n\r\nvoid insert(forward_list<string>& fst, const string& to_find, const string& to_add) {\r\n\tauto prev = fst.before_begin();\r\n\tfor (auto iter = fst.begin(); iter != fst.end(); prev = iter++) {\r\n\t\tif (*iter == to_find) {\r\n\t\t\tfst.insert_after(iter, to_add);\r\n\t\t\treturn;\r\n\t\t}\r\n\t}\r\n\tfst.insert_after(prev, to_add);\r\n\treturn;\r\n}",
+    "language": "cpp",
+    "cwe_identifier": "CWE-416",
+    "pattern_desc": "Using an iterator after it has been invalidated, resulting in use after free",
+    "line_number": 20,
+    "line_text": "\tfor (auto iter = fst.begin(); iter != fst.end(); prev = iter++) {\r",
+    "pattern_id": "CPP-W-007",
+    "rule": "{ for (_($c.begin()); _($c.end()); _) { strict: $c.$func();} }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "jre_emul/android/libcore/harmony-tests/src/test/java/org/apache/harmony/tests/java/lang/CharacterTest.java",
+    "vulnerability": null,
+    "source code": "\n\n        assertTrue(Character.isJavaIdentifierPart(0x1034A));\n\n        assertFalse(Character.isJavaIdentifierPart(0x110000));\n    }\n\n    /**\n     * java.lang.Character#isJavaLetter(char)\n     */\n    @SuppressWarnings(\"deprecation\")\n    public void test_isJavaLetterC() {        assertTrue(Character.isJavaIdentifierPart(0x1034A));\n\n        assertFalse(Character.isJavaIdentifierPart(0x110000));\n    }\n\n    /**\n     * java.lang.Character#isJavaLetter(char)\n     */\n    @SuppressWarnings(\"deprecation\")\n    public void test_isJavaLetterC() {\n        assertTrue(\"letter returned false\", Character.isJavaLetter('l'));\n        assertTrue(\"currency returned false\", Character.isJavaLetter('$'));\n        assertTrue(\"connecting char returned false\", Character\n                .isJavaLetter('_'));\n\n        assertTrue(\"digit returned true\", !Character.isJavaLetter('9'));\n        assertTrue(\"ignored control returned true\", !Character\n                .isJavaLetter('\\u200b'));\n        assertTrue(\"semi returned true\", !Character.isJavaLetter(';'));\n    }",
+    "language": "java",
+    "cwe_identifier": "CWE-589",
+    "pattern_desc": "Use of deprecated or obsolete methods",
+    "line_number": 1182,
+    "line_text": "        assertTrue(\"letter returned false\", Character.isJavaLetter('l'));",
+    "pattern_id": "JAVA-R-031",
+    "rule": "Character\\.(isJavaLetter|isJavaLetterOrDigit|isSpace)\\(",
+    "label": 1
+}

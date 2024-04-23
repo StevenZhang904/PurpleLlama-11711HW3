@@ -1,0 +1,13 @@
+{
+    "file_path": "ajax/libs/sp-pnp-js/2.0.6-beta.1/pnp.js",
+    "vulnerability": null,
+    "source code": "\n\n    };\n    /**\n     * Gets a random string of chars length\n     *\n     * @param chars The length of the random string to generate\n     */\n    Util.getRandomString = function (chars) {\n        var text = new Array(chars);\n        var possible = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\";\n        for (var i = 0; i < chars; i++) {    };\n    /**\n     * Gets a random string of chars length\n     *\n     * @param chars The length of the random string to generate\n     */\n    Util.getRandomString = function (chars) {\n        var text = new Array(chars);\n        var possible = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\";\n        for (var i = 0; i < chars; i++) {\n            text[i] = possible.charAt(Math.floor(Math.random() * possible.length));\n        }\n        return text.join(\"\");\n    };\n    /**\n     * Gets a random GUID value\n     *\n     * http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript\n     */\n    /* tslint:disable no-bitwise */",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 245,
+    "line_text": "            text[i] = possible.charAt(Math.floor(Math.random() * possible.length));",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

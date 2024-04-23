@@ -1,0 +1,13 @@
+{
+    "file_path": "php/lint.php",
+    "vulnerability": null,
+    "source code": "\n\n$status = 0;\n\nforeach ($tmp['files'] as $file) {\n\tif (!preg_match($config['pattern'], $file)) {\n\t\tcontinue;\n\t}\n\n\t$cmd = \"php -l \" . escapeshellarg($file);\n\t$output = array();\n\techo \"$cmd\\n\";$status = 0;\n\nforeach ($tmp['files'] as $file) {\n\tif (!preg_match($config['pattern'], $file)) {\n\t\tcontinue;\n\t}\n\n\t$cmd = \"php -l \" . escapeshellarg($file);\n\t$output = array();\n\techo \"$cmd\\n\";\n\texec($cmd, $output, $return);\n\tif ($return != 0) {\n\t\techo implode(\"\\n\", $output), \"\\n\";\n\t\t$status = 1;\n\t}\n}\n\nexit($status);\n",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 27,
+    "line_text": "\texec($cmd, $output, $return);",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

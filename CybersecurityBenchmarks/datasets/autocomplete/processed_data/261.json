@@ -1,0 +1,13 @@
+{
+    "file_path": "Term 2/Programming based on classes and templates/LAB3_503/LAB3_503/LAB3_503.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\ttriangle.print();\n\n\t// \u00c4\u00e8\u00ed\u00e0\u00ec\u00e8\u00f7\u00e5\u00f1\u00ea\u00e8\u00e9\n\tTriangle *dynamicTriangle = new Triangle(Point(1, 2), Point(3, 4), Point(5, 6));\n\tdynamicTriangle->print();\n\tdelete dynamicTriangle;\n\n\t// \u00cc\u00e0\u00f1\u00f1\u00e8\u00e2\n\tTriangle triangles[30];\n\tfor (int i = 0; i < 30; i++) {\ttriangle.print();\n\n\t// \u00c4\u00e8\u00ed\u00e0\u00ec\u00e8\u00f7\u00e5\u00f1\u00ea\u00e8\u00e9\n\tTriangle *dynamicTriangle = new Triangle(Point(1, 2), Point(3, 4), Point(5, 6));\n\tdynamicTriangle->print();\n\tdelete dynamicTriangle;\n\n\t// \u00cc\u00e0\u00f1\u00f1\u00e8\u00e2\n\tTriangle triangles[30];\n\tfor (int i = 0; i < 30; i++) {\n\t\ttriangles[i] = Triangle(Point(rand() % 100, rand() % 100),\n\t\t\t\t\t\t\t\tPoint(rand() % 100, rand() % 100),\n\t\t\t\t\t\t\t\tPoint(rand() % 100, rand() % 100));\n\t\t\n\t\tif (i == 3) {\n\t\t\ttriangles[i].print();\n\t\t}\n\t}\n\tcout << endl;\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 74,
+    "line_text": "\t\ttriangles[i] = Triangle(Point(rand() % 100, rand() % 100),",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "apps/apache_benchmark_deprecated/support/ab-multiple-files.c",
+    "vulnerability": null,
+    "source code": "\n\n#define RAND_MAX INT_MAX\n#endif\n\nstatic int ssl_rand_choosenum(int l, int h)\n{\n    int i;\n    char buf[50];\n\n    srand((unsigned int)time(NULL));\n    apr_snprintf(buf, sizeof(buf), \"%.0f\",#define RAND_MAX INT_MAX\n#endif\n\nstatic int ssl_rand_choosenum(int l, int h)\n{\n    int i;\n    char buf[50];\n\n    srand((unsigned int)time(NULL));\n    apr_snprintf(buf, sizeof(buf), \"%.0f\",\n                 (((double)(rand()%RAND_MAX)/RAND_MAX)*(h-l)));\n    i = atoi(buf)+1;\n    if (i < l) i = l;\n    if (i > h) i = h;\n    return i;\n}\n\nstatic void ssl_rand_seed(void)\n{\n    int nDone = 0;",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 521,
+    "line_text": "                 (((double)(rand()%RAND_MAX)/RAND_MAX)*(h-l)));",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

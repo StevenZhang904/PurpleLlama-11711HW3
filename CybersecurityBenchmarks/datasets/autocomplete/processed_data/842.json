@@ -1,0 +1,13 @@
+{
+    "file_path": "index.js",
+    "vulnerability": null,
+    "source code": "\n\n    /*\n      END CACHE SETUP\n    */\n\n\n    this.setApiKey(inputObj.api_key);\n    this.failCount = inputObj.fail_count || 5;\n    //Load all the handlers in the handlers dir.\n    require('fs').readdirSync(__dirname + '/lib/handlers').forEach(function(file) {\n      if (file.match(/\\.js$/) !== null && file !== 'index.js') {    /*\n      END CACHE SETUP\n    */\n\n\n    this.setApiKey(inputObj.api_key);\n    this.failCount = inputObj.fail_count || 5;\n    //Load all the handlers in the handlers dir.\n    require('fs').readdirSync(__dirname + '/lib/handlers').forEach(function(file) {\n      if (file.match(/\\.js$/) !== null && file !== 'index.js') {\n        var r = require('./lib/handlers/' + file);\n        this.request[r.name] = r.handler.bind(this);\n      }\n    }.bind(this));\n    //Load all the helpers in the helpers dir.\n    this.helper = {};\n    require('fs').readdirSync(__dirname + '/lib/helpers').forEach(function(file) {\n      if (file.match(/\\.js$/) !== null && file !== 'index.js') {\n        var r = require('./lib/helpers/' + file);\n        this.helper[file.replace(/\\.js$/, '')] = r;",
+    "language": "javascript",
+    "cwe_identifier": "CWE-95",
+    "pattern_desc": "The application was found to dynamically import a module by calling `require` using a\nnon-literal string. An adversary might be able to read the first line of\narbitrary files. If they had write access to the file system, they may also be able to\nexecute arbitrary code.\n",
+    "line_number": 71,
+    "line_text": "        var r = require('./lib/handlers/' + file);",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.javascript.third-party.non-literal-require",
+    "rule": null,
+    "label": 1
+}

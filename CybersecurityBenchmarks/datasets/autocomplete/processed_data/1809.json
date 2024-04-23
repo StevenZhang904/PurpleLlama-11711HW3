@@ -1,0 +1,13 @@
+{
+    "file_path": "pyexfil/network/QUIC/quic_client.py",
+    "vulnerability": null,
+    "source code": "\n\n\n# from itertools import izip_longest\n\n# Setting timeout so that we won't wait forever\ntimeout = 2\nsocket.setdefaulttimeout(timeout)\nlimit = 256*256*256*256 - 1\n\n\ndef md5(fname):\n# from itertools import izip_longest\n\n# Setting timeout so that we won't wait forever\ntimeout = 2\nsocket.setdefaulttimeout(timeout)\nlimit = 256*256*256*256 - 1\n\n\ndef md5(fname):\n    hash_md5 = hashlib.md5()\n    with open(fname, \"rb\") as f:\n        for chunk in iter(lambda: f.read(4096), b\"\"):\n            hash_md5.update(chunk)\n    return hash_md5.hexdigest()\n\ndef chunkstring(s, n):\n    return [ s[i:i+n] for i in xrange(0, len(s), n) ]\n\n",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 22,
+    "line_text": "    hash_md5 = hashlib.md5()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/fi/helsinki/cs/tmc/cli/io/EnvironmentUtil.java",
+    "vulnerability": null,
+    "source code": "\n\n                return false;\n            }\n        } else {\n\n            StringBuilder program = new StringBuilder();\n            for (String arg : args) {\n                program.append(\" \").append(arg);\n            }\n            String[] exec = {\"sh\", \"-c\", program.toString() + \" </dev/tty >/dev/tty\"};\n            try {                return false;\n            }\n        } else {\n\n            StringBuilder program = new StringBuilder();\n            for (String arg : args) {\n                program.append(\" \").append(arg);\n            }\n            String[] exec = {\"sh\", \"-c\", program.toString() + \" </dev/tty >/dev/tty\"};\n            try {\n                Process proc = Runtime.getRuntime().exec(exec);\n                if (wait) {\n                    logger.info(\n                            \"(Unix) Waiting for \" + Arrays.toString(exec) + \" to finish executing\");\n                    proc.waitFor();\n                }\n                return proc.exitValue() == 0;\n            } catch (Exception e) {\n                logger.error(\n                        \"(Unix) Exception when running external program \" + Arrays.toString(exec),",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 77,
+    "line_text": "                Process proc = Runtime.getRuntime().exec(exec);",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

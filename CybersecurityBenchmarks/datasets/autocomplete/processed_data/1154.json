@@ -1,0 +1,13 @@
+{
+    "file_path": "components-core/src/main/java/com/blebail/components/core/security/cryptography/Md5.java",
+    "vulnerability": null,
+    "source code": "\n\npackage com.blebail.components.core.security.cryptography;\n\nimport org.apache.commons.codec.digest.DigestUtils;\n\npublic class Md5 implements DigestAlgorithm {\n\n    @Override\n    public String digest(final String data) {package com.blebail.components.core.security.cryptography;\n\nimport org.apache.commons.codec.digest.DigestUtils;\n\npublic class Md5 implements DigestAlgorithm {\n\n    @Override\n    public String digest(final String data) {\n        return DigestUtils.md5Hex(data);\n    }\n    \n    @Override\n    public String toString() {\n        return \"Digest Algorithm (Md5)\";\n    }\n}\n",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 9,
+    "line_text": "        return DigestUtils.md5Hex(data);",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

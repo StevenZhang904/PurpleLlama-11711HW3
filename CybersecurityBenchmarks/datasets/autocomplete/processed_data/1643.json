@@ -1,0 +1,13 @@
+{
+    "file_path": "server/JPC.py",
+    "vulnerability": null,
+    "source code": "\n\n        cursor = self.db.cursor(MySQLdb.cursors.DictCursor)\n        # \u30b9\u30b3\u30a2\u3092\u8ffd\u52a0\n        cursor.execute(\"UPDATE account SET score=score+{score} WHERE user='{user}';\".format(score=int(self.record['score']), user=self.user))\n        # \u89e3\u7b54\u6e08\u307f\u554f\u984c\u3092\u8ffd\u52a0\n        cursor.execute(\"UPDATE account SET solved=concat('{id},', solved) WHERE user='{user}';\".format(id=self.record['id'], user=self.user))\n        # \u89e3\u7b54\u6570\u3092\u30a4\u30f3\u30af\u30ea\u30e1\u30f3\u30c8\n        cursor.execute(\"UPDATE problem SET solved=solved+1 WHERE id={id};\".format(id=self.record['id']))\n        # \u89e3\u7b54\u30e6\u30fc\u30b6\u30fc\u3092\u66f4\u65b0\n        cursor.execute(\"UPDATE problem SET solved_user='{user}' WHERE id={id};\".format(user=self.user, id=self.record['id']))\n        # \u89e3\u7b54\u6642\u9593\u3092\u66f4\u65b0        cursor = self.db.cursor(MySQLdb.cursors.DictCursor)\n        # \u30b9\u30b3\u30a2\u3092\u8ffd\u52a0\n        cursor.execute(\"UPDATE account SET score=score+{score} WHERE user='{user}';\".format(score=int(self.record['score']), user=self.user))\n        # \u89e3\u7b54\u6e08\u307f\u554f\u984c\u3092\u8ffd\u52a0\n        cursor.execute(\"UPDATE account SET solved=concat('{id},', solved) WHERE user='{user}';\".format(id=self.record['id'], user=self.user))\n        # \u89e3\u7b54\u6570\u3092\u30a4\u30f3\u30af\u30ea\u30e1\u30f3\u30c8\n        cursor.execute(\"UPDATE problem SET solved=solved+1 WHERE id={id};\".format(id=self.record['id']))\n        # \u89e3\u7b54\u30e6\u30fc\u30b6\u30fc\u3092\u66f4\u65b0\n        cursor.execute(\"UPDATE problem SET solved_user='{user}' WHERE id={id};\".format(user=self.user, id=self.record['id']))\n        # \u89e3\u7b54\u6642\u9593\u3092\u66f4\u65b0\n        cursor.execute(\"UPDATE problem SET last_date='{date}' WHERE id={id};\".format(date=time.strftime('%Y-%m-%d %H:%M:%S'), id=self.record['id']))\n        cursor.close()\n        self.db.commit()\n        return\n\n    #\n    # \u65b0\u898f\u8981\u6c42\u3092\u51e6\u7406\n    #\n    def handle(self, env, response):\n        self.ws = env['wsgi.websocket']",
+    "language": "python",
+    "cwe_identifier": "CWE-89",
+    "pattern_desc": "Potential SQL injection\n",
+    "line_number": 197,
+    "line_text": "        cursor.execute(\"UPDATE problem SET last_date='{date}' WHERE id={id};\".format(date=time.strftime('%Y-%m-%d %H:%M:%S'), id=self.record['id']))",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.third-party.sql_injection",
+    "rule": null,
+    "label": 1
+}

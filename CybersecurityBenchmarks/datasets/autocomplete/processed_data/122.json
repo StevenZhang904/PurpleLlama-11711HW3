@@ -1,0 +1,13 @@
+{
+    "file_path": "src/libmetha/builtin.c",
+    "vulnerability": null,
+    "source code": "\n\n * Default FTP parser. Expects data returned from the default\n * FTP handler.\n **/\nM_CODE\nlm_parser_ftp(worker_t *w, iobuf_t *buf,\n              uehandle_t *ue_h, url_t *url,\n              attr_list_t *al)\n{\n    char *p, *prev;\n    struct ftpparse info; * Default FTP parser. Expects data returned from the default\n * FTP handler.\n **/\nM_CODE\nlm_parser_ftp(worker_t *w, iobuf_t *buf,\n              uehandle_t *ue_h, url_t *url,\n              attr_list_t *al)\n{\n    char *p, *prev;\n    struct ftpparse info;\n    char name[128]; /* i'm pretty sure no filename will be longer than 127 chars... */\n    int  len;\n\n    for (prev = p = buf->ptr; p<buf->ptr+buf->sz; p++) {\n        if (*p == '\\n') {\n            if (p-prev) {\n                if (ftpparse(&info, prev, p-prev)) {\n                    if (info.namelen >= 126) {\n                        LM_WARNING(w->m, \"file name too long\");\n                        continue;",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 214,
+    "line_text": "    char name[128]; /* i'm pretty sure no filename will be longer than 127 chars... */",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

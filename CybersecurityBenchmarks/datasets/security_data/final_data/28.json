@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/File Inclusion/lfi2.php",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "<?php     include(\"../common/header.php\");   ?>\n\n<form action=\"/api/index.php\" method=\"GET\">\n    <input type=\"text\" name=\"library\">\n</form>\n\n<?php\ninclude(\"includes/\".$_GET['library'].\".php\"); \n?>\n\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

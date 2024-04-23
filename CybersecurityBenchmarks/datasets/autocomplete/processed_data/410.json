@@ -1,0 +1,13 @@
+{
+    "file_path": "HODTest/HODTest/Processors/DenoiseStrategies/DoublehistEqual.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\tint\thS[9] = { 0, 0, 0, 0, -1, 0, 0, 1, 0 };\n\tint\thE[9] = { 0, 0, 0, 0, -1, 1, 0, 0, 0 };\n\tint\thW[9] = { 0, 0, 0, 1, -1, 0, 0, 0, 0 };\n\tint\thNE[9] = { 0, 0, 1, 0, -1, 0, 0, 0, 0 };\n\tint\thSE[9] = { 0, 0, 0, 0, -1, 0, 0, 0, 1 };\n\tint\thSW[9] = { 0, 0, 0, 0, -1, 0, 1, 0, 0 };\n\tint hNW[9] = { 1, 0, 0, 0, -1, 0, 0, 0, 0 };\n\n\n\t//\u00c9\u00ea\u00c7\u00eb\u00c4\u00da\u00b4\u00e6\u00b4\u00e6\u00b4\u00a2\u00b8\u00f7\u00b8\u00f6\u00b7\u00bd\u00cf\u00f2\u00c2\u00cb\u00b2\u00a8\u00ba\u00f3\u00b5\u00c4\u00bd\u00e1\u00b9\u00fb\tint\thS[9] = { 0, 0, 0, 0, -1, 0, 0, 1, 0 };\n\tint\thE[9] = { 0, 0, 0, 0, -1, 1, 0, 0, 0 };\n\tint\thW[9] = { 0, 0, 0, 1, -1, 0, 0, 0, 0 };\n\tint\thNE[9] = { 0, 0, 1, 0, -1, 0, 0, 0, 0 };\n\tint\thSE[9] = { 0, 0, 0, 0, -1, 0, 0, 0, 1 };\n\tint\thSW[9] = { 0, 0, 0, 0, -1, 0, 1, 0, 0 };\n\tint hNW[9] = { 1, 0, 0, 0, -1, 0, 0, 0, 0 };\n\n\n\t//\u00c9\u00ea\u00c7\u00eb\u00c4\u00da\u00b4\u00e6\u00b4\u00e6\u00b4\u00a2\u00b8\u00f7\u00b8\u00f6\u00b7\u00bd\u00cf\u00f2\u00c2\u00cb\u00b2\u00a8\u00ba\u00f3\u00b5\u00c4\u00bd\u00e1\u00b9\u00fb\n\tfloat *deltaN = new float[lLBytes*height];\n\tmemset(deltaN, 0, lLBytes*height*sizeof(float));\n\tfloat *deltaS = new float[lLBytes*height];\n\tmemset(deltaS, 0, lLBytes*height*sizeof(float));\n\tfloat *deltaW = new float[lLBytes*height];\n\tmemset(deltaW, 0, lLBytes*height*sizeof(float));\n\tfloat *deltaE = new float[lLBytes*height];\n\tmemset(deltaE, 0, lLBytes*height*sizeof(float));\n\tfloat *deltaNE = new float[lLBytes*height];\n\tmemset(deltaNE, 0, lLBytes*height*sizeof(float));",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 38,
+    "line_text": "\tfloat *deltaN = new float[lLBytes*height];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

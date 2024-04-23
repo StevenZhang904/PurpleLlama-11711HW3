@@ -1,0 +1,13 @@
+{
+    "file_path": "contrib/native/client/example/querySubmitter.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    }\n    if(error){\n        printUsage();\n        exit(1);\n    }\n    return 0;\n}\n\nvoid parseUrl(std::string& url, std::string& protocol, std::string& host, std::string& port){\n    char u[1024];    }\n    if(error){\n        printUsage();\n        exit(1);\n    }\n    return 0;\n}\n\nvoid parseUrl(std::string& url, std::string& protocol, std::string& host, std::string& port){\n    char u[1024];\n    strcpy(u,url.c_str());\n    char* z=strtok(u, \"=\");\n    char* h=strtok(NULL, \":\");\n    char* p=strtok(NULL, \":\");\n    protocol=z; host=h; port=p;\n}\n\nstd::vector<std::string> &splitString(const std::string& s, char delim, std::vector<std::string>& elems){\n    std::stringstream ss(s);\n    std::string item;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 172,
+    "line_text": "    strcpy(u,url.c_str());",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

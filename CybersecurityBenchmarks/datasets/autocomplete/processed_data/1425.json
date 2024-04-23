@@ -1,0 +1,13 @@
+{
+    "file_path": "src/applications/files/storage/PhabricatorFile.php",
+    "vulnerability": null,
+    "source code": "\n\n      } catch (Exception $ex) {\n        // In the worst case, we're leaving some data stranded in a storage\n        // engine, which is not a big deal.\n        phlog($ex);\n      }\n    }\n  }\n\n\n  public static function hashFileContent($data) {      } catch (Exception $ex) {\n        // In the worst case, we're leaving some data stranded in a storage\n        // engine, which is not a big deal.\n        phlog($ex);\n      }\n    }\n  }\n\n\n  public static function hashFileContent($data) {\n    return sha1($data);\n  }\n\n  public function loadFileData() {\n\n    $engine = $this->instantiateStorageEngine();\n    $data = $engine->readFile($this->getStorageHandle());\n\n    switch ($this->getStorageFormat()) {\n      case self::STORAGE_FORMAT_RAW:",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 658,
+    "line_text": "    return sha1($data);",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

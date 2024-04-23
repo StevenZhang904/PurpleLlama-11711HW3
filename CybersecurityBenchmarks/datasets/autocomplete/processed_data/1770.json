@@ -1,0 +1,13 @@
+{
+    "file_path": "alien4cloud-cloudify3-provider/src/test/resources/outputs/blueprints/openstack/lamp/wrapper/Wordpress_Mysql/wordpressConnectToMysqlMysql/tosca.interfaces.relationship.Configure/pre_configure_source/_a4c_pre_configure_source.py",
+    "vulnerability": null,
+    "source code": "\n\n        os.chmod(wrapper_path, 0755)\n        command = '{0} {1}'.format(wrapper_path, script_path)\n    else:\n        command = script_path\n\n    if command_prefix is not None:\n        command = \"{0} {1}\".format(command_prefix, command)\n\n    ctx.logger.info('Executing: {0} in env {1}'.format(command, env))\n        os.chmod(wrapper_path, 0755)\n        command = '{0} {1}'.format(wrapper_path, script_path)\n    else:\n        command = script_path\n\n    if command_prefix is not None:\n        command = \"{0} {1}\".format(command_prefix, command)\n\n    ctx.logger.info('Executing: {0} in env {1}'.format(command, env))\n\n    process = subprocess.Popen(command,\n                               shell=True,\n                               stdout=subprocess.PIPE,\n                               stderr=subprocess.PIPE,\n                               env=env,\n                               cwd=cwd,\n                               bufsize=1,\n                               close_fds=on_posix)\n\n    return_code = None",
+    "language": "python",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection due to subprocess usage with shell=True.",
+    "line_number": 322,
+    "line_text": "    process = subprocess.Popen(command,",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-subprocess-using-shell",
+    "rule": null,
+    "label": 1
+}

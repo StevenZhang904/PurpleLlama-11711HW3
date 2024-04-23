@@ -1,0 +1,13 @@
+{
+    "file_path": "phone/app/src/main/java/com/itsafe/phone/utils/Md5Utils.java",
+    "vulnerability": null,
+    "source code": "\n\n */\npublic class Md5Utils {\n\n    /**\n     * @param filePath \u6587\u4ef6\u8def\u5f84\n     * @return \u6587\u4ef6\u7684MD5\u503c\n     */\n    public static String getFileMd5(String filePath) {\n        StringBuilder mess = new StringBuilder();\n        try { */\npublic class Md5Utils {\n\n    /**\n     * @param filePath \u6587\u4ef6\u8def\u5f84\n     * @return \u6587\u4ef6\u7684MD5\u503c\n     */\n    public static String getFileMd5(String filePath) {\n        StringBuilder mess = new StringBuilder();\n        try {\n            MessageDigest md = MessageDigest.getInstance(\"md5\");\n            // \u8bfb\u53d6\u6587\u4ef6\n            FileInputStream fis = new FileInputStream(new File(filePath));\n            byte[] buffer = new byte[1024 * 10];\n            int len = fis.read(buffer);\n            while (len != -1) {\n                md.update(buffer, 0, len);// \u4e0d\u505c\u7684\u8bfb\u53d6\u6587\u4ef6\u5185\u5bb9\n                len = fis.read(buffer);// \u7ee7\u7eed\u8bfb\u53d6\n            }\n",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 22,
+    "line_text": "            MessageDigest md = MessageDigest.getInstance(\"md5\");",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

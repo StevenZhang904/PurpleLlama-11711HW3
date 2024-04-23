@@ -1,0 +1,13 @@
+{
+    "file_path": "toonz/sources/image/svg/tiio_svg.cpp",
+    "vulnerability": null,
+    "source code": "\n\n  } else {\n    return 0;\n  }\n  return 1;\n}\n\nint nsvg__parseNameValue(struct NSVGParser *p, const char *start,\n                         const char *end) {\n  const char *str;\n  const char *val;  } else {\n    return 0;\n  }\n  return 1;\n}\n\nint nsvg__parseNameValue(struct NSVGParser *p, const char *start,\n                         const char *end) {\n  const char *str;\n  const char *val;\n  char name[512];\n  char value[512];\n  int n;\n\n  str = start;\n  while (str < end && *str != ':') ++str;\n\n  val = str;\n\n  // Right Trim",
+    "language": "cpp",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 927,
+    "line_text": "  char name[512];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

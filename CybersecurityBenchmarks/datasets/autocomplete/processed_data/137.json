@@ -1,0 +1,13 @@
+{
+    "file_path": "client_file.c",
+    "vulnerability": null,
+    "source code": "\n\n        for (int i = 0; i < fileHandlerArraySize; i++)\n        {\n\n            fileHandlerArray[i] = -1;\n        }\n\n        for (int i = 0; i < fileHandlerArraySize; i++)\n        {\n\n            char buffer[64];        for (int i = 0; i < fileHandlerArraySize; i++)\n        {\n\n            fileHandlerArray[i] = -1;\n        }\n\n        for (int i = 0; i < fileHandlerArraySize; i++)\n        {\n\n            char buffer[64];\n            int n = sprintf (buffer, \"tmp.%03d\", i);\n\n            fileHandlerArray[i] = open (buffer, O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);\n        }\n    }\n\n    return retValue;\n}\n\n/**",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 31,
+    "line_text": "            int n = sprintf (buffer, \"tmp.%03d\", i);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

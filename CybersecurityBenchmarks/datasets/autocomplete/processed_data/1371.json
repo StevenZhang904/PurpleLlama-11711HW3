@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\nconst DEBUGMODE: bool = true;\n#[cfg(not(debug_assertions))]\nconst DEBUGMODE: bool = false;\n\n#[cfg(target_os=\"windows\")]\nconst NULLDEVICE: &'static str = \"NUL\";\n#[cfg(not(target_os=\"windows\"))]\nconst NULLDEVICE: &'static str = \"/dev/null\";\n\nfn device_id(name: &str) -> String {const DEBUGMODE: bool = true;\n#[cfg(not(debug_assertions))]\nconst DEBUGMODE: bool = false;\n\n#[cfg(target_os=\"windows\")]\nconst NULLDEVICE: &'static str = \"NUL\";\n#[cfg(not(target_os=\"windows\"))]\nconst NULLDEVICE: &'static str = \"/dev/null\";\n\nfn device_id(name: &str) -> String {\n\tlet mut h = Sha1::new();\n\th.input_str(name);\n\th.result_str()\n}\n\nfn usage(program: &str, opts: &getopts::Options) -> String {\n\tprintln!(\"{}\", VERSION.to_string());\n\n\tlet brief = format!(\"Usage: {} [options]\", program);\n\topts.usage(&brief)",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 62,
+    "line_text": "\tlet mut h = Sha1::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

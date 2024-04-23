@@ -1,0 +1,13 @@
+{
+    "file_path": "testing/openjdk2/jdk/src/share/classes/sun/security/pkcs11/P11Util.java",
+    "vulnerability": null,
+    "source code": "\n\n    static byte[] getBytesUTF8(String s) {\n        try {\n            return s.getBytes(\"UTF8\");\n        } catch (java.io.UnsupportedEncodingException e) {\n            throw new RuntimeException(e);\n        }\n    }\n\n    static byte[] sha1(byte[] data) {\n        try {    static byte[] getBytesUTF8(String s) {\n        try {\n            return s.getBytes(\"UTF8\");\n        } catch (java.io.UnsupportedEncodingException e) {\n            throw new RuntimeException(e);\n        }\n    }\n\n    static byte[] sha1(byte[] data) {\n        try {\n            MessageDigest md = MessageDigest.getInstance(\"SHA-1\");\n            md.update(data);\n            return md.digest();\n        } catch (GeneralSecurityException e) {\n            throw new ProviderException(e);\n        }\n    }\n\n    private final static char[] hexDigits = \"0123456789abcdef\".toCharArray();\n",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 155,
+    "line_text": "            MessageDigest md = MessageDigest.getInstance(\"SHA-1\");",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

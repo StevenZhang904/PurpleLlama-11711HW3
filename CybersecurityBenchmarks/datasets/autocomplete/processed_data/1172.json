@@ -1,0 +1,13 @@
+{
+    "file_path": "xchange-okcoin/src/main/java/org/knowm/xchange/okcoin/OkCoinDigest.java",
+    "vulnerability": null,
+    "source code": "\n\n  private final String apikey;\n  private final String secretKey;\n  private final MessageDigest md;\n\n  public OkCoinDigest(String apikey, String secretKey) {\n\n    this.apikey = apikey;\n    this.secretKey = secretKey;\n\n    try {  private final String apikey;\n  private final String secretKey;\n  private final MessageDigest md;\n\n  public OkCoinDigest(String apikey, String secretKey) {\n\n    this.apikey = apikey;\n    this.secretKey = secretKey;\n\n    try {\n      md = MessageDigest.getInstance(\"MD5\");\n    } catch (NoSuchAlgorithmException e) {\n      throw new RuntimeException(\"Problem instantiating message digest.\", e);\n    }\n  }\n\n  private static char[] encodeHex(byte[] data, char[] toDigits) {\n\n    int l = data.length;\n    char[] out = new char[l << 1];",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 31,
+    "line_text": "      md = MessageDigest.getInstance(\"MD5\");",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

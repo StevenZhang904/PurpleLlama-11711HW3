@@ -1,0 +1,13 @@
+{
+    "file_path": "Stream-2/Back-End-Development/18.Using-Python-with-MySQL-Part-Three-Intro/3.How-to-Build-an-Update-SQL-String/database/mysql.py",
+    "vulnerability": null,
+    "source code": "\n\n        return results\n\n    def get_columns_for_table(self, table_name):\n        \"\"\"\n        This method will enable us to interact\n        with our database to find what columns\n        are currently in a specific table\n        \"\"\"\n\n        cursor = self.db.cursor()        return results\n\n    def get_columns_for_table(self, table_name):\n        \"\"\"\n        This method will enable us to interact\n        with our database to find what columns\n        are currently in a specific table\n        \"\"\"\n\n        cursor = self.db.cursor()\n        cursor.execute(\"SHOW COLUMNS FROM `%s`\" % table_name)\n        self.columns = cursor.fetchall()\n\n        cursor.close()\n\n        return self.columns\n\n    def select(self, table, columns=None, named_tuples=False, **kwargs):\n        \"\"\"\n        We'll create our `select` method in order",
+    "language": "python",
+    "cwe_identifier": "CWE-89",
+    "pattern_desc": "Potential SQL injection\n",
+    "line_number": 84,
+    "line_text": "        cursor.execute(\"SHOW COLUMNS FROM `%s`\" % table_name)",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.third-party.sql_injection",
+    "rule": null,
+    "label": 1
+}

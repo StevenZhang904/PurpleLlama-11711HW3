@@ -1,0 +1,13 @@
+{
+    "file_path": "test/index.js",
+    "vulnerability": null,
+    "source code": "\n\n\nLiveStream(db, {old: false}).on('data', function (data) {\n  if(data.type === 'put')\n    assert.equal(data.key, k--)\n})\n\nvar a = []\nvar int = setInterval(function () {\n  var key = i + ''\n\nLiveStream(db, {old: false}).on('data', function (data) {\n  if(data.type === 'put')\n    assert.equal(data.key, k--)\n})\n\nvar a = []\nvar int = setInterval(function () {\n  var key = i + ''\n\n  if(Math.random() < 0.2 && a.length) {\n    var r = ~~(Math.random()*a.length)\n    key = a[r]\n    a.slice(r, 1)\n    db.del(key, function (err) {\n      assert(err == undefined)\n    })\n  }\n  else {\n    a.push(key)",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 25,
+    "line_text": "  if(Math.random() < 0.2 && a.length) {",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

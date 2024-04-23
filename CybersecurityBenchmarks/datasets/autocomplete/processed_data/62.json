@@ -1,0 +1,13 @@
+{
+    "file_path": "edition4/c/ch01/1-8.c",
+    "vulnerability": null,
+    "source code": "\n\n#include <assert.h>\n#include <math.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nint isRotation(char *str1, char *str2) {\n  int size = (strlen(str1) * 2)  + 1;\n  char str[size];\n  strcpy(str, str1);#include <assert.h>\n#include <math.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nint isRotation(char *str1, char *str2) {\n  int size = (strlen(str1) * 2)  + 1;\n  char str[size];\n  strcpy(str, str1);\n  strcat(str, str1);\n  str[size-1] = 0;\n\n  return strstr(str, str2) == 0 ? 0 : 1;\n}\n\nint main() {\n  // tests\n  char str1[] = \"This is a test string \";\n  char str2[] = \"a test string This is \";",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 11,
+    "line_text": "  strcat(str, str1);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

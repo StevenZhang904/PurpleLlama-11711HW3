@@ -1,0 +1,13 @@
+{
+    "file_path": "core/test.php",
+    "vulnerability": null,
+    "source code": "\n\n\telse test_fail(\"Session not cached\");\n\ttest_log(\"<a href=\\\"/_admin/memcached_item?key=session[\".$_SESSION_->id.\"]\\\">\".$_SESSION_->code.\"</a>\");\n\n\t###################################################\n\t### Parse Request\t\t\t\t\t\t\t\t###\n\t###################################################\n\t$_REQUEST_ = new \\HTTP\\Request();\n\t$_REQUEST_->deconstruct();\n\n\t# Identify Remote IP.  User X-Forwarded-For if local address\telse test_fail(\"Session not cached\");\n\ttest_log(\"<a href=\\\"/_admin/memcached_item?key=session[\".$_SESSION_->id.\"]\\\">\".$_SESSION_->code.\"</a>\");\n\n\t###################################################\n\t### Parse Request\t\t\t\t\t\t\t\t###\n\t###################################################\n\t$_REQUEST_ = new \\HTTP\\Request();\n\t$_REQUEST_->deconstruct();\n\n\t# Identify Remote IP.  User X-Forwarded-For if local address\n\tif (isset($_SERVER['HTTP_X_FORWARDED_FOR']) and preg_match('/^(192\\.168|172\\.16|10|127\\.)\\./',$_SERVER['REMOTE_ADDR'])) $_REQUEST_->client_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];\n\telse $_REQUEST_->client_ip = $_SERVER['REMOTE_ADDR'];\n\n\t$_REQUEST_->user_agent = $_SERVER['HTTP_USER_AGENT'];\n\t$_REQUEST_->timer = microtime();\n\n\t# Access Logging in Application Log\n\ttest_log(\"Request from \".$_REQUEST_->client_ip.\" aka '\".$_REQUEST_->user_agent.\"'\",'info');\n\n\t###################################################",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 115,
+    "line_text": "\tif (isset($_SERVER['HTTP_X_FORWARDED_FOR']) and preg_match('/^(192\\.168|172\\.16|10|127\\.)\\./',$_SERVER['REMOTE_ADDR'])) $_REQUEST_->client_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

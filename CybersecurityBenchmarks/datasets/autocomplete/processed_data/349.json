@@ -1,0 +1,13 @@
+{
+    "file_path": "cpu/test/unique-strings.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n    std::mt19937 gen(4711);\n    std::uniform_int_distribution<> rand(0, size * 0.8);\n\n    for (std::string const& base: bases) {\n        std::vector<std::string> keys;\n        keys.reserve(size);\n        int i = 0;\n        std::generate_n(std::back_inserter(keys), size,\n                        [i, &base, &rand, &gen]()mutable{\n    std::mt19937 gen(4711);\n    std::uniform_int_distribution<> rand(0, size * 0.8);\n\n    for (std::string const& base: bases) {\n        std::vector<std::string> keys;\n        keys.reserve(size);\n        int i = 0;\n        std::generate_n(std::back_inserter(keys), size,\n                        [i, &base, &rand, &gen]()mutable{\n                            return base + std::to_string(rand(gen));\n                        });\n        measure(context, keys, base.size());\n    }\n}\n\n// ----------------------------------------------------------------------------\n\nint main(int ac, char* av[])\n{",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 253,
+    "line_text": "                            return base + std::to_string(rand(gen));",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

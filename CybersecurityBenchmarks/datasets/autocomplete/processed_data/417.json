@@ -1,0 +1,13 @@
+{
+    "file_path": "groups/bdl/bdlc/bdlc_bitarray.t.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    verbose = argc > 2;\n    veryVerbose = argc > 3;\n    veryVeryVerbose = argc > 4;\n    veryVeryVeryVerbose = argc > 5;\n\n    cout << \"TEST \" << __FILE__ << \" CASE \" << test << endl;;\n\n    bslma::TestAllocator testAllocator(veryVeryVerbose);\n\n    char LONG_SPEC_1[33];    verbose = argc > 2;\n    veryVerbose = argc > 3;\n    veryVeryVerbose = argc > 4;\n    veryVeryVeryVerbose = argc > 5;\n\n    cout << \"TEST \" << __FILE__ << \" CASE \" << test << endl;;\n\n    bslma::TestAllocator testAllocator(veryVeryVerbose);\n\n    char LONG_SPEC_1[33];\n    char LONG_SPEC_2[65];\n    char LONG_SPEC_3[97];\n    char LONG_SPEC_4[129];\n    char LONG_SPEC_5[161];\n    char LONG_SPEC_6[193];\n    char LONG_SPEC_7[225];\n    char LONG_SPEC_8[257];\n    char LONG_SPEC_9[289];\n\n    strcpy(LONG_SPEC_1, \"00001000111000010011000001001101\");",
+    "language": "cpp",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 1378,
+    "line_text": "    char LONG_SPEC_2[65];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

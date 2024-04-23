@@ -1,0 +1,13 @@
+{
+    "file_path": "src/vm/jithelpers.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    // reverse the order\n    INT32* p = fwdArgList;\n    INT32* q = fwdArgList + (dwNumArgs-1);\n    while (p < q)\n    {\n        INT32 t = *p; *p = *q; *q = t;\n        p++; q--;\n    }\n#else\n    // create an array where fwdArgList[0] == arg[0] ...    // reverse the order\n    INT32* p = fwdArgList;\n    INT32* q = fwdArgList + (dwNumArgs-1);\n    while (p < q)\n    {\n        INT32 t = *p; *p = *q; *q = t;\n        p++; q--;\n    }\n#else\n    // create an array where fwdArgList[0] == arg[0] ...\n    fwdArgList = (INT32*) _alloca(dwNumArgs * sizeof(INT32));\n    for (unsigned i = 0; i < dwNumArgs; i++)\n    {\n        fwdArgList[i] = va_arg(args, INT32);\n    }\n#endif\n\n    return AllocateArrayEx(typeHnd, fwdArgList, dwNumArgs);\n}\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 3262,
+    "line_text": "    fwdArgList = (INT32*) _alloca(dwNumArgs * sizeof(INT32));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

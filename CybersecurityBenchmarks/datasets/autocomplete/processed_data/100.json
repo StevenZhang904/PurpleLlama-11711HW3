@@ -1,0 +1,13 @@
+{
+    "file_path": "src/image.c",
+    "vulnerability": null,
+    "source code": "\n\n  index_t nimages = dims[0];\n  index_t M = dims[ndims-1];\n  index_t N = dims[ndims-2];\n  index_t imsize = N*M;\n\n  int x;\n  for(x=1;x<(ndims-2);x++){\n    nimages = nimages * dims[x];\n  }   \n  index_t nimages = dims[0];\n  index_t M = dims[ndims-1];\n  index_t N = dims[ndims-2];\n  index_t imsize = N*M;\n\n  int x;\n  for(x=1;x<(ndims-2);x++){\n    nimages = nimages * dims[x];\n  }   \n\n  index_t *map = malloc(sizeof(index_t) * imsize);\n  if(!map){\n    return;\n  }\n\n#pragma omp parallel shared(in,out,map,N,M,imsize,nimages)\n  {\n    index_t i;\n#pragma omp for private(i) \n    for(i=0;i<imsize;i++){",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 56,
+    "line_text": "  index_t *map = malloc(sizeof(index_t) * imsize);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

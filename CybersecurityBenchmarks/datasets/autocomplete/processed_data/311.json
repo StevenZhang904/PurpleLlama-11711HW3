@@ -1,0 +1,13 @@
+{
+    "file_path": "gdal-1.10.0/ogr/ogrsf_frmts/oci/ogrocitablelayer.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    pszCommand = (char *) CPLMalloc(nCommandBufSize);\n\n/* -------------------------------------------------------------------- */\n/*      Form the INSERT command.                                        */\n/* -------------------------------------------------------------------- */\n    sprintf( pszCommand, \"INSERT INTO \\\"%s\\\"(\\\"\", poFeatureDefn->GetName() );\n\n    if( poFeature->GetGeometryRef() != NULL )\n    {\n        bNeedComma = TRUE;    pszCommand = (char *) CPLMalloc(nCommandBufSize);\n\n/* -------------------------------------------------------------------- */\n/*      Form the INSERT command.                                        */\n/* -------------------------------------------------------------------- */\n    sprintf( pszCommand, \"INSERT INTO \\\"%s\\\"(\\\"\", poFeatureDefn->GetName() );\n\n    if( poFeature->GetGeometryRef() != NULL )\n    {\n        bNeedComma = TRUE;\n        strcat( pszCommand, pszGeomName );\n    }\n    \n    if( pszFIDName != NULL )\n    {\n        if( bNeedComma )\n            strcat( pszCommand, \"\\\",\\\"\" );\n        \n        strcat( pszCommand, pszFIDName );\n        bNeedComma = TRUE;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 858,
+    "line_text": "        strcat( pszCommand, pszGeomName );",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

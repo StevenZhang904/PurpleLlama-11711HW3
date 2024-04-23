@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Speedata.php",
+    "vulnerability": null,
+    "source code": "\n\n                    }\n                    $this->driver()->set($pattern, json_encode($newTab));\n                }\n            }\n            $this->unlock('delete');\n            return $this;\n        }\n\n        public function update($update, $where = null)\n        {                    }\n                    $this->driver()->set($pattern, json_encode($newTab));\n                }\n            }\n            $this->unlock('delete');\n            return $this;\n        }\n\n        public function update($update, $where = null)\n        {\n            $res = !empty($where) ? $this->where($where)->exec() : $this->all(true);\n            if (count($res)) {\n                list($field, $newValue) = explode(' = ', $update, 2);\n                foreach ($res as $row) {\n                    $val = isAke($row, $field, null);\n                    if ($val != $newValue) {\n                        $row[$field] = $newValue;\n                        $this->edit($row['id'], $row);\n                    }\n                }",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 226,
+    "line_text": "            $res = !empty($where) ? $this->where($where)->exec() : $this->all(true);",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

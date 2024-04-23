@@ -1,0 +1,13 @@
+{
+    "file_path": "nova/utils.py",
+    "vulnerability": null,
+    "source code": "\n\n                continue\n            properties[key] = value\n\n    image_meta['properties'] = properties\n\n    return image_meta\n\n\ndef get_hash_str(base_str):\n    \"\"\"returns string that represents hash of base_str (in hex format).\"\"\"                continue\n            properties[key] = value\n\n    image_meta['properties'] = properties\n\n    return image_meta\n\n\ndef get_hash_str(base_str):\n    \"\"\"returns string that represents hash of base_str (in hex format).\"\"\"\n    return hashlib.md5(base_str).hexdigest()\n\nif hasattr(hmac, 'compare_digest'):\n    constant_time_compare = hmac.compare_digest\nelse:\n    def constant_time_compare(first, second):\n        \"\"\"Returns True if both string inputs are equal, otherwise False.\n\n        This function should take a constant amount of time regardless of\n        how many characters in the strings match.",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 1149,
+    "line_text": "    return hashlib.md5(base_str).hexdigest()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "demo/directed_percolation.cpp",
+    "vulnerability": null,
+    "source code": "\n\n#include <stdlib.h>\n#include <stdio.h>\n#include <time.h>\n#include <algorithm>\n#include <cstdlib>\n#include <vector>\n#include \"../xcbwin.h\"\n\n\ndouble get_rand() {#include <stdlib.h>\n#include <stdio.h>\n#include <time.h>\n#include <algorithm>\n#include <cstdlib>\n#include <vector>\n#include \"../xcbwin.h\"\n\n\ndouble get_rand() {\n  return static_cast<double>(rand()) / RAND_MAX;\n}\n\n// this function does the percolation steps\n// since google-c++-style does not allow references\n// for out-parameters, we use a pointer\nvoid doPercolationStep(vector<int>* sites, const double PROP, int time) {\n  int size = sites->size();\n  int even = time%2;\n  for (int i = even; i < size; i += 2) {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 17,
+    "line_text": "  return static_cast<double>(rand()) / RAND_MAX;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

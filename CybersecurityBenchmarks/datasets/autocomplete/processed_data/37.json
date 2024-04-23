@@ -1,0 +1,13 @@
+{
+    "file_path": "TIGString.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\tfor (i = 0; i < strlen(tigString1->string); i++)\n\t\t{\n\t\t\tcharacter[0] = tigString1->string[i];\n\t\t\tcharacter[1] = '\\0';\n\t\t\t\n\t\t\tif (index == i)\n\t\t\t{\n\t\t\t\tstrcat(newString, tigString2->string);\n\t\t\t}\n\t\t\t\t\tfor (i = 0; i < strlen(tigString1->string); i++)\n\t\t{\n\t\t\tcharacter[0] = tigString1->string[i];\n\t\t\tcharacter[1] = '\\0';\n\t\t\t\n\t\t\tif (index == i)\n\t\t\t{\n\t\t\t\tstrcat(newString, tigString2->string);\n\t\t\t}\n\t\t\t\n\t\t\tstrcat(newString, character);\n\t\t}\n\t}\n\t\n\tTIGValue *theString = TIGStringInput(NULL, newString);\n\n\tfree(newString);\n\tnewString = NULL;\n\n\treturn theString;",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 451,
+    "line_text": "\t\t\tstrcat(newString, character);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

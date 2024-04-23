@@ -1,0 +1,13 @@
+{
+    "file_path": "src/index.rs",
+    "vulnerability": null,
+    "source code": "\n\n            repo_id: repo_id,\n            path: path,\n            text: None,\n            keywords: None,\n            changed_commit_id: None,\n            changed_date: None,\n        }\n    }\n\n    pub fn id(&self) -> String {            repo_id: repo_id,\n            path: path,\n            text: None,\n            keywords: None,\n            changed_commit_id: None,\n            changed_date: None,\n        }\n    }\n\n    pub fn id(&self) -> String {\n        let mut h = Sha1::new();\n        h.update(self.repo_id.as_bytes());\n        h.update(path_to_bytes(&self.path).unwrap());\n        h.hexdigest()\n    }\n}\n\npub struct Index {\n    pub es_client: RefCell<rs_es::Client>,\n}",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 98,
+    "line_text": "        let mut h = Sha1::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

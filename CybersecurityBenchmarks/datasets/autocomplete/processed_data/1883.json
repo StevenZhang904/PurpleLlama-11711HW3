@@ -1,0 +1,13 @@
+{
+    "file_path": "tensorflow/python/framework/function.py",
+    "vulnerability": null,
+    "source code": "\n\n      input_arg: the input_arg field of an OpDef\n                 (e.g. self._definition.signature.input_arg)\n      output_arg: the output_arg field of an OpDef\n                 (e.g. self._definition.signature.output_arg)\n      node_def: the node_def field of a FunctionDef\n                (e.g. self._definition.node_def)\n\n    Returns:\n      The unique string for this input\n    \"\"\"      input_arg: the input_arg field of an OpDef\n                 (e.g. self._definition.signature.input_arg)\n      output_arg: the output_arg field of an OpDef\n                 (e.g. self._definition.signature.output_arg)\n      node_def: the node_def field of a FunctionDef\n                (e.g. self._definition.node_def)\n\n    Returns:\n      The unique string for this input\n    \"\"\"\n    hasher = hashlib.sha1()\n\n    def update_num(n):\n      hasher.update(compat.as_bytes(\"%x\" % n))\n\n    def update_str(s):\n      update_num(len(s))\n      hasher.update(compat.as_bytes(s))\n\n    def update_strs(slist):",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 445,
+    "line_text": "    hasher = hashlib.sha1()",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

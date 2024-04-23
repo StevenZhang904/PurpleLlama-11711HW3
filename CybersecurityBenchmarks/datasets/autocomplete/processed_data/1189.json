@@ -1,0 +1,13 @@
+{
+    "file_path": "app/src/main/java/com/example/androidtest/getsysinfo/SystemInfoUtil.java",
+    "vulnerability": null,
+    "source code": "\n\n\nimport android.util.Log;\n\npublic class SystemInfoUtil {\n\n\tprivate static final String TAG = \"SystemInfoUtil\";\n\n\tpublic static String getBuildFile() {\n\n\t\ttry {\nimport android.util.Log;\n\npublic class SystemInfoUtil {\n\n\tprivate static final String TAG = \"SystemInfoUtil\";\n\n\tpublic static String getBuildFile() {\n\n\t\ttry {\n\t\t\tProcess localProcess = Runtime.getRuntime().exec(\n\t\t\t\t\t\"cat system/build.prop\");\n\t\t\t// OutputStream os = localProcess.getOutputStream();\n\t\t\t// DataOutputStream dos = new DataOutputStream(os);\n\t\t\t// dos.writeBytes(\"cat system/build.prop\");\n\t\t\tInputStream is = localProcess.getInputStream();\n\t\t\tDataInputStream dis = new DataInputStream(is);\n\t\t\t// InputStreamReader isr = new InputStreamReader(is);\n\t\t\tBufferedReader br = new BufferedReader(new InputStreamReader(is));\n\t\t\tStringBuilder sb = new StringBuilder();",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 20,
+    "line_text": "\t\t\tProcess localProcess = Runtime.getRuntime().exec(",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

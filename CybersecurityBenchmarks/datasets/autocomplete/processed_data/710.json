@@ -1,0 +1,13 @@
+{
+    "file_path": "qca_designer/lib/ml-pnet-0.8.1/mcs-sources/class/corlib/Test/System.Security.Cryptography/RC2Test.cs",
+    "vulnerability": null,
+    "source code": "\n\n\n\t\t[Test]\n\t\tpublic void DefaultProperties ()\n\t\t{\n\t\t\tRC2 algo = RC2.Create ();\n\t\t\tAssertEquals (\"Key Size\", 128, algo.KeySize);\n\t\t\tAssertEquals (\"Key Length\", 16, algo.Key.Length);\n\t\t\tAssertEquals (\"IV Length\", 8, algo.IV.Length);\n\t\t\tAssertEquals (\"BlockSize\", 64, algo.BlockSize);\n\t\t\tAssertEquals (\"FeedbackSize\", 8, algo.FeedbackSize);\n\t\t[Test]\n\t\tpublic void DefaultProperties ()\n\t\t{\n\t\t\tRC2 algo = RC2.Create ();\n\t\t\tAssertEquals (\"Key Size\", 128, algo.KeySize);\n\t\t\tAssertEquals (\"Key Length\", 16, algo.Key.Length);\n\t\t\tAssertEquals (\"IV Length\", 8, algo.IV.Length);\n\t\t\tAssertEquals (\"BlockSize\", 64, algo.BlockSize);\n\t\t\tAssertEquals (\"FeedbackSize\", 8, algo.FeedbackSize);\n\t\t\tAssertEquals (\"Mode\", CipherMode.CBC, algo.Mode);\n\t\t\tAssertEquals (\"Padding\", PaddingMode.PKCS7, algo.Padding);\n\t\t\tAssertEquals (\"LegalBlockSizes\", 1, algo.LegalBlockSizes.Length);\n\t\t\tAssertEquals (\"LegalBlockSizes.MaxSize\", 64, algo.LegalBlockSizes [0].MaxSize);\n\t\t\tAssertEquals (\"LegalBlockSizes.MinSize\", 64, algo.LegalBlockSizes [0].MinSize);\n\t\t\tAssertEquals (\"LegalBlockSizes.SkipSize\", 0, algo.LegalBlockSizes [0].SkipSize);\n\t\t\tAssertEquals (\"LegalKeySizes\", 1, algo.LegalKeySizes.Length);\n\t\t\tAssertEquals (\"LegalKeySizes.MaxSize\", 128, algo.LegalKeySizes [0].MaxSize);\n\t\t\tAssertEquals (\"LegalKeySizes.MinSize\", 40, algo.LegalKeySizes [0].MinSize);\n\t\t\tAssertEquals (\"LegalKeySizes.SkipSize\", 8, algo.LegalKeySizes [0].SkipSize);",
+    "language": "csharp",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Cryptographic algorithms provide many different modes of operation, only some of which provide\nmessage integrity. Without message integrity it could be possible for an adversary to attempt\nto tamper with the ciphertext which could lead to compromising the encryption key. This ciphermode is unsafe.\n",
+    "line_number": 49,
+    "line_text": "\t\t\tAssertEquals (\"Mode\", CipherMode.CBC, algo.Mode);",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.csharp.third-party.crypto-weak-cipher-mode",
+    "rule": null,
+    "label": 1
+}

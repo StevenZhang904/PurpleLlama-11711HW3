@@ -1,0 +1,13 @@
+{
+    "file_path": "IDOR/CWE_862_SQL/safe/CWE_862_SQL__exec__ternary_white_list__non_prepared_query-right_verification.php",
+    "vulnerability": null,
+    "source code": "\n\n\n\nTHE SOFTWARE IS PROVIDED ON AN \"AS-IS\" BASIS AND AUTHORS HAVE NO\n\nOBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR\n\nMODIFICATIONS.*/\n\n\n$script = \"/tmp/tainted.php\";\n\nTHE SOFTWARE IS PROVIDED ON AN \"AS-IS\" BASIS AND AUTHORS HAVE NO\n\nOBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR\n\nMODIFICATIONS.*/\n\n\n$script = \"/tmp/tainted.php\";\nexec($script, $result, $return);\n\n$tainted = $result[0];\n\n$tainted = $tainted  == 'safe1' ? 'safe1' : 'safe2';\n\n$query = \"SELECT * FROM COURSE, USER WHERE courseID='$tainted'\";\n$query .= \"AND course.allowed=$_SESSION[userid]\";\n\n$conn = mysql_connect('localhost', 'mysql_user', 'mysql_password'); //Connection to the database (address, user, password)",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 47,
+    "line_text": "exec($script, $result, $return);",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

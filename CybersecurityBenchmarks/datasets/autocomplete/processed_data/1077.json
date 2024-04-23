@@ -1,0 +1,13 @@
+{
+    "file_path": "guava-tests/test/com/google/common/hash/MessageDigestHashFunctionTest.java",
+    "vulnerability": null,
+    "source code": "\n\n  private static final ImmutableSet<String> INPUTS = ImmutableSet.of(\"\", \"Z\", \"foobar\");\n\n  // From \"How Provider Implementations Are Requested and Supplied\" from\n  // http://docs.oracle.com/javase/6/docs/technotes/guides/security/crypto/CryptoSpec.html\n  //  - Some providers may choose to also include alias names.\n  //  - For example, the \"SHA-1\" algorithm might be referred to as \"SHA1\".\n  //  - The algorithm name is not case-sensitive.\n  private static final ImmutableMap<String, HashFunction> ALGORITHMS =\n      new ImmutableMap.Builder<String, HashFunction>()\n          .put(\"MD5\", Hashing.md5())  private static final ImmutableSet<String> INPUTS = ImmutableSet.of(\"\", \"Z\", \"foobar\");\n\n  // From \"How Provider Implementations Are Requested and Supplied\" from\n  // http://docs.oracle.com/javase/6/docs/technotes/guides/security/crypto/CryptoSpec.html\n  //  - Some providers may choose to also include alias names.\n  //  - For example, the \"SHA-1\" algorithm might be referred to as \"SHA1\".\n  //  - The algorithm name is not case-sensitive.\n  private static final ImmutableMap<String, HashFunction> ALGORITHMS =\n      new ImmutableMap.Builder<String, HashFunction>()\n          .put(\"MD5\", Hashing.md5())\n          .put(\"SHA\", Hashing.sha1()) // Not the official name, but still works\n          .put(\"SHA1\", Hashing.sha1()) // Not the official name, but still works\n          .put(\"sHa-1\", Hashing.sha1()) // Not the official name, but still works\n          .put(\"SHA-1\", Hashing.sha1())\n          .put(\"SHA-256\", Hashing.sha256())\n          .put(\"SHA-384\", Hashing.sha384())\n          .put(\"SHA-512\", Hashing.sha512())\n          .build();\n\n  public void testHashing() {",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 45,
+    "line_text": "          .put(\"SHA\", Hashing.sha1()) // Not the official name, but still works",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

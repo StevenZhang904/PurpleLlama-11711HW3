@@ -1,0 +1,13 @@
+{
+    "file_path": "nannou/src/window.rs",
+    "vulnerability": null,
+    "source code": "\n\n            power_preference,\n            device_desc,\n            user_functions,\n            msaa_samples,\n            max_capture_frame_jobs,\n            capture_frame_timeout,\n        } = self;\n\n        // If the title was not set, default to the \"nannou - <exe_name>\".\n        if !title_was_set {            power_preference,\n            device_desc,\n            user_functions,\n            msaa_samples,\n            max_capture_frame_jobs,\n            capture_frame_timeout,\n        } = self;\n\n        // If the title was not set, default to the \"nannou - <exe_name>\".\n        if !title_was_set {\n            if let Ok(exe_path) = env::current_exe() {\n                if let Some(os_str) = exe_path.file_stem() {\n                    if let Some(exe_name) = os_str.to_str() {\n                        let title = format!(\"nannou - {}\", exe_name);\n                        window = window.with_title(title);\n                    }\n                }\n            }\n        }\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 707,
+    "line_text": "            if let Ok(exe_path) = env::current_exe() {",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

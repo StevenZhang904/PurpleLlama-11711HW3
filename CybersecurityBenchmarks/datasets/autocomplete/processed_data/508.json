@@ -1,0 +1,13 @@
+{
+    "file_path": "com.wjlc/com.wjlc.util/EncryptHelper.cs",
+    "vulnerability": null,
+    "source code": "\n\n            byte[] iv = guid2.ToByteArray();\n\n            string[] toRecover = encrypt.Split(new char[] { '-' });\n            byte[] br = new byte[toRecover.Length];\n            for (int i = 0; i < toRecover.Length; i++)\n            {\n                br[i] = byte.Parse(toRecover[i], NumberStyles.HexNumber);\n            }\n\n            MemoryStream mem = new MemoryStream();            byte[] iv = guid2.ToByteArray();\n\n            string[] toRecover = encrypt.Split(new char[] { '-' });\n            byte[] br = new byte[toRecover.Length];\n            for (int i = 0; i < toRecover.Length; i++)\n            {\n                br[i] = byte.Parse(toRecover[i], NumberStyles.HexNumber);\n            }\n\n            MemoryStream mem = new MemoryStream();\n            TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();\n            CryptoStream encStream = new CryptoStream(mem, tdes.CreateDecryptor(key, iv), CryptoStreamMode.Write);\n            encStream.Write(br, 0, br.Length);\n            encStream.FlushFinalBlock();\n\n            byte[] result = new byte[mem.Length];\n            Array.Copy(mem.GetBuffer(), 0, result, 0, mem.Length);\n\n            return Encoding.UTF8.GetString(result, 0, result.Length);\n        }",
+    "language": "csharp",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "DES, TripleDES and RC2 are all considered broken or insecure cryptographic algorithms.\n",
+    "line_number": 111,
+    "line_text": "            TripleDESCryptoServiceProvider tdes = new TripleDESCryptoServiceProvider();",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.csharp.third-party.crypto-weak-cipher-algorithm",
+    "rule": null,
+    "label": 1
+}

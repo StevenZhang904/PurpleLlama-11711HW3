@@ -1,0 +1,13 @@
+{
+    "file_path": "config/src/config/mod.rs",
+    "vulnerability": null,
+    "source code": "\n\n        } else {\n            self.validator_network = None;\n            if self.full_node_networks.is_empty() {\n                let network_config = NetworkConfig::network_with_id(NetworkId::Public);\n                self.full_node_networks.push(network_config);\n            }\n            for network in &mut self.full_node_networks {\n                network.random(rng);\n            }\n        }        } else {\n            self.validator_network = None;\n            if self.full_node_networks.is_empty() {\n                let network_config = NetworkConfig::network_with_id(NetworkId::Public);\n                self.full_node_networks.push(network_config);\n            }\n            for network in &mut self.full_node_networks {\n                network.random(rng);\n            }\n        }\n        self.set_data_dir(test.temp_dir().unwrap().to_path_buf());\n        self.test = Some(test);\n    }\n\n    fn default_config(serialized: &str, path: &'static str) -> Self {\n        let config = Self::parse(serialized).unwrap_or_else(|e| panic!(\"Error in {}: {}\", path, e));\n        config\n            .validate_network_configs()\n            .unwrap_or_else(|e| panic!(\"Error in {}: {}\", path, e))\n    }",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 340,
+    "line_text": "        self.set_data_dir(test.temp_dir().unwrap().to_path_buf());",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

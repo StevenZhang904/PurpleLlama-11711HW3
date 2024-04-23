@@ -1,0 +1,13 @@
+{
+    "file_path": "Samples/IFCTools/ifcconvector.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\t\tif (lastItem >= 0 && indices[startIndexFacesPolygons + i] >= 0) {\n\t\t\t\t\t\tindicesForLinesWireFrame[2 * ifcObject->noPrimitivesForWireFrame + 0] = lastItem;\n\t\t\t\t\t\tindicesForLinesWireFrame[2 * ifcObject->noPrimitivesForWireFrame + 1] = indices[startIndexFacesPolygons + i];\n\t\t\t\t\t\tifcObject->noPrimitivesForWireFrame++;\n\t\t\t\t\t}\n\t\t\t\t\tlastItem = indices[startIndexFacesPolygons + i];\n\t\t\t\t\ti++;\n\t\t\t\t}\n\t\t\t}\n\t\t\t\t\tif (lastItem >= 0 && indices[startIndexFacesPolygons + i] >= 0) {\n\t\t\t\t\t\tindicesForLinesWireFrame[2 * ifcObject->noPrimitivesForWireFrame + 0] = lastItem;\n\t\t\t\t\t\tindicesForLinesWireFrame[2 * ifcObject->noPrimitivesForWireFrame + 1] = indices[startIndexFacesPolygons + i];\n\t\t\t\t\t\tifcObject->noPrimitivesForWireFrame++;\n\t\t\t\t\t}\n\t\t\t\t\tlastItem = indices[startIndexFacesPolygons + i];\n\t\t\t\t\ti++;\n\t\t\t\t}\n\t\t\t}\n\n\t\t\tifcObject->indicesForPoints = new int32_t[3 * ifcObject->noPrimitivesForPoints];\n\t\t\tifcObject->indicesForLines = new int32_t[3 * ifcObject->noPrimitivesForLines];\n\t\t\tifcObject->indicesForFaces = new int32_t[3 * ifcObject->noPrimitivesForFaces];\n\t\t\tifcObject->indicesForLinesWireFrame = new int32_t[2 * ifcObject->noPrimitivesForWireFrame];\n\n\t\t\tmemcpy(ifcObject->indicesForPoints, indicesForPoints, 1 * ifcObject->noPrimitivesForPoints * sizeof(int32_t));\n\t\t\tmemcpy(ifcObject->indicesForLines, indicesForLines, 2 * ifcObject->noPrimitivesForLines * sizeof(int32_t));\n\t\t\tmemcpy(ifcObject->indicesForFaces, indicesForFaces, 3 * ifcObject->noPrimitivesForFaces * sizeof(int32_t));\n\t\t\tmemcpy(ifcObject->indicesForLinesWireFrame, indicesForLinesWireFrame, 2 * ifcObject->noPrimitivesForWireFrame * sizeof(int32_t));\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 1455,
+    "line_text": "\t\t\tifcObject->indicesForPoints = new int32_t[3 * ifcObject->noPrimitivesForPoints];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

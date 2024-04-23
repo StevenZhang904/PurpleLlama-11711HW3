@@ -1,0 +1,13 @@
+{
+    "file_path": "UVa/300 - Maya Calendar.cpp",
+    "vulnerability": null,
+    "source code": "\n\n{\n  int n;\n  int d, m, y; \n  int sum;\n  char month[10];\n\n  scanf(\"%d\", &n);\n\n  printf(\"%d\\n\", n);\n  while (n--) {{\n  int n;\n  int d, m, y; \n  int sum;\n  char month[10];\n\n  scanf(\"%d\", &n);\n\n  printf(\"%d\\n\", n);\n  while (n--) {\n    scanf(\" %d. %s %d\", &d, month, &y);\n\n    for (int i = 0; i < 19; i++)\n      if (!strcmp(month, haab[i])) {\n        m = i;\n        break;\n      }\n\n    \n    sum = y*365 + m*20 + d;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 16,
+    "line_text": "    scanf(\" %d. %s %d\", &d, month, &y);",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

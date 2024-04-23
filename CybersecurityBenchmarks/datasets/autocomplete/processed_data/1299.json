@@ -1,0 +1,13 @@
+{
+    "file_path": "src/discovery.rs",
+    "vulnerability": null,
+    "source code": "\n\n    }\n\n    let x = PathBuf::from(\"/etc/pq\");\n    tested_things.push(format!(\"Directory: {:?}\", x));\n    fdset_files.append(&mut get_fdset_files_from_path(&x));\n\n    (fdset_files, tested_things)\n}\n\npub fn compile_descriptors_from_proto(proto_file: &str) -> PathBuf {    }\n\n    let x = PathBuf::from(\"/etc/pq\");\n    tested_things.push(format!(\"Directory: {:?}\", x));\n    fdset_files.append(&mut get_fdset_files_from_path(&x));\n\n    (fdset_files, tested_things)\n}\n\npub fn compile_descriptors_from_proto(proto_file: &str) -> PathBuf {\n    let fdset_path = env::temp_dir().join(\"tmp-pq.fdset\");\n\n    let mut cmd = Command::new(protoc());\n    cmd.arg(\"--include_imports\")\n        .arg(\"--include_source_info\")\n        .arg(\"-o\")\n        .arg(&fdset_path)\n        .arg(proto_file);\n\n    cmd.arg(\"-I\").arg(protoc_include());",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 71,
+    "line_text": "    let fdset_path = env::temp_dir().join(\"tmp-pq.fdset\");",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Code Execution/Discourse_SNS_webhook_RCE.rb",
+    "vulnerability": "Vulnerabilities Detected:\n1. Lack of input validation: The code does not validate the input parameters (args) before using them.\n2. Insecure use of open: The open method is used to access the SubscribeURL without any validation.\n3. Insecure use of require: The require method is used to load the AWS-SDK-SNS library without any validation.",
+    "source code": "# frozen_string_literal: true\n\nmodule Jobs\n\n  class ConfirmSnsSubscription < ::Jobs::Base\n    sidekiq_options retry: false\n\n    def execute(args)\n      return unless raw = args[:raw].presence\n      return unless json = args[:json].presence\n      return unless subscribe_url = json[\"SubscribeURL\"].presence\n\n      require \"aws-sdk-sns\"\n      return unless Aws::SNS::MessageVerifier.new.authentic?(raw)\n\n      # confirm subscription by visiting the URL\n      open(subscribe_url)\n    end\n\n  end\n\nend\n",
+    "language": "ruby",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

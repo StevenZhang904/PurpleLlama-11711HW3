@@ -1,0 +1,13 @@
+{
+    "file_path": "pnet_macros/src/decorator.rs",
+    "vulnerability": null,
+    "source code": "\n\n                                             assert!(vals.len() <= len);\",\n                                             packet_length = field.packet_length.as_ref().unwrap())\n        } else {\n            String::new()\n        };\n\n        let copy_vals = if inner_ty_str == \"u8\" {\n            // Efficient copy_nonoverlapping (memcpy)\n            format!(\"\n                                    // &mut and & can never overlap                                             assert!(vals.len() <= len);\",\n                                             packet_length = field.packet_length.as_ref().unwrap())\n        } else {\n            String::new()\n        };\n\n        let copy_vals = if inner_ty_str == \"u8\" {\n            // Efficient copy_nonoverlapping (memcpy)\n            format!(\"\n                                    // &mut and & can never overlap\n                                    unsafe {{\n                                        copy_nonoverlapping(vals[..].as_ptr(),\n                                                            _self.packet[current_offset..].as_mut_ptr(),\n                                                            vals.len())\n                                    }}\n                                \")\n        } else {\n            // e.g. Vec<u16> -> Vec<u8>\n            let sop_strings = generate_sop_strings(&to_mutator(&ops));\n            format!(\"",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 570,
+    "line_text": "                                    unsafe {{",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

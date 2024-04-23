@@ -1,0 +1,13 @@
+{
+    "file_path": "library/std/src/sync/mpsc/mod.rs",
+    "vulnerability": null,
+    "source code": "\n\n    ///\n    /// // This send is always successful\n    /// tx.send(1).unwrap();\n    ///\n    /// // This send will fail because the receiver is gone\n    /// drop(rx);\n    /// assert_eq!(tx.send(1).unwrap_err().0, 1);\n    /// ```\n    #[stable(feature = \"rust1\", since = \"1.0.0\")]\n    pub fn send(&self, t: T) -> Result<(), SendError<T>> {    ///\n    /// // This send is always successful\n    /// tx.send(1).unwrap();\n    ///\n    /// // This send will fail because the receiver is gone\n    /// drop(rx);\n    /// assert_eq!(tx.send(1).unwrap_err().0, 1);\n    /// ```\n    #[stable(feature = \"rust1\", since = \"1.0.0\")]\n    pub fn send(&self, t: T) -> Result<(), SendError<T>> {\n        let (new_inner, ret) = match *unsafe { self.inner() } {\n            Flavor::Oneshot(ref p) => {\n                if !p.sent() {\n                    return p.send(t).map_err(SendError);\n                } else {\n                    let a = Arc::new(stream::Packet::new());\n                    let rx = Receiver::new(Flavor::Stream(a.clone()));\n                    match p.upgrade(rx) {\n                        oneshot::UpSuccess => {\n                            let ret = a.send(t);",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 802,
+    "line_text": "        let (new_inner, ret) = match *unsafe { self.inner() } {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

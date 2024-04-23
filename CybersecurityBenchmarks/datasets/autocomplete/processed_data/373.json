@@ -1,0 +1,13 @@
+{
+    "file_path": "deps/injector/include/injector/gvm/gvm.hpp",
+    "vulnerability": null,
+    "source code": "\n\n        bool IsSA () { return game == 'S'; }\n\n\t\t// Detects game, region and version; returns false if could not detect it\n\t\tbool Detect();\n        \n\t\t// Gets the game version as text, the buffer must contain at least 32 bytes of space.\n        char* GetVersionText(char* buffer)\n        {\n            if(this->IsUnknown())\n            {        bool IsSA () { return game == 'S'; }\n\n\t\t// Detects game, region and version; returns false if could not detect it\n\t\tbool Detect();\n        \n\t\t// Gets the game version as text, the buffer must contain at least 32 bytes of space.\n        char* GetVersionText(char* buffer)\n        {\n            if(this->IsUnknown())\n            {\n                strcpy(buffer, \"UNKNOWN GAME\");\n                return buffer;\n            }\n\n            const char* g = this->IsIII()? \"III\" : this->IsVC()? \"VC\" : this->IsSA()? \"SA\" : \"UNK\";\n            const char* r = this->IsUS()? \"US\" : this->IsEU()? \"EURO\" : \"UNK_REGION\";\n            const char* s = this->IsSteam()? \"Steam\" : \"\";\n            sprintf(buffer, \"GTA %s %d.%d %s%s\", g, major, minor, r, s);\n            return buffer;\n        }",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 102,
+    "line_text": "                strcpy(buffer, \"UNKNOWN GAME\");",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

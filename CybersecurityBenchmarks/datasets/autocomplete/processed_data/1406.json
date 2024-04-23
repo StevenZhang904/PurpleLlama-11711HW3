@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Minify/Source.php",
+    "vulnerability": null,
+    "source code": "\n\n     * \n     * @return string\n     */\n    public static function getDigest($sources)\n    {\n        foreach ($sources as $source) {\n            $info[] = array(\n                $source->_id, $source->minifier, $source->minifyOptions\n            );\n        }     * \n     * @return string\n     */\n    public static function getDigest($sources)\n    {\n        foreach ($sources as $source) {\n            $info[] = array(\n                $source->_id, $source->minifier, $source->minifyOptions\n            );\n        }\n        return md5(serialize($info));\n    }\n    \n    /**\n     * Get content type from a group of sources\n     * \n     * This is called if the user doesn't pass in a 'contentType' options  \n     * \n     * @param array $sources Minify_Source instances\n     * ",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 170,
+    "line_text": "        return md5(serialize($info));",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/bgfx.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n\t\tif (BX_UNLIKELY(NULL == g_callback) )\n\t\t{\n\t\t\tbx::debugPrintfVargs(_format, argList);\n\t\t\tabort();\n\t\t}\n\t\telse\n\t\t{\n\t\t\tchar temp[8192];\n\t\t\tchar* out = temp;\n\t\tif (BX_UNLIKELY(NULL == g_callback) )\n\t\t{\n\t\t\tbx::debugPrintfVargs(_format, argList);\n\t\t\tabort();\n\t\t}\n\t\telse\n\t\t{\n\t\t\tchar temp[8192];\n\t\t\tchar* out = temp;\n\t\t\tint32_t len = bx::vsnprintf(out, sizeof(temp), _format, argList);\n\t\t\tif ( (int32_t)sizeof(temp) < len)\n\t\t\t{\n\t\t\t\tout = (char*)alloca(len+1);\n\t\t\t\tlen = bx::vsnprintf(out, len, _format, argList);\n\t\t\t}\n\t\t\tout[len] = '\\0';\n\n\t\t\tg_callback->fatal(_code, out);\n\t\t}",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential out of bounds access due to improper validation of return values of .*snprintf.* functions",
+    "line_number": 404,
+    "line_text": "\t\t\tint32_t len = bx::vsnprintf(out, sizeof(temp), _format, argList);",
+    "pattern_id": "C-W-002",
+    "rule": "{ $ret = $snprintf_family($b); not: $ret < _; $b[$ret] = _;}",
+    "label": 1
+}

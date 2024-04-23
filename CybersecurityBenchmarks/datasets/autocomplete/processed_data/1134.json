@@ -1,0 +1,13 @@
+{
+    "file_path": "server/ipConnection/ShellProcess.java",
+    "vulnerability": null,
+    "source code": "\n\n\t *   @param in InputStream vers lequel sera redirige l'entree standard\n\t *   @param timeout\ttemps en millisecondes avant de forcer l'arret (0 pour ne jamais forcer l'arret).*/  \t\n\tpublic ShellProcess(OutputStream out, OutputStream err, InputStream in, long timeout) {\n\t\tthis.out = out;\n\t\tthis.err = err;\n\t\tthis.in = in;\n\t\tthis.timeout = timeout < 0 ? 0L : timeout;\n\t}\n\n\tpublic int exec(String command) throws IOException {\t *   @param in InputStream vers lequel sera redirige l'entree standard\n\t *   @param timeout\ttemps en millisecondes avant de forcer l'arret (0 pour ne jamais forcer l'arret).*/  \t\n\tpublic ShellProcess(OutputStream out, OutputStream err, InputStream in, long timeout) {\n\t\tthis.out = out;\n\t\tthis.err = err;\n\t\tthis.in = in;\n\t\tthis.timeout = timeout < 0 ? 0L : timeout;\n\t}\n\n\tpublic int exec(String command) throws IOException {\n\t\tprocess = Runtime.getRuntime().exec(command);\n\t\treturn execute();\n\t}\n\tpublic int exec(String[] cmdarray) throws IOException {\n\t\tprocess = Runtime.getRuntime().exec(cmdarray);\n\t\treturn execute();\n\t}\n\tpublic int exec(String[] cmdarray, String[] envp) throws IOException {\n\t\tprocess = Runtime.getRuntime().exec(cmdarray, envp);\n\t\treturn execute();",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 55,
+    "line_text": "\t\tprocess = Runtime.getRuntime().exec(command);",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

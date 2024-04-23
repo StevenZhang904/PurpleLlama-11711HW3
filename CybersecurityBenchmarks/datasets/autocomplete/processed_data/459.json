@@ -1,0 +1,13 @@
+{
+    "file_path": "ThirdParty/CabLib/Cabinet/String.hpp",
+    "vulnerability": null,
+    "source code": "\n\n\t}\r\n\r\n// Visual Studio 6.0 will not compile this because VARIANT does not define llVal and ullVal\r\n// But for C++ projects this function is not required. It is only used in the .NET project.\r\n// So simply omit it from compiling on Visual Studio 6!\r\n#if _MSC_VER > 1200 \r\n\r\n\t// pk_Args is a pointer to an array of VARIANT's with s32_ArgCount entries\r\n\tvoid Format(const WCHAR* u16_Format, int s32_ArgCount, VARIANT* pk_Args)\r\n\t{\r\t}\r\n\r\n// Visual Studio 6.0 will not compile this because VARIANT does not define llVal and ullVal\r\n// But for C++ projects this function is not required. It is only used in the .NET project.\r\n// So simply omit it from compiling on Visual Studio 6!\r\n#if _MSC_VER > 1200 \r\n\r\n\t// pk_Args is a pointer to an array of VARIANT's with s32_ArgCount entries\r\n\tvoid Format(const WCHAR* u16_Format, int s32_ArgCount, VARIANT* pk_Args)\r\n\t{\r\n\t\tchar* s8_Stack = new char[s32_ArgCount * sizeof(VARIANT)]; // always big enough\r\n\t\tif  (!s8_Stack) throw \"Fatal error: Out of memory!\";       // Required for older Visual Studio versions\r\n\r\n\t\tva_list args = s8_Stack;\r\n\r\n\t\tfor (int i=0; i<s32_ArgCount; i++, pk_Args++)\r\n\t\t{\r\n\t\t\tswitch (pk_Args->vt)\r\n\t\t\t{\r\n\t\t\tcase VT_I1:   *((CHAR*)        args) = pk_Args->cVal;    va_arg(args, CHAR);         break;\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 354,
+    "line_text": "\t\tchar* s8_Stack = new char[s32_ArgCount * sizeof(VARIANT)]; // always big enough\r",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

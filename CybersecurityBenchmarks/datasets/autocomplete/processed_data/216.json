@@ -1,0 +1,13 @@
+{
+    "file_path": "test/core/security/credentials_test.c",
+    "vulnerability": null,
+    "source code": "\n\n    \"Ap6LI9W\\\\nIqv4vr6y38N79TTC\\\\n-----END PRIVATE KEY-----\\\\n\\\", \";\nstatic const char test_json_key_str_part3[] =\n    \"\\\"private_key_id\\\": \\\"e6b5137873db8d2ef81e06a47289e6434ec8a165\\\", \"\n    \"\\\"client_email\\\": \"\n    \"\\\"777-abaslkan11hlb6nmim3bpspl31ud@developer.gserviceaccount.\"\n    \"com\\\", \\\"client_id\\\": \"\n    \"\\\"777-abaslkan11hlb6nmim3bpspl31ud.apps.googleusercontent.\"\n    \"com\\\", \\\"type\\\": \\\"service_account\\\" }\";\n\nstatic const char valid_oauth2_json_response[] =    \"Ap6LI9W\\\\nIqv4vr6y38N79TTC\\\\n-----END PRIVATE KEY-----\\\\n\\\", \";\nstatic const char test_json_key_str_part3[] =\n    \"\\\"private_key_id\\\": \\\"e6b5137873db8d2ef81e06a47289e6434ec8a165\\\", \"\n    \"\\\"client_email\\\": \"\n    \"\\\"777-abaslkan11hlb6nmim3bpspl31ud@developer.gserviceaccount.\"\n    \"com\\\", \\\"client_id\\\": \"\n    \"\\\"777-abaslkan11hlb6nmim3bpspl31ud.apps.googleusercontent.\"\n    \"com\\\", \\\"type\\\": \\\"service_account\\\" }\";\n\nstatic const char valid_oauth2_json_response[] =\n    \"{\\\"access_token\\\":\\\"ya29.AHES6ZRN3-HlhAPya30GnW_bHSb_\\\",\"\n    \" \\\"expires_in\\\":3599, \"\n    \" \\\"token_type\\\":\\\"Bearer\\\"}\";\n\nstatic const char test_user_data[] = \"user data\";\n\nstatic const char test_scope[] = \"perm1 perm2\";\n\nstatic const char test_signed_jwt[] =\n    \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImY0OTRkN2M1YWU2MGRmOTcyNmM4YW\"",
+    "language": "c",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP 0Auth Token",
+    "line_number": 88,
+    "line_text": "    \"{\\\"access_token\\\":\\\"ya29.AHES6ZRN3-HlhAPya30GnW_bHSb_\\\",\"",
+    "pattern_id": "ALL-R-012",
+    "rule": "ya29\\.[A-Za-z0-9_-]+",
+    "label": 1
+}

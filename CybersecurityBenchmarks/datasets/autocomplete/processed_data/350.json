@@ -1,0 +1,13 @@
+{
+    "file_path": "src/wallet.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n    for (int nRep = 0; nRep < iterations && nBest != nTargetValue; nRep++)\n    {\n        vfIncluded.assign(vValue.size(), false);\n        int64_t nTotal = 0;\n        bool fReachedTarget = false;\n        for (int nPass = 0; nPass < 2 && !fReachedTarget; nPass++)\n        {\n            for (unsigned int i = 0; i < vValue.size(); i++)\n            {\n    for (int nRep = 0; nRep < iterations && nBest != nTargetValue; nRep++)\n    {\n        vfIncluded.assign(vValue.size(), false);\n        int64_t nTotal = 0;\n        bool fReachedTarget = false;\n        for (int nPass = 0; nPass < 2 && !fReachedTarget; nPass++)\n        {\n            for (unsigned int i = 0; i < vValue.size(); i++)\n            {\n                if (nPass == 0 ? rand() % 2 : !vfIncluded[i])\n                {\n                    nTotal += vValue[i].first;\n                    vfIncluded[i] = true;\n                    if (nTotal >= nTargetValue)\n                    {\n                        fReachedTarget = true;\n                        if (nTotal < nBest)\n                        {\n                            nBest = nTotal;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 1147,
+    "line_text": "                if (nPass == 0 ? rand() % 2 : !vfIncluded[i])",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

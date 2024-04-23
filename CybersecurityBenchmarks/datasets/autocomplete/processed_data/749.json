@@ -1,0 +1,13 @@
+{
+    "file_path": "android/playground/app/src/main/assets/showcase/minesweeper.js",
+    "vulnerability": null,
+    "source code": "\n\n\t      tile.state = \"open\";\n\t      this.map(pos[\"x\"], pos[\"y\"], function (node) {\n\t        if (node.around == 0 && node.state == \"normal\") {\n\t          context.dfs(node);\n\t        } else {\n\t          context.display(node);\n\t        }\n\t      });\n\t    },\n\t    random: function random(min, max) {\t      tile.state = \"open\";\n\t      this.map(pos[\"x\"], pos[\"y\"], function (node) {\n\t        if (node.around == 0 && node.state == \"normal\") {\n\t          context.dfs(node);\n\t        } else {\n\t          context.display(node);\n\t        }\n\t      });\n\t    },\n\t    random: function random(min, max) {\n\t      return parseInt(Math.random() * (max - min) + min);\n\t    },\n\t    plant: function plant() {\n\t      var count = 0;\n\t      while (count < this.max) {\n\t        var x = this.random(0, this.size);\n\t        var y = this.random(0, this.size);\n\t        var tile = this.row[x].col[y];\n\t        if (tile.value == 0) {\n\t          ++count;",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 210,
+    "line_text": "\t      return parseInt(Math.random() * (max - min) + min);",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

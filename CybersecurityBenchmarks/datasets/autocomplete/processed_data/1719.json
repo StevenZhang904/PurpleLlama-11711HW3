@@ -1,0 +1,13 @@
+{
+    "file_path": "features/steps/test_behave.py",
+    "vulnerability": null,
+    "source code": "\n\n\n@when('I execute command \"{command}\" with \"{result}\"')\ndef when_action_command(context, command, result):\n    assert command\n    context.pre_rpm_packages = get_rpm_package_list()\n    assert context.pre_rpm_packages\n    context.pre_rpm_packages_version = get_rpm_package_version_list()\n    assert context.pre_rpm_packages_version\n    context.pre_dnf_packages_version = get_dnf_package_version_list()\n    assert context.pre_dnf_packages_version\n@when('I execute command \"{command}\" with \"{result}\"')\ndef when_action_command(context, command, result):\n    assert command\n    context.pre_rpm_packages = get_rpm_package_list()\n    assert context.pre_rpm_packages\n    context.pre_rpm_packages_version = get_rpm_package_version_list()\n    assert context.pre_rpm_packages_version\n    context.pre_dnf_packages_version = get_dnf_package_version_list()\n    assert context.pre_dnf_packages_version\n    cmd_output = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)\n    context.cmd_rc = cmd_output.returncode\n    if result == \"success\":\n        assert context.cmd_rc == 0\n    elif result == \"fail\":\n        assert context.cmd_rc != 0\n    else:\n        raise AssertionError('The option {} is not allowed option for expected result of command. '\n                             'Allowed options are \"success\" and \"fail\"'.format(result))\n",
+    "language": "python",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection due to subprocess usage with shell=True.",
+    "line_number": 161,
+    "line_text": "    cmd_output = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-subprocess-using-shell",
+    "rule": null,
+    "label": 1
+}

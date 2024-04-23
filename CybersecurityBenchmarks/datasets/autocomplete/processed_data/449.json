@@ -1,0 +1,13 @@
+{
+    "file_path": "ga/core/ga-common.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t} else {\n\t\tmi->second.push_back(value);\n\t}\n\t// output?\n\tif(mi->second.size() >= limit) {\n\t\tint pos, left, wlen;\n\t\tchar *ptr, buf[16384] = \"AGGREGATED-VALUES:\";\n\t\tlist<int>::iterator li;\n\t\tstruct timeval tv;\n\t\t//\t} else {\n\t\tmi->second.push_back(value);\n\t}\n\t// output?\n\tif(mi->second.size() >= limit) {\n\t\tint pos, left, wlen;\n\t\tchar *ptr, buf[16384] = \"AGGREGATED-VALUES:\";\n\t\tlist<int>::iterator li;\n\t\tstruct timeval tv;\n\t\t//\n\t\tpos = snprintf(buf, sizeof(buf), \"AGGREGATED-OUTPUT[%04x]:\", key);\n\t\tleft = sizeof(buf) - pos;\n\t\tptr = buf + pos;\n\t\tfor(li = mi->second.begin(); li != mi->second.end() && left>16; li++) {\n\t\t\twlen = snprintf(ptr, left, \" %d\", *li);\n\t\t\tptr += wlen;\n\t\t\tleft -= wlen;\n\t\t}\n\t\tif(li != mi->second.end()) {\n\t\t\tga_error(\"insufficeient space for aggregated messages.\\n\");",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential out of bounds access due to improper validation of return values of .*snprintf.* functions",
+    "line_number": 639,
+    "line_text": "\t\tpos = snprintf(buf, sizeof(buf), \"AGGREGATED-OUTPUT[%04x]:\", key);",
+    "pattern_id": "C-W-003",
+    "rule": "{ $ret = $snprintf_family($b); not: $ret < _;  _($b + $ret);}",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/bootstrap/bin/rustc.rs",
+    "vulnerability": null,
+    "source code": "\n\n//! switching compilers for the bootstrap and for build scripts will probably\n//! never get replaced.\n\nuse std::env;\nuse std::path::PathBuf;\nuse std::process::{Child, Command};\nuse std::str::FromStr;\nuse std::time::Instant;\n\nfn main() {//! switching compilers for the bootstrap and for build scripts will probably\n//! never get replaced.\n\nuse std::env;\nuse std::path::PathBuf;\nuse std::process::{Child, Command};\nuse std::str::FromStr;\nuse std::time::Instant;\n\nfn main() {\n    let args = env::args_os().skip(1).collect::<Vec<_>>();\n\n    // Detect whether or not we're a build script depending on whether --target\n    // is passed (a bit janky...)\n    let target = args.windows(2).find(|w| &*w[0] == \"--target\").and_then(|w| w[1].to_str());\n    let version = args.iter().find(|w| &**w == \"-vV\");\n\n    let verbose = match env::var(\"RUSTC_VERBOSE\") {\n        Ok(s) => usize::from_str(&s).expect(\"RUSTC_VERBOSE should be an integer\"),\n        Err(_) => 0,",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 25,
+    "line_text": "    let args = env::args_os().skip(1).collect::<Vec<_>>();",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

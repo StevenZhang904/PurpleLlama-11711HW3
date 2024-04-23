@@ -1,0 +1,13 @@
+{
+    "file_path": "dataStructures/tree/BinomialTree.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\r\n\r\nint main(){\r\n    ///input array\r\n    int arrayLength=1;\r\n    for(int i=0; i<X; i++){\r\n        arrayLength = arrayLength * 2;\r\n    }\r\n    int array[arrayLength];\r\n    for(int i=0; i<arrayLength; i++){\r\r\n\r\nint main(){\r\n    ///input array\r\n    int arrayLength=1;\r\n    for(int i=0; i<X; i++){\r\n        arrayLength = arrayLength * 2;\r\n    }\r\n    int array[arrayLength];\r\n    for(int i=0; i<arrayLength; i++){\r\n        array[i]=rand()%100;\r\n        printf(\"%d \\n\", array[i]);///test\r\n    }\r\n\r\n    ///initialize null node\r\n    nullNode.value=-1;\r\n    nullNode.depth=0;\r\n    nullNode.previous=NULL;\r\n    for(int i=0; i<X; i++){\r\n        nullNode.next[i]=NULL;\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 31,
+    "line_text": "        array[i]=rand()%100;\r",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

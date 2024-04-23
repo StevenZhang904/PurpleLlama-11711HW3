@@ -1,0 +1,13 @@
+{
+    "file_path": "md5sum/md5sum.rs",
+    "vulnerability": null,
+    "source code": "\n\n        let files = if matches.free.is_empty() {\n            vec!(\"-\".to_string())\n        } else {\n            matches.free\n        };\n        md5sum(files, binary, check, tag, status, quiet, strict, warn);\n    }\n}\n\nfn md5sum(files: Vec<String>, binary: bool, check: bool, tag: bool, status: bool, quiet: bool, strict: bool, warn: bool) {        let files = if matches.free.is_empty() {\n            vec!(\"-\".to_string())\n        } else {\n            matches.free\n        };\n        md5sum(files, binary, check, tag, status, quiet, strict, warn);\n    }\n}\n\nfn md5sum(files: Vec<String>, binary: bool, check: bool, tag: bool, status: bool, quiet: bool, strict: bool, warn: bool) {\n    let mut md5 = crypto::md5::Md5::new();\n    let bytes = md5.output_bits() / 4;\n    let mut bad_format = 0;\n    let mut failed = 0;\n    for filename in files.iter() {\n        let filename: &str = filename.as_slice();\n        let mut file = BufferedReader::new(\n            if filename == \"-\" {\n                box stdin_raw() as Box<Reader>\n            } else {",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 80,
+    "line_text": "    let mut md5 = crypto::md5::Md5::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

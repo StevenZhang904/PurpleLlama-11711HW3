@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/nested/cl/nested.cpp",
+    "vulnerability": null,
+    "source code": "\n\n  cl_program program = clw.compile(filename);\n\n  // generate all kernels\n  clw.create_all_kernels(program);\n\n  // get handlers to kernels\n  cl_kernel k = clw.kernel_of_name(\"k\");\n\n  // create some memory objects on the device\n  cl_mem d_xyvals = clw.dev_malloc(sizeof(int)*2,      CL_MEM_READ_ONLY);  cl_program program = clw.compile(filename);\n\n  // generate all kernels\n  clw.create_all_kernels(program);\n\n  // get handlers to kernels\n  cl_kernel k = clw.kernel_of_name(\"k\");\n\n  // create some memory objects on the device\n  cl_mem d_xyvals = clw.dev_malloc(sizeof(int)*2,      CL_MEM_READ_ONLY);\n  cl_mem d_trace  = clw.dev_malloc(sizeof(int)*ntrace, CL_MEM_READ_WRITE);\n  cl_mem d_final  = clw.dev_malloc(sizeof(int)*8,      CL_MEM_READ_WRITE);\n\n  // memcpy into these objects\n  clw.memcpy_to_dev(d_xyvals, sizeof(int)*2,      xyvals);\n  clw.memcpy_to_dev(d_trace,  sizeof(int)*ntrace, trace);\n  clw.memcpy_to_dev(d_final,  sizeof(int)*8,      final);\n\n  // set kernel arguments\n  clw.kernel_arg(k, d_xyvals, d_trace, d_final);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 57,
+    "line_text": "  cl_mem d_trace  = clw.dev_malloc(sizeof(int)*ntrace, CL_MEM_READ_WRITE);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

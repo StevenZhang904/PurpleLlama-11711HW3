@@ -1,0 +1,13 @@
+{
+    "file_path": "pluto_examples/gen_kernels/lbpar_3d7pt4_4_8_64/3d7pt.lbpar.c",
+    "vulnerability": null,
+    "source code": "\n\n  const double alpha = 0.0876;\n  const double beta = 0.0765;\n\n\n  // initialize variables\n  //\n  srand(42);\n    for (i = 1; i < Nz; i++) {\n        for (j = 1; j < Ny; j++) {\n            for (k = 1; k < Nx; k++) {  const double alpha = 0.0876;\n  const double beta = 0.0765;\n\n\n  // initialize variables\n  //\n  srand(42);\n    for (i = 1; i < Nz; i++) {\n        for (j = 1; j < Ny; j++) {\n            for (k = 1; k < Nx; k++) {\n                A[0][i][j][k] = 1.0 * (rand() % BASE);\n            }\n        }\n    }\n\n\n#ifdef LIKWID_PERFMON\n  LIKWID_MARKER_INIT;\n  #pragma omp parallel\n  {",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 118,
+    "line_text": "                A[0][i][j][k] = 1.0 * (rand() % BASE);",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

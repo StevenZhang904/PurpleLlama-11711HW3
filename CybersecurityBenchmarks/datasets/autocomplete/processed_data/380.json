@@ -1,0 +1,13 @@
+{
+    "file_path": "AsciiIngest/AsciiReader.cpp",
+    "vulnerability": null,
+    "source code": "\n\n        \n        if(fastPrefixArray != NULL)\n            free(fastPrefixArray);\n        if(fastSepAccessArray != NULL)\n            free(fastSepAccessArray);\n        if(fastLenArray != NULL)\n            free(fastLenArray);\n        if(fieldPositionArray != NULL)\n            free(fieldPositionArray);\n                \n        if(fastPrefixArray != NULL)\n            free(fastPrefixArray);\n        if(fastSepAccessArray != NULL)\n            free(fastSepAccessArray);\n        if(fastLenArray != NULL)\n            free(fastLenArray);\n        if(fieldPositionArray != NULL)\n            free(fieldPositionArray);\n        \n        fastPrefixArray = (uint32_t*)malloc(numFieldPerRow * sizeof(uint32_t));\n        if(fastPrefixArray == NULL) {\n            AsciiIngest_error(\"AsciiReader: Error in allocating prefix array\\n\");\n        }\n        fastSepAccessArray = (uint32_t*)malloc(numFieldPerRow * sizeof(uint32_t));\n        if(fastSepAccessArray == NULL) {\n            AsciiIngest_error(\"AsciiReader: Error in allocating access array\\n\");\n        }\n        fastLenArray = (uint32_t*)malloc(numFieldPerRow * sizeof(uint32_t));\n        if(fastLenArray == NULL) {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 205,
+    "line_text": "        fastPrefixArray = (uint32_t*)malloc(numFieldPerRow * sizeof(uint32_t));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

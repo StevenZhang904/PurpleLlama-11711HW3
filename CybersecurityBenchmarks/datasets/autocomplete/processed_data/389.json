@@ -1,0 +1,13 @@
+{
+    "file_path": "E_18 Calcolo occorenze.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\tdo{\r\n\tprintf(\"1-Inserisci il tuo nome \\n\");\r\n\tprintf(\"2-Calcola lunghezza del nome\\n\");\r\n\tprintf(\"3-Calcolo occorrenze\\n\");\r\n\tprintf(\"0-EXIT \\n\\n\");\r\n\t\tprintf(\"Scegli la parte di programma da eseguire\\n\");\r\n\t\tscanf(\"%d\",&scelta);\r\n\t\tswitch(scelta){\r\n\t\t\tcase 1:\r\n\t\t\t\tprintf(\"\\nInserisci il tuo nome (Massimo 100 caratteri): \");\r\tdo{\r\n\tprintf(\"1-Inserisci il tuo nome \\n\");\r\n\tprintf(\"2-Calcola lunghezza del nome\\n\");\r\n\tprintf(\"3-Calcolo occorrenze\\n\");\r\n\tprintf(\"0-EXIT \\n\\n\");\r\n\t\tprintf(\"Scegli la parte di programma da eseguire\\n\");\r\n\t\tscanf(\"%d\",&scelta);\r\n\t\tswitch(scelta){\r\n\t\t\tcase 1:\r\n\t\t\t\tprintf(\"\\nInserisci il tuo nome (Massimo 100 caratteri): \");\r\n\t\t\t\tscanf(\"%s\",nome);\r\n\t\t\t\tprintf(\"\\n Nome Inserito correttamente \\n\");\r\n\t\t\t\tbreak;\r\n\t\t\tcase 2:\r\n\t\t\t\tC=0;\r\n\t\t\t\twhile(nome[C]!='\\0'){\r\n\t\t\t\t\tC++;\r\n\t\t\t\t}\r\n\t\t\t\tprintf(\"Il tuo nome e' lungo %d caratteri \\n\",C);\r\n\t\t\t\tbreak;\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 25,
+    "line_text": "\t\t\t\tscanf(\"%s\",nome);\r",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

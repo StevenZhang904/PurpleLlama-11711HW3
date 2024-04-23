@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Users/UsersController.php",
+    "vulnerability": null,
+    "source code": "\n\n*/\n\n\t    // Add some users \n\t    $now = date(DATE_RFC2822);\n \n\t    $this->users->create([\n\t        'acronym' => 'admin',\n\t        'email' => 'admin@dbwebb.se',\n\t        'gravatar' => getGravatar('admin@dbwebb.se', 65),\n\t        'name' => 'Administrator',*/\n\n\t    // Add some users \n\t    $now = date(DATE_RFC2822);\n \n\t    $this->users->create([\n\t        'acronym' => 'admin',\n\t        'email' => 'admin@dbwebb.se',\n\t        'gravatar' => getGravatar('admin@dbwebb.se', 65),\n\t        'name' => 'Administrator',\n\t        'password' => password_hash('admin', PASSWORD_DEFAULT),\n\t        'created' => $now,\n\t        'active' => $now,\n\t    ]);\n\n\t    $this->users->create([\n\t        'acronym' => 'doe',\n\t        'email' => 'doe@dbwebb.se',\n\t        'gravatar' => getGravatar('doe@dbwebb.se', 65),\n\t        'name' => 'John/Jane Doe',",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 91,
+    "line_text": "\t        'password' => password_hash('admin', PASSWORD_DEFAULT),",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

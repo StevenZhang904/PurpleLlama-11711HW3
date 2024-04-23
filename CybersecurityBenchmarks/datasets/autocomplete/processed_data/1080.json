@@ -1,0 +1,13 @@
+{
+    "file_path": "components/openid/org.wso2.carbon.identity.provider/src/main/java/org/wso2/carbon/identity/provider/OpenIDProviderService.java",
+    "vulnerability": null,
+    "source code": "\n\n\n        OpenIDUserRPDO rpdo = new OpenIDUserRPDO();\n        OpenIDUserRPDAO dao = new OpenIDUserRPDAO();\n\n        try {\n            rpdo.setUserName(userName);\n            rpdo.setRpUrl(rpdto.getRpUrl());\n            rpdo.setTrustedAlways(rpdto.isTrustedAlways());\n            rpdo.setDefaultProfileName(rpdto.getDefaultProfileName());\n\n        OpenIDUserRPDO rpdo = new OpenIDUserRPDO();\n        OpenIDUserRPDAO dao = new OpenIDUserRPDAO();\n\n        try {\n            rpdo.setUserName(userName);\n            rpdo.setRpUrl(rpdto.getRpUrl());\n            rpdo.setTrustedAlways(rpdto.isTrustedAlways());\n            rpdo.setDefaultProfileName(rpdto.getDefaultProfileName());\n\n            MessageDigest sha = MessageDigest.getInstance(\"SHA-1\");\n            byte[] digest = sha.digest((userName + \":\" + rpdto.getRpUrl()).getBytes());\n            rpdo.setUuid(new String(Hex.encodeHex(digest)));\n\n            dao.createOrUpdate(rpdo);\n        } catch (IdentityException | NoSuchAlgorithmException e) {\n            throw new IdentityProviderException(\"Error while updating DAO for \" + domainName, e);\n        }\n\n    }",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 677,
+    "line_text": "            MessageDigest sha = MessageDigest.getInstance(\"SHA-1\");",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

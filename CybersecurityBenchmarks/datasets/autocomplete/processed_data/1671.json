@@ -1,0 +1,13 @@
+{
+    "file_path": "euca2ools/commands/s3/getobject.py",
+    "vulnerability": null,
+    "source code": "\n\n            else:\n                self.args['dest'] = open(self.args['dest'], 'w')\n\n    def preprocess(self):\n        self.path = self.args['source']\n\n    def main(self):\n        # Note that this method does not close self.args['dest']\n        self.preprocess()\n        bytes_written = 0            else:\n                self.args['dest'] = open(self.args['dest'], 'w')\n\n    def preprocess(self):\n        self.path = self.args['source']\n\n    def main(self):\n        # Note that this method does not close self.args['dest']\n        self.preprocess()\n        bytes_written = 0\n        md5_digest = hashlib.md5()\n        sha_digest = hashlib.sha1()\n        response = self.send()\n        content_length = response.headers.get('Content-Length')\n        if content_length:\n            pbar = self.get_progressbar(label=self.args['source'],\n                                        maxval=int(content_length))\n        else:\n            pbar = self.get_progressbar(label=self.args['source'])\n        pbar.start()",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 80,
+    "line_text": "        md5_digest = hashlib.md5()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

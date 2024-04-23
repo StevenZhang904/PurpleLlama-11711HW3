@@ -1,0 +1,13 @@
+{
+    "file_path": "front-end/testsuite-python-lib/Python-3.0/Lib/os.py",
+    "vulnerability": null,
+    "source code": "\n\n    if mode not in (\"r\", \"w\"):\n        raise ValueError(\"invalid mode %r\" % mode)\n    import subprocess, io\n    if mode == \"r\":\n        proc = subprocess.Popen(cmd,\n                                shell=True,\n                                stdout=subprocess.PIPE,\n                                bufsize=buffering)\n        return _wrap_close(io.TextIOWrapper(proc.stdout), proc)\n    else:    if mode not in (\"r\", \"w\"):\n        raise ValueError(\"invalid mode %r\" % mode)\n    import subprocess, io\n    if mode == \"r\":\n        proc = subprocess.Popen(cmd,\n                                shell=True,\n                                stdout=subprocess.PIPE,\n                                bufsize=buffering)\n        return _wrap_close(io.TextIOWrapper(proc.stdout), proc)\n    else:\n        proc = subprocess.Popen(cmd,\n                                shell=True,\n                                stdin=subprocess.PIPE,\n                                bufsize=buffering)\n        return _wrap_close(io.TextIOWrapper(proc.stdin), proc)\n\n# Helper for popen() -- a proxy for a file whose close waits for the process\nclass _wrap_close:\n    def __init__(self, stream, proc):\n        self._stream = stream",
+    "language": "python",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection due to subprocess usage with shell=True.",
+    "line_number": 635,
+    "line_text": "        proc = subprocess.Popen(cmd,",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-subprocess-using-shell",
+    "rule": null,
+    "label": 1
+}

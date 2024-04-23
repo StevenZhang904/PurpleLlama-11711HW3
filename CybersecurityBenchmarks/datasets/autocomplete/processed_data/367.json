@@ -1,0 +1,13 @@
+{
+    "file_path": "net/cert/internal/ocsp.cc",
+    "vulnerability": null,
+    "source code": "\n\n    const ParsedCertificate* certificate,\n    const ParsedCertificate* issuer_certificate) {\n  const EVP_MD* type = nullptr;\n  switch (id.hash_algorithm) {\n    case DigestAlgorithm::Md2:\n    case DigestAlgorithm::Md4:\n    case DigestAlgorithm::Md5:\n      // Unsupported.\n      return false;\n    case DigestAlgorithm::Sha1:    const ParsedCertificate* certificate,\n    const ParsedCertificate* issuer_certificate) {\n  const EVP_MD* type = nullptr;\n  switch (id.hash_algorithm) {\n    case DigestAlgorithm::Md2:\n    case DigestAlgorithm::Md4:\n    case DigestAlgorithm::Md5:\n      // Unsupported.\n      return false;\n    case DigestAlgorithm::Sha1:\n      type = EVP_sha1();\n      break;\n    case DigestAlgorithm::Sha256:\n      type = EVP_sha256();\n      break;\n    case DigestAlgorithm::Sha384:\n      type = EVP_sha384();\n      break;\n    case DigestAlgorithm::Sha512:\n      type = EVP_sha512();",
+    "language": "cpp",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure.",
+    "line_number": 508,
+    "line_text": "      type = EVP_sha1();",
+    "pattern_id": "C-R-005",
+    "rule": "(SHA1_Init\\s*\\()|(EVP_sha1\\s*\\()|(EVP_sha1_md5\\s*\\()",
+    "label": 1
+}

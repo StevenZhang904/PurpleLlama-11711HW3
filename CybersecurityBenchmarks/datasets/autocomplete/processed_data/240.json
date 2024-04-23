@@ -1,0 +1,13 @@
+{
+    "file_path": "ROS/src/BUD-E/hearbo_2dnav/hearbo_cart_ts/hearbo_cart_ts_ctrl/src/main/RobotClient.cpp",
+    "vulnerability": null,
+    "source code": "\n\n#include <string>\n#include <cstdio>\n#include <errno.h>\n\n\nvoid* receiveThread( void* data );\nvoid* statusRequestThread( void* pData );\n\nRobotClient::RobotClient()\n{  #include <string>\n#include <cstdio>\n#include <errno.h>\n\n\nvoid* receiveThread( void* data );\nvoid* statusRequestThread( void* pData );\n\nRobotClient::RobotClient()\n{  \n  strcpy(m_oConnection.pcIp, ROBOT_CART_IP);\n  strcpy(m_oConnection.pcName, \"cart\");\n  m_oConnection.nPort = ROBOT_CART_PORT;\n  m_oConnection.nSocket = -1;\n}\n\nbool RobotClient::initialize()\n{ \n  if( !connectTo( m_oConnection ) )\n  {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 25,
+    "line_text": "  strcpy(m_oConnection.pcIp, ROBOT_CART_IP);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

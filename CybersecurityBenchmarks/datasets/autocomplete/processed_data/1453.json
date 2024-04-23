@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Eyes/Inode/Eye.php",
+    "vulnerability": null,
+    "source code": "\n\n<?php\n\nnamespace BeholderWebClient\\Eyes\\Inode;\n\nuse Exception;\n\nClass Eye extends AbstractInode {\n\n  public function checkRequirement(){\n<?php\n\nnamespace BeholderWebClient\\Eyes\\Inode;\n\nuse Exception;\n\nClass Eye extends AbstractInode {\n\n  public function checkRequirement(){\n\n    $result = exec('type -P df');\n\n    if(!$result)\n      throw new Exception(Status::REQUERIMENT_FAIL, Status::INTERNAL_SERVER_ERROR_NUMBER);\n\n  }\n\n  public function verifyStorage(){\n    $result = shell_exec('df -i');\n    $m = [];",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 11,
+    "line_text": "    $result = exec('type -P df');",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

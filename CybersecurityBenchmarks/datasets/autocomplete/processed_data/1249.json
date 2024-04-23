@@ -1,0 +1,13 @@
+{
+    "file_path": "src/librustc/lib.rs",
+    "vulnerability": null,
+    "source code": "\n\n            // Fail so the process returns a failure code, but don't pollute the\n            // output with some unnecessary failure messages, we've already\n            // printed everything that we needed to.\n            io::stdio::set_stderr(~io::util::NullWriter as ~io::Writer);\n            fail!();\n        }\n    }\n}\n\npub fn main() {            // Fail so the process returns a failure code, but don't pollute the\n            // output with some unnecessary failure messages, we've already\n            // printed everything that we needed to.\n            io::stdio::set_stderr(~io::util::NullWriter as ~io::Writer);\n            fail!();\n        }\n    }\n}\n\npub fn main() {\n    std::os::set_exit_status(main_args(std::os::args()));\n}\n\npub fn main_args(args: &[~str]) -> int {\n    let owned_args = args.to_owned();\n    monitor(proc(demitter) run_compiler(owned_args, demitter));\n    0\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 390,
+    "line_text": "    std::os::set_exit_status(main_args(std::os::args()));",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

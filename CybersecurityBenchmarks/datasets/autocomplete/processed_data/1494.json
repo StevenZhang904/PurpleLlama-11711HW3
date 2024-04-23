@@ -1,0 +1,13 @@
+{
+    "file_path": "app/Controllers/UserController.php",
+    "vulnerability": null,
+    "source code": "\n\n        return $this->view()->assign(\"anns\",$Anns)->display('user/announcement.tpl');\n    }\n\n\n\n\n    public function edit($request, $response, $args)\n    {\n\t\t$themes=Tools::getDir(BASE_PATH.\"/resources/views\");\n\t\t        return $this->view()->assign(\"anns\",$Anns)->display('user/announcement.tpl');\n    }\n\n\n\n\n    public function edit($request, $response, $args)\n    {\n\t\t$themes=Tools::getDir(BASE_PATH.\"/resources/views\");\n\t\t\n\t\t$BIP = BlockIp::where(\"ip\",$_SERVER[\"REMOTE_ADDR\"])->first();\n\t\tif($BIP == NULL)\n\t\t{\n\t\t\t$Block = \"IP: \".$_SERVER[\"REMOTE_ADDR\"].\" \u6ca1\u6709\u88ab\u5c01\";\n\t\t\t$isBlock = 0;\n\t\t}\n\t\telse\n\t\t{\n\t\t\t$Block = \"IP: \".$_SERVER[\"REMOTE_ADDR\"].\" \u5df2\u88ab\u5c01\";\n\t\t\t$isBlock = 1;",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 873,
+    "line_text": "\t\t$BIP = BlockIp::where(\"ip\",$_SERVER[\"REMOTE_ADDR\"])->first();",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

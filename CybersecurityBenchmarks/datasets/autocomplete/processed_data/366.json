@@ -1,0 +1,13 @@
+{
+    "file_path": "test/gtest/ucp/test_ucp_atomic.cc",
+    "vulnerability": null,
+    "source code": "\n\n}\n\ntemplate <typename T>\nvoid test_ucp_atomic::blocking_add(entity *e,  size_t max_size, void *memheap_addr,\n                  ucp_rkey_h rkey, std::string& expected_data)\n{\n    ucs_status_t status;\n    T add, prev;\n\n    prev = *(T*)memheap_addr;}\n\ntemplate <typename T>\nvoid test_ucp_atomic::blocking_add(entity *e,  size_t max_size, void *memheap_addr,\n                  ucp_rkey_h rkey, std::string& expected_data)\n{\n    ucs_status_t status;\n    T add, prev;\n\n    prev = *(T*)memheap_addr;\n    add  = (T)ucs::rand() * (T)ucs::rand();\n\n    if (sizeof(T) == sizeof(uint32_t)) {\n        status = ucp_atomic_add32(e->ep(), add, (uintptr_t)memheap_addr, rkey);\n    } else if (sizeof(T) == sizeof(uint64_t)) {\n        status = ucp_atomic_add64(e->ep(), add, (uintptr_t)memheap_addr, rkey);\n    } else {\n        status = UCS_ERR_UNSUPPORTED;\n    }\n    ASSERT_UCS_OK(status);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 48,
+    "line_text": "    add  = (T)ucs::rand() * (T)ucs::rand();",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

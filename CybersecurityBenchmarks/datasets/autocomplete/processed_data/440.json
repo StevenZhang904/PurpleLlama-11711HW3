@@ -1,0 +1,13 @@
+{
+    "file_path": "Practice/2018/2018.7.20/SPOJ7586.cpp",
+    "vulnerability": null,
+    "source code": "\n\nNode P[maxN];\nchar Input[maxN];\n\nvoid Insert(int p,int c);\n\nint main()\n{\n\tnodecnt=1;P[odd].fail=P[even].fail=odd;\n\tP[odd].len=-1;P[even].len=0;last=even;\nNode P[maxN];\nchar Input[maxN];\n\nvoid Insert(int p,int c);\n\nint main()\n{\n\tnodecnt=1;P[odd].fail=P[even].fail=odd;\n\tP[odd].len=-1;P[even].len=0;last=even;\n\n\tscanf(\"%s\",Input+1);\n\tn=strlen(Input+1);\n\n\tfor (int i=1;i<=n;i++) Insert(i,Input[i]-'a');\n\tfor (int i=nodecnt;i>=1;i--) P[P[i].fail].cnt+=P[i].cnt;\n\n\tint Ans=0;\n\tfor (int i=2;i<=nodecnt;i++) Ans=Ans+P[i].cnt;\n\tprintf(\"%d\\n\",Ans);\n\treturn 0;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 34,
+    "line_text": "\tscanf(\"%s\",Input+1);",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

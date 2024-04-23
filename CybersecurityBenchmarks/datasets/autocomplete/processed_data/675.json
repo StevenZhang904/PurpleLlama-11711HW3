@@ -1,0 +1,13 @@
+{
+    "file_path": "FRBDK/Glue/Glue/VSHelpers/ProjectSyncer.cs",
+    "vulnerability": null,
+    "source code": "\n\n        static void OpenSyncedProject(object sender, EventArgs e)\n        {\n            ProjectBase projectBase = (ProjectBase)((ToolStripItem)sender).Tag;\n\n            string solutionName = LocateSolution(projectBase.FullFileName.FullPath);\n\n            if (!string.IsNullOrEmpty(solutionName))\n            {\n                if (!PluginManager.OpenSolution(solutionName))\n                {        static void OpenSyncedProject(object sender, EventArgs e)\n        {\n            ProjectBase projectBase = (ProjectBase)((ToolStripItem)sender).Tag;\n\n            string solutionName = LocateSolution(projectBase.FullFileName.FullPath);\n\n            if (!string.IsNullOrEmpty(solutionName))\n            {\n                if (!PluginManager.OpenSolution(solutionName))\n                {\n                    Process.Start(solutionName);\n                }\n            }\n            else\n            {\n                if (!PluginManager.OpenProject(projectBase.FullFileName.FullPath))\n                {\n                    Process.Start(projectBase.FullFileName.FullPath);\n                }\n            }",
+    "language": "csharp",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Untrusted input passed to command execution can lead to command injection vulnerabilities\n",
+    "line_number": 213,
+    "line_text": "                    Process.Start(solutionName);",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.csharp.third-party.command-injection",
+    "rule": null,
+    "label": 1
+}

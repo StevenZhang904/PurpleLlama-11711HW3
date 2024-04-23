@@ -1,0 +1,13 @@
+{
+    "file_path": "core/sqf/src/seabed/test/t208fs.cpp",
+    "vulnerability": null,
+    "source code": "\n\n                                &buf,\n                                &count_xferred,\n                                &tag,\n                                timeout,\n                                NULL);\n                TEST_CHK_BCCEQ(bcc);\n            }\n            getri(&ri);\n            assert(ri.user_id == (inx + 1));\n            strcat(recv_buffer, \"- reply from \");                                &buf,\n                                &count_xferred,\n                                &tag,\n                                timeout,\n                                NULL);\n                TEST_CHK_BCCEQ(bcc);\n            }\n            getri(&ri);\n            assert(ri.user_id == (inx + 1));\n            strcat(recv_buffer, \"- reply from \");\n            strcat(recv_buffer, my_name);\n            count_read = (short) strlen(recv_buffer) + 1;\n            bcc = BREPLYX(recv_buffer,\n                          count_read,\n                          &count_written,\n                          ri.message_tag,\n                          XZFIL_ERR_OK);\n            TEST_CHK_BCCEQ(bcc);\n        }\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 164,
+    "line_text": "            strcat(recv_buffer, my_name);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

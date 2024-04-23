@@ -1,0 +1,13 @@
+{
+    "file_path": "src/zinc/hal/cortex_common/scb.rs",
+    "vulnerability": null,
+    "source code": "\n\n// limitations under the License.\n\n//! Interface to System Control Block.\n//! \n//! System Control Block memory location is 0xE000_ED00.\n//! System Control Block ACTLR memory location is 0xE000_E008;\n//  Link: http://infocenter.arm.com/help/topic/com.arm.doc.dui0552a/CIHFDJCA.html\n\n#[inline(always)]\nfn get_reg() -> &'static reg::SCB {// limitations under the License.\n\n//! Interface to System Control Block.\n//! \n//! System Control Block memory location is 0xE000_ED00.\n//! System Control Block ACTLR memory location is 0xE000_E008;\n//  Link: http://infocenter.arm.com/help/topic/com.arm.doc.dui0552a/CIHFDJCA.html\n\n#[inline(always)]\nfn get_reg() -> &'static reg::SCB {\n  unsafe { &*(0xE000_ED00 as *mut reg::SCB) }\n}\n\n/// Returns the CPUID.\n#[allow(dead_code)]\npub fn cpuid() -> reg::SCB_cpuid_Get {\n  get_reg().cpuid.get()\n}\n\n/// Sets the pending state of the PendSV interrupt.",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 24,
+    "line_text": "  unsafe { &*(0xE000_ED00 as *mut reg::SCB) }",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

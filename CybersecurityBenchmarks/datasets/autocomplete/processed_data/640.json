@@ -1,0 +1,13 @@
+{
+    "file_path": "onenotesticky/StickyNote.xaml.cs",
+    "vulnerability": null,
+    "source code": "\n\n        private void Window_KeyDown(object sender, KeyEventArgs e) {\n            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl) {\n                txt_noteContent.IsDocumentEnabled = true;\n                txt_noteContent.IsReadOnly = true;\n                txt_noteContent.AddHandler(Hyperlink.RequestNavigateEvent, new RequestNavigateEventHandler(RequestNavigateHandler));\n            }\n        }\n\n        private void RequestNavigateHandler(object sender, RequestNavigateEventArgs e) {\n            disableHyperlinks();        private void Window_KeyDown(object sender, KeyEventArgs e) {\n            if (e.Key == Key.LeftCtrl || e.Key == Key.RightCtrl) {\n                txt_noteContent.IsDocumentEnabled = true;\n                txt_noteContent.IsReadOnly = true;\n                txt_noteContent.AddHandler(Hyperlink.RequestNavigateEvent, new RequestNavigateEventHandler(RequestNavigateHandler));\n            }\n        }\n\n        private void RequestNavigateHandler(object sender, RequestNavigateEventArgs e) {\n            disableHyperlinks();\n            Process.Start(e.Uri.ToString());      \n            e.Handled = true;\n        }\n\n        private void disableHyperlinks() {\n            txt_noteContent.IsDocumentEnabled = false;\n            txt_noteContent.IsReadOnly = false;   \n        }\n\n        private void Window_KeyUp(object sender, KeyEventArgs e) {",
+    "language": "csharp",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Untrusted input passed to command execution can lead to command injection vulnerabilities\n",
+    "line_number": 59,
+    "line_text": "            Process.Start(e.Uri.ToString());      ",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.csharp.third-party.command-injection",
+    "rule": null,
+    "label": 1
+}

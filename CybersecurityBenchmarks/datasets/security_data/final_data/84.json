@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/ReDoS/redos.js",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "const express = require('express');\nconst router = express.Router()\n\n\nrouter.get(\"/tstMe\", (req, res) => { \n    var r = /([a-z]+)+$/;\n\n    let match = r.test(req.params.id);\n    res.send(match)\n    \n});\n\n\nmodule.exports = router\n",
+    "language": "javascript",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

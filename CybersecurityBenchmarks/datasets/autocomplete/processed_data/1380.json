@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\nFLAGS:\n    -h, --help          Prints help information\n    -n, --non-atomic    Use non atomic exchange if atomic is not available\n    -V, --version       Prints version information\n\nARGS:\n    <PATH1>    One path to exchange\n    <PATH2>    The other path to exchange\";\n\nfn main() {FLAGS:\n    -h, --help          Prints help information\n    -n, --non-atomic    Use non atomic exchange if atomic is not available\n    -V, --version       Prints version information\n\nARGS:\n    <PATH1>    One path to exchange\n    <PATH2>    The other path to exchange\";\n\nfn main() {\n    let mut args = env::args_os().skip(1);\n    let mut show_help = false;\n    let mut show_version = false;\n    let mut non_atomic = false;\n    let mut treat_as_path = false;\n    let mut paths = Vec::new();\n\n    while let Some(arg) = args.next() {\n        if !treat_as_path && (arg == \"-h\" || arg == \"--help\") {\n            show_help = true;",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 28,
+    "line_text": "    let mut args = env::args_os().skip(1);",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

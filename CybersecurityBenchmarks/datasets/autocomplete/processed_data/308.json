@@ -1,0 +1,13 @@
+{
+    "file_path": "src/bgfx.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\tabort();\n\t\t\t}\n\t\t}\n\n\t\tvirtual void traceVargs(const char* _filePath, uint16_t _line, const char* _format, va_list _argList) override\n\t\t{\n\t\t\tchar temp[2048];\n\t\t\tchar* out = temp;\n\t\t\tva_list argListCopy;\n\t\t\tva_copy(argListCopy, _argList);\t\t\t\tabort();\n\t\t\t}\n\t\t}\n\n\t\tvirtual void traceVargs(const char* _filePath, uint16_t _line, const char* _format, va_list _argList) override\n\t\t{\n\t\t\tchar temp[2048];\n\t\t\tchar* out = temp;\n\t\t\tva_list argListCopy;\n\t\t\tva_copy(argListCopy, _argList);\n\t\t\tint32_t len   = bx::snprintf(out, sizeof(temp), \"%s (%d): \", _filePath, _line);\n\t\t\tint32_t total = len + bx::vsnprintf(out + len, sizeof(temp)-len, _format, argListCopy);\n\t\t\tva_end(argListCopy);\n\t\t\tif ( (int32_t)sizeof(temp) < total)\n\t\t\t{\n\t\t\t\tout = (char*)alloca(total+1);\n\t\t\t\tbx::memCopy(out, temp, len);\n\t\t\t\tbx::vsnprintf(out + len, total-len, _format, _argList);\n\t\t\t}\n\t\t\tout[total] = '\\0';",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential out of bounds access due to improper validation of return values of .*snprintf.* functions",
+    "line_number": 77,
+    "line_text": "\t\t\tint32_t len   = bx::snprintf(out, sizeof(temp), \"%s (%d): \", _filePath, _line);",
+    "pattern_id": "C-W-003",
+    "rule": "{ $ret = $snprintf_family($b); not: $ret < _;  _($b + $ret);}",
+    "label": 1
+}

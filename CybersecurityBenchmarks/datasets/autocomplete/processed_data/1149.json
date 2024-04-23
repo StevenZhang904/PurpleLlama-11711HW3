@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/com/intel/mallet/TpcdsTool.java",
+    "vulnerability": null,
+    "source code": "\n\n    if (conf.isSingleQueryMode()) {\n      cmd += \" -TEMPLATE query\" + conf.getQueryId() + \".tpl\";\n    }\n\n    // Invoke the TPC-DS tool to generate queries from templates\n    \n    logger.info(\"Invoke TPC-DS tool to generate queries from templates:\");\n    logger.info(\"  \" + cmd);\n    Process toolProcess;\n    try {    if (conf.isSingleQueryMode()) {\n      cmd += \" -TEMPLATE query\" + conf.getQueryId() + \".tpl\";\n    }\n\n    // Invoke the TPC-DS tool to generate queries from templates\n    \n    logger.info(\"Invoke TPC-DS tool to generate queries from templates:\");\n    logger.info(\"  \" + cmd);\n    Process toolProcess;\n    try {\n      toolProcess = Runtime.getRuntime().exec(cmd, null, new File(conf.getTpcDsToolDirectory()));\n    } catch (IOException e) {\n      throw new MalletException(\"Failed to invoke TPC-DS tool.\", e);\n    }\n    \n    // Wait for the termination of the tool process\n    try {\n      toolProcess.waitFor();\n    } catch (InterruptedException e) {\n    }",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 55,
+    "line_text": "      toolProcess = Runtime.getRuntime().exec(cmd, null, new File(conf.getTpcDsToolDirectory()));",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

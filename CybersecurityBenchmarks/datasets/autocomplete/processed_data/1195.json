@@ -1,0 +1,13 @@
+{
+    "file_path": "server/src/main/java/org/apache/druid/client/cache/MemcachedCache.java",
+    "vulnerability": null,
+    "source code": "\n\n\n  public static final int MAX_PREFIX_LENGTH =\n      MemcachedClientIF.MAX_KEY_LENGTH\n      - 40 // length of namespace hash\n      - 40 // length of key hash\n      - 2; // length of separators\n\n  private static String computeKeyHash(String memcachedPrefix, NamedKey key)\n  {\n    // hash keys to keep things under 250 characters for memcached\n  public static final int MAX_PREFIX_LENGTH =\n      MemcachedClientIF.MAX_KEY_LENGTH\n      - 40 // length of namespace hash\n      - 40 // length of key hash\n      - 2; // length of separators\n\n  private static String computeKeyHash(String memcachedPrefix, NamedKey key)\n  {\n    // hash keys to keep things under 250 characters for memcached\n    return memcachedPrefix + \":\" + DigestUtils.sha1Hex(key.namespace) + \":\" + DigestUtils.sha1Hex(key.key);\n  }\n\n  @Override\n  public boolean isLocal()\n  {\n    return false;\n  }\n\n  @Override",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 615,
+    "line_text": "    return memcachedPrefix + \":\" + DigestUtils.sha1Hex(key.namespace) + \":\" + DigestUtils.sha1Hex(key.key);",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

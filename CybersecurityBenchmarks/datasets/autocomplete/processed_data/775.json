@@ -1,0 +1,13 @@
+{
+    "file_path": "src/static/site/js/underscore.js",
+    "vulnerability": null,
+    "source code": "\n\n  var unescapeMap = _.invert(escapeMap);\n\n  // Functions for escaping and unescaping strings to/from HTML interpolation.\n  var createEscaper = function(map) {\n    var escaper = function(match) {\n      return map[match];\n    };\n    // Regexes for identifying a key that needs to be escaped\n    var source = '(?:' + _.keys(map).join('|') + ')';\n    var testRegexp = RegExp(source);  var unescapeMap = _.invert(escapeMap);\n\n  // Functions for escaping and unescaping strings to/from HTML interpolation.\n  var createEscaper = function(map) {\n    var escaper = function(match) {\n      return map[match];\n    };\n    // Regexes for identifying a key that needs to be escaped\n    var source = '(?:' + _.keys(map).join('|') + ')';\n    var testRegexp = RegExp(source);\n    var replaceRegexp = RegExp(source, 'g');\n    return function(string) {\n      string = string == null ? '' : '' + string;\n      return testRegexp.test(string) ? string.replace(replaceRegexp, escaper) : string;\n    };\n  };\n  _.escape = createEscaper(escapeMap);\n  _.unescape = createEscaper(unescapeMap);\n\n  // If the value of the named `property` is a function then invoke it with the",
+    "language": "javascript",
+    "cwe_identifier": "CWE-185",
+    "pattern_desc": "The `RegExp` constructor was called with a non-literal value. If an adversary were able to\nsupply a malicious regex, they could cause a Regular Expression Denial of Service (ReDoS)\nagainst the application. In Node applications, this could cause the entire application to no\nlonger\nbe responsive to other users' requests.\n",
+    "line_number": 1426,
+    "line_text": "    var replaceRegexp = RegExp(source, 'g');",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.javascript.third-party.dos-non-literal-regexp",
+    "rule": null,
+    "label": 1
+}

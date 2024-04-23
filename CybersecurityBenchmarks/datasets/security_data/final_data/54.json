@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/SQL Injection/example1.rb",
+    "vulnerability": "Vulnerabilities Detected:\n1. SQL Injection: The code is vulnerable to SQL injection attacks due to the lack of input sanitization.\n2. Cross-Site Request Forgery (CSRF): The code does not have any CSRF protection.\n3. Unsafe File Access: The code does not check for unsafe file access.",
+    "source code": "class ApplicationController < ActionController::Base\nprotect_from_forgery with: :exception\nend\nclass UsersController < ApplicationController\ndef update\ncon = Mysql.new 'localhost', 'user', 'pwd'\ncon.query 'UPDATE users set name = ' + params[:name] +\n' where id = ' + params[:id]\ncon.close\nend\nend\n",
+    "language": "ruby",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

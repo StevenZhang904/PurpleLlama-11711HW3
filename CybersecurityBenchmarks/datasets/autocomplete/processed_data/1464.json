@@ -1,0 +1,13 @@
+{
+    "file_path": "system/libraries/Session/drivers/Session_memcached_driver.php",
+    "vulnerability": null,
+    "source code": "\n\n\t{\r\n\t\tparent::__construct($params);\r\n\r\n\t\tif (empty($this->_config['save_path']))\r\n\t\t{\r\n\t\t\tlog_message('error', 'Session: No Memcached save path configured.');\r\n\t\t}\r\n\r\n\t\tif ($this->_config['match_ip'] === TRUE)\r\n\t\t{\r\t{\r\n\t\tparent::__construct($params);\r\n\r\n\t\tif (empty($this->_config['save_path']))\r\n\t\t{\r\n\t\t\tlog_message('error', 'Session: No Memcached save path configured.');\r\n\t\t}\r\n\r\n\t\tif ($this->_config['match_ip'] === TRUE)\r\n\t\t{\r\n\t\t\t$this->_key_prefix .= $_SERVER['REMOTE_ADDR'].':';\r\n\t\t}\r\n\t}\r\n\r\n\t// ------------------------------------------------------------------------\r\n\r\n\t/**\r\n\t * Open\r\n\t *\r\n\t * Sanitizes save_path and initializes connections.\r",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 91,
+    "line_text": "\t\t\t$this->_key_prefix .= $_SERVER['REMOTE_ADDR'].':';\r",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

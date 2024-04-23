@@ -1,0 +1,13 @@
+{
+    "file_path": "system-call/main.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\treturn;\n\t\t\t} else {\n\t\t\t\temp.id = id;\t\t\t\n\t\t\t}\t\t\t\n\t\t}\n\t} else {\n\t\tprintf(\"Id must be greater than 0 \\n\");\n\t\treturn;\n\t}\n\tprintf(\"Please type his name \\n\");\t\t\t\treturn;\n\t\t\t} else {\n\t\t\t\temp.id = id;\t\t\t\n\t\t\t}\t\t\t\n\t\t}\n\t} else {\n\t\tprintf(\"Id must be greater than 0 \\n\");\n\t\treturn;\n\t}\n\tprintf(\"Please type his name \\n\");\n\tscanf(\"%s\", &emp.name);\n\tprintf(\"Please type his gender (m or f) \\n\");\n\tscanf(\" %c\", &emp.gender);\n\tif ((emp.gender != 'm') && (emp.gender != 'f')) {\n\t\tprintf(\"Gender should be 'm' or 'f'\");\n\t\treturn;\n\t}\n\tprintf(\"Please type his salary \\n\");\n\tscanf(\"%f\", &emp.salary);\n\tfwrite(&emp, sizeof(struct Employee), 1, f);",
+    "language": "c",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 35,
+    "line_text": "\tscanf(\"%s\", &emp.name);",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

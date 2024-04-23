@@ -1,0 +1,13 @@
+{
+    "file_path": "search/learnh/learnsig.cc",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\twarnx(errno, \"Failed to open %s for reading\", p->c_str());\n\t\t\tcontinue;\n\t\t}\n\t\tdfread(f, dfline);\n\t\tfclose(f);\n\t}\n\n\tsz = ds.size();\n\tfprintf(stderr, \"%lu data points\\n\", sz);\n\t\t\twarnx(errno, \"Failed to open %s for reading\", p->c_str());\n\t\t\tcontinue;\n\t\t}\n\t\tdfread(f, dfline);\n\t\tfclose(f);\n\t}\n\n\tsz = ds.size();\n\tfprintf(stderr, \"%lu data points\\n\", sz);\n\n\tA = new double[(deg+1) * sz];\n\tb = new double[sz];\n\tx = new double[deg+1];\n\tunsigned int i = 0;\n\tfor (auto e : ds) {\n\t\tdouble d = 1;\n\t\tfor (unsigned int j = 0; j <= deg; j++) {\n\t\t\tA[i*(deg+1) + j] = d;\n\t\t\td *= e.first;\n\t\t}",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 85,
+    "line_text": "\tA = new double[(deg+1) * sz];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

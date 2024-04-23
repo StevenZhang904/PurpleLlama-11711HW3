@@ -1,0 +1,13 @@
+{
+    "file_path": "venv/lib/python2.7/site-packages/sympy/__init__.py",
+    "vulnerability": null,
+    "source code": "\n\n    # Here we can also check for specific Python 3 versions, if needed\n\ndel sys\n\n\ndef __sympy_debug():\n    # helper function so we don't import os globally\n    import os\n    debug_str = os.getenv('SYMPY_DEBUG', 'False')\n    if debug_str in ('True', 'False'):    # Here we can also check for specific Python 3 versions, if needed\n\ndel sys\n\n\ndef __sympy_debug():\n    # helper function so we don't import os globally\n    import os\n    debug_str = os.getenv('SYMPY_DEBUG', 'False')\n    if debug_str in ('True', 'False'):\n        return eval(debug_str)\n    else:\n        raise RuntimeError(\"unrecognized value for SYMPY_DEBUG: %s\" %\n                           debug_str)\nSYMPY_DEBUG = __sympy_debug()\n\nfrom .core import *\nfrom .logic import *\nfrom .assumptions import *\nfrom .polys import *",
+    "language": "python",
+    "cwe_identifier": "CWE-94",
+    "pattern_desc": "Potential code injection due to eval usage.",
+    "line_number": 31,
+    "line_text": "        return eval(debug_str)",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-eval-use",
+    "rule": null,
+    "label": 1
+}

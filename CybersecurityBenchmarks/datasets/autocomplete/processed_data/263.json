@@ -1,0 +1,13 @@
+{
+    "file_path": "src/pbcpp/src/Graph/AdjacencyArray.hpp",
+    "vulnerability": null,
+    "source code": "\n\n  }\n\n  template <typename Iterator, bool RowMajor = false>\n  void setFromEdgeList(Iterator beg, Iterator end)\n  {\n    const idx_t nv = *(std::max_element(beg, end)) + 1;\n    const idx_t ne = std::distance(beg, end) >> 1;\n    this->set_nv(nv);\n    this->set_ne(ne);\n    if(!(nv && ne)) { return; }  }\n\n  template <typename Iterator, bool RowMajor = false>\n  void setFromEdgeList(Iterator beg, Iterator end)\n  {\n    const idx_t nv = *(std::max_element(beg, end)) + 1;\n    const idx_t ne = std::distance(beg, end) >> 1;\n    this->set_nv(nv);\n    this->set_ne(ne);\n    if(!(nv && ne)) { return; }\n    adj_ = new vid_t[2 * ne];\n    vtx_ = new vid_t*[nv + 1];\n\n    //Get degree of each vertex\n    idx_t* deg = new idx_t[nv];\n    std::fill(&deg[0], &deg[nv], 0);\n    for(Iterator el = beg; el != end; el++)\n      deg[*el]++;\n\n    //Set heads",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 50,
+    "line_text": "    adj_ = new vid_t[2 * ne];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

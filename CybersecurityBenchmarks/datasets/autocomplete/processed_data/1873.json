@@ -1,0 +1,13 @@
+{
+    "file_path": "azurelinuxagent/common/utils/textutil.py",
+    "vulnerability": null,
+    "source code": "\n\n    return is_str_none_or_whitespace(s) or is_str_none_or_whitespace(s.rstrip(' \\t\\r\\n\\0'))\n\n\ndef hash_strings(string_list):\n    \"\"\"\n    Compute a cryptographic hash of a list of strings\n\n    :param string_list: The strings to be hashed\n    :return: The cryptographic hash (digest) of the strings in the order provided\n    \"\"\"    return is_str_none_or_whitespace(s) or is_str_none_or_whitespace(s.rstrip(' \\t\\r\\n\\0'))\n\n\ndef hash_strings(string_list):\n    \"\"\"\n    Compute a cryptographic hash of a list of strings\n\n    :param string_list: The strings to be hashed\n    :return: The cryptographic hash (digest) of the strings in the order provided\n    \"\"\"\n    sha1_hash = hashlib.sha1()\n    for item in string_list:\n        sha1_hash.update(item.encode())\n    return sha1_hash.digest()\n\n\ndef format_memory_value(unit, value):\n    units = {'bytes': 1, 'kilobytes': 1024, 'megabytes': 1024*1024, 'gigabytes': 1024*1024*1024}\n\n    if unit not in units:",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 385,
+    "line_text": "    sha1_hash = hashlib.sha1()",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

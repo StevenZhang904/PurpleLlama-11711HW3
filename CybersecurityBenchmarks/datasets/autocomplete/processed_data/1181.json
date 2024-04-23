@@ -1,0 +1,13 @@
+{
+    "file_path": "arms/src/main/java/com/jess/arms/utils/UiUtils.java",
+    "vulnerability": null,
+    "source code": "\n\n    /**\r\n     * MD5\r\n     *\r\n     * @param string\r\n     * @return\r\n     * @throws Exception\r\n     */\r\n    public static String MD5encode(String string) {\r\n        byte[] hash = new byte[0];\r\n        try {\r    /**\r\n     * MD5\r\n     *\r\n     * @param string\r\n     * @return\r\n     * @throws Exception\r\n     */\r\n    public static String MD5encode(String string) {\r\n        byte[] hash = new byte[0];\r\n        try {\r\n            hash = MessageDigest.getInstance(\"MD5\").digest(\r\n                    string.getBytes(\"UTF-8\"));\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n        StringBuilder hex = new StringBuilder(hash.length * 2);\r\n        for (byte b : hash) {\r\n            if ((b & 0xFF) < 0x10) {\r\n                hex.append(\"0\");\r\n            }\r",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 358,
+    "line_text": "            hash = MessageDigest.getInstance(\"MD5\").digest(\r",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

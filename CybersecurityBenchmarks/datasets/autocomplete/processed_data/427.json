@@ -1,0 +1,13 @@
+{
+    "file_path": "deps/v8/src/d8-posix.cc",
+    "vulnerability": null,
+    "source code": "\n\n\n// Accumulates the output from the child in a string handle.  Returns true if it\n// succeeded or false if an exception was thrown.\nstatic Local<Value> GetStdout(Isolate* isolate, int child_fd,\n                              const struct timeval& start_time,\n                              int read_timeout, int total_timeout) {\n  Local<String> accumulator = String::Empty(isolate);\n\n  int fullness = 0;\n  static const int kStdoutReadBufferSize = 4096;\n// Accumulates the output from the child in a string handle.  Returns true if it\n// succeeded or false if an exception was thrown.\nstatic Local<Value> GetStdout(Isolate* isolate, int child_fd,\n                              const struct timeval& start_time,\n                              int read_timeout, int total_timeout) {\n  Local<String> accumulator = String::Empty(isolate);\n\n  int fullness = 0;\n  static const int kStdoutReadBufferSize = 4096;\n  char buffer[kStdoutReadBufferSize];\n\n  if (fcntl(child_fd, F_SETFL, O_NONBLOCK) != 0) {\n    return isolate->ThrowException(\n        String::NewFromUtf8(isolate, strerror(errno), NewStringType::kNormal)\n            .ToLocalChecked());\n  }\n\n  int bytes_read;\n  do {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 317,
+    "line_text": "  char buffer[kStdoutReadBufferSize];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

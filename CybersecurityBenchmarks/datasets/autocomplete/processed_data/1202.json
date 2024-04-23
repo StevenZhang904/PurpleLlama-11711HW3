@@ -1,0 +1,13 @@
+{
+    "file_path": "src/common.rs",
+    "vulnerability": null,
+    "source code": "\n\n\n// parse -> codegen -> write llvm bitcode to output file\npub fn run_file<'a>(filename: &'a str) {\n    // parser::Parser::new(&mut lexer).run(&mut nodes);\n\n    // DEBUG: for node in &ast {\n    // DEBUG:     node.show();\n    // DEBUG: }\n\n    // DEBUG: println!(\"\\nllvm-ir test output:\");\n// parse -> codegen -> write llvm bitcode to output file\npub fn run_file<'a>(filename: &'a str) {\n    // parser::Parser::new(&mut lexer).run(&mut nodes);\n\n    // DEBUG: for node in &ast {\n    // DEBUG:     node.show();\n    // DEBUG: }\n\n    // DEBUG: println!(\"\\nllvm-ir test output:\");\n    unsafe {\n        let mut nodes = Vec::new();\n        let mut lexer = lexer::Lexer::new(filename.to_string());\n        let mut parser = parser::Parser::new(&mut lexer);\n\n        loop {\n            match parser.read_toplevel(&mut nodes) {\n                Err(parser::Error::EOF) => break,\n                Err(_) => continue,\n                _ => {}",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 23,
+    "line_text": "    unsafe {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

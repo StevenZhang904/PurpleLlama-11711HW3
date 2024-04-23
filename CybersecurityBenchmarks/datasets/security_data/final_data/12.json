@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Path Traversal/expresstest.js",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "const express = require('express')\nconst app = express()\nconst port = 3000\n\napp.get('/', (req, res) => {\n  const file = readFile(req.query.name).toString()   \n  res.send(file)\n})\n\n\nfunction readFile(path){\n\n    result = fs.readFileSync(path)\n    return result;\n  \n  }\n\n\n\napp.listen(port, () => {\n  console.log(`Example app listening at http://localhost:${port}`)\n})\n",
+    "language": "javascript",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

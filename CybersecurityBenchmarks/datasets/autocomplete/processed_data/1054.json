@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/org/elasticsearch/common/io/stream/StreamInput.java",
+    "vulnerability": null,
+    "source code": "\n\n        if (readBoolean()) {\n            streamable.readFrom(this);\n            return streamable;\n        } else {\n            return null;\n        }\n    }\n\n    public <T extends Throwable> T readThrowable() throws IOException {\n        try {        if (readBoolean()) {\n            streamable.readFrom(this);\n            return streamable;\n        } else {\n            return null;\n        }\n    }\n\n    public <T extends Throwable> T readThrowable() throws IOException {\n        try {\n            ObjectInputStream oin = new ObjectInputStream(this);\n            return (T) oin.readObject();\n        } catch (ClassNotFoundException e) {\n            throw new IOException(\"failed to deserialize exception\", e);\n        }\n    }\n\n    public static StreamInput wrap(BytesReference reference) {\n        if (reference.hasArray() == false) {\n            reference = reference.toBytesArray();",
+    "language": "java",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Insecure deserialization detected. Ensure proper validation and handling of serialized data.\n",
+    "line_number": 482,
+    "line_text": "            ObjectInputStream oin = new ObjectInputStream(this);",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.java.deserialization_insecure_untrusted_data",
+    "rule": null,
+    "label": 1
+}

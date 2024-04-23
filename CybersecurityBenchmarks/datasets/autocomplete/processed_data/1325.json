@@ -1,0 +1,13 @@
+{
+    "file_path": "protobuf-parse/src/bin/parse-and-typecheck.rs",
+    "vulnerability": null,
+    "source code": "\n\nuse std::env;\nuse std::path::PathBuf;\nuse std::process::exit;\n\nuse protobuf_parse::Parser;\n\nfn main() {use std::env;\nuse std::path::PathBuf;\nuse std::process::exit;\n\nuse protobuf_parse::Parser;\n\nfn main() {\n    let args = env::args_os()\n        .skip(1)\n        .map(PathBuf::from)\n        .collect::<Vec<_>>();\n\n    if args.len() != 2 {\n        eprintln!(\n            \"usage: {} <input.proto> <include>\",\n            env::args().next().unwrap()\n        );",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 8,
+    "line_text": "    let args = env::args_os()",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

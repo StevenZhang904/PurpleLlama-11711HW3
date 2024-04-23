@@ -1,0 +1,13 @@
+{
+    "file_path": "src/java/com/estorm/framework/util/OTPUtiles.java",
+    "vulnerability": null,
+    "source code": "\n\n\n        return rsaKeyPair;\n    }\n\n\tpublic static String getEncryptRSAFromPublicKey(String input, String strPublicKey) {\n\t\tString strCipher = null;\n\n\t\ttry {\n\t\t\tbyte[] baPublicKey = Base64.getDecoder().decode(strPublicKey);//Base64Util.getDecData(strPublicKey);\n\t\t\tPublicKey publicKey = KeyFactory.getInstance(\"RSA\").generatePublic(new X509EncodedKeySpec(baPublicKey));\n        return rsaKeyPair;\n    }\n\n\tpublic static String getEncryptRSAFromPublicKey(String input, String strPublicKey) {\n\t\tString strCipher = null;\n\n\t\ttry {\n\t\t\tbyte[] baPublicKey = Base64.getDecoder().decode(strPublicKey);//Base64Util.getDecData(strPublicKey);\n\t\t\tPublicKey publicKey = KeyFactory.getInstance(\"RSA\").generatePublic(new X509EncodedKeySpec(baPublicKey));\n\t\t\tCipher clsCipher = Cipher.getInstance(\"RSA/ECB/PKCS1Padding\");\n\t\t\tclsCipher.init(Cipher.ENCRYPT_MODE, publicKey);\n\t\t\tbyte[] baCipherData = clsCipher.doFinal(input.getBytes());\n\t\t\tstrCipher = Base64.getEncoder().encodeToString(baCipherData);//Base64Util.getEncData(baCipherData);\n\t\t} catch (Exception e) {\n\t\t\te.printStackTrace();\n\t\t}\n\n\t\treturn strCipher;\n\t}",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Deprecated cryptographic algorithms being used (ECB)",
+    "line_number": 66,
+    "line_text": "\t\t\tCipher clsCipher = Cipher.getInstance(\"RSA/ECB/PKCS1Padding\");",
+    "pattern_id": "JAVA-R-001",
+    "rule": "Cipher\\.getInstance\\(\".*ECB.*\"",
+    "label": 1
+}

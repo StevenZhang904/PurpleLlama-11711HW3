@@ -1,0 +1,13 @@
+{
+    "file_path": "test/performance/clamped_vector_load.cpp",
+    "vulnerability": null,
+    "source code": "\n\n}\n\nint main(int argc, char **argv) {\n    // Try doing vector loads with a boundary condition in various\n    // ways and compare the performance.\n\n    input = Image<uint16_t>(1024+8, 320);\n\n    for (int y = 0; y < input.height(); y++) {\n        for (int x = 0; x < input.width(); x++) {}\n\nint main(int argc, char **argv) {\n    // Try doing vector loads with a boundary condition in various\n    // ways and compare the performance.\n\n    input = Image<uint16_t>(1024+8, 320);\n\n    for (int y = 0; y < input.height(); y++) {\n        for (int x = 0; x < input.width(); x++) {\n            input(x, y) = rand() & 0xfff;\n        }\n    }\n\n    output = Image<uint16_t>(1024, 320);\n\n    Var x, y;\n\n    double t_ref, t_clamped, t_scalar, t_pad;\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 48,
+    "line_text": "            input(x, y) = rand() & 0xfff;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

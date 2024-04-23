@@ -1,0 +1,13 @@
+{
+    "file_path": "NE/HyperNEAT/cake_fixeddepth/dblookup.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\tfor(n=2;n<=maxpieces;n++)\r\n\t\t{\r\n\t\tif(n>=8)\r\n\t\t\tcontinue;\r\n\t\tsprintf(dbname,\"cake_db/db%i.idx\",n);\r\n\t\tsprintf(out,\"parsing %s\",dbname);\r\n\t\tfp = fopen(dbname,\"rb\");\r\n\t\t// another new change \r\n\t\tif(fp)\r\n\t\t\t{\r\tfor(n=2;n<=maxpieces;n++)\r\n\t\t{\r\n\t\tif(n>=8)\r\n\t\t\tcontinue;\r\n\t\tsprintf(dbname,\"cake_db/db%i.idx\",n);\r\n\t\tsprintf(out,\"parsing %s\",dbname);\r\n\t\tfp = fopen(dbname,\"rb\");\r\n\t\t// another new change \r\n\t\tif(fp)\r\n\t\t\t{\r\n\t\t\tstrcat(dbinfo,dbname);\r\n\t\t\tstrcat(dbinfo,\"\\n\");\r\n\t\t\tlogtofile(out);\r\n\t\t\tfclose(fp);\r\n\t\t\t}\r\n\t\t// parse next index file\r\n\t\tpifreturnvalue = parseindexfile(dbname,blockoffset,fpcount);\r\n\t\t\r\n\t\t// if the index file is not present, or if an error occurs during parsing,\r\n\t\t// we do nothing. else, we update the max number of pieces.\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 1021,
+    "line_text": "\t\t\tstrcat(dbinfo,dbname);\r",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

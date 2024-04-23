@@ -1,0 +1,13 @@
+{
+    "file_path": "iml-manager-cli/src/lib.rs",
+    "vulnerability": null,
+    "source code": "\n\n\n    let union = parsed\n        .into_iter()\n        .fold(BTreeSet::new(), |acc, h| acc.union(&h).cloned().collect());\n\n    Ok(union)\n}\n\nfn exe_name() -> Option<String> {\n    Some(\n    let union = parsed\n        .into_iter()\n        .fold(BTreeSet::new(), |acc, h| acc.union(&h).cloned().collect());\n\n    Ok(union)\n}\n\nfn exe_name() -> Option<String> {\n    Some(\n        std::env::current_exe()\n            .ok()?\n            .file_stem()?\n            .to_str()?\n            .to_string(),\n    )\n}\n\npub fn selfname(suffix: Option<&str>) -> Option<String> {\n    match env::var(\"CLI_NAME\") {",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 34,
+    "line_text": "        std::env::current_exe()",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

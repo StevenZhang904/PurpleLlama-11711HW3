@@ -1,0 +1,13 @@
+{
+    "file_path": "ckeditor/utils.py",
+    "vulnerability": null,
+    "source code": "\n\n    @type  url: basestring\n\n    @return: Local path of the url\n    @rtype:  basestring\n    \"\"\"\n    url = urlparse.unquote(url)\n    local_path = settings.STATIC_ROOT + os.path.normpath(url[len(settings.STATIC_URL):])\n    return local_path\n\n# `buffer` is needed since hashlib apparently isn't unicode safe    @type  url: basestring\n\n    @return: Local path of the url\n    @rtype:  basestring\n    \"\"\"\n    url = urlparse.unquote(url)\n    local_path = settings.STATIC_ROOT + os.path.normpath(url[len(settings.STATIC_URL):])\n    return local_path\n\n# `buffer` is needed since hashlib apparently isn't unicode safe\nhexhash = lambda s: hashlib.md5(buffer(s)).hexdigest()\n\ndef new_rendered_path(orig_path, width, height, ext=None):\n    \"\"\"\n    Builds a new rendered path based on the original path, width, and height.\n    It takes a hash of the original path to prevent users from accidentally \n    (or purposely) overwritting other's rendered thumbnails.\n\n    This isn't perfect: we are assuming that the original file's conents never \n    changes, which is the django default.  We could make this function more",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 75,
+    "line_text": "hexhash = lambda s: hashlib.md5(buffer(s)).hexdigest()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

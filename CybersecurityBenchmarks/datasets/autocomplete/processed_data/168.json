@@ -1,0 +1,13 @@
+{
+    "file_path": "test/blas/cuzgemm2.c",
+    "vulnerability": null,
+    "source code": "\n\n\n  CUdevice device;\n  CU_ERROR_CHECK(cuDeviceGet(&device, d));\n\n  CUcontext context;\n  CU_ERROR_CHECK(cuCtxCreate(&context, CU_CTX_SCHED_BLOCKING_SYNC, device));\n\n  CUBLAShandle handle;\n  CU_ERROR_CHECK(cuBLASCreate(&handle));\n\n  CUdevice device;\n  CU_ERROR_CHECK(cuDeviceGet(&device, d));\n\n  CUcontext context;\n  CU_ERROR_CHECK(cuCtxCreate(&context, CU_CTX_SCHED_BLOCKING_SYNC, device));\n\n  CUBLAShandle handle;\n  CU_ERROR_CHECK(cuBLASCreate(&handle));\n\n  alpha = ((double)rand() / (double)RAND_MAX) + ((double)rand() / (double)RAND_MAX) * I;\n  beta = ((double)rand() / (double)RAND_MAX) + ((double)rand() / (double)RAND_MAX) * I;\n\n  if (transA == CBlasNoTrans) {\n    lda = m;\n    if ((A = malloc(lda * k * sizeof(double complex))) == NULL) {\n      fputs(\"Unable to allocate A\\n\", stderr);\n      return -1;\n    }\n    CU_ERROR_CHECK(cuMemAllocPitch(&dA, &dlda, m * sizeof(double complex), k, sizeof(double complex)));",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 87,
+    "line_text": "  alpha = ((double)rand() / (double)RAND_MAX) + ((double)rand() / (double)RAND_MAX) * I;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

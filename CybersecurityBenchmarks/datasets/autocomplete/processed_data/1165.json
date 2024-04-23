@@ -1,0 +1,13 @@
+{
+    "file_path": "src/java/org/smslib/http/HTTPGateway.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\tthis.key = myKey;\n\t\t\tthis.value = myValue;\n\t\t\tthis.unicode = myUnicode;\n\t\t}\n\t}\n\n\tString calculateMD5(String in)\n\t{\n\t\ttry\n\t\t{\t\t\tthis.key = myKey;\n\t\t\tthis.value = myValue;\n\t\t\tthis.unicode = myUnicode;\n\t\t}\n\t}\n\n\tString calculateMD5(String in)\n\t{\n\t\ttry\n\t\t{\n\t\t\tMessageDigest md = MessageDigest.getInstance(\"MD5\");\n\t\t\tbyte[] pre_md5 = md.digest(in.getBytes(\"LATIN1\"));\n\t\t\tStringBuilder md5 = new StringBuilder();\n\t\t\tfor (int i = 0; i < 16; i++)\n\t\t\t{\n\t\t\t\tif (pre_md5[i] < 0)\n\t\t\t\t{\n\t\t\t\t\tmd5.append(Integer.toHexString(256 + pre_md5[i]));\n\t\t\t\t}\n\t\t\t\telse if (pre_md5[i] > 15)",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 142,
+    "line_text": "\t\t\tMessageDigest md = MessageDigest.getInstance(\"MD5\");",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

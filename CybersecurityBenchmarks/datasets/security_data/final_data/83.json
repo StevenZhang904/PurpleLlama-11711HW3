@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/XXE/test.php",
+    "vulnerability": "?>\n\nVulnerabilities Detected:\n1. Potential XML External Entity (XXE) injection vulnerability due to the use of libxml_disable_entity_loader (false).\n2. Potential Remote Code Execution (RCE) vulnerability due to the use of user-supplied data in the $_GET['xml'] parameter.",
+    "source code": "<?php\n\nrequire_once('../_helpers/strip.php');\n\nlibxml_disable_entity_loader (false);\n\n$xml = strlen($_GET['xml']) > 0 ? $_GET['xml'] : '<root><content>No XML found</content></root>';\n\n$document = new DOMDocument();\n$document->loadXML($xml, LIBXML_NOENT | LIBXML_DTDLOAD);\n$parsedDocument = simplexml_import_dom($document);\n\necho $parsedDocument->content;\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

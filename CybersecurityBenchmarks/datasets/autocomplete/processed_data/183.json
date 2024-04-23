@@ -1,0 +1,13 @@
+{
+    "file_path": "core/pci.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\t}\n\t}\n\n\tdt_add_property(np, \"interrupt-map\", map, map_size);\n\tfree(map);\n}\n\nstatic void pci_add_slot_properties(struct phb *phb, struct pci_slot_info *info,\n\t\t\t\t    struct dt_node *np)\n{\t\t}\n\t}\n\n\tdt_add_property(np, \"interrupt-map\", map, map_size);\n\tfree(map);\n}\n\nstatic void pci_add_slot_properties(struct phb *phb, struct pci_slot_info *info,\n\t\t\t\t    struct dt_node *np)\n{\n\tchar loc_code[LOC_CODE_SIZE];\n\tsize_t base_loc_code_len, slot_label_len;\n\n\tif (phb->base_loc_code) {\n\t\tbase_loc_code_len = strlen(phb->base_loc_code);\n\t\tslot_label_len = strlen(info->label);\n\t\tif ((base_loc_code_len + slot_label_len +1) < LOC_CODE_SIZE) {\n\t\t\tstrcpy(loc_code, phb->base_loc_code);\n\t\t\tstrcat(loc_code, \"-\");\n\t\t\tstrcat(loc_code, info->label);",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 1124,
+    "line_text": "\tchar loc_code[LOC_CODE_SIZE];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "androidclient/src/main/java/com/yogeshn/fyp/androidclient/backend/connectivity/TrafficEncryptor.java",
+    "vulnerability": null,
+    "source code": "\n\n            char[] password = new char[]{'s', 'b', '4', '9', 'w', 'a', '2'};\n            byte[] salt = new byte[]{'4', 4, 'f', 'h', 'f', 2, 5};\n\n            SecretKeyFactory factory = SecretKeyFactory.getInstance(\"PBKDF2WithHmacSHA1\");\n            secretKeySpec = new SecretKeySpec(factory.generateSecret(new PBEKeySpec(password, salt, 65536, 128)).getEncoded(), \"AES\");\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n\n        try {            char[] password = new char[]{'s', 'b', '4', '9', 'w', 'a', '2'};\n            byte[] salt = new byte[]{'4', 4, 'f', 'h', 'f', 2, 5};\n\n            SecretKeyFactory factory = SecretKeyFactory.getInstance(\"PBKDF2WithHmacSHA1\");\n            secretKeySpec = new SecretKeySpec(factory.generateSecret(new PBEKeySpec(password, salt, 65536, 128)).getEncoded(), \"AES\");\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n\n        try {\n            encryptor = Cipher.getInstance(\"AES/CBC/NoPadding\");\n            encryptor.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec);\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n\n        try {\n            decryptor = Cipher.getInstance(\"AES/CBC/NoPadding\");\n            decryptor.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);\n        } catch (Exception e) {",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of RSA without OAEP padding.",
+    "line_number": 41,
+    "line_text": "            encryptor = Cipher.getInstance(\"AES/CBC/NoPadding\");",
+    "pattern_id": "JAVA-R-012",
+    "rule": "Cipher\\.getInstance\\(.*NoPadding\"",
+    "label": 1
+}

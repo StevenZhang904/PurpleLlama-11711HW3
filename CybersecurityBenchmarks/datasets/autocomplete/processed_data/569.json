@@ -1,0 +1,13 @@
+{
+    "file_path": "Client/Settings/AllSettingsPage.cs",
+    "vulnerability": null,
+    "source code": "\n\n\n        internal void OpenPHPIniFile()\n        {\n            try\n            {\n                string physicalPath = Module.Proxy.GetPHPIniPhysicalPath();\n                if (!String.IsNullOrEmpty(physicalPath) &&\n                    String.Equals(Path.GetExtension(physicalPath), \".ini\", StringComparison.OrdinalIgnoreCase) &&\n                    File.Exists(physicalPath))\n                {\n        internal void OpenPHPIniFile()\n        {\n            try\n            {\n                string physicalPath = Module.Proxy.GetPHPIniPhysicalPath();\n                if (!String.IsNullOrEmpty(physicalPath) &&\n                    String.Equals(Path.GetExtension(physicalPath), \".ini\", StringComparison.OrdinalIgnoreCase) &&\n                    File.Exists(physicalPath))\n                {\n                    Process.Start(physicalPath);\n                }\n                else\n                {\n                    ShowMessage(String.Format(CultureInfo.CurrentCulture, Resources.ErrorFileDoesNotExist, physicalPath), MessageBoxButtons.OK, MessageBoxIcon.Information);\n                }\n            }\n            catch (Exception ex)\n            {\n                DisplayErrorMessage(ex, Resources.ResourceManager);",
+    "language": "csharp",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Untrusted input passed to command execution can lead to command injection vulnerabilities\n",
+    "line_number": 409,
+    "line_text": "                    Process.Start(physicalPath);",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.csharp.third-party.command-injection",
+    "rule": null,
+    "label": 1
+}

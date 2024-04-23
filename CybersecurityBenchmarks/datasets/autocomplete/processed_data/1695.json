@@ -1,0 +1,13 @@
+{
+    "file_path": "lib/Database.py",
+    "vulnerability": null,
+    "source code": "\n\n# -*- coding:  UTF-8 -*-\n__author__ = 'Sean Yu'\n__mail__ = 'try.dash.now@gmail.com'\nimport sqlite3\ndef CreateTable(dbname, table,table_define):\n    db = sqlite3.connect(dbname)  \n    cu=db.cursor()# -*- coding:  UTF-8 -*-\n__author__ = 'Sean Yu'\n__mail__ = 'try.dash.now@gmail.com'\nimport sqlite3\ndef CreateTable(dbname, table,table_define):\n    db = sqlite3.connect(dbname)  \n    cu=db.cursor()\n    cu.execute(\"\"\"create table %s ( %s )\"\"\"%(table,table_define))\n    db.commit()\n    cu.close()\n    db.close()\ndef InsertRecord(dbname, table,record):\n    db = sqlite3.connect(dbname)  \n    cu=db.cursor()\n    cu.execute('''insert into %s values(%s)'''%(table,record))\n    db.commit()\n    cu.close()",
+    "language": "python",
+    "cwe_identifier": "CWE-89",
+    "pattern_desc": "Potential SQL injection\n",
+    "line_number": 8,
+    "line_text": "    cu.execute(\"\"\"create table %s ( %s )\"\"\"%(table,table_define))",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.third-party.sql_injection",
+    "rule": null,
+    "label": 1
+}

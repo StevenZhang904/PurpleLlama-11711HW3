@@ -1,0 +1,13 @@
+{
+    "file_path": "metamorphosys/META/analysis_tools/FAME/MSL/3.2/Modelica/Resources/C-Sources/ModelicaInternal.c",
+    "vulnerability": null,
+    "source code": "\n\n#else\r\n    /* No such system call in _POSIX_ available */\r\n    char* cwd = getcwd(buffer, sizeof(buffer));\r\n    if (cwd == NULL) {\r\n        ModelicaFormatError(\"Not possible to get current working directory:\\n%s\",\r\n            strerror(errno));\r\n    }\r\n    fullName = ModelicaAllocateString(strlen(cwd) + strlen(name) + 1);\r\n    strcpy(fullName, cwd);\r\n    strcat(fullName, \"/\");\r#else\r\n    /* No such system call in _POSIX_ available */\r\n    char* cwd = getcwd(buffer, sizeof(buffer));\r\n    if (cwd == NULL) {\r\n        ModelicaFormatError(\"Not possible to get current working directory:\\n%s\",\r\n            strerror(errno));\r\n    }\r\n    fullName = ModelicaAllocateString(strlen(cwd) + strlen(name) + 1);\r\n    strcpy(fullName, cwd);\r\n    strcat(fullName, \"/\");\r\n    strcat(fullName, name);\r\n#endif\r\n\r\n    return fullName;\r\n}\r\n\r\nstatic const char* ModelicaInternal_temporaryFileName()\r\n{\r\n    /* Get full path name of a temporary */\r\n\r",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 453,
+    "line_text": "    strcat(fullName, name);\r",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

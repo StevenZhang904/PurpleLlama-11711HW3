@@ -1,0 +1,13 @@
+{
+    "file_path": "ContactRecordManagment/src/main/java/add/records/gui/controller/LoginSceneController.java",
+    "vulnerability": null,
+    "source code": "\n\n\n    /**\n     *\n     * @param event\n     */\n    @FXML\n    private void onLoginButtonPressed(ActionEvent event) throws IOException, InterruptedException {\n\n        MessageDigest md = null;\n        try {\n    /**\n     *\n     * @param event\n     */\n    @FXML\n    private void onLoginButtonPressed(ActionEvent event) throws IOException, InterruptedException {\n\n        MessageDigest md = null;\n        try {\n            md = MessageDigest.getInstance(\"MD5\");\n        } catch (NoSuchAlgorithmException ex) {\n\n        }\n\n        byte[] thedigest = md.digest(passInput.getText().getBytes());\n        String passwordHash = createHexString(thedigest);\n        System.out.println(passwordHash);\n\n        UserBO userBO = new UserBO();",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 79,
+    "line_text": "            md = MessageDigest.getInstance(\"MD5\");",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

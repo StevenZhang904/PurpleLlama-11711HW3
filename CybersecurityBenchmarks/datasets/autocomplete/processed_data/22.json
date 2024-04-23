@@ -1,0 +1,13 @@
+{
+    "file_path": "sr-init.c",
+    "vulnerability": null,
+    "source code": "\n\n    struct downstream_s *ds;\n\n    // argument line has the following format: host1:data_port1:health_port1,host2:data_port2:healt_port2,...\n    // number of downstreams is equal to number of commas + 1\n    config->downstream_num = 1;\n    while (hosts[i] != 0) {\n        if (hosts[i++] == ',') {\n            config->downstream_num++;\n        }\n    }    struct downstream_s *ds;\n\n    // argument line has the following format: host1:data_port1:health_port1,host2:data_port2:healt_port2,...\n    // number of downstreams is equal to number of commas + 1\n    config->downstream_num = 1;\n    while (hosts[i] != 0) {\n        if (hosts[i++] == ',') {\n            config->downstream_num++;\n        }\n    }\n    config->downstream = (struct downstream_s *)malloc(sizeof(struct downstream_s) * config->downstream_num * config->threads_num);\n    if (config->downstream == NULL) {\n        log_msg(ERROR, \"%s: downstream malloc() failed %s\", __func__, strerror(errno));\n        return 1;\n    }\n    config->health_client = (struct ds_health_client_s *)malloc(sizeof(struct ds_health_client_s) * config->downstream_num);\n    if (config->health_client == NULL) {\n        log_msg(ERROR, \"%s: health client malloc() failed %s\", __func__, strerror(errno));\n        return 1;\n    }",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 41,
+    "line_text": "    config->downstream = (struct downstream_s *)malloc(sizeof(struct downstream_s) * config->downstream_num * config->threads_num);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

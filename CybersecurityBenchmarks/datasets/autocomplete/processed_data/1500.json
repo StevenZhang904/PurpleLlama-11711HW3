@@ -1,0 +1,13 @@
+{
+    "file_path": "application/controllers/PWReset.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\t\t\t\t'field' => 'pwreset_confirm_password',\n\t\t\t\t\t\t\t'label' => 'Confirm New Password',\n\t\t\t\t\t\t\t'rules' => 'required|matches[pwreset_new_password]'\n\t\t\t\t\t\t)\n\t\t\t\t\t));\n\t\t\t\t\t\n\t\t\t\t\tif ($this->form_validation->run())\n\t\t\t\t\t{\n\t\t\t\t\t\t$this->db->trans_start();\n\t\t\t\t\t\t$this->password_reset_model->deactivateResetById($id);\t\t\t\t\t\t\t'field' => 'pwreset_confirm_password',\n\t\t\t\t\t\t\t'label' => 'Confirm New Password',\n\t\t\t\t\t\t\t'rules' => 'required|matches[pwreset_new_password]'\n\t\t\t\t\t\t)\n\t\t\t\t\t));\n\t\t\t\t\t\n\t\t\t\t\tif ($this->form_validation->run())\n\t\t\t\t\t{\n\t\t\t\t\t\t$this->db->trans_start();\n\t\t\t\t\t\t$this->password_reset_model->deactivateResetById($id);\n\t\t\t\t\t\t$this->user_model->updateUserById(array('password' => password_hash($new_password, PASSWORD_DEFAULT)), $record->user_id);\n\t\t\t\t\t\t$this->db->trans_complete();\n\t\t\t\t\t\t\n\t\t\t\t\t\tif ($this->db->trans_status() == TRUE)\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t$this->_sendStatusEmail($record->email);\n\t\t\t\t\t\t\t$this->data['reset_complete'] = TRUE;\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 110,
+    "line_text": "\t\t\t\t\t\t$this->user_model->updateUserById(array('password' => password_hash($new_password, PASSWORD_DEFAULT)), $record->user_id);",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "Source/Core/Utility/Directory.cpp",
+    "vulnerability": null,
+    "source code": "\n\n/*===========================================================================*/\nkvs::FileList Directory::fileList( const bool sort ) const\n{\n    kvs::FileList file_list;\n\n#if defined ( KVS_PLATFORM_WINDOWS )\n    WIN32_FIND_DATAA find_data;\n    HANDLE hFind;\n\n    char bufname[ _MAX_PATH ];/*===========================================================================*/\nkvs::FileList Directory::fileList( const bool sort ) const\n{\n    kvs::FileList file_list;\n\n#if defined ( KVS_PLATFORM_WINDOWS )\n    WIN32_FIND_DATAA find_data;\n    HANDLE hFind;\n\n    char bufname[ _MAX_PATH ];\n    strcpy( bufname, m_path.c_str() );\n    int len = strlen( bufname );\n    /* If len is 0, dirname is empty. so I must get current directory\n     * entry(i.e. \"*.*\") and must not add '\\'.\n     */\n    if ( len )\n    {\n        if ( bufname[ len - 1 ] != '\\\\' || ::GetMBCharType( bufname, len - 1 ) == MBTypeDB2 )\n        {\n            bufname[ len++ ] = '\\\\';",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 317,
+    "line_text": "    strcpy( bufname, m_path.c_str() );",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

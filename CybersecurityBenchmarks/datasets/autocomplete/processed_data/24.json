@@ -1,0 +1,13 @@
+{
+    "file_path": "csb/extras/a-b-c-d-pipe.c",
+    "vulnerability": null,
+    "source code": "\n\n         printf(\"Poccess B--- No of UpperCase letters = %d \\n\",countU);\n         printf(\"Poccess B--- No of LowerCase letters = %d \\n\",countL);\n         waitpid(pid2,NULL,0);\n         waitpid(pid3,NULL,0);\n      }\n   }\n   exit(1);\n   }\n   else{\n      printf(\"Poccess A--- Enter a sentence \");         printf(\"Poccess B--- No of UpperCase letters = %d \\n\",countU);\n         printf(\"Poccess B--- No of LowerCase letters = %d \\n\",countL);\n         waitpid(pid2,NULL,0);\n         waitpid(pid3,NULL,0);\n      }\n   }\n   exit(1);\n   }\n   else{\n      printf(\"Poccess A--- Enter a sentence \");\n      gets(bufr);\n      write(p1[1],bufr,sizeof(bufr));\n      while(bufr[++i]!='\\0')\n         if(bufr[i]=='a' || bufr[i]=='e' || bufr[i]=='i' || bufr[i]=='o' || bufr[i]=='u' ||\n            bufr[i]=='A' || bufr[i]=='E' || bufr[i]=='I' || bufr[i]=='O' || bufr[i]=='U' )\n            countV++;\n      printf(\"Poccess A--- No of Vowels = %d \\n\",countV);\n      waitpid(pid1,NULL,0);\n   }\n   close(p1[0]);",
+    "language": "c",
+    "cwe_identifier": "CWE-242",
+    "pattern_desc": "Potential buffer overflow risk due to use of gets",
+    "line_number": 48,
+    "line_text": "      gets(bufr);",
+    "pattern_id": "C-R-012",
+    "rule": "\\bgets\\s*\\(\\s*\\w*\\s*\\)",
+    "label": 1
+}

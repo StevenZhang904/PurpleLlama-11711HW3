@@ -1,0 +1,13 @@
+{
+    "file_path": "application/helpers/similarity_helper.php",
+    "vulnerability": null,
+    "source code": "\n\n    $case_details=strtolower($case_details);\n    $case_details=trim($case_details,\"\\t\\n\\r\\0\\x0B\");\n\n    return $case_details;\n\n}\n\n\nfunction get_similarity($string1,$string2)\n{    $case_details=strtolower($case_details);\n    $case_details=trim($case_details,\"\\t\\n\\r\\0\\x0B\");\n\n    return $case_details;\n\n}\n\n\nfunction get_similarity($string1,$string2)\n{\n    $similarity=shell_exec('java -cp /var/www/html/judicial-advisor/application/semantics/src/ USAGE \"'.$string1.'\" \"'.$string2.'\"');\n\n    //echo($string1);\n    //echo($string2);\n    //echo($similarity);\n    return $similarity;\n}\n?>",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 20,
+    "line_text": "    $similarity=shell_exec('java -cp /var/www/html/judicial-advisor/application/semantics/src/ USAGE \"'.$string1.'\" \"'.$string2.'\"');",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

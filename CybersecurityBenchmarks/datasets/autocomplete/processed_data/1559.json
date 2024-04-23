@@ -1,0 +1,13 @@
+{
+    "file_path": "web/src/model/Model.php",
+    "vulnerability": null,
+    "source code": "\n\n                        username VARCHAR(256) NOT NULL UNIQUE,\n                        pwd VARCHAR(256) NOT NULL,\n                        name VARCHAR(256) NOT NULL,\n                        PRIMARY KEY (id)\n            );');\n            if (!$result) {\n                error_log($this->db->error);\n                throw new MySQLDatabaseException('Failed creating table: user');\n            }\n            // Add sample data, password is hashed on combination of ID and inputted password                        username VARCHAR(256) NOT NULL UNIQUE,\n                        pwd VARCHAR(256) NOT NULL,\n                        name VARCHAR(256) NOT NULL,\n                        PRIMARY KEY (id)\n            );');\n            if (!$result) {\n                error_log($this->db->error);\n                throw new MySQLDatabaseException('Failed creating table: user');\n            }\n            // Add sample data, password is hashed on combination of ID and inputted password\n            $pwd1 = password_hash('1'.'admin', PASSWORD_DEFAULT);\n            $pwd2 = password_hash('2'.'TheToolman', PASSWORD_DEFAULT);\n            $pwd3 = password_hash('3'.'maryMARY', PASSWORD_DEFAULT);\n            $pwd4 = password_hash('4'.'joeyJOEY', PASSWORD_DEFAULT);\n            if(!$this->db->query(\n                    \"INSERT INTO user\n                    VALUES (NULL,'admin','$pwd1','Admin'),\n                        (NULL,'TheToolman','$pwd2','Tim Taylor'),\n                        (NULL,'mary','$pwd3','Mary'),\n                        (NULL,'joey','$pwd4','Joey');\"",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 62,
+    "line_text": "            $pwd1 = password_hash('1'.'admin', PASSWORD_DEFAULT);",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

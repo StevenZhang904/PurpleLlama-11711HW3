@@ -1,0 +1,13 @@
+{
+    "file_path": "library/Mockery/Generator/MockConfiguration.php",
+    "vulnerability": null,
+    "source code": "\n\n            'targetClassName'        => $this->targetClassName,\n            'targetInterfaceNames'   => $this->targetInterfaceNames,\n            'name'                   => $this->name,\n            'blackListedMethods'     => $this->blackListedMethods,\n            'whiteListedMethod'      => $this->whiteListedMethods,\n            'instanceMock'           => $this->instanceMock,\n            'parameterOverrides'     => $this->parameterOverrides,\n            'mockOriginalDestructor' => $this->mockOriginalDestructor\n        );\n            'targetClassName'        => $this->targetClassName,\n            'targetInterfaceNames'   => $this->targetInterfaceNames,\n            'name'                   => $this->name,\n            'blackListedMethods'     => $this->blackListedMethods,\n            'whiteListedMethod'      => $this->whiteListedMethods,\n            'instanceMock'           => $this->instanceMock,\n            'parameterOverrides'     => $this->parameterOverrides,\n            'mockOriginalDestructor' => $this->mockOriginalDestructor\n        );\n\n        return md5(serialize($vars));\n    }\n\n    /**\n     * Gets a list of methods from the classes, interfaces and objects and\n     * filters them appropriately. Lot's of filtering going on, perhaps we could\n     * have filter classes to iterate through\n     */\n    public function getMethodsToMock()\n    {",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 126,
+    "line_text": "        return md5(serialize($vars));",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

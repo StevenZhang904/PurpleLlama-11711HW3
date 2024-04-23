@@ -1,0 +1,13 @@
+{
+    "file_path": "modules/users/users.module.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\tMessaging::message('New password and confirmation do not match');\n\t\t\t}\n\n\t\t\tif (!Messaging::has_messages()) {\n\t\t\t\t$user->encpwd = crypt($_POST['newpwd'], $user->id);\n\t\t\t\t$user->forcepwdreset = 0;\n\t\t\t\t$user->update();\n\t\t\t\t$_SESSION[Fabriq::siteTitle()]['FABMOD_USERS_forcepwdreset'] = null;\n\t\t\t\tunset($_SESSION[Fabriq::siteTitle()]['FABMOD_USERS_forcepwdreset']);\n\t\t\t\tif (isset($_POST['return_to'])) {\t\t\t\tMessaging::message('New password and confirmation do not match');\n\t\t\t}\n\n\t\t\tif (!Messaging::has_messages()) {\n\t\t\t\t$user->encpwd = crypt($_POST['newpwd'], $user->id);\n\t\t\t\t$user->forcepwdreset = 0;\n\t\t\t\t$user->update();\n\t\t\t\t$_SESSION[Fabriq::siteTitle()]['FABMOD_USERS_forcepwdreset'] = null;\n\t\t\t\tunset($_SESSION[Fabriq::siteTitle()]['FABMOD_USERS_forcepwdreset']);\n\t\t\t\tif (isset($_POST['return_to'])) {\n\t\t\t\t\theader('Location:' . call_user_func_array('PathMap::build_path', explode('/', $_POST['return_to'])));\n\t\t\t\t\texit();\n\t\t\t\t} else {\n\t\t\t\t\tMessaging::message('Password has been changed', 'success');\n\t\t\t\t}\n\t\t\t}\n\t\t\t\n\t\t\tFabriqModules::set_var('users', 'submitted', true);\n\t\t}\n\t}",
+    "language": "php",
+    "cwe_identifier": "CWE-601",
+    "pattern_desc": "Open redirect vulnerability due to unsanitized URL parameter",
+    "line_number": 564,
+    "line_text": "\t\t\t\t\theader('Location:' . call_user_func_array('PathMap::build_path', explode('/', $_POST['return_to'])));",
+    "pattern_id": "PHP-R-025",
+    "rule": "header\\s*\\(\\s*['\"]Location:.*\\$_(GET|POST|REQUEST|COOKIE)",
+    "label": 1
+}

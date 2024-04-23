@@ -1,0 +1,13 @@
+{
+    "file_path": "src/xray/xrNetServer/NET_Client.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n\tif(!psNET_direct_connect)\n\t{\n\t\t//\n\t\tstring256\t\t\t\t\t\tserver_name = \"\";\n\t\t//\tstrcpy\t\t\t\t\t\t\t(server_name,options);\n\t\tif (strchr(options, '/'))\n\t\t\tstrncpy(server_name,options, strchr(options, '/')-options);\n\t\tif (strchr(server_name,'/'))\t*strchr(server_name,'/') = 0;\n\n\tif(!psNET_direct_connect)\n\t{\n\t\t//\n\t\tstring256\t\t\t\t\t\tserver_name = \"\";\n\t\t//\tstrcpy\t\t\t\t\t\t\t(server_name,options);\n\t\tif (strchr(options, '/'))\n\t\t\tstrncpy(server_name,options, strchr(options, '/')-options);\n\t\tif (strchr(server_name,'/'))\t*strchr(server_name,'/') = 0;\n\n\t\tstring64\t\t\t\tpassword_str = \"\";\n\t\tif (strstr(options, \"psw=\"))\n\t\t{\n\t\t\tconst char* PSW = strstr(options, \"psw=\") + 4;\n\t\t\tif (strchr(PSW, '/')) \n\t\t\t\tstrncpy(password_str, PSW, strchr(PSW, '/') - PSW);\n\t\t\telse\n\t\t\t\tstrcpy(password_str, PSW);\n\t\t}\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "Use of hardcoded keys/credentials. Prefer using a key/secret management system.",
+    "line_number": 309,
+    "line_text": "\t\tstring64\t\t\t\tpassword_str = \"\";",
+    "pattern_id": "C-W-016",
+    "rule": "{ $secret = \"_\";}",
+    "label": 1
+}

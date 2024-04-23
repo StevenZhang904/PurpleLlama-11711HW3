@@ -1,0 +1,13 @@
+{
+    "file_path": "src/rocksdb.rs",
+    "vulnerability": null,
+    "source code": "\n\nuse std::str::from_utf8;\n\nconst DEFAULT_COLUMN_FAMILY: &'static str = \"default\";\n\npub struct CFHandle {\n    inner: *mut DBCFHandle,\n}\n\nimpl Drop for CFHandle {\n    fn drop(&mut self) {use std::str::from_utf8;\n\nconst DEFAULT_COLUMN_FAMILY: &'static str = \"default\";\n\npub struct CFHandle {\n    inner: *mut DBCFHandle,\n}\n\nimpl Drop for CFHandle {\n    fn drop(&mut self) {\n        unsafe {\n            rocksdb_ffi::rocksdb_column_family_handle_destroy(self.inner);\n        }\n    }\n}\n\npub struct DB {\n    inner: *mut DBInstance,\n    cfs: BTreeMap<String, CFHandle>,\n    path: String,",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 39,
+    "line_text": "        unsafe {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

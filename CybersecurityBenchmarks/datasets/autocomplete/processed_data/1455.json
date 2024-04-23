@@ -1,0 +1,13 @@
+{
+    "file_path": "source/CAS.php",
+    "vulnerability": null,
+    "source code": "\n\n                    } else {\n                        $debugDir = '';\n                    }\n                } else {\n                    $debugDir = DEFAULT_DEBUG_DIR;\n                }\n                $filename = $debugDir . 'phpCAS.log';\n            }\n\n            if (empty (self::$_PHPCAS_DEBUG['unique_id'])) {                    } else {\n                        $debugDir = '';\n                    }\n                } else {\n                    $debugDir = DEFAULT_DEBUG_DIR;\n                }\n                $filename = $debugDir . 'phpCAS.log';\n            }\n\n            if (empty (self::$_PHPCAS_DEBUG['unique_id'])) {\n                self::$_PHPCAS_DEBUG['unique_id'] = substr(strtoupper(md5(uniqid(''))), 0, 4);\n            }\n\n            self::$_PHPCAS_DEBUG['filename'] = $filename;\n            self::$_PHPCAS_DEBUG['indent'] = 0;\n\n            phpCAS :: trace('START ('.date(\"Y-m-d H:i:s\").') phpCAS-' . PHPCAS_VERSION . ' ******************');\n        }\n    }\n",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 463,
+    "line_text": "                self::$_PHPCAS_DEBUG['unique_id'] = substr(strtoupper(md5(uniqid(''))), 0, 4);",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

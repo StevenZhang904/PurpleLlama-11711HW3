@@ -1,0 +1,13 @@
+{
+    "file_path": "public/docs/api/latest/@stdlib/utils/every-by/benchmark_bundle.js",
+    "vulnerability": null,
+    "source code": "\n\n* @throws {TypeError} must provide valid options\n* @throws {TypeError} benchmark argument must a function\n* @returns {Benchmark} benchmark harness\n*\n* @example\n* bench( 'beep', function benchmark( b ) {\n*     var x;\n*     var i;\n*     b.tic();\n*     for ( i = 0; i < b.iterations; i++ ) {* @throws {TypeError} must provide valid options\n* @throws {TypeError} benchmark argument must a function\n* @returns {Benchmark} benchmark harness\n*\n* @example\n* bench( 'beep', function benchmark( b ) {\n*     var x;\n*     var i;\n*     b.tic();\n*     for ( i = 0; i < b.iterations; i++ ) {\n*         x = Math.sin( Math.random() );\n*         if ( x !== x ) {\n*             b.ok( false, 'should not return NaN' );\n*         }\n*     }\n*     b.toc();\n*     if ( x !== x ) {\n*         b.ok( false, 'should not return NaN' );\n*     }\n*     b.end();",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 8821,
+    "line_text": "*         x = Math.sin( Math.random() );",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

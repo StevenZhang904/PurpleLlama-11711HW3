@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/python/storytext/lib/storytext/javarcptoolkit/describer.py",
+    "vulnerability": null,
+    "source code": "\n\n    def buildImages(self):\n        swtdescriber.Describer.buildImages(self)\n        self.buildImagesFromBundles()\n\n    def buildImagesFromBundles(self):            \n        allImageTypes = [ \"gif\", \"png\", \"jpg\" ]\n        allImageTypes += [ i.upper() for i in allImageTypes ]\n        \n        cacheFile = os.path.join(os.getenv(\"STORYTEXT_HOME\"), \"osgi_bundle_image_types\")\n        cacheExists = os.path.isfile(cacheFile)    def buildImages(self):\n        swtdescriber.Describer.buildImages(self)\n        self.buildImagesFromBundles()\n\n    def buildImagesFromBundles(self):            \n        allImageTypes = [ \"gif\", \"png\", \"jpg\" ]\n        allImageTypes += [ i.upper() for i in allImageTypes ]\n        \n        cacheFile = os.path.join(os.getenv(\"STORYTEXT_HOME\"), \"osgi_bundle_image_types\")\n        cacheExists = os.path.isfile(cacheFile)\n        bundleImageTypes = eval(open(cacheFile).read()) if cacheExists else {}\n        \n        for bundle in InternalPlatform.getDefault().getBundleContext().getBundles():\n            usedTypes = []\n            name = bundle.getSymbolicName()\n            imageTypes = bundleImageTypes.get(name, allImageTypes)\n            for imageType in imageTypes:\n                self.logger.debug(\"Searching bundle \" + name + \" for images of type \" + imageType)\n                images = bundle.findEntries(\"/\", \"*.\" + imageType, True)\n                if images and images.hasMoreElements():",
+    "language": "python",
+    "cwe_identifier": "CWE-94",
+    "pattern_desc": "Potential code injection due to eval usage.",
+    "line_number": 20,
+    "line_text": "        bundleImageTypes = eval(open(cacheFile).read()) if cacheExists else {}",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-eval-use",
+    "rule": null,
+    "label": 1
+}

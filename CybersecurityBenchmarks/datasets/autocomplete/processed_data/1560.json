@@ -1,0 +1,13 @@
+{
+    "file_path": "database/seeds/SettingSeeder.php",
+    "vulnerability": null,
+    "source code": "\n\n{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        DB::table('settings')->insert([\n            'name' => 'googlemap_api',{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n        DB::table('settings')->insert([\n            'name' => 'googlemap_api',\n            'value' => 'AIzaSyCRqfUKokTWoFg77sAhHOBew_NLgepcTOM',\n        ]);\n\n        DB::table('settings')->insert([\n            'name' => 'blog_title',\n            'value' => 'Blog Home',\n        ]);\n        DB::table('settings')->insert([\n            'name' => 'blog_paginate',\n            'value' => '10',",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 16,
+    "line_text": "            'value' => 'AIzaSyCRqfUKokTWoFg77sAhHOBew_NLgepcTOM',",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

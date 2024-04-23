@@ -1,0 +1,13 @@
+{
+    "file_path": "blocks/yocto-gl/libs/yocto_gui/ext/imgui/imgui_widgets.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    }\n    else\n    {\n        op = 0;\n    }\n    if (!buf[0])\n        return false;\n\n    // Copy the value in an opaque buffer so we can compare at the end of the function if it changed at all.\n    IM_ASSERT(data_type < ImGuiDataType_COUNT);    }\n    else\n    {\n        op = 0;\n    }\n    if (!buf[0])\n        return false;\n\n    // Copy the value in an opaque buffer so we can compare at the end of the function if it changed at all.\n    IM_ASSERT(data_type < ImGuiDataType_COUNT);\n    int data_backup[2];\n    IM_ASSERT(GDataTypeInfo[data_type].Size <= sizeof(data_backup));\n    memcpy(data_backup, data_ptr, GDataTypeInfo[data_type].Size);\n\n    if (format == NULL)\n        format = GDataTypeInfo[data_type].ScanFmt;\n\n    // FIXME-LEGACY: The aim is to remove those operators and write a proper expression evaluator at some point..\n    int arg1i = 0;\n    if (data_type == ImGuiDataType_S32)",
+    "language": "cpp",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 1647,
+    "line_text": "    int data_backup[2];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

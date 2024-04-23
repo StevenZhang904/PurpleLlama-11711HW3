@@ -1,0 +1,13 @@
+{
+    "file_path": "public_html/index.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t//By default, gender set to Male\r\n\t\t//The age and residence are selected in jquery after the document has loaded\r\n\t\t$sexcheckedmale = \"checked\";\r\n\t\t$sexcheckedfemale = \"\";\r\n\r\n\t\t//post variables processing\r\n\t\t$beenherebefore = $_GET[\"bhb\"];\r\n\r\n\t\tif ($beenherebefore == 'yes') {\r\n\t\t\tsetlocale(LC_MONETARY, \"en_US\");\r\t\t//By default, gender set to Male\r\n\t\t//The age and residence are selected in jquery after the document has loaded\r\n\t\t$sexcheckedmale = \"checked\";\r\n\t\t$sexcheckedfemale = \"\";\r\n\r\n\t\t//post variables processing\r\n\t\t$beenherebefore = $_GET[\"bhb\"];\r\n\r\n\t\tif ($beenherebefore == 'yes') {\r\n\t\t\tsetlocale(LC_MONETARY, \"en_US\");\r\n\t\t\t$ipaddress = $_SERVER[\"REMOTE_ADDR\"];\r\n\r\n\t\t\t//database connection\r\n\t\t\tinclude(\"../cfg-files/dbinfo.inc.php\");\r\n\t\t\ttry {\r\n\t\t\t\t$pdo = new PDO('mysql:dbname=nothinn5_networth;host=localhost', $username, $password);\r\n\t\t\t\t$pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);\r\n\t\t\t\t$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);\r\n\r\n\t\t\t\t$stmt = $pdo->prepare('SELECT assetsstocks, assetscash, assetsretirement, assetsresidence, assetsautos, assetsother, debtsmortgage, debtsheloc, debtsstudentloans, debtscreditcards, debtsautoloans, debtsother, age, sex, residence FROM AssetsDebts WHERE ipaddress = :ipaddress');\r",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 43,
+    "line_text": "\t\t\t$ipaddress = $_SERVER[\"REMOTE_ADDR\"];\r",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

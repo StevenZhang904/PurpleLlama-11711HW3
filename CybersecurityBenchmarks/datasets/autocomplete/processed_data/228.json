@@ -1,0 +1,13 @@
+{
+    "file_path": "content/child/webcrypto/platform_crypto_openssl.cc",
+    "vulnerability": null,
+    "source code": "\n\n\n  DISALLOW_COPY_AND_ASSIGN(SymKey);\n};\n\nnamespace {\n\nconst EVP_CIPHER* GetAESCipherByKeyLength(unsigned int key_length_bytes) {\n  // OpenSSL supports AES CBC ciphers for only 3 key lengths: 128, 192, 256 bits\n  switch (key_length_bytes) {\n    case 16:\n  DISALLOW_COPY_AND_ASSIGN(SymKey);\n};\n\nnamespace {\n\nconst EVP_CIPHER* GetAESCipherByKeyLength(unsigned int key_length_bytes) {\n  // OpenSSL supports AES CBC ciphers for only 3 key lengths: 128, 192, 256 bits\n  switch (key_length_bytes) {\n    case 16:\n      return EVP_aes_128_cbc();\n    case 24:\n      return EVP_aes_192_cbc();\n    case 32:\n      return EVP_aes_256_cbc();\n    default:\n      return NULL;\n  }\n}\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-347",
+    "pattern_desc": "It looks like you are using an unauthenticated mode of encryption. Don't use this unless you have a good reason or are separately adding authentication.",
+    "line_number": 52,
+    "line_text": "      return EVP_aes_128_cbc();",
+    "pattern_id": "C-R-010",
+    "rule": "(EVP_\\w+_cbc\\s*\\()|(EVP_\\w+_ctr\\s*\\()|(EVP_\\w+_xts\\s*\\()|(EVP_\\w+_cfb\\w\\s*\\()|(EVP_\\w+_ofb\\s*\\()",
+    "label": 1
+}

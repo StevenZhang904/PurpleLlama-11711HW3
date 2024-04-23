@@ -1,0 +1,13 @@
+{
+    "file_path": "src/bench.c",
+    "vulnerability": null,
+    "source code": "\n\n  printf(\"    Number of hash collisions: %\"PRIu64\"\\n\", sparkey_hash_numcollisions(myreader));\n\n  sparkey_logreader *logreader = sparkey_hash_getreader(myreader);\n  sparkey_assert(sparkey_logiter_create(&myiter, logreader));\n\n  uint8_t *valuebuf = malloc(sparkey_logreader_maxvaluelen(logreader));\n\n  for (int i = 0; i < lookups; i++) {\n    char mykey[100];\n    char myvalue[100];  printf(\"    Number of hash collisions: %\"PRIu64\"\\n\", sparkey_hash_numcollisions(myreader));\n\n  sparkey_logreader *logreader = sparkey_hash_getreader(myreader);\n  sparkey_assert(sparkey_logiter_create(&myiter, logreader));\n\n  uint8_t *valuebuf = malloc(sparkey_logreader_maxvaluelen(logreader));\n\n  for (int i = 0; i < lookups; i++) {\n    char mykey[100];\n    char myvalue[100];\n    int r = rand() % n;\n    sprintf(mykey, \"key_%d\", r);\n    sprintf(myvalue, \"value_%d\", r);\n    sparkey_assert(sparkey_hash_get(myreader, (uint8_t*)mykey, strlen(mykey), myiter));\n    if (sparkey_logiter_state(myiter) != SPARKEY_ITER_ACTIVE) {\n      printf(\"Failed to lookup key: %s\\n\", mykey);\n      exit(1);\n    }\n\n    uint64_t wanted_valuelen = sparkey_logiter_valuelen(myiter);",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 195,
+    "line_text": "    int r = rand() % n;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

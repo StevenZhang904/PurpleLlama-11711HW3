@@ -1,0 +1,13 @@
+{
+    "file_path": "application/controllers/User.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t$this->session->sess_destroy();\n\t\tredirect('/home/', 'refresh');\n\t}\n\t/**\n\t* loginUser\n\t*/\n\tpublic function loginUser()\n\t{\n\t\t$this->load->model('usermodel');\n\t\t$name = $this->input->post('user_name');\t\t$this->session->sess_destroy();\n\t\tredirect('/home/', 'refresh');\n\t}\n\t/**\n\t* loginUser\n\t*/\n\tpublic function loginUser()\n\t{\n\t\t$this->load->model('usermodel');\n\t\t$name = $this->input->post('user_name');\n\t\t$password = md5($this->input->post('user_password'));\n\t\t\n\t\t$result  = $this->usermodel->login($name,$password);\n\t\tif($result)\n\t\t{\n\t\t\tredirect('/user/', 'refresh');\n\t\t}\n\t\telse\n\t\t{\n\t\t\t$msg = \"Invalid username or password\";",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 74,
+    "line_text": "\t\t$password = md5($this->input->post('user_password'));",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

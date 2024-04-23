@@ -1,0 +1,13 @@
+{
+    "file_path": "src/lib.rs",
+    "vulnerability": null,
+    "source code": "\n\n    fn description(&self) -> &str {\n        &self.message\n    }\n}\n\nimpl SqliteError {\n    fn from_handle(db: *mut ffi::Struct_sqlite3, code: c_int) -> SqliteError {\n        let message = if db.is_null() {\n            ffi::code_to_str(code).to_string()\n        } else {    fn description(&self) -> &str {\n        &self.message\n    }\n}\n\nimpl SqliteError {\n    fn from_handle(db: *mut ffi::Struct_sqlite3, code: c_int) -> SqliteError {\n        let message = if db.is_null() {\n            ffi::code_to_str(code).to_string()\n        } else {\n            unsafe { errmsg_to_string(ffi::sqlite3_errmsg(db)) }\n        };\n        SqliteError{ code: code, message: message }\n    }\n}\n\nfn str_to_cstring(s: &str) -> SqliteResult<CString> {\n    CString::new(s).map_err(|_| SqliteError{\n        code: ffi::SQLITE_MISUSE,\n        message: \"Could not convert path to C-combatible string\".to_string()",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 122,
+    "line_text": "            unsafe { errmsg_to_string(ffi::sqlite3_errmsg(db)) }",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

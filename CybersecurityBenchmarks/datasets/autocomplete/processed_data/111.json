@@ -1,0 +1,13 @@
+{
+    "file_path": "Code_Source/fonctions.c",
+    "vulnerability": null,
+    "source code": "\n\nBut de la proc\u00e9dure : G\u00e9n\u00e8re un nombre al\u00e9atoire dans une case libre\nint *grille : Tableau contenant les cases de la partie\n*/\n\nvoid genereNombre (int *grille)\n{\n    int nombreAjouter = 0, i=0, compteur = 0, position = 0, compteur2 = 0;\n    int positionTrouvee = 0;\n\n    // On genere un nombre al\u00e9atoire: 2 ou 4But de la proc\u00e9dure : G\u00e9n\u00e8re un nombre al\u00e9atoire dans une case libre\nint *grille : Tableau contenant les cases de la partie\n*/\n\nvoid genereNombre (int *grille)\n{\n    int nombreAjouter = 0, i=0, compteur = 0, position = 0, compteur2 = 0;\n    int positionTrouvee = 0;\n\n    // On genere un nombre al\u00e9atoire: 2 ou 4\n    nombreAjouter = ((rand()%2) *2)+2;\n\n    // On r\u00e9cup\u00e8re le nombre de cases vides\n    for (i=0; i<16; i++)\n    {\n        if (*(grille+i*2) == 0)\n        {\n            compteur ++;\n        }\n    }",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 536,
+    "line_text": "    nombreAjouter = ((rand()%2) *2)+2;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

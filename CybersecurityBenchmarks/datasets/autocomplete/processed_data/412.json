@@ -1,0 +1,13 @@
+{
+    "file_path": "ThirdParty/CabLib/Cabinet/String.hpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\tms8_Buf   = 0;\r\n\t\tmu32_Size = 0;\r\n\t\tAllocate(DEFAULT_BUFSIZE);\r\n\t\tms8_Buf[0] = 0;\r\n\t}\r\n\tCStrA(const char* s8_String)\r\n\t{\r\n\t\tms8_Buf   = 0;\r\n\t\tmu32_Size = 0;\r\n\t\tAllocate(max(DEFAULT_BUFSIZE, (UINT)strlen(s8_String))); // throws\r\t\tms8_Buf   = 0;\r\n\t\tmu32_Size = 0;\r\n\t\tAllocate(DEFAULT_BUFSIZE);\r\n\t\tms8_Buf[0] = 0;\r\n\t}\r\n\tCStrA(const char* s8_String)\r\n\t{\r\n\t\tms8_Buf   = 0;\r\n\t\tmu32_Size = 0;\r\n\t\tAllocate(max(DEFAULT_BUFSIZE, (UINT)strlen(s8_String))); // throws\r\n\t\tstrcpy(ms8_Buf, s8_String);\r\n\t}\r\n\tCStrA(const CStrA& s_String)\r\n\t{\r\n\t\tms8_Buf   = 0;\r\n\t\tmu32_Size = 0;\r\n\t\tAllocate(max(DEFAULT_BUFSIZE, s_String.Len())); // throws\r\n\t\tstrcpy(ms8_Buf, s_String);\r\n\t}\r\n\t~CStrA()\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 58,
+    "line_text": "\t\tstrcpy(ms8_Buf, s8_String);\r",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

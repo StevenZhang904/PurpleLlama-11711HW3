@@ -1,0 +1,13 @@
+{
+    "file_path": "lib/SmartBot/Bot/Conversation.php",
+    "vulnerability": null,
+    "source code": "\n\n    /**\n     * Flush the actual conversation and load a new one\n     *\n     * @return \\SmartBot\\Bot\\Brain\\Memory Provide a fluent interface\n     */\n    public function load($entity)\n    {\n        $this -> flush();\n        \n        $bot     =   $this -> getDi() -> get('Bot');    /**\n     * Flush the actual conversation and load a new one\n     *\n     * @return \\SmartBot\\Bot\\Brain\\Memory Provide a fluent interface\n     */\n    public function load($entity)\n    {\n        $this -> flush();\n        \n        $bot     =   $this -> getDi() -> get('Bot');\n        $this -> memoryFile   =  sprintf('%s/smart-bot-conversation-%s.php', $bot -> getDataPath(), md5($entity));\n        \n        \n        // loading acquired memory\n        if (file_exists($this -> memoryFile)) {\n            echo $this -> memoryFile;\n            foreach (include $this -> memoryFile as $item) {\n                $this -> addItem($item);\n            }\n        }",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 57,
+    "line_text": "        $this -> memoryFile   =  sprintf('%s/smart-bot-conversation-%s.php', $bot -> getDataPath(), md5($entity));",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "start.php",
+    "vulnerability": null,
+    "source code": "\n\n<?php\n/**\n * run with command \n * php start.php start\n */\n<?php\n/**\n * run with command \n * php start.php start\n */\n\nini_set('display_errors', 'on');\nuse Workerman\\Worker;\n\nif(strpos(strtolower(PHP_OS), 'win') === 0)\n{\n    exit(\"start.php not support windows, please use start_for_win.bat\\n\");\n}\n\n// \u68c0\u67e5\u6269\u5c55\nif(!extension_loaded('pcntl'))",
+    "language": "php",
+    "cwe_identifier": "CWE-200",
+    "pattern_desc": "Potential exposure of sensitive information through error messages",
+    "line_number": 7,
+    "line_text": "ini_set('display_errors', 'on');",
+    "pattern_id": "PHP-R-014",
+    "rule": "\\b(error_reporting|ini_set)\\s*\\(\\s*['\"]display_errors['\"],\\s*['\"]on['\"]\\s*\\)",
+    "label": 1
+}

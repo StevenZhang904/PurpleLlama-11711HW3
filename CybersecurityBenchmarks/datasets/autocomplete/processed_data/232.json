@@ -1,0 +1,13 @@
+{
+    "file_path": "src/serialport.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n  // callback\n  if (!info[2]->IsFunction()) {\n    Nan::ThrowTypeError(\"Third argument must be a function\");\n    return;\n  }\n  v8::Local<v8::Function> callback = info[2].As<v8::Function>();\n\n  OpenBaton* baton = new OpenBaton();\n  memset(baton, 0, sizeof(OpenBaton));\n  // callback\n  if (!info[2]->IsFunction()) {\n    Nan::ThrowTypeError(\"Third argument must be a function\");\n    return;\n  }\n  v8::Local<v8::Function> callback = info[2].As<v8::Function>();\n\n  OpenBaton* baton = new OpenBaton();\n  memset(baton, 0, sizeof(OpenBaton));\n  strcpy(baton->path, *path);\n  baton->baudRate = getIntFromObject(options, \"baudRate\");\n  baton->dataBits = getIntFromObject(options, \"dataBits\");\n  baton->bufferSize = getIntFromObject(options, \"bufferSize\");\n  baton->parity = ToParityEnum(getStringFromObj(options, \"parity\"));\n  baton->stopBits = ToStopBitEnum(getDoubleFromObject(options, \"stopBits\"));\n  baton->rtscts = getBoolFromObject(options, \"rtscts\");\n  baton->xon = getBoolFromObject(options, \"xon\");\n  baton->xoff = getBoolFromObject(options, \"xoff\");\n  baton->xany = getBoolFromObject(options, \"xany\");",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 129,
+    "line_text": "  strcpy(baton->path, *path);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

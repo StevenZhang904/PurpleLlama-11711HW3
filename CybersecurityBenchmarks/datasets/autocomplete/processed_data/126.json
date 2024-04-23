@@ -1,0 +1,13 @@
+{
+    "file_path": "sw-ek-tm4c123gxl/third_party/FreeRTOS/Demo/CORTEX_LM3Sxxxx_Rowley/webserver/uIP_Task.c",
+    "vulnerability": null,
+    "source code": "\n\n\txAddr.addr[ 3 ] = pucMACArray[3];\n\txAddr.addr[ 4 ] = pucMACArray[4];\n\txAddr.addr[ 5 ] = pucMACArray[5];\n\tuip_setethaddr( xAddr );\n}\n/*-----------------------------------------------------------*/\n\nvoid vApplicationProcessFormInput( char *pcInputString, portBASE_TYPE xInputLength )\n{\nchar *c, *pcText;\txAddr.addr[ 3 ] = pucMACArray[3];\n\txAddr.addr[ 4 ] = pucMACArray[4];\n\txAddr.addr[ 5 ] = pucMACArray[5];\n\tuip_setethaddr( xAddr );\n}\n/*-----------------------------------------------------------*/\n\nvoid vApplicationProcessFormInput( char *pcInputString, portBASE_TYPE xInputLength )\n{\nchar *c, *pcText;\nstatic char cMessageForDisplay[ 32 ];\nextern xQueueHandle xOLEDQueue;\nxOLEDMessage xOLEDMessage;\n\n\t/* Process the form input sent by the IO page of the served HTML. */\n\n\tc = strstr( pcInputString, \"?\" );\n\n    if( c )\n    {",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 303,
+    "line_text": "static char cMessageForDisplay[ 32 ];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "test/tbbmalloc/test_malloc_whitebox.cpp",
+    "vulnerability": null,
+    "source code": "\n\n}\n\nvoid TestObjectRecognition() {\n    size_t headersSize = sizeof(LargeMemoryBlock)+sizeof(LargeObjectHdr);\n    unsigned falseObjectSize = 113; // unsigned is the type expected by getObjectSize\n    size_t obtainedSize;\n\n    REQUIRE_MESSAGE(sizeof(BackRefIdx)==sizeof(uintptr_t), \"Unexpected size of BackRefIdx\");\n    REQUIRE_MESSAGE(getObjectSize(falseObjectSize)!=falseObjectSize, \"Error in test: bad choice for false object size\");\n}\n\nvoid TestObjectRecognition() {\n    size_t headersSize = sizeof(LargeMemoryBlock)+sizeof(LargeObjectHdr);\n    unsigned falseObjectSize = 113; // unsigned is the type expected by getObjectSize\n    size_t obtainedSize;\n\n    REQUIRE_MESSAGE(sizeof(BackRefIdx)==sizeof(uintptr_t), \"Unexpected size of BackRefIdx\");\n    REQUIRE_MESSAGE(getObjectSize(falseObjectSize)!=falseObjectSize, \"Error in test: bad choice for false object size\");\n\n    void* mem = scalable_malloc(2*slabSize);\n    REQUIRE_MESSAGE(mem, \"Memory was not allocated\");\n    Block* falseBlock = (Block*)alignUp((uintptr_t)mem, slabSize);\n    falseBlock->objectSize = falseObjectSize;\n    char* falseSO = (char*)falseBlock + falseObjectSize*7;\n    REQUIRE_MESSAGE(alignDown(falseSO, slabSize)==(void*)falseBlock, \"Error in test: false object offset is too big\");\n\n    void* bufferLOH = scalable_malloc(2*slabSize + headersSize);\n    REQUIRE_MESSAGE(bufferLOH, \"Memory was not allocated\");\n    LargeObjectHdr* falseLO =",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 570,
+    "line_text": "    void* mem = scalable_malloc(2*slabSize);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

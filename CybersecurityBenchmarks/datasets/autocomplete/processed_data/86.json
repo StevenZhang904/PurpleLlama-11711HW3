@@ -1,0 +1,13 @@
+{
+    "file_path": "lab11/s201030_lab11/es01/item.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\tfscanf(fp, \"%d %s\", &new->key, new->str);\n\t}\n\n\treturn new;\n}\n\nItem item_new(int key, char *str)\n{\n\tItem new = malloc(sizeof(*new));\n\tnew->key = key;\t\tfscanf(fp, \"%d %s\", &new->key, new->str);\n\t}\n\n\treturn new;\n}\n\nItem item_new(int key, char *str)\n{\n\tItem new = malloc(sizeof(*new));\n\tnew->key = key;\n\tstrcpy(new->str, str);\n\treturn new;\n}\n\nvoid item_print(Item a, FILE *fp)\n{\n\tfprintf(fp,\"%d\\t%s\\n\", a->key, a->str);\n}\n\nvoid item_free(Item a)",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 39,
+    "line_text": "\tstrcpy(new->str, str);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "platforms/linux-fs/barectf-platform-linux-fs.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\tbarectf_packet_buf_size(&ctx->ctx), 1, ctx->fh);\n\tassert(nmemb == 1);\n}\n\nstatic int is_backend_full(void *data)\n{\n\tstruct barectf_platform_linux_fs_ctx *ctx =\n\t\tFROM_VOID_PTR(struct barectf_platform_linux_fs_ctx, data);\n\n\tif (ctx->simulate_full_backend) {\t\tbarectf_packet_buf_size(&ctx->ctx), 1, ctx->fh);\n\tassert(nmemb == 1);\n}\n\nstatic int is_backend_full(void *data)\n{\n\tstruct barectf_platform_linux_fs_ctx *ctx =\n\t\tFROM_VOID_PTR(struct barectf_platform_linux_fs_ctx, data);\n\n\tif (ctx->simulate_full_backend) {\n\t\tif (rand() % ctx->full_backend_rand_max <\n\t\t\t\tctx->full_backend_rand_lt) {\n\t\t\treturn 1;\n\t\t}\n\t}\n\n\treturn 0;\n}\n\nstatic void open_packet(void *data)",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 74,
+    "line_text": "\t\tif (rand() % ctx->full_backend_rand_max <",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

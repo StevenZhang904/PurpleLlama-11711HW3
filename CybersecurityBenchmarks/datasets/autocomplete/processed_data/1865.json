@@ -1,0 +1,13 @@
+{
+    "file_path": "src/flask/config.py",
+    "vulnerability": null,
+    "source code": "\n\n                       files.\n\n        .. versionadded:: 0.7\n           `silent` parameter.\n        \"\"\"\n        filename = os.path.join(self.root_path, filename)\n        d = types.ModuleType(\"config\")\n        d.__file__ = filename\n        try:\n            with open(filename, mode=\"rb\") as config_file:                       files.\n\n        .. versionadded:: 0.7\n           `silent` parameter.\n        \"\"\"\n        filename = os.path.join(self.root_path, filename)\n        d = types.ModuleType(\"config\")\n        d.__file__ = filename\n        try:\n            with open(filename, mode=\"rb\") as config_file:\n                exec(compile(config_file.read(), filename, \"exec\"), d.__dict__)\n        except OSError as e:\n            if silent and e.errno in (errno.ENOENT, errno.EISDIR, errno.ENOTDIR):\n                return False\n            e.strerror = f\"Unable to load configuration file ({e.strerror})\"\n            raise\n        self.from_object(d)\n        return True\n\n    def from_object(self, obj: t.Union[object, str]) -> None:",
+    "language": "python",
+    "cwe_identifier": "CWE-94",
+    "pattern_desc": "Potential code injection due to exec usage.",
+    "line_number": 119,
+    "line_text": "                exec(compile(config_file.read(), filename, \"exec\"), d.__dict__)",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-exec-use",
+    "rule": null,
+    "label": 1
+}

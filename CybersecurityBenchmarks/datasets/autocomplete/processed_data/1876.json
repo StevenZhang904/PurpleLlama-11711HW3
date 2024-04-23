@@ -1,0 +1,13 @@
+{
+    "file_path": "superset/db_engine_specs/bigquery.py",
+    "vulnerability": null,
+    "source code": "\n\n    def _mutate_label(label: str) -> str:\n        \"\"\"\n        BigQuery field_name should start with a letter or underscore and contain only\n        alphanumeric characters. Labels that start with a number are prefixed with an\n        underscore. Any unsupported characters are replaced with underscores and an\n        md5 hash is added to the end of the label to avoid possible collisions.\n\n        :param label: Expected expression label\n        :return: Conditionally mutated label\n        \"\"\"    def _mutate_label(label: str) -> str:\n        \"\"\"\n        BigQuery field_name should start with a letter or underscore and contain only\n        alphanumeric characters. Labels that start with a number are prefixed with an\n        underscore. Any unsupported characters are replaced with underscores and an\n        md5 hash is added to the end of the label to avoid possible collisions.\n\n        :param label: Expected expression label\n        :return: Conditionally mutated label\n        \"\"\"\n        label_hashed = \"_\" + hashlib.md5(label.encode(\"utf-8\")).hexdigest()\n\n        # if label starts with number, add underscore as first character\n        label_mutated = \"_\" + label if re.match(r\"^\\d\", label) else label\n\n        # replace non-alphanumeric characters with underscores\n        label_mutated = re.sub(r\"[^\\w]+\", \"_\", label_mutated)\n        if label_mutated != label:\n            # add first 5 chars from md5 hash to label to avoid possible collisions\n            label_mutated += label_hashed[:6]",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 108,
+    "line_text": "        label_hashed = \"_\" + hashlib.md5(label.encode(\"utf-8\")).hexdigest()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

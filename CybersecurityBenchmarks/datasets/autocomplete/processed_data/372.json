@@ -1,0 +1,13 @@
+{
+    "file_path": "benchmarks/DNN/blocks/Resize-Conv-ReLU-MaxPool/cpu/dense/resize_conv_relu_maxpool_generator_mkl.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    int conv_offset[] = {0, 0};\n\n    size_t maxpool_kernel_size[] = {2, 2};\n    size_t maxpool_strides[] = {2, 2};\n    int maxpool_offset[] = {0, 0};\n\n    for (int fout = 0; fout < FOut; ++fout)\n        for (int fin = 0; fin < FIn; ++fin)\n            for (int k_y = 0; k_y < K_Y; ++k_y)\n                for (int k_x = 0; k_x < K_X; ++k_x)    int conv_offset[] = {0, 0};\n\n    size_t maxpool_kernel_size[] = {2, 2};\n    size_t maxpool_strides[] = {2, 2};\n    int maxpool_offset[] = {0, 0};\n\n    for (int fout = 0; fout < FOut; ++fout)\n        for (int fin = 0; fin < FIn; ++fin)\n            for (int k_y = 0; k_y < K_Y; ++k_y)\n                for (int k_x = 0; k_x < K_X; ++k_x)\n                    conv_filter_param[fout][fin][k_y][k_x] = ((float)(rand()%256 - 128)) / 127.f;\n\n    for (int fout = 0; fout < FOut; ++fout)\n        conv_bias_param[fout] = ((float)(rand()%256 - 128)) / 127.f;\n\n    // Allocate buffers\n    float* input_buf = (float*)malloc(sizeof(float) * FIn * IMG_WIDTH * IMG_HEIGHT * BATCH_SIZE);\n    float* resized_buf = (float*)malloc(sizeof(float) * FIn * (N + 2) * (N + 2) * BATCH_SIZE);\n    float* output_buf = (float*)malloc(sizeof(float) * FOut * N/2 * N/2 * BATCH_SIZE);\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 82,
+    "line_text": "                    conv_filter_param[fout][fin][k_y][k_x] = ((float)(rand()%256 - 128)) / 127.f;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

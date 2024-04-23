@@ -1,0 +1,13 @@
+{
+    "file_path": "sdk/physx/2.8.3/Samples/SampleAssetExport/src/NxSampleAssetExport.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n      #if NXU_SAVE_EFFECTORS\n      saveEffectors(c,scene); // save the effectors.\n      #endif\n\n\n\n\n\n  \t\tchar scratch[512];\n      #if NXU_SAVE_EFFECTORS\n      saveEffectors(c,scene); // save the effectors.\n      #endif\n\n\n\n\n\n  \t\tchar scratch[512];\n  \t\tsprintf(scratch, \"%s.xml\", SaveFilename);\n  \t\tprintf(\"Saving NxuStream XML file to '%s'\\r\\n\", scratch);\n  \t\tNXU::saveCollection(c, scratch, NXU::FT_XML, false, false);\n\n  \t\tsprintf(scratch, \"%s.nxb\", SaveFilename);\n  \t\tprintf(\"Saving NxuStream BINARY file to '%s'\\r\\n\", scratch);\n  \t\tNXU::saveCollection(c, scratch, NXU::FT_BINARY, true, true);\n\n  \t\tsprintf(scratch, \"%s.dae\", SaveFilename);\n  \t\tprintf(\"Saving COLLADA Physics 1.4.1 file to '%s'\\r\\n\", scratch);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 929,
+    "line_text": "  \t\tsprintf(scratch, \"%s.xml\", SaveFilename);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

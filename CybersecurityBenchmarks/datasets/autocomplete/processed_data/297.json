@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Debug/DebugInterface.cpp",
+    "vulnerability": null,
+    "source code": "\n\n  auto currentPosition = position;\n\n  for (auto* current = block; current; current = current->next) {\n    nu::StaticString<128> line;\n    line.append(current->name.view());\n\n    char buffer[64];\n#if OS(WIN)\n    sprintf_s(buffer, sizeof(buffer), \"%.2f\", current->stopTime - current->startTime);\n#else  auto currentPosition = position;\n\n  for (auto* current = block; current; current = current->next) {\n    nu::StaticString<128> line;\n    line.append(current->name.view());\n\n    char buffer[64];\n#if OS(WIN)\n    sprintf_s(buffer, sizeof(buffer), \"%.2f\", current->stopTime - current->startTime);\n#else\n    sprintf(buffer, \"%.2f\", current->stopTime - current->startTime);\n#endif\n    line.append(\"  \");\n    line.append(buffer);\n\n    m_debugFont.drawText(transform, currentPosition, line.view());\n\n    currentPosition.y += 16;\n\n    if (current->children) {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 50,
+    "line_text": "    sprintf(buffer, \"%.2f\", current->stopTime - current->startTime);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

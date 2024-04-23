@@ -1,0 +1,13 @@
+{
+    "file_path": "src/bel-parse-term.c",
+    "vulnerability": null,
+    "source code": "\n\n    bel_node_stack* term_stack;\n    char            *function;\n    char            *value;\n    int             fi;\n    int             vi;\n\n    // Copy line to stack; Append new line if needed.\n    int             line_length = strlen(line);\n    int             i;\n    char            input[line_length + 2];    bel_node_stack* term_stack;\n    char            *function;\n    char            *value;\n    int             fi;\n    int             vi;\n\n    // Copy line to stack; Append new line if needed.\n    int             line_length = strlen(line);\n    int             i;\n    char            input[line_length + 2];\n    strcpy(input, line);\n    for (i = line_length - 1; (input[i] == '\\n' || input[i] == '\\r'); i--)\n        input[i] = '\\0';\n    input[i + 1] = '\\n';\n    input[i + 2] = '\\0';\n\n    p            = input;\n    pe           = input + strlen(input);\n    top          = 0;\n    stack        = malloc(sizeof(int) * TERM_STACK_SIZE);",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 33,
+    "line_text": "    strcpy(input, line);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

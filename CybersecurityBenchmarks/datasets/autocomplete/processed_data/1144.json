@@ -1,0 +1,13 @@
+{
+    "file_path": "org.alloytools.alloy.lsp/src/main/java/org/alloytools/alloy/lsp/provider/AlloyAppUtil.java",
+    "vulnerability": null,
+    "source code": "\n\n        tempfile.mkdirs();\n        String ans = Util.canon(tempfile.getPath());\n        if (!tempfile.isDirectory()) {\n            OurDialog.fatal(null, \"Error. Cannot create the temporary directory \" + ans);\n        }\n        if (!Util.onWindows()) {\n            String[] args = {\n                             \"chmod\", \"700\", ans\n            };\n            try {        tempfile.mkdirs();\n        String ans = Util.canon(tempfile.getPath());\n        if (!tempfile.isDirectory()) {\n            OurDialog.fatal(null, \"Error. Cannot create the temporary directory \" + ans);\n        }\n        if (!Util.onWindows()) {\n            String[] args = {\n                             \"chmod\", \"700\", ans\n            };\n            try {\n                Runtime.getRuntime().exec(args).waitFor();\n            } catch (Throwable ex) {\n            } // We only intend to make a best effort.\n        }\n        return alloyHome = ans;\n    }\n\n    /**\n     * Create an empty temporary directory for use, designate it \"deleteOnExit\",\n     * then return it. It is guaranteed to be a canonical absolute path.",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 53,
+    "line_text": "                Runtime.getRuntime().exec(args).waitFor();",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

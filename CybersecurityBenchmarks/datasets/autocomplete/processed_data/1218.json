@@ -1,0 +1,13 @@
+{
+    "file_path": "src/util.rs",
+    "vulnerability": null,
+    "source code": "\n\n#[cfg(feature = \"naive-runtime\")]\nuse futures_util::future::{FutureExt, Map};\n\nuse crate::log::trace;\n\nuse rdkafka_sys as rdsys;\n\n/// Returns a tuple representing the version of `librdkafka` in hexadecimal and\n/// string format.\npub fn get_rdkafka_version() -> (u16, String) {#[cfg(feature = \"naive-runtime\")]\nuse futures_util::future::{FutureExt, Map};\n\nuse crate::log::trace;\n\nuse rdkafka_sys as rdsys;\n\n/// Returns a tuple representing the version of `librdkafka` in hexadecimal and\n/// string format.\npub fn get_rdkafka_version() -> (u16, String) {\n    let version_number = unsafe { rdsys::rd_kafka_version() } as u16;\n    let c_str = unsafe { CStr::from_ptr(rdsys::rd_kafka_version_str()) };\n    (version_number, c_str.to_string_lossy().into_owned())\n}\n\n/// Specifies a timeout for a Kafka operation.\n#[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]\npub enum Timeout {\n    /// Time out after the specified duration elapses.\n    After(Duration),",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 29,
+    "line_text": "    let version_number = unsafe { rdsys::rd_kafka_version() } as u16;",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "lib/SILOptimizer/UtilityPasses/SILDebugInfoGenerator.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    int FileIdx = 0;\n    auto FIter = M->begin();\n    while (FIter != M->end()) {\n\n      std::string FileName;\n      llvm::raw_string_ostream NameOS(FileName);\n      NameOS << FileBaseName << \".gsil_\" << FileIdx++ << \".sil\";\n      NameOS.flush();\n\n      char *FileNameBuf = (char *)M->allocate(FileName.size() + 1, 1);    int FileIdx = 0;\n    auto FIter = M->begin();\n    while (FIter != M->end()) {\n\n      std::string FileName;\n      llvm::raw_string_ostream NameOS(FileName);\n      NameOS << FileBaseName << \".gsil_\" << FileIdx++ << \".sil\";\n      NameOS.flush();\n\n      char *FileNameBuf = (char *)M->allocate(FileName.size() + 1, 1);\n      strcpy(FileNameBuf, FileName.c_str());\n\n      DEBUG(llvm::dbgs() << \"Write debug SIL file \" << FileName << '\\n');\n\n      std::error_code EC;\n      llvm::raw_fd_ostream OutFile(FileName, EC,\n                                   llvm::sys::fs::OpenFlags::F_None);\n      assert(!OutFile.has_error() && !EC && \"Can't write SIL debug file\");\n\n      PrintContext Ctx(OutFile);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 111,
+    "line_text": "      strcpy(FileNameBuf, FileName.c_str());",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/com/eaio/uuid/UUIDGen.java",
+    "vulnerability": null,
+    "source code": "\n\n\n        if (macAddress == null) {\n\n            Process p = null;\n            BufferedReader in = null;\n\n            try {\n                String osname = System.getProperty(\"os.name\", \"\"), osver = System.getProperty(\"os.version\", \"\");\n\n                if (osname.startsWith(\"Windows\")) {\n        if (macAddress == null) {\n\n            Process p = null;\n            BufferedReader in = null;\n\n            try {\n                String osname = System.getProperty(\"os.name\", \"\"), osver = System.getProperty(\"os.version\", \"\");\n\n                if (osname.startsWith(\"Windows\")) {\n                    p = Runtime.getRuntime().exec(\n                            new String[] { \"ipconfig\", \"/all\" }, null);\n                }\n\n                // Solaris code must appear before the generic code\n                else if (osname.startsWith(\"Solaris\")\n                        || osname.startsWith(\"SunOS\")) {\n                    if (osver.startsWith(\"5.11\")) {\n                        p = Runtime.getRuntime().exec(\n                        new String[] { \"dladm\", \"show-phys\", \"-m\" }, null);",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 118,
+    "line_text": "                    p = Runtime.getRuntime().exec(",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

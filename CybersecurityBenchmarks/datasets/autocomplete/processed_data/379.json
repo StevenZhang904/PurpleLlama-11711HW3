@@ -1,0 +1,13 @@
+{
+    "file_path": "source/CCefRecordReader.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n        //x if((*l_ptr >= '0') && (*l_ptr <= '9'))\n        // 2015.05.01 Fix for when encountering a negative value as the 1st value in multiline record\n        if(((*l_ptr >= '0') && (*l_ptr <= '9')) || (*l_ptr =='-') || (*l_ptr =='\"') || (*l_ptr ==','))\n        {\n            bool l_error = false;\n            char *l_tok = NULL;\n            char *l_last_tok = NULL;\n        \n            while((l_error == false) && \n        //x if((*l_ptr >= '0') && (*l_ptr <= '9'))\n        // 2015.05.01 Fix for when encountering a negative value as the 1st value in multiline record\n        if(((*l_ptr >= '0') && (*l_ptr <= '9')) || (*l_ptr =='-') || (*l_ptr =='\"') || (*l_ptr ==','))\n        {\n            bool l_error = false;\n            char *l_tok = NULL;\n            char *l_last_tok = NULL;\n        \n            while((l_error == false) && \n                 ((l_tok = strtok (l_ptr, TOKEN_DELIMS)) != NULL)) {\n                l_last_tok = l_tok;\n                l_ptr = NULL;\n\n                if(l_count < m_iterData->m_vars_per_record) \n                {\n                    if(isdigit(*l_tok) || (*l_tok == '-')) {\n\n                        m_token_list[l_count++] = l_tok;\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "Usage of strtok is insecure as it's not thread-safe and can also often lead to buffer overflow vulnerabilities",
+    "line_number": 104,
+    "line_text": "                 ((l_tok = strtok (l_ptr, TOKEN_DELIMS)) != NULL)) {",
+    "pattern_id": "C-R-014",
+    "rule": "strtok\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

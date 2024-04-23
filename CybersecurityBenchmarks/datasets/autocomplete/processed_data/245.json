@@ -1,0 +1,13 @@
+{
+    "file_path": "Sample/ClientSource/ScutAnimation/ScutFrame.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t}\r\n\r\n\tvoid CScutFrame::initQuads(int nTotalCount)\r\n\t{\r\n\t\tint indexVBO = 0;\r\n\r\n\t\tfor (map_TextureCount_it itCnt = m_mapTextureCount.begin(); itCnt != m_mapTextureCount.end(); itCnt++, indexVBO++)\r\n\t\t{\r\n\t\t\tint count = (*itCnt).second;\r\n\t\t\tm_pTexture = (*itCnt).first;\r\t}\r\n\r\n\tvoid CScutFrame::initQuads(int nTotalCount)\r\n\t{\r\n\t\tint indexVBO = 0;\r\n\r\n\t\tfor (map_TextureCount_it itCnt = m_mapTextureCount.begin(); itCnt != m_mapTextureCount.end(); itCnt++, indexVBO++)\r\n\t\t{\r\n\t\t\tint count = (*itCnt).second;\r\n\t\t\tm_pTexture = (*itCnt).first;\r\n\t\t\tm_pQuads = (ccV3F_T2F_Quad*)calloc( sizeof(ccV3F_T2F_Quad) * count, 1 );\r\n\t\t\t\r\n\t\t\tCScutTile* pTile = NULL;\r\n\t\t\tint indexQuad = 0;\r\n\t\t\tfor (int i = 0; i < nTotalCount; i++, indexQuad++)\r\n\t\t\t{\r\n\t\t\t\tpTile = getTileByIndex(i);\r\n\r\n\t\t\t\tif (m_ScutAniGroup->getTextureByTile(pTile).pTex != m_pTexture)\r\n\t\t\t\t{\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 94,
+    "line_text": "\t\t\tm_pQuads = (ccV3F_T2F_Quad*)calloc( sizeof(ccV3F_T2F_Quad) * count, 1 );\r",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

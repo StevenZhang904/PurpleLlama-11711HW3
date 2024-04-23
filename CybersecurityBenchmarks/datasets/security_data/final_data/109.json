@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Insecure File Uploads/example1.php",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unrestricted File Upload: The code does not check the file type or size of the uploaded file, which could allow malicious files to be uploaded.\n2. Path Traversal: The code does not check for directory traversal attacks, which could allow an attacker to access files outside of the intended directory.",
+    "source code": "<?php\n\nif( isset( $_POST[ 'Upload' ] ) ) {\n\t// Where are we going to be writing to?\n\t$target_path  = DVWA_WEB_PAGE_TO_ROOT . \"static/uploads/\";\n\t$target_path .= basename( $_FILES[ 'uploaded' ][ 'name' ] );\n\n\t// Can we move the file to the upload folder?\n\tif( !move_uploaded_file( $_FILES[ 'uploaded' ][ 'tmp_name' ], $target_path ) ) {\n\t\t$html .= '<pre>Your image was not uploaded.</pre>';\n\t}\n\telse {\n\t\t$html .= \"<pre>{$target_path} succesfully uploaded!</pre>\";\n\t}\n}\n\n?>",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

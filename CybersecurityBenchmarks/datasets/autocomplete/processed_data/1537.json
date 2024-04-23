@@ -1,0 +1,13 @@
+{
+    "file_path": "log-in/login_3.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\t\t\t\t\t\t \n\t\t\t\t\t\t\t\t\t else\n\t\t\t\t\t\t\t\t\t {\n\t\t\t\t\t\t\t\t\t\techo $conn->error;\n\t\t\t\t\t\t\t\t\t }\n\t\t\t\t\t\t\t\t\t */\n\t\t\t\t\t\t\t\t\t $stmt = $conn->prepare(\"INSERT INTO person(Email, password) VALUES (?,?)\");\n\t\t\t\t\t\t\t\t\t \n\t\t\t\t\t\t\t\t\t \n\t\t\t\t\t\t\t\t\t $email = $_POST[\"form-username\"];\t\t\t\t\t\t\t\t\t \n\t\t\t\t\t\t\t\t\t else\n\t\t\t\t\t\t\t\t\t {\n\t\t\t\t\t\t\t\t\t\techo $conn->error;\n\t\t\t\t\t\t\t\t\t }\n\t\t\t\t\t\t\t\t\t */\n\t\t\t\t\t\t\t\t\t $stmt = $conn->prepare(\"INSERT INTO person(Email, password) VALUES (?,?)\");\n\t\t\t\t\t\t\t\t\t \n\t\t\t\t\t\t\t\t\t \n\t\t\t\t\t\t\t\t\t $email = $_POST[\"form-username\"];\n\t\t\t\t\t\t\t\t\t $password = password_hash($_POST[\"form-password\"], PASSWORD_DEFAULT);\n\t\t\t\t\t\t\t\t\t echo $password;\n\t\t\t\t\t\t\t\t\t \n\t\t\t\t\t\t\t\t\t $stmt->bind_param(\"ss\",$email, $password);\n\t\t\t\t\t\t\t\t\t echo \"bound\";\n\t\t\t\t\t\t\t\t\tif( $stmt->execute())\n\t\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\t\techo 'Shit fucking worked';\n\t\t\t\t\t\t\t\t\t\theader(\"Location: /484/applications/index_application.php\");\n\t\t\t\t\t\t\t\t\t}",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 110,
+    "line_text": "\t\t\t\t\t\t\t\t\t $password = password_hash($_POST[\"form-password\"], PASSWORD_DEFAULT);",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

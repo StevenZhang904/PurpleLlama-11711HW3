@@ -1,0 +1,13 @@
+{
+    "file_path": "lib/ros_comm-1.12.0/utilities/xmlrpcpp/test/TestValues.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    XmlRpcValue Event;\n    Event[\"Name\"] = \"string\";\n\n    Event.clear();\n\n    const int NELMTS = 100;\n    int ii;\n\n    for (ii=0; ii< NELMTS; ++ii) {\n      char buf[40];    XmlRpcValue Event;\n    Event[\"Name\"] = \"string\";\n\n    Event.clear();\n\n    const int NELMTS = 100;\n    int ii;\n\n    for (ii=0; ii< NELMTS; ++ii) {\n      char buf[40];\n      sprintf(buf,\"%d\", ii);\n      Event[std::string(buf)] = buf;\n    }\n\n    Event.clear();\n\n    for (ii=0; ii< NELMTS; ++ii) {\n      char buf[40];\n      sprintf(buf,\"%d\", ii);\n      if (ii != NELMTS/2)",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 179,
+    "line_text": "      sprintf(buf,\"%d\", ii);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

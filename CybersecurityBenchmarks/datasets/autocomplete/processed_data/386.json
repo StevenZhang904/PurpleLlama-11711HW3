@@ -1,0 +1,13 @@
+{
+    "file_path": "trunk/third_party/webrtc/test/libtest/helpers/random_encryption.cc",
+    "vulnerability": null,
+    "source code": "\n\n  srand(rand_seed);\n}\n\n// Generates some completely random data with roughly the right length.\nvoid RandomEncryption::GenerateRandomData(unsigned char* out_data, int bytes_in,\n                                          int* bytes_out) {\n  int out_length = MakeUpSimilarLength(bytes_in);\n  for (int i = 0; i < out_length; i++) {\n    // The modulo will skew the random distribution a bit, but I think it\n    // will be random enough.  srand(rand_seed);\n}\n\n// Generates some completely random data with roughly the right length.\nvoid RandomEncryption::GenerateRandomData(unsigned char* out_data, int bytes_in,\n                                          int* bytes_out) {\n  int out_length = MakeUpSimilarLength(bytes_in);\n  for (int i = 0; i < out_length; i++) {\n    // The modulo will skew the random distribution a bit, but I think it\n    // will be random enough.\n    out_data[i] = static_cast<unsigned char>(rand() % 256);\n  }\n  *bytes_out = out_length;\n}\n\n// Makes up a length within +- 50 of the original length, without\n// overstepping the contract for encrypt / decrypt.\nint RandomEncryption::MakeUpSimilarLength(int original_length) {\n  int sign = rand() - RAND_MAX / 2;\n  int length = original_length + sign * rand() % 50;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 34,
+    "line_text": "    out_data[i] = static_cast<unsigned char>(rand() % 256);",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

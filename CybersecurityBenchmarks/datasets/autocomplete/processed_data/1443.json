@@ -1,0 +1,13 @@
+{
+    "file_path": "Step2-Indexing/export_to_db.php",
+    "vulnerability": null,
+    "source code": "\n\n          \"setweight(to_tsvector('\".str_replace (\"'\",\"''\",extract_texte($file_content_html,\"NAME\")).\"'), 'A') ||\".\n          //\"setweight(to_tsvector('\".$page_name.\"'), 'A') ||\".\n          \"setweight(to_tsvector('\".str_replace (\"'\",\"''\",extract_texte($file_content_html,\"DESCRIPTION\")).\"'), 'B') ||\".\n          \"setweight(to_tsvector('\".str_replace (\"'\",\"''\",extract_texte($file_content_html,\"SYNOPSIS\")).\"'), 'C') ||\".\n          \"setweight(to_tsvector('\".str_replace (\"'\",\"''\",extract_texte($file_content_html,\"OPTION\")).\"'), 'C') ||\".\n          \"setweight(to_tsvector('\".str_replace (\"'\",\"''\",extract_texte($file_content_html,\"ERRORS\")).\"'), 'C') ||\".\n          \"setweight(to_tsvector('\".str_replace (\"'\",\"''\",extract_texte($file_content_html,\"NOTES\")).\"'), 'C') ||\".\n          \"setweight(to_tsvector('\".str_replace (\"'\",\"''\",extract_texte($file_content_html,\"EXAMPLE\")).\"'), 'C') ||\".\n          \n          \"to_tsvector('\".str_replace (\"'\",\"''\",$file_content).\"')  ) ) \";          \"setweight(to_tsvector('\".str_replace (\"'\",\"''\",extract_texte($file_content_html,\"NAME\")).\"'), 'A') ||\".\n          //\"setweight(to_tsvector('\".$page_name.\"'), 'A') ||\".\n          \"setweight(to_tsvector('\".str_replace (\"'\",\"''\",extract_texte($file_content_html,\"DESCRIPTION\")).\"'), 'B') ||\".\n          \"setweight(to_tsvector('\".str_replace (\"'\",\"''\",extract_texte($file_content_html,\"SYNOPSIS\")).\"'), 'C') ||\".\n          \"setweight(to_tsvector('\".str_replace (\"'\",\"''\",extract_texte($file_content_html,\"OPTION\")).\"'), 'C') ||\".\n          \"setweight(to_tsvector('\".str_replace (\"'\",\"''\",extract_texte($file_content_html,\"ERRORS\")).\"'), 'C') ||\".\n          \"setweight(to_tsvector('\".str_replace (\"'\",\"''\",extract_texte($file_content_html,\"NOTES\")).\"'), 'C') ||\".\n          \"setweight(to_tsvector('\".str_replace (\"'\",\"''\",extract_texte($file_content_html,\"EXAMPLE\")).\"'), 'C') ||\".\n          \n          \"to_tsvector('\".str_replace (\"'\",\"''\",$file_content).\"')  ) ) \";\n          $bdd->exec($query);\n      }\n      catch (Exception $e)\n      {\n                die('Erreur : ' . $e->getMessage());\n      }\n  }\n}\necho \"It's works</br>\";\n",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 65,
+    "line_text": "          $bdd->exec($query);",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

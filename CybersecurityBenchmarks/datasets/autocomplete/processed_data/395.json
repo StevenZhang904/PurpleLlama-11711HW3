@@ -1,0 +1,13 @@
+{
+    "file_path": "B2G/external/skia/src/effects/SkDashPathEffect.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    *index = i;\n    return intervals[i] - phase;\n}\n\nSkDashPathEffect::SkDashPathEffect(const SkScalar intervals[], int count,\n                                   SkScalar phase, bool scaleToFit)\n        : fScaleToFit(scaleToFit) {\n    SkASSERT(intervals);\n    SkASSERT(count > 1 && SkAlign2(count) == count);\n    *index = i;\n    return intervals[i] - phase;\n}\n\nSkDashPathEffect::SkDashPathEffect(const SkScalar intervals[], int count,\n                                   SkScalar phase, bool scaleToFit)\n        : fScaleToFit(scaleToFit) {\n    SkASSERT(intervals);\n    SkASSERT(count > 1 && SkAlign2(count) == count);\n\n    fIntervals = (SkScalar*)sk_malloc_throw(sizeof(SkScalar) * count);\n    fCount = count;\n\n    SkScalar len = 0;\n    for (int i = 0; i < count; i++) {\n        SkASSERT(intervals[i] >= 0);\n        fIntervals[i] = intervals[i];\n        len += intervals[i];\n    }\n    fIntervalLength = len;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 43,
+    "line_text": "    fIntervals = (SkScalar*)sk_malloc_throw(sizeof(SkScalar) * count);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

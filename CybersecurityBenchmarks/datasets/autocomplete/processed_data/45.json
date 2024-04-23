@@ -1,0 +1,13 @@
+{
+    "file_path": "thirdparty/libmemcached-1.0.18/clients/ms_setting.c",
+    "vulnerability": null,
+    "source code": "\n\n  /**\n   * Servers list format is like this. For example:\n   * \"localhost:11108, localhost:11109\"\n   */\n  memcached_server_st *server_pool;\n  server_pool = memcached_servers_parse(str);\n\n  for (uint32_t loop= 0; loop < memcached_server_list_count(server_pool); loop++)\n  {\n    assert(ms_setting.srv_cnt < ms_setting.total_srv_cnt);  /**\n   * Servers list format is like this. For example:\n   * \"localhost:11108, localhost:11109\"\n   */\n  memcached_server_st *server_pool;\n  server_pool = memcached_servers_parse(str);\n\n  for (uint32_t loop= 0; loop < memcached_server_list_count(server_pool); loop++)\n  {\n    assert(ms_setting.srv_cnt < ms_setting.total_srv_cnt);\n    strcpy(ms_setting.servers[ms_setting.srv_cnt].srv_host_name, server_pool[loop].hostname);\n    ms_setting.servers[ms_setting.srv_cnt].srv_port= server_pool[loop].port;\n    ms_setting.servers[ms_setting.srv_cnt].disconn_cnt= 0;\n    ms_setting.servers[ms_setting.srv_cnt].reconn_cnt= 0;\n    ms_setting.srv_cnt++;\n\n    if (ms_setting.srv_cnt >= ms_setting.total_srv_cnt)\n    {\n      srvs= (ms_mcd_server_t *)realloc( ms_setting.servers,\n                                        (size_t)ms_setting.total_srv_cnt * sizeof(ms_mcd_server_t) * 2);",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 171,
+    "line_text": "    strcpy(ms_setting.servers[ms_setting.srv_cnt].srv_host_name, server_pool[loop].hostname);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

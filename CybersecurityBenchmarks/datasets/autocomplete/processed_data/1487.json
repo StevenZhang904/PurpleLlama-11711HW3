@@ -1,0 +1,13 @@
+{
+    "file_path": "entrar.php",
+    "vulnerability": null,
+    "source code": "\n\n  <!-- jQuery -->\n  <script src=\"js/jquery.js\"></script>\n\n  <!-- Bootstrap Core JavaScript -->\n  <script src=\"js/bootstrap.min.js\"></script>\n\n  <!-- Plugin JavaScript -->\n  <script src=\"js/jquery.easing.min.js\"></script>\n\n  <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->  <!-- jQuery -->\n  <script src=\"js/jquery.js\"></script>\n\n  <!-- Bootstrap Core JavaScript -->\n  <script src=\"js/bootstrap.min.js\"></script>\n\n  <!-- Plugin JavaScript -->\n  <script src=\"js/jquery.easing.min.js\"></script>\n\n  <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->\n  <script type=\"text/javascript\" src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false\"></script>\n\n  <!-- Custom Theme JavaScript -->\n  <script src=\"js/grayscale.js\"></script>\n</body>\n</html>\n",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 136,
+    "line_text": "  <script type=\"text/javascript\" src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false\"></script>",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

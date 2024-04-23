@@ -1,0 +1,13 @@
+{
+    "file_path": "XSS/CWE_79/unsafe/CWE_79__system__func_FILTER-CLEANING-magic_quotes_filter__Unsafe_use_untrusted_data-attribute_Name.php",
+    "vulnerability": null,
+    "source code": "\n\n\nOBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR\n\nMODIFICATIONS.-->\n\n\n<!DOCTYPE html>\n<html>\n<body>\n<?php\nOBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR\n\nMODIFICATIONS.-->\n\n\n<!DOCTYPE html>\n<html>\n<body>\n<?php\n$tainted = system('ls', $retval);\n\n$sanitized = filter_var($tainted, FILTER_SANITIZE_MAGIC_QUOTES);\n  $tainted = $sanitized ;\n      \n\n//flaw\necho \"<div \". $tainted .\"= bob />\" ;\n?>\n<h1>Hello World!</h1>",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 46,
+    "line_text": "$tainted = system('ls', $retval);",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

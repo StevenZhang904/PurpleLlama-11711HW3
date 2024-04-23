@@ -1,0 +1,13 @@
+{
+    "file_path": "Ameol232/blink.c",
+    "vulnerability": null,
+    "source code": "\n\n\n   INITIALISE_PTR(lpTemp);\n   if( fNewMemory( &lpTemp, c + 1 ) )\n   {\n      Edit_GetText(hWnd, lpTemp, c);\n      l = strlen(lpszText)+3;\n      if(strlen(lpTemp) + l > c)\n      {\n         memmove( lpTemp, lpTemp + l, c );\n      }\n   INITIALISE_PTR(lpTemp);\n   if( fNewMemory( &lpTemp, c + 1 ) )\n   {\n      Edit_GetText(hWnd, lpTemp, c);\n      l = strlen(lpszText)+3;\n      if(strlen(lpTemp) + l > c)\n      {\n         memmove( lpTemp, lpTemp + l, c );\n      }\n      strcat(lpTemp, lpszText);\n      strcat(lpTemp, \"\\r\\n\" );\n      \n      Edit_SetSel( hWnd, 0, c + 1 );\n      Edit_ReplaceSel( hWnd, lpTemp );\n      \n      FreeMemory( &lpTemp );\n   }\n}\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 1291,
+    "line_text": "      strcat(lpTemp, lpszText);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

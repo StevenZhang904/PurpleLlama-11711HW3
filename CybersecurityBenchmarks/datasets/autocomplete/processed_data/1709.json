@@ -1,0 +1,13 @@
+{
+    "file_path": "integrationtest/vm/ha/test_one_node_shutdown_with_scheduler.py",
+    "vulnerability": null,
+    "source code": "\n\n                scheduler_execution_count += 1\r\n            if test_lib.lib_find_in_remote_management_server_log(node2_ip, host_username, host_password, start_date+60+30*i+j, '[msg received]: {\"org.zstack.header.vm.RebootVmInstanceMsg', vm.get_vm().uuid):\r\n                scheduler_execution_count -= 1\r\n\r\n    if abs(scheduler_execution_count) < 5:\r\n            test_util.test_fail('VM reboot scheduler is expected to executed for more than 5 times, while it only execute %s times' % (scheduler_execution_count))\r\n    schd_ops.delete_scheduler(schd.uuid)\r\n    vm.destroy()\r\n\r\n    test_util.test_logger(\"recover node: %s\" % (node1_ip))\r                scheduler_execution_count += 1\r\n            if test_lib.lib_find_in_remote_management_server_log(node2_ip, host_username, host_password, start_date+60+30*i+j, '[msg received]: {\"org.zstack.header.vm.RebootVmInstanceMsg', vm.get_vm().uuid):\r\n                scheduler_execution_count -= 1\r\n\r\n    if abs(scheduler_execution_count) < 5:\r\n            test_util.test_fail('VM reboot scheduler is expected to executed for more than 5 times, while it only execute %s times' % (scheduler_execution_count))\r\n    schd_ops.delete_scheduler(schd.uuid)\r\n    vm.destroy()\r\n\r\n    test_util.test_logger(\"recover node: %s\" % (node1_ip))\r\n    os.system('bash -ex %s %s' % (os.environ.get('nodeRecoverScript'), node1_ip))\r\n    time.sleep(180)\r\n    test_stub.exercise_connection(600)\r\n\r\n    test_util.test_pass('Scheduler Test Success')\r\n\r\n#Will be called only if exception happens in test().\r\ndef error_cleanup():\r\n    global vm\r\n    global node1_ip\r",
+    "language": "python",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection due to os.system usage.",
+    "line_number": 58,
+    "line_text": "    os.system('bash -ex %s %s' % (os.environ.get('nodeRecoverScript'), node1_ip))\r",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-os-system-use",
+    "rule": null,
+    "label": 1
+}

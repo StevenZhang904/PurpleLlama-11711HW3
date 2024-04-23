@@ -1,0 +1,13 @@
+{
+    "file_path": "language/tools/genesis-viewer/src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n    ws_sorted_keys: bool,\n    #[structopt(short = \"c\", long, help = \"Print the resources under each account\")]\n    print_account_states: bool,\n}\n\npub fn main() {\n    // this is a hacky way to find out if no optional args were provided.\n    // We get the arg count and when processing the options if the value is 3\n    // (program_name, `-f`, file_name) then no args were provided and\n    // we default to `all`    ws_sorted_keys: bool,\n    #[structopt(short = \"c\", long, help = \"Print the resources under each account\")]\n    print_account_states: bool,\n}\n\npub fn main() {\n    // this is a hacky way to find out if no optional args were provided.\n    // We get the arg count and when processing the options if the value is 3\n    // (program_name, `-f`, file_name) then no args were provided and\n    // we default to `all`\n    let arg_count = std::env::args().len();\n    let args = Args::from_args();\n    let ws = vm_genesis::generate_genesis_change_set_for_testing(StdLibOptions::Compiled);\n    if args.all || arg_count == 3 {\n        print_all(&ws);\n    } else {\n        if args.event_raw {\n            print_events_raw(ws.events());\n        }\n        if args.event_keys {",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 74,
+    "line_text": "    let arg_count = std::env::args().len();",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

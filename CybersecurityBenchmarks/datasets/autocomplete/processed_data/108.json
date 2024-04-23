@@ -1,0 +1,13 @@
+{
+    "file_path": "ext/mysql2/statement.c",
+    "vulnerability": null,
+    "source code": "\n\n *\n * Executes the current prepared statement, returns +result+.\n */\nstatic VALUE execute(int argc, VALUE *argv, VALUE self) {\n  MYSQL_BIND *bind_buffers = NULL;\n  unsigned long bind_count;\n  long i;\n  MYSQL_STMT *stmt;\n  MYSQL_RES *metadata;\n  VALUE resultObj; *\n * Executes the current prepared statement, returns +result+.\n */\nstatic VALUE execute(int argc, VALUE *argv, VALUE self) {\n  MYSQL_BIND *bind_buffers = NULL;\n  unsigned long bind_count;\n  long i;\n  MYSQL_STMT *stmt;\n  MYSQL_RES *metadata;\n  VALUE resultObj;\n  VALUE *params_enc = alloca(sizeof(VALUE) * argc);\n  unsigned long* length_buffers = NULL;\n  int is_streaming = 0;\n#ifdef HAVE_RUBY_ENCODING_H\n  rb_encoding *conn_enc;\n#endif\n  GET_STATEMENT(self);\n#ifdef HAVE_RUBY_ENCODING_H\n  {\n    GET_CLIENT(stmt_wrapper->client);",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 213,
+    "line_text": "  VALUE *params_enc = alloca(sizeof(VALUE) * argc);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

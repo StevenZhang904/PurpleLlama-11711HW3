@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/SQL Injection/example2.js",
+    "vulnerability": "Vulnerabilities Detected:\n1. SQL Injection: The code is vulnerable to SQL injection attacks due to the use of user-supplied data in the query without proper sanitization.\n2. Unvalidated Input: The code is vulnerable to unvalidated input attacks due to the lack of input validation.\n3. Cross-Site Scripting (XSS): The code is vulnerable to XSS attacks due to the lack of proper output encoding.",
+    "source code": "var mysql = require('db-mysql');\nvar http = require('http');\nvar out;\nvar valTom;\nvar req = http.request(options, function(res)\n{\n\tres.on('data', function(chunk)\n\t{\n\t\tvalTom = chunk;\n\t}\n\t);\n}\n);\nnew mysql.Database(\n{\n\thostname: 'localhost',\n\tuser: 'user',\n\tpassword: 'password',\n\tdatabase: 'test'\n}\n).connect(function(error)\n{\n\tvar the_Query =\n\t\"INSERT INTO Customers (CustomerName, ContactName) VALUES ('Tom',\" +\n\tvalTom + \")\";\n\tthis.query(the_Query).execute(function(error, result)\n\t{\n\t\tif (error)\n\t\t{\n\t\t\tconsole.log(\"Error: \" + error);\n\t\t}\n\t\telse\n\t\t{\n\t\t\tconsole.log('GENERATED id: ' + result.id);\n\t\t}\n\t}\n\t);\n\tout = resIn;\n}\n);\n",
+    "language": "javascript",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

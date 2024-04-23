@@ -1,0 +1,13 @@
+{
+    "file_path": "lib/plugins/sfDoctrinePlugin/lib/vendor/doctrine/Doctrine/Connection/Oracle.php",
+    "vulnerability": null,
+    "source code": "\n\n        // Oracle's default unit for char data types is BYTE. For UTF8 string it is better to use CHAR\n        $this->setParam('char_unit', null);\n    }\n\n    /**\n     * Sets up the date/time format\n     *\n     */\n    public function setDateFormat($format = 'YYYY-MM-DD HH24:MI:SS')\n    {        // Oracle's default unit for char data types is BYTE. For UTF8 string it is better to use CHAR\n        $this->setParam('char_unit', null);\n    }\n\n    /**\n     * Sets up the date/time format\n     *\n     */\n    public function setDateFormat($format = 'YYYY-MM-DD HH24:MI:SS')\n    {\n        $this->exec('ALTER SESSION SET NLS_DATE_FORMAT = \"' . $format . '\"');\n    }\n\n    /**\n     * Adds an driver-specific LIMIT clause to the query\n     *\n     * @param string $query         query to modify\n     * @param integer $limit        limit the number of rows\n     * @param integer $offset       start reading from given offset\n     * @return string               the modified query",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 82,
+    "line_text": "        $this->exec('ALTER SESSION SET NLS_DATE_FORMAT = \"' . $format . '\"');",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

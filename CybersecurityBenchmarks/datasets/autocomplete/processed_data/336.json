@@ -1,0 +1,13 @@
+{
+    "file_path": "example/metrics/otel_metrics.cc",
+    "vulnerability": null,
+    "source code": "\n\n\n    lcb_CREATEOPTS *options;\n    lcb_CMDSTORE *scmd;\n    lcb_CMDGET *gcmd;\n    lcb_CMDQUERY *qcmd;\n    lcb_INSTANCE *instance;\n    lcbmetrics_METER *meter = nullptr;\n\n    std::string connection_string = \"couchbase://127.0.0.1\";\n    std::string username = \"Administrator\";\n    lcb_CREATEOPTS *options;\n    lcb_CMDSTORE *scmd;\n    lcb_CMDGET *gcmd;\n    lcb_CMDQUERY *qcmd;\n    lcb_INSTANCE *instance;\n    lcbmetrics_METER *meter = nullptr;\n\n    std::string connection_string = \"couchbase://127.0.0.1\";\n    std::string username = \"Administrator\";\n    std::string password = \"password\";\n    std::string bucket = \"default\";\n    std::string query = \"SELECT * from `default` LIMIT 10\";\n    std::string opt;\n\n    // Allow user to pass in no-otel to see default behavior\n    // Ideally we will take more options, say to export somewhere other than the stderr, in the future.\n    if (argc > 1) {\n        opt = argv[1];\n    }",
+    "language": "cpp",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "Use of hardcoded keys/credentials. Prefer using a key/secret management system.",
+    "line_number": 149,
+    "line_text": "    std::string password = \"password\";",
+    "pattern_id": "C-W-016",
+    "rule": "{ $secret = \"_\";}",
+    "label": 1
+}

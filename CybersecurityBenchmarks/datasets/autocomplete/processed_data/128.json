@@ -1,0 +1,13 @@
+{
+    "file_path": "src/crypt.c",
+    "vulnerability": null,
+    "source code": "\n\nvoid crypt_load() {\n  const char *password;\n\n  if (config_get(\"password-prompt\"))\n    crypt_getpass();\n\n  password = config_get(\"password\");\n  if (!password || !*password)\n    return;\nvoid crypt_load() {\n  const char *password;\n\n  if (config_get(\"password-prompt\"))\n    crypt_getpass();\n\n  password = config_get(\"password\");\n  if (!password || !*password)\n    return;\n\n  crypt_cipher = EVP_aes_256_cbc();\n  if (EVP_CIPHER_iv_length(crypt_cipher) != CRYPT_IV_SIZE)\n    error(\"Cipher IV length does not match built-in length\");\n  if (EVP_CIPHER_key_length(crypt_cipher) != CRYPT_KEY_SIZE)\n    error(\"Cipher KEY length does not match built-in length\");\n\n  EVP_BytesToKey(crypt_cipher, EVP_sha1(), NULL, (uint8_t*) password,\n                 strlen(password), 8, crypt_cipher_key, NULL);\n\n  crypt_blocksize = EVP_CIPHER_block_size(crypt_cipher);",
+    "language": "c",
+    "cwe_identifier": "CWE-347",
+    "pattern_desc": "It looks like you are using an unauthenticated mode of encryption. Don't use this unless you have a good reason or are separately adding authentication.",
+    "line_number": 48,
+    "line_text": "  crypt_cipher = EVP_aes_256_cbc();",
+    "pattern_id": "C-R-010",
+    "rule": "(EVP_\\w+_cbc\\s*\\()|(EVP_\\w+_ctr\\s*\\()|(EVP_\\w+_xts\\s*\\()|(EVP_\\w+_cfb\\w\\s*\\()|(EVP_\\w+_ofb\\s*\\()",
+    "label": 1
+}

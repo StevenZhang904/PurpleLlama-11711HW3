@@ -1,0 +1,13 @@
+{
+    "file_path": "web/app/plugins/pretty-link/pro/prlipro-create-public-link.php",
+    "vulnerability": null,
+    "source code": "\n\n  if($prlipro_options->allow_public_link_creation)\n  {\n    $_POST['slug'] = (isset($_POST['slug']) && !empty($_POST['slug']))?$_POST['slug']:$prli_link->generateValidSlug();\n    \n    $errors = array();\n    $errors = $prli_link->validate($_POST);\n   \n    if( count($errors) > 0 )\n    {\n      $url_param = ((!empty($url))?\"&url=\".urlencode($_POST['url']):'');  if($prlipro_options->allow_public_link_creation)\n  {\n    $_POST['slug'] = (isset($_POST['slug']) && !empty($_POST['slug']))?$_POST['slug']:$prli_link->generateValidSlug();\n    \n    $errors = array();\n    $errors = $prli_link->validate($_POST);\n   \n    if( count($errors) > 0 )\n    {\n      $url_param = ((!empty($url))?\"&url=\".urlencode($_POST['url']):'');\n      header(\"Location: {$_POST['referral-url']}?errors=\" . urlencode(serialize($errors)).$url_param);\n    }\n    else\n    {\n      $redirect_type = $_POST['redirect_type'];\n      $track = $_POST['track'];\n      $group = $_POST['group'];\n   \n      $_POST['param_forwarding'] = 'off';\n      $_POST['param_struct'] = '';",
+    "language": "php",
+    "cwe_identifier": "CWE-601",
+    "pattern_desc": "Open redirect vulnerability due to unsanitized URL parameter",
+    "line_number": 20,
+    "line_text": "      header(\"Location: {$_POST['referral-url']}?errors=\" . urlencode(serialize($errors)).$url_param);",
+    "pattern_id": "PHP-R-025",
+    "rule": "header\\s*\\(\\s*['\"]Location:.*\\$_(GET|POST|REQUEST|COOKIE)",
+    "label": 1
+}

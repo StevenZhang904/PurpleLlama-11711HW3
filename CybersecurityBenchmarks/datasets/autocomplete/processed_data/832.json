@@ -1,0 +1,13 @@
+{
+    "file_path": "demo/pages/dynamic.js",
+    "vulnerability": null,
+    "source code": "\n\n  }\n\n  handleSort(sortedArray) {\n    this.setState({\n      arr: sortedArray\n    });\n  }\n\n  handleAddElement() {\n    this.setState({  }\n\n  handleSort(sortedArray) {\n    this.setState({\n      arr: sortedArray\n    });\n  }\n\n  handleAddElement() {\n    this.setState({\n      arr: this.state.arr.concat(Math.round(Math.random() * 1000))\n    });\n  }\n\n  handleRemoveElement(index) {\n    const newArr = this.state.arr.slice();\n    newArr.splice(index, 1);\n\n    this.setState({\n      arr: newArr",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 21,
+    "line_text": "      arr: this.state.arr.concat(Math.round(Math.random() * 1000))",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

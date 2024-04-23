@@ -1,0 +1,13 @@
+{
+    "file_path": "SimTKmath/Optimizers/src/IpOpt/IpTSymLinearSolver.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    // entries from the linear solver interface, fill in the new\n    // values, compute the new scaling factors (if required), and\n    // scale the matrix\n    if (new_matrix || just_switched_on_scaling_) {\n      GiveMatrixToSolver(true, sym_A);\n      new_matrix = true;\n    }\n\n    // Retrieve the right hand sides and scale if required\n    Index nrhs = (Index)rhsV.size();    // entries from the linear solver interface, fill in the new\n    // values, compute the new scaling factors (if required), and\n    // scale the matrix\n    if (new_matrix || just_switched_on_scaling_) {\n      GiveMatrixToSolver(true, sym_A);\n      new_matrix = true;\n    }\n\n    // Retrieve the right hand sides and scale if required\n    Index nrhs = (Index)rhsV.size();\n    Number* rhs_vals = new Number[dim_*nrhs];\n    for (Index irhs=0; irhs<nrhs; irhs++) {\n      TripletHelper::FillValuesFromVector(dim_, *rhsV[irhs],\n                                          &rhs_vals[irhs*(dim_)]);\n      if (use_scaling_) {\n        IpData().TimingStats().LinearSystemScaling().Start();\n        for (Index i=0; i<dim_; i++) {\n          rhs_vals[irhs*(dim_)+i] *= scaling_factors_[i];\n        }\n        IpData().TimingStats().LinearSystemScaling().End();",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 176,
+    "line_text": "    Number* rhs_vals = new Number[dim_*nrhs];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

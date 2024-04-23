@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/harness/mod.rs",
+    "vulnerability": null,
+    "source code": "\n\n    ) -> ServerHandle {\n        let server_addr = {\n            let ip = self.host_interface_ip();\n            let listener = net::TcpListener::bind(SocketAddr::from((ip, 0))).unwrap();\n            listener.local_addr().unwrap()\n        };\n        let token = create_server_token(ServerId::new(server_addr), DIST_SERVER_TOKEN);\n        let server =\n            dist::http::Server::new(server_addr, self.scheduler_url().to_url(), token, handler)\n                .unwrap();    ) -> ServerHandle {\n        let server_addr = {\n            let ip = self.host_interface_ip();\n            let listener = net::TcpListener::bind(SocketAddr::from((ip, 0))).unwrap();\n            listener.local_addr().unwrap()\n        };\n        let token = create_server_token(ServerId::new(server_addr), DIST_SERVER_TOKEN);\n        let server =\n            dist::http::Server::new(server_addr, self.scheduler_url().to_url(), token, handler)\n                .unwrap();\n        let pid = match unsafe { nix::unistd::fork() }.unwrap() {\n            ForkResult::Parent { child } => {\n                self.server_pids.push(child);\n                child\n            }\n            ForkResult::Child => {\n                env::set_var(\"RUST_LOG\", \"sccache=trace\");\n                env_logger::try_init().unwrap();\n                void::unreachable(server.start().unwrap())\n            }",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 385,
+    "line_text": "        let pid = match unsafe { nix::unistd::fork() }.unwrap() {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "html/ecshop2/ecshop/admin/privilege.php",
+    "vulnerability": null,
+    "source code": "\n\n    $_POST['username'] = isset($_POST['username']) ? trim($_POST['username']) : '';\n    $_POST['password'] = isset($_POST['password']) ? trim($_POST['password']) : '';\n\n    $sql=\"SELECT `ec_salt` FROM \". $ecs->table('admin_user') .\"WHERE user_name = '\" . $_POST['username'].\"'\";\n    $ec_salt =$db->getOne($sql);\n    if(!empty($ec_salt))\n    {\n         /* \u68c0\u67e5\u5bc6\u7801\u662f\u5426\u6b63\u786e */\n         $sql = \"SELECT user_id, user_name, password, last_login, action_list, last_login,suppliers_id,ec_salt\".\n            \" FROM \" . $ecs->table('admin_user') .    $_POST['username'] = isset($_POST['username']) ? trim($_POST['username']) : '';\n    $_POST['password'] = isset($_POST['password']) ? trim($_POST['password']) : '';\n\n    $sql=\"SELECT `ec_salt` FROM \". $ecs->table('admin_user') .\"WHERE user_name = '\" . $_POST['username'].\"'\";\n    $ec_salt =$db->getOne($sql);\n    if(!empty($ec_salt))\n    {\n         /* \u68c0\u67e5\u5bc6\u7801\u662f\u5426\u6b63\u786e */\n         $sql = \"SELECT user_id, user_name, password, last_login, action_list, last_login,suppliers_id,ec_salt\".\n            \" FROM \" . $ecs->table('admin_user') .\n            \" WHERE user_name = '\" . $_POST['username']. \"' AND password = '\" . md5(md5($_POST['password']).$ec_salt) . \"'\";\n    }\n    else\n    {\n         /* \u68c0\u67e5\u5bc6\u7801\u662f\u5426\u6b63\u786e */\n         $sql = \"SELECT user_id, user_name, password, last_login, action_list, last_login,suppliers_id,ec_salt\".\n            \" FROM \" . $ecs->table('admin_user') .\n            \" WHERE user_name = '\" . $_POST['username']. \"' AND password = '\" . md5($_POST['password']) . \"'\";\n    }\n    $row = $db->getRow($sql);",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 92,
+    "line_text": "            \" WHERE user_name = '\" . $_POST['username']. \"' AND password = '\" . md5(md5($_POST['password']).$ec_salt) . \"'\";",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

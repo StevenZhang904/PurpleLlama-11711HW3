@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/com/heroku/agent/MemoryAgent.java",
+    "vulnerability": null,
+    "source code": "\n\n        \n        private void linuxMemReport() throws Exception {\n\n            String pid = ManagementFactory.getRuntimeMXBean().getName().split(\"@\")[0];\n            String commandString = \"ps auxwww | awk '$2==\" + pid + \"{print $5, $6}'\";\n            String[] cmd = {\n                    \"/bin/sh\",\n                    \"-c\",\n                    commandString\n                    };        \n        private void linuxMemReport() throws Exception {\n\n            String pid = ManagementFactory.getRuntimeMXBean().getName().split(\"@\")[0];\n            String commandString = \"ps auxwww | awk '$2==\" + pid + \"{print $5, $6}'\";\n            String[] cmd = {\n                    \"/bin/sh\",\n                    \"-c\",\n                    commandString\n                    };\n            Process p = Runtime.getRuntime().exec(cmd);\n           \n            BufferedReader reader = new BufferedReader(new InputStreamReader(\n                    p.getInputStream()));\n \n            String line = reader.readLine();\n            \n            String[] memValues = line.split(\" \");\n            if(memValues.length > 1) {\n                Integer vsz = Integer.valueOf(memValues[0]);",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 191,
+    "line_text": "            Process p = Runtime.getRuntime().exec(cmd);",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

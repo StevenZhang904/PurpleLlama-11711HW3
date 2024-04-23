@@ -1,0 +1,13 @@
+{
+    "file_path": "tools/source/binutils-2.16.1/binutils/rclex.c",
+    "vulnerability": null,
+    "source code": "\n\n{\n\t\t\t  char *s;\n\n\t\t\t  /* I rejected comma in a string in order to\n\t\t\t     handle VIRTKEY, CONTROL in an accelerator\n\t\t\t     resource.  This means that an unquoted\n\t\t\t     file name can not contain a comma.  I\n\t\t\t     don't know what rc permits.  */\n\n\t\t\t  s = get_string (strlen (yytext) + 1);{\n\t\t\t  char *s;\n\n\t\t\t  /* I rejected comma in a string in order to\n\t\t\t     handle VIRTKEY, CONTROL in an accelerator\n\t\t\t     resource.  This means that an unquoted\n\t\t\t     file name can not contain a comma.  I\n\t\t\t     don't know what rc permits.  */\n\n\t\t\t  s = get_string (strlen (yytext) + 1);\n\t\t\t  strcpy (s, yytext);\n\t\t\t  yylval.s = s;\n\t\t\t  MAYBE_RETURN (STRING);\n\t\t\t}\n\tYY_BREAK\ncase 83:\nYY_RULE_SETUP\n#line 235 \"rclex.l\"\n{ ++rc_lineno; }\n\tYY_BREAK",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 1434,
+    "line_text": "\t\t\t  strcpy (s, yytext);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

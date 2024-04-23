@@ -1,0 +1,13 @@
+{
+    "file_path": "FireflyLite/src/main/java/tw/com/ischool/fireflylite/util/Converter.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\tbyte[] result = md.digest(source.getBytes(\"utf-8\"));\r\n\r\n\t\t\treturn Converter.toBase64String(result);\r\n\t\t} catch (Exception ex) {\r\n\t\t\tthrow new RuntimeException(ex);\r\n\t\t}\r\n\t}\r\n\r\n\tpublic static String toMD5String(String source) {\r\n\t\ttry {\r\t\t\tbyte[] result = md.digest(source.getBytes(\"utf-8\"));\r\n\r\n\t\t\treturn Converter.toBase64String(result);\r\n\t\t} catch (Exception ex) {\r\n\t\t\tthrow new RuntimeException(ex);\r\n\t\t}\r\n\t}\r\n\r\n\tpublic static String toMD5String(String source) {\r\n\t\ttry {\r\n\t\t\tMessageDigest md = MessageDigest.getInstance(\"MD5\");\r\n\r\n\t\t\tbyte[] result = md.digest(source.getBytes(\"utf-8\"));\r\n\r\n\t\t\tStringBuilder sb = new StringBuilder();\r\n\t\t\tfor (int i = 0; i < result.length; i++) {\r\n\t\t\t\tsb.append(Integer.toHexString(0xFF & result[i]));\r\n\t\t\t}\r\n\t\t\treturn sb.toString();\r\n\t\t} catch (Exception ex) {\r",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 258,
+    "line_text": "\t\t\tMessageDigest md = MessageDigest.getInstance(\"MD5\");\r",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

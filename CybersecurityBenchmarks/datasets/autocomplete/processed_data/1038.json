@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/pokeraidbot/Utils.java",
+    "vulnerability": null,
+    "source code": "\n\n                    localeService.getMessageFor(LocaleService.NO_ETA_AFTER_RAID,\n                            localeService.getLocaleForUser(user), printTimeIfSameDay(eta),\n                            printTimeIfSameDay(raid.getEndOfRaid())));\n        }\n    }\n\n    public static String getStaticMapUrl(Gym gym) {\n        // todo: host marker png via pokeraidbot web\n        String url = \"https://maps.googleapis.com/maps/api/staticmap?center=\" + gym.getX() + \",\" + gym.getY() +\n                \"&zoom=14&size=400x400&maptype=roadmap&markers=icon:http://millert.se/pogo/marker_xsmall.png%7C\" +                    localeService.getMessageFor(LocaleService.NO_ETA_AFTER_RAID,\n                            localeService.getLocaleForUser(user), printTimeIfSameDay(eta),\n                            printTimeIfSameDay(raid.getEndOfRaid())));\n        }\n    }\n\n    public static String getStaticMapUrl(Gym gym) {\n        // todo: host marker png via pokeraidbot web\n        String url = \"https://maps.googleapis.com/maps/api/staticmap?center=\" + gym.getX() + \",\" + gym.getY() +\n                \"&zoom=14&size=400x400&maptype=roadmap&markers=icon:http://millert.se/pogo/marker_xsmall.png%7C\" +\n                gym.getX() + \",\" + gym.getY() + \"&key=AIzaSyAZm7JLojr2KaUvkeHEpHh0Y-zPwP3dpCU\";\n        return url;\n    }\n\n    public static String getNonStaticMapUrl(Gym gym) {\n        String url = \"http://www.google.com/maps?q=\" + gym.getX() + \",\" + gym.getY();\n        return url;\n    }\n\n    public static String printWeaknesses(Pokemon pokemon) {",
+    "language": "java",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 168,
+    "line_text": "                gym.getX() + \",\" + gym.getY() + \"&key=AIzaSyAZm7JLojr2KaUvkeHEpHh0Y-zPwP3dpCU\";",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

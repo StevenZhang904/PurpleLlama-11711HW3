@@ -1,0 +1,13 @@
+{
+    "file_path": "src/LFP/StructuralAnks/MainBundle/DataFixtures/FixturesReady/LoadChainStructuralPropertiesData.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t * {@inheritDoc}\n\t\t */\n\t\tpublic function load(ObjectManager $manager)\n\t\t{\n\t\t\t$em = $this->container->get('doctrine')->getManager();\n\n\t\t\t\n\t\t\t//Gender Table\n\t\t\t// Purge (truncate the table of this entity)\n\t\t\t$tableName = $em->getClassMetadata('LFPStructuralAnksMainBundle:ChainStructuralProperties')->getTableName();\t\t * {@inheritDoc}\n\t\t */\n\t\tpublic function load(ObjectManager $manager)\n\t\t{\n\t\t\t$em = $this->container->get('doctrine')->getManager();\n\n\t\t\t\n\t\t\t//Gender Table\n\t\t\t// Purge (truncate the table of this entity)\n\t\t\t$tableName = $em->getClassMetadata('LFPStructuralAnksMainBundle:ChainStructuralProperties')->getTableName();\n\t\t\t$em->getConnection()->exec(\"\n\t\t\t\tSET foreign_key_checks = 0;\n\t\t\t\tTRUNCATE $tableName;\n\t\t\t\tSET foreign_key_checks = 1;\n\t\t\t\");\n\n\t\t\t// Reset ID column\n\t\t\t$em->getConnection()->exec(\"ALTER TABLE $tableName AUTO_INCREMENT = 1;\");\n\t\t\t$doctrine = $this->container->get('doctrine');\n",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 42,
+    "line_text": "\t\t\t$em->getConnection()->exec(\"",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

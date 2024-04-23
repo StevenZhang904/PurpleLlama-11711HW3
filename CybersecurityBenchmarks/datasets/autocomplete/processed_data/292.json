@@ -1,0 +1,13 @@
+{
+    "file_path": "2014_01_roguelike/src/main.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    }\n}\n\n// Implementacja algorytmu BSP:\n// http://www.roguebasin.com/index.php?title=Basic_BSP_Dungeon_generation\nvoid generateRoom(int x1, int y1, int x2, int y2) // Funkcja rekurencyjna tworz\u00b9ca poziom\n{\n    if(x2 - x1 < 9) return; // Je\u00bfeli pok\u00f3j jest mniejszy od 9 zako\u00f1cz rekurencj\u00ea\n    if(y2 - y1 < 9) return; // Bo nie ma sensu dzieli\u00e6 go bardziej\n    }\n}\n\n// Implementacja algorytmu BSP:\n// http://www.roguebasin.com/index.php?title=Basic_BSP_Dungeon_generation\nvoid generateRoom(int x1, int y1, int x2, int y2) // Funkcja rekurencyjna tworz\u00b9ca poziom\n{\n    if(x2 - x1 < 9) return; // Je\u00bfeli pok\u00f3j jest mniejszy od 9 zako\u00f1cz rekurencj\u00ea\n    if(y2 - y1 < 9) return; // Bo nie ma sensu dzieli\u00e6 go bardziej\n\n    if(rand()%2 == 0) // Dzielimy pok\u00f3j na dwie cz\u00ea\u009cci poziome\n    {\n        int x = rand()%((x2-x1)/2) + (x2 - x1)/4 + x1;\n        generateLineW(y1, y2, x); // Linia oddzielaj\u00b9ca dwa mniejsze pokoje\n\n        generateRoom(x1, y1, x, y2); // Rekurencja dla obu mniejszych pokoi\n        generateRoom(x, y1, x2, y2);\n\n        int y = rand()%((y2-y1)/2) + (y2 - y1)/4 + y1;\n        level[x][y] = true; // Tworzymy \"drzwi\" mi\u00eadzy dwoma pokojami",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 265,
+    "line_text": "    if(rand()%2 == 0) // Dzielimy pok\u00f3j na dwie cz\u00ea\u009cci poziome",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

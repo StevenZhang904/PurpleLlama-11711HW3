@@ -1,0 +1,13 @@
+{
+    "file_path": "includes/process/signup.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t    if(!count($check)>0){\n\t\t\t    \t//username is good\n\t\t\t\t    if(!filter_var($email, FILTER_VALIDATE_EMAIL) === false){\n\t\t\t\t    \t$query = $handle->prepare(\"SELECT * FROM users WHERE email=?\");\n\t\t\t\t\t\t$query->execute(array($email));\n\t\t\t\t\t\t$checkEmail = $query->fetchAll();\n\t\t\t\t\t    if(!count($checkEmail)>0){\n\t\t\t\t\t    \t//email is good\n\t\t\t\t\t    \tif(strlen($pass)>5){\n\t\t\t\t\t    \t\tif($pass == $repass){\t\t\t    if(!count($check)>0){\n\t\t\t    \t//username is good\n\t\t\t\t    if(!filter_var($email, FILTER_VALIDATE_EMAIL) === false){\n\t\t\t\t    \t$query = $handle->prepare(\"SELECT * FROM users WHERE email=?\");\n\t\t\t\t\t\t$query->execute(array($email));\n\t\t\t\t\t\t$checkEmail = $query->fetchAll();\n\t\t\t\t\t    if(!count($checkEmail)>0){\n\t\t\t\t\t    \t//email is good\n\t\t\t\t\t    \tif(strlen($pass)>5){\n\t\t\t\t\t    \t\tif($pass == $repass){\n\t\t\t\t\t    \t\t\t$hashed_password = password_hash($pass, PASSWORD_DEFAULT);\n\t\t\t\t\t    \t\t\t$push = $handle->prepare(\"INSERT INTO users (`username`, `email`, `password`) VALUES (?,?,?)\");\n\t\t\t\t\t    \t\t\t$execution = $push->execute(array($username, $email, $hashed_password));\n\t\t\t\t\t    \t\t\tif($execution){\n\t\t\t\t\t    \t\t\t\techo \"Success\";\n\t\t\t\t\t    \t\t\t}else{\n\t\t\t\t\t    \t\t\t\techo \"pushError\";\n\t\t\t\t\t    \t\t\t}\n\t\t\t\t\t    \t\t}else{\n\t\t\t\t\t    \t\t\techo \"passMatchError\";",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 27,
+    "line_text": "\t\t\t\t\t    \t\t\t$hashed_password = password_hash($pass, PASSWORD_DEFAULT);",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

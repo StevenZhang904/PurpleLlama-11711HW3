@@ -1,0 +1,13 @@
+{
+    "file_path": "php/operation/insert_user.php",
+    "vulnerability": null,
+    "source code": "\n\n$celular = $_POST['celular'];\n\nif (!($nome) || !($usuario) || !($senha) || $acesso == 'n' || !($email) || !($cpf)\n\t|| !($endereco) || !($numero) || !($complemento) || !($bairro) || !($cep)\n\t|| !($cidade) || !($estado) || !($telefone) || !($celular))\n    {\n        echo \"nullFields\";\n        return;\n}\n $celular = $_POST['celular'];\n\nif (!($nome) || !($usuario) || !($senha) || $acesso == 'n' || !($email) || !($cpf)\n\t|| !($endereco) || !($numero) || !($complemento) || !($bairro) || !($cep)\n\t|| !($cidade) || !($estado) || !($telefone) || !($celular))\n    {\n        echo \"nullFields\";\n        return;\n}\n \n$insert = SQL::insertUsers($nome, $usuario, md5($senha), $email, \n                    $cpf, $endereco, $numero, $complemento, $bairro, $cep, \n                    $cidade, $estado, $telefone, $celular, $acesso);\n\nif($insert) \n    echo 'success';\nelse \n    echo 'other';\n\n?>",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 29,
+    "line_text": "$insert = SQL::insertUsers($nome, $usuario, md5($senha), $email, ",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

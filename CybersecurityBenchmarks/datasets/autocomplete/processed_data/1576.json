@@ -1,0 +1,13 @@
+{
+    "file_path": "code/basics/src/message_publisher.py",
+    "vulnerability": null,
+    "source code": "\n\n\nrospy.init_node('message_publisher')\n\npub = rospy.Publisher('complex', Complex)\n\nrate = rospy.Rate(2)\n\nwhile not rospy.is_shutdown():\n    msg = Complex()\n    msg.real = random()\nrospy.init_node('message_publisher')\n\npub = rospy.Publisher('complex', Complex)\n\nrate = rospy.Rate(2)\n\nwhile not rospy.is_shutdown():\n    msg = Complex()\n    msg.real = random()\n    msg.imaginary = random()\n\n    pub.publish(msg)\n    rate.sleep()\n\n",
+    "language": "python",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "The default random module in Python should not be used for cryptographic applications. Prefer the secrets module for these uses (https://docs.python.org/3/library/random.html).",
+    "line_number": 19,
+    "line_text": "    msg.imaginary = random()",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-crypto-prng-random",
+    "rule": null,
+    "label": 1
+}

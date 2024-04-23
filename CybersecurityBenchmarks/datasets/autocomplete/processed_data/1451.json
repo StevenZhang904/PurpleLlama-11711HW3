@@ -1,0 +1,13 @@
+{
+    "file_path": "src/XeroPHP/Remote/Query.php",
+    "vulnerability": null,
+    "source code": "\n\n        return $this;\n    }\n\n    /**\n     * @param string $where\n     * @param mixed|null $value\n     * @return $this\n     */\n    public function where($where, $value = null) {\n        if ($where && $value) {        return $this;\n    }\n\n    /**\n     * @param string $where\n     * @param mixed|null $value\n     * @return $this\n     */\n    public function where($where, $value = null) {\n        if ($where && $value) {\n            $parameterName = sha1($value);\n            $this->where[] = sprintf('%s==%s', $where, \":$parameterName\");\n            $this->setParameter($parameterName, $value);\n        } else {\n            $this->where[] = $where;\n        }\n\n        return $this;\n    }\n",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 67,
+    "line_text": "            $parameterName = sha1($value);",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

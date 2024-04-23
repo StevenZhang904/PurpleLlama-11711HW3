@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/workdir.rs",
+    "vulnerability": null,
+    "source code": "\n\n\npub struct Workdir {\n    root: PathBuf,\n    dir: PathBuf,\n    flexible: bool,\n}\n\nimpl Workdir {\n    pub fn new(name: &str) -> Workdir {\n        let id = NEXT_ID.fetch_add(1, atomic::Ordering::SeqCst);\npub struct Workdir {\n    root: PathBuf,\n    dir: PathBuf,\n    flexible: bool,\n}\n\nimpl Workdir {\n    pub fn new(name: &str) -> Workdir {\n        let id = NEXT_ID.fetch_add(1, atomic::Ordering::SeqCst);\n        let mut root = env::current_exe().unwrap()\n                           .parent()\n                           .expect(\"executable's directory\")\n                           .to_path_buf();\n        if root.ends_with(\"deps\") {\n            root.pop();\n        }\n        let dir = root.join(XSV_INTEGRATION_TEST_DIR)\n                      .join(name)\n                      .join(&format!(\"test-{}\", id));",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 28,
+    "line_text": "        let mut root = env::current_exe().unwrap()",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

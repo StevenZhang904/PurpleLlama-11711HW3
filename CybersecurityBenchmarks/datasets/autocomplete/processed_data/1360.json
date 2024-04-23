@@ -1,0 +1,13 @@
+{
+    "file_path": "src/common.rs",
+    "vulnerability": null,
+    "source code": "\n\n\npub fn get_templates_path(config_path: &str) -> Result<path::PathBuf, io::Error> {\n    let config_path = resolve_path(config_path, None)?;\n    Ok(path::Path::new(&config_path)\n           .parent()\n           .unwrap()\n           .join(\"templates\"))\n}\n\npub fn get_working_dir() -> Result<String, io::Error> {\npub fn get_templates_path(config_path: &str) -> Result<path::PathBuf, io::Error> {\n    let config_path = resolve_path(config_path, None)?;\n    Ok(path::Path::new(&config_path)\n           .parent()\n           .unwrap()\n           .join(\"templates\"))\n}\n\npub fn get_working_dir() -> Result<String, io::Error> {\n    let mut app_dir = env::current_exe()?;\n    app_dir.pop();\n    Ok(app_dir.to_string_lossy().to_string())\n}\n\n\n\n\n// -------------\n//     TESTS",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 62,
+    "line_text": "    let mut app_dir = env::current_exe()?;",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

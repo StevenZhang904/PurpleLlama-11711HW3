@@ -1,0 +1,13 @@
+{
+    "file_path": "banks/shape/cython_shape.c",
+    "vulnerability": null,
+    "source code": "\n\nstatic int __Pyx_init_sys_getdefaultencoding_params() {\n    PyObject* sys = NULL;\n    PyObject* default_encoding = NULL;\n    char* default_encoding_c;\n    sys = PyImport_ImportModule(\"sys\");\n    if (sys == NULL) goto bad;\n    default_encoding = PyObject_CallMethod(sys, (char*) (const char*) \"getdefaultencoding\", NULL);\n    if (default_encoding == NULL) goto bad;\n    default_encoding_c = PyBytes_AS_STRING(default_encoding);\n    __PYX_DEFAULT_STRING_ENCODING = (char*) malloc(strlen(default_encoding_c));static int __Pyx_init_sys_getdefaultencoding_params() {\n    PyObject* sys = NULL;\n    PyObject* default_encoding = NULL;\n    char* default_encoding_c;\n    sys = PyImport_ImportModule(\"sys\");\n    if (sys == NULL) goto bad;\n    default_encoding = PyObject_CallMethod(sys, (char*) (const char*) \"getdefaultencoding\", NULL);\n    if (default_encoding == NULL) goto bad;\n    default_encoding_c = PyBytes_AS_STRING(default_encoding);\n    __PYX_DEFAULT_STRING_ENCODING = (char*) malloc(strlen(default_encoding_c));\n    strcpy(__PYX_DEFAULT_STRING_ENCODING, default_encoding_c);\n    Py_DECREF(sys);\n    Py_DECREF(default_encoding);\n    return 0;\nbad:\n    Py_XDECREF(sys);\n    Py_XDECREF(default_encoding);\n    return -1;\n}\n#endif",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 444,
+    "line_text": "    strcpy(__PYX_DEFAULT_STRING_ENCODING, default_encoding_c);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

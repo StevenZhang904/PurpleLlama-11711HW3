@@ -1,0 +1,13 @@
+{
+    "file_path": "myRtspClient/utils.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\treturn -2;\n\t}\n\tif(output_size < 32) {\n\t\treturn -3;\n\t}\n\tMD5_CTX md5;  \n\tMD5Init(&md5);                \n\tMD5Update(&md5,(unsigned char *)input,input_size);  \n\tMD5Final(&md5,decrypt);          \n\tfor(int i = 0; i < 16; i++) {\t\treturn -2;\n\t}\n\tif(output_size < 32) {\n\t\treturn -3;\n\t}\n\tMD5_CTX md5;  \n\tMD5Init(&md5);                \n\tMD5Update(&md5,(unsigned char *)input,input_size);  \n\tMD5Final(&md5,decrypt);          \n\tfor(int i = 0; i < 16; i++) {\n\t\tsprintf((char *)&decrypt_ascii[i*2], \"%02x\",decrypt[i]);  \n\t}\n\tdecrypt_ascii[32] = '\\0';\n\tmemcpy(output, decrypt_ascii, 32);\n\treturn 0;\n}\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 117,
+    "line_text": "\t\tsprintf((char *)&decrypt_ascii[i*2], \"%02x\",decrypt[i]);  ",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

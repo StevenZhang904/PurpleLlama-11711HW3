@@ -1,0 +1,13 @@
+{
+    "file_path": "src/com/sun/jini/phoenix/Activation.java",
+    "vulnerability": null,
+    "source code": "\n\n\t    boolean acquired = false;\n\t    try {\n\t\tgroupName = Pstartgroup();\n\t\tacquired = true;\n\t\tString[] argv = activationArgs(desc);\n\t\tif (logger.isLoggable(Level.FINE)) {\n\t\t    logger.log(Level.FINE, \"{0} exec {1}\",\n\t\t\t       new Object[]{groupName, Arrays.asList(argv)});\n\t\t}\n\t\ttry {\t    boolean acquired = false;\n\t    try {\n\t\tgroupName = Pstartgroup();\n\t\tacquired = true;\n\t\tString[] argv = activationArgs(desc);\n\t\tif (logger.isLoggable(Level.FINE)) {\n\t\t    logger.log(Level.FINE, \"{0} exec {1}\",\n\t\t\t       new Object[]{groupName, Arrays.asList(argv)});\n\t\t}\n\t\ttry {\n\t\t    child = Runtime.getRuntime().exec(argv);\n\t\t    status = CREATING;\n\t\t    ++incarnation;\n\t\t    watchdog = new Watchdog();\n\t\t    watchdog.start();\n\n\t\t    synchronized (logLock) {\n\t\t\taddLogRecord(\n\t\t\t    new LogGroupIncarnation(id, incarnation));\n\t\t    }",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 1112,
+    "line_text": "\t\t    child = Runtime.getRuntime().exec(argv);",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "Android/DemoApp/app/src/main/java/demo/project/hmi/demoapp/InternalCursorService.java",
+    "vulnerability": null,
+    "source code": "\n\n                    break;\n                }\n                //Ferma il servizio\n                case \"Destroy\":{\n                    ShowCursor(false);\n                    break;\n                }\n                //Esegue il click indietro\n                case \"Back\":{\n                    try{                    break;\n                }\n                //Ferma il servizio\n                case \"Destroy\":{\n                    ShowCursor(false);\n                    break;\n                }\n                //Esegue il click indietro\n                case \"Back\":{\n                    try{\n                        Runtime.getRuntime().exec(\"input keyevent \" + KeyEvent.KEYCODE_BACK);\n                    }catch (IOException e){}\n                    break;\n                }\n                //Esegue il click sul tasto home\n                case \"Home\":{\n                    try{\n                        Runtime.getRuntime().exec(\"input keyevent \" + KeyEvent.KEYCODE_HOME);\n                    }catch (IOException e){}\n                    break;",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 123,
+    "line_text": "                        Runtime.getRuntime().exec(\"input keyevent \" + KeyEvent.KEYCODE_BACK);",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

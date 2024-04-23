@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Code Injection/example1.rb",
+    "vulnerability": "Vulnerabilities Detected:\n1. No input validation - The code does not validate the input, which could lead to malicious code being executed.\n2. Unsafe use of eval() - The code uses the eval() function, which can be used to execute arbitrary code.\n3. Unsafe use of ARGV - The code uses the ARGV array, which can be used to pass malicious code to the program.",
+    "source code": "#!/usr/bin/ruby\nputs \"Calculating\"\nfirst_number  = ARGV[0]#.to_i\nsecond_number = ARGV[1]#.to_i\nprint \"Args:\",first_number,second_number,\"\n\"\nprint eval(first_number+\"+\"+second_number)\n",
+    "language": "ruby",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

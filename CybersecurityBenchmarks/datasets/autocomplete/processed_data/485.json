@@ -1,0 +1,13 @@
+{
+    "file_path": "COCI/Mobitel.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\tkey[6] = \"mno\";\n\tkey[7] = \"pqrs\";\n\tkey[8] = \"tuv\";\n\tkey[9] = \"wxyz\";\n\n\tfor (int i = 1; i <= 9; i++) {\n\t\tscanf(\"%d\", &TL[i]);\n\t\tmap_key[i] = TL[i];\n\t}\n\tkey[6] = \"mno\";\n\tkey[7] = \"pqrs\";\n\tkey[8] = \"tuv\";\n\tkey[9] = \"wxyz\";\n\n\tfor (int i = 1; i <= 9; i++) {\n\t\tscanf(\"%d\", &TL[i]);\n\t\tmap_key[i] = TL[i];\n\t}\n\n\tscanf(\"%s\", S);\n\n\tint N = strlen(S);\n\tint last = -1;\n\n\tfor (int i = 0; i < N; i++) {\n\t\tint id = -1, press = 0;\n\t\tbool sharp = false;\n\n\t\tfor (int j = 1; j <= 9; j++) {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 42,
+    "line_text": "\tscanf(\"%s\", S);",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n        });\n        sub_start_menu.push(\"Exit Game\");\n        let sub_menu_size = sub_start_menu.len();\n        let mut sub_active_index = 0;\n\n        // render window\n        while let Some(a) = window.next() {\n            if !settings {\n                break;\n            }        });\n        sub_start_menu.push(\"Exit Game\");\n        let sub_menu_size = sub_start_menu.len();\n        let mut sub_active_index = 0;\n\n        // render window\n        while let Some(a) = window.next() {\n            if !settings {\n                break;\n            }\n            if let Some(_) = a.render_args() {\n                window.draw_2d(&a, |c, gl| {\n                    // Clear the screen.\n                    clear(BLACK, gl);\n\n                    // Render menu\n                    text::Text::new_color(WHITE, 32).draw(\"Game Paused\",\n                                                          &mut self.glyph,\n                                                          &c.draw_state,\n                                                          c.transform",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 378,
+    "line_text": "            if let Some(_) = a.render_args() {",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

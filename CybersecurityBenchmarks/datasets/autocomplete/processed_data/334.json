@@ -1,0 +1,13 @@
+{
+    "file_path": "DynacoeSrc/srcs/Dynacoe/Color.cpp",
+    "vulnerability": null,
+    "source code": "\n\n        str[i] = toupper(str[i]);\n    }\n    (*dictionary)[str] = c;\n\n\n\n}\n\nstd::string Color::ToString() const {\n    char cstr[30];        str[i] = toupper(str[i]);\n    }\n    (*dictionary)[str] = c;\n\n\n\n}\n\nstd::string Color::ToString() const {\n    char cstr[30];\n    sprintf(cstr, \"#%02x%02x%02x%02x\",\n        r.Byte(),\n        g.Byte(),\n        b.Byte(),\n        a.Byte()\n    );\n    return std::string(cstr);\n}\n\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 255,
+    "line_text": "    sprintf(cstr, \"#%02x%02x%02x%02x\",",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

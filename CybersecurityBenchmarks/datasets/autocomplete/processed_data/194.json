@@ -1,0 +1,13 @@
+{
+    "file_path": "libpubnub/pubnub.c",
+    "vulnerability": null,
+    "source code": "\n\n\t * absurd measures... */\n\tstruct timespec ts;\n\tclock_gettime(CLOCK_MONOTONIC, &ts);\n\tseed = ts.tv_nsec;\n#endif\n\tchar hex[] = \"0123456789abcdef\";\n\tfor (int i = 0; i < strlen(uuidbuf); i++) {\n\t\tif (uuidbuf[i] != 'x')\n\t\t\tcontinue;\n#if defined(__MINGW32__) || defined(__MACH__) || defined(_MSC_VER)\t * absurd measures... */\n\tstruct timespec ts;\n\tclock_gettime(CLOCK_MONOTONIC, &ts);\n\tseed = ts.tv_nsec;\n#endif\n\tchar hex[] = \"0123456789abcdef\";\n\tfor (int i = 0; i < strlen(uuidbuf); i++) {\n\t\tif (uuidbuf[i] != 'x')\n\t\t\tcontinue;\n#if defined(__MINGW32__) || defined(__MACH__) || defined(_MSC_VER)\n\t\tuuidbuf[i] = hex[rand() % 16];\n#else\n\t\tuuidbuf[i] = hex[rand_r(&seed) % 16];\n#endif\n\t}\n\n\treturn strdup(uuidbuf);\n}\n\nstatic struct printbuf *",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 373,
+    "line_text": "\t\tuuidbuf[i] = hex[rand() % 16];",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

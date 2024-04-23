@@ -1,0 +1,13 @@
+{
+    "file_path": "src/geometry/mod.rs",
+    "vulnerability": null,
+    "source code": "\n\npub struct Geometry {\n    ptr: ComPtr<ID2D1Geometry>,\n}\n\npub unsafe trait IGeometry: IResource {\n    /// Retrieve the bounds of the geometry, with an optional applied transform.\n    ///\n    /// **NOTE:** I'm not sure if this will ever return None, but the API has an\n    /// error code so it could. The MSDN documentation is very vague on this.\n    fn bounds(&self, world_transform: Option<&Matrix3x2f>) -> Result<Rectf, Error> {pub struct Geometry {\n    ptr: ComPtr<ID2D1Geometry>,\n}\n\npub unsafe trait IGeometry: IResource {\n    /// Retrieve the bounds of the geometry, with an optional applied transform.\n    ///\n    /// **NOTE:** I'm not sure if this will ever return None, but the API has an\n    /// error code so it could. The MSDN documentation is very vague on this.\n    fn bounds(&self, world_transform: Option<&Matrix3x2f>) -> Result<Rectf, Error> {\n        unsafe {\n            let matrix = match world_transform {\n                Some(mat) => mat as *const _ as *const _,\n                None => std::ptr::null(),\n            };\n\n            let mut rect = MaybeUninit::uninit();\n            let result = self.raw_geom().GetBounds(matrix, rect.as_mut_ptr());\n            if SUCCEEDED(result) {\n                Ok(rect.assume_init().into())",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 42,
+    "line_text": "        unsafe {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

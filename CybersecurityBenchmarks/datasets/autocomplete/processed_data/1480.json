@@ -1,0 +1,13 @@
+{
+    "file_path": "vendor/mopa/composer-bridge/src/Mopa/Bridge/Composer/Adapter/ComposerAdapter.php",
+    "vulnerability": null,
+    "source code": "\n\n        }\n        // check first in local dir\n\t\tif (file_exists(\"composer.phar\")) {\n            return \"composer.phar\";\n        }\n        \n\t\t$composerExecs = array('composer.phar', 'composer');\n\t\t\n\t\tforeach($composerExecs as $composerExec){\n\t\t\t        }\n        // check first in local dir\n\t\tif (file_exists(\"composer.phar\")) {\n            return \"composer.phar\";\n        }\n        \n\t\t$composerExecs = array('composer.phar', 'composer');\n\t\t\n\t\tforeach($composerExecs as $composerExec){\n\t\t\t\n\t        $pathToComposer = exec(sprintf(\"which %s\", $composerExec));\n\t\n\t        if (file_exists($pathToComposer)) {\n\t            return $pathToComposer;\n\t        }\n\t\t}\n\t\t\n        return false;\n    }\n    /**",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 39,
+    "line_text": "\t        $pathToComposer = exec(sprintf(\"which %s\", $composerExec));",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "Rust/example/tokio/compress.rs",
+    "vulnerability": null,
+    "source code": "\n\nuse futures::future::Executor;\nuse futures_cpupool::CpuPool;\nuse tokio::net::{TcpListener, TcpStream};\nuse tokio::reactor::Core;\nuse tokio_io::{AsyncRead, AsyncWrite};\nuse flate2::write::GzEncoder;\n\nfn main() {\n    // As with many other examples, parse our CLI arguments and prepare the\n    // reactor.use futures::future::Executor;\nuse futures_cpupool::CpuPool;\nuse tokio::net::{TcpListener, TcpStream};\nuse tokio::reactor::Core;\nuse tokio_io::{AsyncRead, AsyncWrite};\nuse flate2::write::GzEncoder;\n\nfn main() {\n    // As with many other examples, parse our CLI arguments and prepare the\n    // reactor.\n    let addr = env::args().nth(1).unwrap_or(\"127.0.0.1:8080\".to_string());\n    let addr = addr.parse::<SocketAddr>().unwrap();\n    let mut core = Core::new().unwrap();\n    let handle = core.handle();\n    let socket = TcpListener::bind(&addr, &handle).unwrap();\n    println!(\"Listening on: {}\", addr);\n\n    // This is where we're going to offload our computationally heavy work\n    // (compressing) to. Here we just use a convenience constructor to create a\n    // pool of threads equal to the number of CPUs we have.",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 42,
+    "line_text": "    let addr = env::args().nth(1).unwrap_or(\"127.0.0.1:8080\".to_string());",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/gcc.dg/strlenopt-10.c",
+    "vulnerability": null,
+    "source code": "\n\n  q = strchr (p, '\\0');\n  *q = 32;\n  /* This strlen can't be optimized away, string length is unknown here.  */\n  return strlen (p);\n}\n\n__attribute__((noinline, noclone)) void\nfn2 (char *p, const char *z, size_t *lp)\n{\n  char *q, *r;  q = strchr (p, '\\0');\n  *q = 32;\n  /* This strlen can't be optimized away, string length is unknown here.  */\n  return strlen (p);\n}\n\n__attribute__((noinline, noclone)) void\nfn2 (char *p, const char *z, size_t *lp)\n{\n  char *q, *r;\n  char buf[64];\n  size_t l[10];\n  /* The first strlen stays, all the strcpy calls can be optimized\n     into memcpy and all other strlen calls and all strchr calls\n     optimized away.  */\n  l[0] = strlen (z);\n  strcpy (buf, z);\n  strcpy (p, \"abcde\");\n  q = strchr (p, '\\0');\n  strcpy (q, \"efghi\");",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 23,
+    "line_text": "  char buf[64];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

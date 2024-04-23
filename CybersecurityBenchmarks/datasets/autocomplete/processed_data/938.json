@@ -1,0 +1,13 @@
+{
+    "file_path": "serverlocal.js",
+    "vulnerability": null,
+    "source code": "\n\n//   var jMsg = JSON.parse(msg);\n//   var newLedState = jMsg.led;\n\n//   led.writeSync(newLedState);\n// });\n\n// Init firebase\nvar firebase = require('firebase');\nvar io = require('socket.io')(server);\nvar firebase_app = firebase.initializeApp({//   var jMsg = JSON.parse(msg);\n//   var newLedState = jMsg.led;\n\n//   led.writeSync(newLedState);\n// });\n\n// Init firebase\nvar firebase = require('firebase');\nvar io = require('socket.io')(server);\nvar firebase_app = firebase.initializeApp({\n    apiKey: \"AIzaSyB3ZvJDuZ2HD-UppgPvY2by-GI0KnessXw\",\n    authDomain: \"rlexa-9f1ca.firebaseapp.com\",\n    databaseURL: \"https://rlexa-9f1ca.firebaseio.com\",\n    projectId: \"rlexa-9f1ca\",\n    storageBucket: \"rlexa-9f1ca.appspot.com\",\n    messagingSenderId: \"161670508523\"\n});\nvar db = firebase.database();\n\napp.use(express.static('public'));",
+    "language": "javascript",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 28,
+    "line_text": "    apiKey: \"AIzaSyB3ZvJDuZ2HD-UppgPvY2by-GI0KnessXw\",",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

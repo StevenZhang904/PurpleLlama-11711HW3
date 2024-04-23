@@ -1,0 +1,13 @@
+{
+    "file_path": "src/devices.rs",
+    "vulnerability": null,
+    "source code": "\n\n    pub axis_states: Axes,\r\n    pub hatswitch: Option<HatSwitch>,\r\n    pub raw_axis_states: RawAxes,\r\n}\r\n\r\nimpl JoystickState {\r\n    pub fn new(\r\n        p_button_caps: Vec<HIDP_BUTTON_CAPS>,\r\n        p_value_caps: Vec<HIDP_VALUE_CAPS>,\r\n    ) -> JoystickState {\r    pub axis_states: Axes,\r\n    pub hatswitch: Option<HatSwitch>,\r\n    pub raw_axis_states: RawAxes,\r\n}\r\n\r\nimpl JoystickState {\r\n    pub fn new(\r\n        p_button_caps: Vec<HIDP_BUTTON_CAPS>,\r\n        p_value_caps: Vec<HIDP_VALUE_CAPS>,\r\n    ) -> JoystickState {\r\n        unsafe {\r\n            let mut button_states: Vec<bool> = Vec::new();\r\n            if p_button_caps.len() > 0 {\r\n                let ref button_caps = p_button_caps[0];\r\n                let number_of_buttons =\r\n                    button_caps.u.Range().UsageMax - button_caps.u.Range().UsageMin + 1;\r\n                for _ in 0..number_of_buttons {\r\n                    button_states.push(false);\r\n                }\r\n            }\r",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 200,
+    "line_text": "        unsafe {\r",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

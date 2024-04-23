@@ -1,0 +1,13 @@
+{
+    "file_path": "util/configs/ruby/MI_example.py",
+    "vulnerability": null,
+    "source code": "\n\n        cpu_seq = RubySequencer(version = i,\n                                icache = cache,\n                                dcache = cache,\n                                ruby_system = ruby_system)\n\n        l1_cntrl.sequencer = cpu_seq\n\n        if piobus != None:\n            cpu_seq.pio_port = piobus.slave\n        cpu_seq = RubySequencer(version = i,\n                                icache = cache,\n                                dcache = cache,\n                                ruby_system = ruby_system)\n\n        l1_cntrl.sequencer = cpu_seq\n\n        if piobus != None:\n            cpu_seq.pio_port = piobus.slave\n\n        exec(\"system.l1_cntrl%d = l1_cntrl\" % i)\n        #\n        # Add controllers and sequencers to the appropriate lists\n        #\n        cpu_sequencers.append(cpu_seq)\n        l1_cntrl_nodes.append(l1_cntrl)\n\n        cntrl_count += 1\n\n    phys_mem_size = 0",
+    "language": "python",
+    "cwe_identifier": "CWE-94",
+    "pattern_desc": "Potential code injection due to exec usage.",
+    "line_number": 98,
+    "line_text": "        exec(\"system.l1_cntrl%d = l1_cntrl\" % i)",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-exec-use",
+    "rule": null,
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "the-S3-amongos.py",
+    "vulnerability": null,
+    "source code": "\n\n            self._error(code=404,s3code='NSB')\n            return\n\n        self.set_header('Date', '\"%s\"' % datetime.datetime.utcnow())\n        self.finish()\n        \n    \nclass ObjectHandler(BaseRequestHandler):\n    \n    def _object_md5(self,bucket_object):            self._error(code=404,s3code='NSB')\n            return\n\n        self.set_header('Date', '\"%s\"' % datetime.datetime.utcnow())\n        self.finish()\n        \n    \nclass ObjectHandler(BaseRequestHandler):\n    \n    def _object_md5(self,bucket_object):\n        object_md5 = hashlib.md5()\n        object_md5.update(bucket_object)\n        return object_md5.hexdigest()\n    \n    def _get_bucket_object(self,**kwargs):\n        if '_id' in kwargs.keys():\n            object_id = kwargs['_id']\n            object_field = '_id'\n        if 'object_name' in kwargs.keys():\n            object_id = kwargs['object_name']",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 410,
+    "line_text": "        object_md5 = hashlib.md5()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/rpcwallet.cpp",
+    "vulnerability": null,
+    "source code": "\n\n            throw std::runtime_error(\"CountAllAnonOutputs() failed.\");\n    } else\n    {\n        // TODO: make mapAnonOutputStats a vector preinitialised with all possible coin values?\n        for (std::map<int64_t, CAnonOutputCount>::iterator mi = mapAnonOutputStats.begin(); mi != mapAnonOutputStats.end(); ++mi)\n        {\n            bool fProcessed = false;\n            CAnonOutputCount aoc = mi->second;\n            if (aoc.nLeastDepth > 0)\n                aoc.nLeastDepth = nBestHeight - aoc.nLeastDepth;            throw std::runtime_error(\"CountAllAnonOutputs() failed.\");\n    } else\n    {\n        // TODO: make mapAnonOutputStats a vector preinitialised with all possible coin values?\n        for (std::map<int64_t, CAnonOutputCount>::iterator mi = mapAnonOutputStats.begin(); mi != mapAnonOutputStats.end(); ++mi)\n        {\n            bool fProcessed = false;\n            CAnonOutputCount aoc = mi->second;\n            if (aoc.nLeastDepth > 0)\n                aoc.nLeastDepth = nBestHeight - aoc.nLeastDepth;\n            for (std::list<CAnonOutputCount>::iterator it = lOutputCounts.begin(); it != lOutputCounts.end(); ++it)\n            {\n                if (aoc.nValue > it->nValue)\n                    continue;\n                lOutputCounts.insert(it, aoc);\n                fProcessed = true;\n                break;\n            };\n            if (!fProcessed)\n                lOutputCounts.push_back(aoc);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-416",
+    "pattern_desc": "Using an iterator after it has been invalidated, resulting in use after free",
+    "line_number": 2813,
+    "line_text": "            for (std::list<CAnonOutputCount>::iterator it = lOutputCounts.begin(); it != lOutputCounts.end(); ++it)",
+    "pattern_id": "CPP-W-007",
+    "rule": "{ for (_($c.begin()); _($c.end()); _) { strict: $c.$func();} }",
+    "label": 1
+}

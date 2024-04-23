@@ -1,0 +1,13 @@
+{
+    "file_path": "YanWeiMinClangSln/ch7/Main7-3.c",
+    "vulnerability": null,
+    "source code": "\n\n }\n\n void main()\n {\n   int j,k,n;\n   OLGraph g;\n   VertexType v1,v2;\n   CreateDG(&g);\n   Display(g);\n   printf(\"\u00d0\u00de\u00b8\u00c4\u00b6\u00a5\u00b5\u00e3\u00b5\u00c4\u00d6\u00b5\u00a3\u00ac\u00c7\u00eb\u00ca\u00e4\u00c8\u00eb\u00d4\u00ad\u00d6\u00b5 \u00d0\u00c2\u00d6\u00b5: \"); }\n\n void main()\n {\n   int j,k,n;\n   OLGraph g;\n   VertexType v1,v2;\n   CreateDG(&g);\n   Display(g);\n   printf(\"\u00d0\u00de\u00b8\u00c4\u00b6\u00a5\u00b5\u00e3\u00b5\u00c4\u00d6\u00b5\u00a3\u00ac\u00c7\u00eb\u00ca\u00e4\u00c8\u00eb\u00d4\u00ad\u00d6\u00b5 \u00d0\u00c2\u00d6\u00b5: \");\n   scanf(\"%s%s\",v1,v2);\n   PutVex(&g,v1,v2);\n   printf(\"\u00b2\u00e5\u00c8\u00eb\u00d0\u00c2\u00b6\u00a5\u00b5\u00e3\u00a3\u00ac\u00c7\u00eb\u00ca\u00e4\u00c8\u00eb\u00b6\u00a5\u00b5\u00e3\u00b5\u00c4\u00d6\u00b5: \");\n   scanf(\"%s\",v1);\n   InsertVex(&g,v1);\n   printf(\"\u00b2\u00e5\u00c8\u00eb\u00d3\u00eb\u00d0\u00c2\u00b6\u00a5\u00b5\u00e3\u00d3\u00d0\u00b9\u00d8\u00b5\u00c4\u00bb\u00a1\u00a3\u00ac\u00c7\u00eb\u00ca\u00e4\u00c8\u00eb\u00bb\u00a1\u00ca\u00fd: \");\n   scanf(\"%d\",&n);\n   for(k=0;k<n;k++)\n   {\n     printf(\"\u00c7\u00eb\u00ca\u00e4\u00c8\u00eb\u00c1\u00ed\u00d2\u00bb\u00b6\u00a5\u00b5\u00e3\u00b5\u00c4\u00d6\u00b5 \u00c1\u00ed\u00d2\u00bb\u00b6\u00a5\u00b5\u00e3\u00b5\u00c4\u00b7\u00bd\u00cf\u00f2(0:\u00bb\u00a1\u00cd\u00b7 1:\u00bb\u00a1\u00ce\u00b2): \");",
+    "language": "c",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 23,
+    "line_text": "   scanf(\"%s%s\",v1,v2);",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

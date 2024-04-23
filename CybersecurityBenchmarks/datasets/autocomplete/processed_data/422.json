@@ -1,0 +1,13 @@
+{
+    "file_path": "ThirdParty/CabLib/Cabinet/String.hpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\t{\r\n\t\t\tif (u16_Unicode[i] > 0xFF) throw \"Unicode string cannot be converted to Ansi!\";\r\n\t\t\tms8_Buf[i] = (char)u16_Unicode[i];\r\n\t\t}\r\n\t}\r\n\r\n\t// Append external string to the current content\r\n\tvoid operator+=(const char* s8_String)\r\n\t{\r\n\t\tAllocate(Len() + (UINT)strlen(s8_String));\r\t\t{\r\n\t\t\tif (u16_Unicode[i] > 0xFF) throw \"Unicode string cannot be converted to Ansi!\";\r\n\t\t\tms8_Buf[i] = (char)u16_Unicode[i];\r\n\t\t}\r\n\t}\r\n\r\n\t// Append external string to the current content\r\n\tvoid operator+=(const char* s8_String)\r\n\t{\r\n\t\tAllocate(Len() + (UINT)strlen(s8_String));\r\n\t\tstrcat(ms8_Buf, s8_String);\r\n\t}\r\n\tvoid operator+=(const CStrA& s_String)\r\n\t{\r\n\t\tAllocate(Len() + s_String.Len());\r\n\t\tstrcat(ms8_Buf, s_String);\r\n\t}\r\n\r\n\tBOOL operator==(const char* s8_String)\r\n\t{\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 146,
+    "line_text": "\t\tstrcat(ms8_Buf, s8_String);\r",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

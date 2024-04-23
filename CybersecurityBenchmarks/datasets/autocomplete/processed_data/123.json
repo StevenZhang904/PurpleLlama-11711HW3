@@ -1,0 +1,13 @@
+{
+    "file_path": "src/driver/implementation/imap/imapdriver.c",
+    "vulnerability": null,
+    "source code": "\n\n    return MAIL_ERROR_LIST;\n\n  mb_list = clist_begin(imap_list)->data;\n  delimiter[0] = mb_list->mb_delimiter;\n\n  folder_name = malloc(strlen(mb) + strlen(delimiter) + strlen(name) + 1);\n  if (folder_name == NULL)\n    return MAIL_ERROR_MEMORY;\n\n  strcpy(folder_name, mb);    return MAIL_ERROR_LIST;\n\n  mb_list = clist_begin(imap_list)->data;\n  delimiter[0] = mb_list->mb_delimiter;\n\n  folder_name = malloc(strlen(mb) + strlen(delimiter) + strlen(name) + 1);\n  if (folder_name == NULL)\n    return MAIL_ERROR_MEMORY;\n\n  strcpy(folder_name, mb);\n  strcat(folder_name, delimiter);\n  strcat(folder_name, name);\n\n  * result = folder_name;\n  \n  return MAIL_NO_ERROR;\n}\n\n/* folders operations */\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 367,
+    "line_text": "  strcat(folder_name, delimiter);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

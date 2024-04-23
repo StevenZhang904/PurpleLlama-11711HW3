@@ -1,0 +1,13 @@
+{
+    "file_path": "tornado/websocket.py",
+    "vulnerability": null,
+    "source code": "\n\n        \"\"\"\n        fields = (\"Host\", \"Sec-Websocket-Key\", \"Sec-Websocket-Version\")\n        if not all(map(lambda f: self.request.headers.get(f), fields)):\n            raise ValueError(\"Missing/Invalid WebSocket headers\")\n\n    @staticmethod\n    def compute_accept_value(key):\n        \"\"\"Computes the value for the Sec-WebSocket-Accept header,\n        given the value for Sec-WebSocket-Key.\n        \"\"\"        \"\"\"\n        fields = (\"Host\", \"Sec-Websocket-Key\", \"Sec-Websocket-Version\")\n        if not all(map(lambda f: self.request.headers.get(f), fields)):\n            raise ValueError(\"Missing/Invalid WebSocket headers\")\n\n    @staticmethod\n    def compute_accept_value(key):\n        \"\"\"Computes the value for the Sec-WebSocket-Accept header,\n        given the value for Sec-WebSocket-Key.\n        \"\"\"\n        sha1 = hashlib.sha1()\n        sha1.update(utf8(key))\n        sha1.update(b\"258EAFA5-E914-47DA-95CA-C5AB0DC85B11\")  # Magic value\n        return native_str(base64.b64encode(sha1.digest()))\n\n    def _challenge_response(self):\n        return WebSocketProtocol13.compute_accept_value(\n            self.request.headers.get(\"Sec-Websocket-Key\"))\n\n    def _accept_connection(self):",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 547,
+    "line_text": "        sha1 = hashlib.sha1()",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

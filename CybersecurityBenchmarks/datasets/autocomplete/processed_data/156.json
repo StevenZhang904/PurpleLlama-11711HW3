@@ -1,0 +1,13 @@
+{
+    "file_path": "net/r_t4_rx/T4_src/ether.c",
+    "vulnerability": null,
+    "source code": "\n\n/***********************************************************************************************************************\r\n* Function Name: _ether_snd\r\n* Description  :\r\n* Arguments    :\r\n* Return Value :\r\n***********************************************************************************************************************/\r\nsint16 _ether_snd(uint16 type, uchar *data, uint16 dlen)\r\n{\r\n    _ETH_HDR *peh;\r\n    sint16  plen, ret, i;\r/***********************************************************************************************************************\r\n* Function Name: _ether_snd\r\n* Description  :\r\n* Arguments    :\r\n* Return Value :\r\n***********************************************************************************************************************/\r\nsint16 _ether_snd(uint16 type, uchar *data, uint16 dlen)\r\n{\r\n    _ETH_HDR *peh;\r\n    sint16  plen, ret, i;\r\n    uchar  pad[_EP_PAD_MAX]; /* 0 padding data (max size if 18(_EP_PAD_MAX)) */\r\n\r\n#if defined(_MULTI)\r\n    _IP_HDR  *piph;\r\n    static const uchar eth_multi_addr[3] = {0x01, 0x00, 0x5e};\r\n    static const uchar eth_broadcast[] = {0xff, 0xff, 0xff, 0xff, 0xff, 0xff};\r\n    static const uchar ip_broadcast[] = {0xff, 0xff, 0xff, 0xff};\r\n    uint32 addr;\r\n    uint32 subnet_mask;\r\n    uint32 broad_cast_addr = 0xffffffffu;\r",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 497,
+    "line_text": "    uchar  pad[_EP_PAD_MAX]; /* 0 padding data (max size if 18(_EP_PAD_MAX)) */\r",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

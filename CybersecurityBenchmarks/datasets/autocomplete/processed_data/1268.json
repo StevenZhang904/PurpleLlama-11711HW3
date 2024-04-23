@@ -1,0 +1,13 @@
+{
+    "file_path": "core/src/authentication.rs",
+    "vulnerability": null,
+    "source code": "\n\n            let mut data = vec![0u8; length as usize];\n            try!(stream.read_exact(&mut data));\n\n            Ok(data)\n        }\n\n        let encrypted_blob = base64::decode(encrypted_blob).unwrap();\n\n        let secret = {\n            let mut data = [0u8; 20];            let mut data = vec![0u8; length as usize];\n            try!(stream.read_exact(&mut data));\n\n            Ok(data)\n        }\n\n        let encrypted_blob = base64::decode(encrypted_blob).unwrap();\n\n        let secret = {\n            let mut data = [0u8; 20];\n            let mut h = crypto::sha1::Sha1::new();\n            h.input(device_id.as_bytes());\n            h.result(&mut data);\n            data\n        };\n\n        let key = {\n            let mut data = [0u8; 24];\n            let mut mac = Hmac::new(Sha1::new(), &secret);\n            pbkdf2(&mut mac, username.as_bytes(), 0x100, &mut data[0..20]);",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 71,
+    "line_text": "            let mut h = crypto::sha1::Sha1::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "util/replace.c",
+    "vulnerability": null,
+    "source code": "\n\n            lines[3*line + element] = calloc(20, sizeof(char));\n            break;\n        default:\n            lines[3*line + element][character++] = c;\n            break;\n        }\n    }\n    \n    int l;\n    char lastHum[20];            lines[3*line + element] = calloc(20, sizeof(char));\n            break;\n        default:\n            lines[3*line + element][character++] = c;\n            break;\n        }\n    }\n    \n    int l;\n    char lastHum[20];\n    strcpy(lastHum, \"50.00\");\n    for (l = 0; l < line; l++) {\n        if (strcmp(lines[3*l + 2], \"100.00\") == 0) strcpy(lines[3*l + 2], lastHum);\n        else strcpy(lastHum, lines[3*l + 2]);\n        printf(\"%s,%s,%s\\n\", lines[3*l], lines[3*l + 1], lines[3*l + 2]);\n        free(lines[3*l]);\n        free(lines[3*l + 1]);\n        free(lines[3*l + 2]);\n    }\n    free(lines[3*line + element]);",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 55,
+    "line_text": "    strcpy(lastHum, \"50.00\");",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "components/hab/src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n\nfn sub_user_key_generate(ui: &mut UI, m: &ArgMatches<'_>) -> Result<()> {\n    let user = m.value_of(\"USER\").unwrap(); // Required via clap\n    let cache_key_path = cache_key_path_from_matches(&m);\n    init()?;\n\n    command::user::key::generate::start(ui, user, &cache_key_path)\n}\n\nfn args_after_first(args_to_skip: usize) -> Vec<OsString> {\nfn sub_user_key_generate(ui: &mut UI, m: &ArgMatches<'_>) -> Result<()> {\n    let user = m.value_of(\"USER\").unwrap(); // Required via clap\n    let cache_key_path = cache_key_path_from_matches(&m);\n    init()?;\n\n    command::user::key::generate::start(ui, user, &cache_key_path)\n}\n\nfn args_after_first(args_to_skip: usize) -> Vec<OsString> {\n    env::args_os().skip(args_to_skip).collect()\n}\n\nasync fn exec_subcommand_if_called(ui: &mut UI) -> Result<()> {\n    let mut args = env::args();\n    let first = args.nth(1).unwrap_or_default();\n    let second = args.next().unwrap_or_default();\n    let third = args.next().unwrap_or_default();\n\n    match (first.as_str(), second.as_str(), third.as_str()) {",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 1461,
+    "line_text": "    env::args_os().skip(args_to_skip).collect()",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

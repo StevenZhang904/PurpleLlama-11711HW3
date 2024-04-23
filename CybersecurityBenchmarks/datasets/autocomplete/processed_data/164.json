@@ -1,0 +1,13 @@
+{
+    "file_path": "libtpm/lib/keys.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\t       &tpmdata.buffer[TPM_DATA_OFFSET], \n\t\t       *pubkeybuflen);\n\t}\n\t\n\t/*\n\t * Verify the checksum...\n\t */\n\t{\n\t\tSHA_CTX sha;\n\t\tunsigned char digest[TPM_DIGEST_SIZE];\t\t       &tpmdata.buffer[TPM_DATA_OFFSET], \n\t\t       *pubkeybuflen);\n\t}\n\t\n\t/*\n\t * Verify the checksum...\n\t */\n\t{\n\t\tSHA_CTX sha;\n\t\tunsigned char digest[TPM_DIGEST_SIZE];\n\t\tSHA1_Init(&sha);\n\t\tSHA1_Update(&sha,\n\t\t            &tpmdata.buffer[TPM_DATA_OFFSET],\n\t\t            size);\n\t\tSHA1_Update(&sha,\n\t\t            nonce,\n\t\t            TPM_HASH_SIZE);\n\t\tSHA1_Final(digest,&sha);\n\t\tif (0 != memcmp(digest,\n\t\t                &tpmdata.buffer[TPM_DATA_OFFSET+size],",
+    "language": "c",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure.",
+    "line_number": 143,
+    "line_text": "\t\tSHA1_Init(&sha);",
+    "pattern_id": "C-R-005",
+    "rule": "(SHA1_Init\\s*\\()|(EVP_sha1\\s*\\()|(EVP_sha1_md5\\s*\\()",
+    "label": 1
+}

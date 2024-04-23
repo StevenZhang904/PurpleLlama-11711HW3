@@ -1,0 +1,13 @@
+{
+    "file_path": "vendors/openssl/include/openssl/evp.h",
+    "vulnerability": null,
+    "source code": "\n\nconst EVP_MD *EVP_mdc2(void);\n#endif\n#ifndef OPENSSL_NO_RIPEMD\nconst EVP_MD *EVP_ripemd160(void);\n#endif\n#ifndef OPENSSL_NO_WHIRLPOOL\nconst EVP_MD *EVP_whirlpool(void);\n#endif\nconst EVP_CIPHER *EVP_enc_null(void);\t\t/* does nothing :-) */\n#ifndef OPENSSL_NO_DESconst EVP_MD *EVP_mdc2(void);\n#endif\n#ifndef OPENSSL_NO_RIPEMD\nconst EVP_MD *EVP_ripemd160(void);\n#endif\n#ifndef OPENSSL_NO_WHIRLPOOL\nconst EVP_MD *EVP_whirlpool(void);\n#endif\nconst EVP_CIPHER *EVP_enc_null(void);\t\t/* does nothing :-) */\n#ifndef OPENSSL_NO_DES\nconst EVP_CIPHER *EVP_des_ecb(void);\nconst EVP_CIPHER *EVP_des_ede(void);\nconst EVP_CIPHER *EVP_des_ede3(void);\nconst EVP_CIPHER *EVP_des_ede_ecb(void);\nconst EVP_CIPHER *EVP_des_ede3_ecb(void);\nconst EVP_CIPHER *EVP_des_cfb64(void);\n# define EVP_des_cfb EVP_des_cfb64\nconst EVP_CIPHER *EVP_des_cfb1(void);\nconst EVP_CIPHER *EVP_des_cfb8(void);\nconst EVP_CIPHER *EVP_des_ede_cfb64(void);",
+    "language": "c",
+    "cwe_identifier": "CWE-323",
+    "pattern_desc": "ECB mode encryption is both deterministic and unauthenticated. Do not use it unless this is very explicitly what you need.",
+    "line_number": 702,
+    "line_text": "const EVP_CIPHER *EVP_des_ecb(void);",
+    "pattern_id": "C-R-009",
+    "rule": "EVP_\\w+_ecb\\s*\\(",
+    "label": 1
+}

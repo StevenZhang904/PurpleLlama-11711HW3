@@ -1,0 +1,13 @@
+{
+    "file_path": "cairis/test/test_AssetAPI.py",
+    "vulnerability": null,
+    "source code": "\n\n    json_resp = json_deserialize(delResponse)\n    self.assertIsNotNone(json_resp, 'No results after deserialization')\n    message = json_resp.get('message', None)\n    self.assertIsNotNone(message, 'No message returned')\n    self.logger.info('[%s] Message: %s\\n', method, message)\n\n  def test_types_get(self):\n    method = 'test_types_get'\n    rv = self.app.get('/api/assets/types?session_id=test')\n    if (sys.version_info > (3,)):    json_resp = json_deserialize(delResponse)\n    self.assertIsNotNone(json_resp, 'No results after deserialization')\n    message = json_resp.get('message', None)\n    self.assertIsNotNone(message, 'No message returned')\n    self.logger.info('[%s] Message: %s\\n', method, message)\n\n  def test_types_get(self):\n    method = 'test_types_get'\n    rv = self.app.get('/api/assets/types?session_id=test')\n    if (sys.version_info > (3,)):\n      assets = jsonpickle.decode(rv.data.decode('utf-8'))\n    else:\n      assets = jsonpickle.decode(rv.data)\n    self.assertIsNotNone(assets, 'No results after deserialization')\n    self.assertIsInstance(assets, list, 'The result is not a dictionary as expected')\n    self.assertGreater(len(assets), 0, 'No assets in the dictionary')\n    self.logger.info('[%s] Asset types found: %d', method, len(assets))\n    asset_type = assets[0]\n    self.logger.info('[%s] First asset types: %s\\n', method, asset_type['theName'])\n",
+    "language": "python",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Potential deserialization risk due to pickle usage.",
+    "line_number": 206,
+    "line_text": "      assets = jsonpickle.decode(rv.data.decode('utf-8'))",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.unsafe-json-pickle-use",
+    "rule": null,
+    "label": 1
+}

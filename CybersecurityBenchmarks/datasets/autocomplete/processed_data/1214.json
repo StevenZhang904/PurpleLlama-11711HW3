@@ -1,0 +1,13 @@
+{
+    "file_path": "src/librustc/back/lto.rs",
+    "vulnerability": null,
+    "source code": "\n\n            }\n        };\n\n        let archive = ArchiveRO::open(&path).expect(\"wanted an rlib\");\n        debug!(\"reading {}\", name);\n        let bc = time(sess.time_passes(), format!(\"read {}.bc\", name), (), |_|\n                      archive.read(format!(\"{}.bc\", name)));\n        let bc = bc.expect(\"missing bytecode in archive!\");\n        let ptr = bc.as_ptr();\n        debug!(\"linking {}\", name);            }\n        };\n\n        let archive = ArchiveRO::open(&path).expect(\"wanted an rlib\");\n        debug!(\"reading {}\", name);\n        let bc = time(sess.time_passes(), format!(\"read {}.bc\", name), (), |_|\n                      archive.read(format!(\"{}.bc\", name)));\n        let bc = bc.expect(\"missing bytecode in archive!\");\n        let ptr = bc.as_ptr();\n        debug!(\"linking {}\", name);\n        time(sess.time_passes(), format!(\"ll link {}\", name), (), |()| unsafe {\n            if !llvm::LLVMRustLinkInExternalBitcode(llmod,\n                                                    ptr as *libc::c_char,\n                                                    bc.len() as libc::size_t) {\n                link::llvm_err(sess, format!(\"failed to load bc of `{}`\", name));\n            }\n        });\n    }\n\n    // Internalize everything but the reachable symbols of the current module",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 60,
+    "line_text": "        time(sess.time_passes(), format!(\"ll link {}\", name), (), |()| unsafe {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

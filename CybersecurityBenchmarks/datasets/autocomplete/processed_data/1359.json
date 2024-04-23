@@ -1,0 +1,13 @@
+{
+    "file_path": "rust/pact_verifier/src/lib.rs",
+    "vulnerability": null,
+    "source code": "\n\n    result.map_err(|err| MismatchResult::Error(err.description, err.interaction_id))\n}\n\nasync fn verify_interaction<F: RequestFilterExecutor, S: ProviderStateExecutor>(\n  provider: &ProviderInfo,\n  interaction: &dyn Interaction,\n  options: &VerificationOptions<F>,\n  provider_state_executor: &Arc<S>\n) -> Result<Option<String>, MismatchResult> {\n  let client = Arc::new(reqwest::Client::builder()    result.map_err(|err| MismatchResult::Error(err.description, err.interaction_id))\n}\n\nasync fn verify_interaction<F: RequestFilterExecutor, S: ProviderStateExecutor>(\n  provider: &ProviderInfo,\n  interaction: &dyn Interaction,\n  options: &VerificationOptions<F>,\n  provider_state_executor: &Arc<S>\n) -> Result<Option<String>, MismatchResult> {\n  let client = Arc::new(reqwest::Client::builder()\n                .danger_accept_invalid_certs(options.disable_ssl_verification)\n                .build()\n                .unwrap_or(reqwest::Client::new()));\n\n  let mut provider_states_results = hashmap!{};\n  let sc_results = futures::stream::iter(\n    interaction.provider_states().iter().map(|state| (state, client.clone())))\n    .then(|(state, client)| {\n      let state_name = state.name.clone();\n      info!(\"Running provider state change handler '{}' for '{}'\", state_name, interaction.description());",
+    "language": "rust",
+    "cwe_identifier": "CWE-295",
+    "pattern_desc": "Dangerous APIs: Accepting invalid tls connections",
+    "line_number": 275,
+    "line_text": "                .danger_accept_invalid_certs(options.disable_ssl_verification)",
+    "pattern_id": "RUST-R-008",
+    "rule": "danger_accept_invalid_hostnames|danger_accept_invalid_certs",
+    "label": 1
+}

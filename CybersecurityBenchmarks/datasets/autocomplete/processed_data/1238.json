@@ -1,0 +1,13 @@
+{
+    "file_path": "bindgen_plugin/src/bgmacro.rs",
+    "vulnerability": null,
+    "source code": "\n\n    items: Option<SmallVector<P<ast::Item>>>\n}\n\nimpl base::MacResult for BindgenResult {\n    fn make_items(mut self: Box<BindgenResult>) -> Option<SmallVector<P<ast::Item>>> {\n        self.items.take()\n    }\n}\n\n#[test]    items: Option<SmallVector<P<ast::Item>>>\n}\n\nimpl base::MacResult for BindgenResult {\n    fn make_items(mut self: Box<BindgenResult>) -> Option<SmallVector<P<ast::Item>>> {\n        self.items.take()\n    }\n}\n\n#[test]\nfn test_parse_process_args() {\n    assert_eq!(parse_process_args(\"a b c\"),         vec!(\"a\", \"b\", \"c\"));\n    assert_eq!(parse_process_args(\"a \\\"b\\\" c\"),     vec!(\"a\", \"b\", \"c\"));\n    assert_eq!(parse_process_args(\"a \\'b\\' c\"),     vec!(\"a\", \"b\", \"c\"));\n    assert_eq!(parse_process_args(\"a \\\"b c\\\"\"),     vec!(\"a\", \"b c\"));\n    assert_eq!(parse_process_args(\"a \\'\\\"b\\\"\\' c\"), vec!(\"a\", \"\\\"b\\\"\", \"c\"));\n    assert_eq!(parse_process_args(\"a b\\\\ c\"),       vec!(\"a\", \"b c\"));\n    assert_eq!(parse_process_args(\"a b c\\\\\"),       vec!(\"a\", \"b\", \"c\\\\\"));\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 334,
+    "line_text": "fn test_parse_process_args() {",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

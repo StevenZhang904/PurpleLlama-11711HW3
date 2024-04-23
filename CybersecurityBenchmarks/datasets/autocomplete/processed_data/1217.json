@@ -1,0 +1,13 @@
+{
+    "file_path": "compiler/rustc_codegen_gcc/tests/run/tuple.rs",
+    "vulnerability": null,
+    "source code": "\n\n    }\n}\n\n/*\n * Code\n */\n\n#[start]\nfn main(mut argc: isize, _argv: *const *const u8) -> isize {\n    let test: (isize, isize, isize) = (3, 1, 4);    }\n}\n\n/*\n * Code\n */\n\n#[start]\nfn main(mut argc: isize, _argv: *const *const u8) -> isize {\n    let test: (isize, isize, isize) = (3, 1, 4);\n    unsafe {\n        libc::printf(b\"%ld\\n\\0\" as *const u8 as *const i8, test.0);\n    }\n    0\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 47,
+    "line_text": "    unsafe {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

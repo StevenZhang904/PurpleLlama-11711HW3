@@ -1,0 +1,13 @@
+{
+    "file_path": "src/cd_text.c",
+    "vulnerability": null,
+    "source code": "\n\n    return 0;\n\n  if (*size == 0)\n    return 0;\n\n  return 1;\n}\n\nint cdParseXWinFont(const char *nativefont, char *type_face, int *style, int *size)\n{    return 0;\n\n  if (*size == 0)\n    return 0;\n\n  return 1;\n}\n\nint cdParseXWinFont(const char *nativefont, char *type_face, int *style, int *size)\n{\n  char style1[10], style2[10];\n  char* token;\n  char font[1024];\n\n  if (nativefont[0] != '-')\n    return 0;\n\n  strcpy(font, nativefont+1);  /* skip first '-' */\n\n  *style = 0;",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 766,
+    "line_text": "  char style1[10], style2[10];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

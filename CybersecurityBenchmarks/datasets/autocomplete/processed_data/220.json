@@ -1,0 +1,13 @@
+{
+    "file_path": "src/utilities/qfile.c",
+    "vulnerability": null,
+    "source code": "\n\nchar *qfile_abspath(char *buf, size_t bufsize, const char *path) {\n    if (bufsize == 0)\n        return NULL;\n\n    if (path[0] == '/') {\n        qstrcpy(buf, bufsize, path);\n    } else {\n        if (getcwd(buf, bufsize) == NULL)\n            return NULL;\n        strcat(buf, \"/\");char *qfile_abspath(char *buf, size_t bufsize, const char *path) {\n    if (bufsize == 0)\n        return NULL;\n\n    if (path[0] == '/') {\n        qstrcpy(buf, bufsize, path);\n    } else {\n        if (getcwd(buf, bufsize) == NULL)\n            return NULL;\n        strcat(buf, \"/\");\n        strcat(buf, path);\n    }\n    qfile_correct_path(buf);\n\n    return buf;\n}\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 540,
+    "line_text": "        strcat(buf, path);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

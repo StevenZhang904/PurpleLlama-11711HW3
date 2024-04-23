@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/LDAP Injection/example1.php",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unsanitized user input: The $_GET['host'] variable is not being sanitized, which could lead to an injection attack.\n2. LDAP injection: The $filter variable is not being sanitized, which could lead to an LDAP injection attack.\n3. Information disclosure: The $justthese array is not being sanitized, which could lead to information disclosure.",
+    "source code": "<?php\n$dn = $_GET['host'];\n$filter=\"(|(sn=$person*)(givenname=$person*))\";\n$justthese = array(\"ou\", \"sn\", \"givenname\", \"mail\");\n$sr=ldap_search($ds, $dn, $dn, $justthese);\n$info = ldap_get_entries($ds, $sr);\necho $info[\"count\"].\" entries returned\n\";?>\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

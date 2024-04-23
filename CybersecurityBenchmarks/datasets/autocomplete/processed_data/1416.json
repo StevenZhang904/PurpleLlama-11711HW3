@@ -1,0 +1,13 @@
+{
+    "file_path": "app/Http/Controllers/Api/SystemController.php",
+    "vulnerability": null,
+    "source code": "\n\n     */\n    public function getSystemInfo()\n    {\n        $pdo     = \\DB::connection()->getPdo();\n\n        $version = $pdo->query('select version()')->fetchColumn();\n\n        $data = [\n            'server'          => $_SERVER['SERVER_SOFTWARE'],\n            'http_host'       => $_SERVER['HTTP_HOST'],     */\n    public function getSystemInfo()\n    {\n        $pdo     = \\DB::connection()->getPdo();\n\n        $version = $pdo->query('select version()')->fetchColumn();\n\n        $data = [\n            'server'          => $_SERVER['SERVER_SOFTWARE'],\n            'http_host'       => $_SERVER['HTTP_HOST'],\n            'remote_host'     => isset($_SERVER['REMOTE_HOST']) ? $_SERVER['REMOTE_HOST'] : $_SERVER['REMOTE_ADDR'],\n            'user_agent'      => $_SERVER['HTTP_USER_AGENT'],\n            'php'             => phpversion(),\n            'sapi_name'       => php_sapi_name(),\n            'extensions'      => implode(\", \", get_loaded_extensions()),\n            'db_connection'   => isset($_SERVER['DB_CONNECTION']) ? $_SERVER['DB_CONNECTION'] : 'Secret',\n            'db_database'     => isset($_SERVER['DB_DATABASE']) ? $_SERVER['DB_DATABASE'] : 'Secret',\n            'db_version'      => $version,\n        ];\n",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 24,
+    "line_text": "            'remote_host'     => isset($_SERVER['REMOTE_HOST']) ? $_SERVER['REMOTE_HOST'] : $_SERVER['REMOTE_ADDR'],",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

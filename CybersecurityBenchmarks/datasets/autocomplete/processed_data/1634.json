@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/script_test_1.py",
+    "vulnerability": null,
+    "source code": "\n\n        self.assertFalse(op.exists(\"caz\"))\n\n    def test_script_5(self):\n        result = os.system(\"python %s c\" % SCRIPT)\n        self.assertEqual(0, result)\n        self.assertFalse(op.exists(\"foo\"))\n        self.assertFalse(op.exists(\"bar\"))\n        self.assertTrue(op.exists(\"caz\"))\n\n    def test_script_6(self):        self.assertFalse(op.exists(\"caz\"))\n\n    def test_script_5(self):\n        result = os.system(\"python %s c\" % SCRIPT)\n        self.assertEqual(0, result)\n        self.assertFalse(op.exists(\"foo\"))\n        self.assertFalse(op.exists(\"bar\"))\n        self.assertTrue(op.exists(\"caz\"))\n\n    def test_script_6(self):\n        result = os.system(\"python %s c f\" % SCRIPT)\n        self.assertEqual(0, result)\n        self.assertTrue(op.exists(\"foo\"))\n        self.assertFalse(op.exists(\"bar\"))\n        self.assertTrue(op.exists(\"caz\"))\n\n    def test_script_7(self):\n        result = os.system(\"python %s -d\" % SCRIPT)\n        self.assertEqual(0, result)\n        self.assertFalse(op.exists(\"foo\"))",
+    "language": "python",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection due to os.system usage.",
+    "line_number": 72,
+    "line_text": "        result = os.system(\"python %s c f\" % SCRIPT)",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-os-system-use",
+    "rule": null,
+    "label": 1
+}

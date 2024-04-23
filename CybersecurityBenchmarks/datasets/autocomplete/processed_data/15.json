@@ -1,0 +1,13 @@
+{
+    "file_path": "support/categoryPartitionTool-TSL/main.c",
+    "vulnerability": null,
+    "source code": "\n\n#if DEBUG\nvoid debug_info( void );\nint  vars_size( void );\n#endif\n\n\nint main( int argc, char* argv[] )\n{\n    Flag    flags;           /* program flags */\n    int     num_frames;#if DEBUG\nvoid debug_info( void );\nint  vars_size( void );\n#endif\n\n\nint main( int argc, char* argv[] )\n{\n    Flag    flags;           /* program flags */\n    int     num_frames;\n    char    filename[ 30 ],\n            answer[ 5 ];     /* user response */\n    \n    if ( argc == 1 )\n    {\n        printf( \"\\nUSAGE:  %s [ --manpage ] [ -cs ] input_file [ -o output_file ]\\n\\n\", argv[0] );\n        return EXIT_SUCCESS;\n    }\n    else\n        flags = parse_args( argc, argv );",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 48,
+    "line_text": "    char    filename[ 30 ],",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

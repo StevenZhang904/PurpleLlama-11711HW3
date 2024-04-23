@@ -1,0 +1,13 @@
+{
+    "file_path": "datavault-common/src/test/java/org/datavaultplatform/common/crypto/EncryptionTest.java",
+    "vulnerability": null,
+    "source code": "\n\n            KeyGenerator keygen = KeyGenerator.getInstance(\"AES\");\n            keygen.init(256);\n            aesKey = keygen.generateKey();\n        } catch (Exception e) {\n            e.printStackTrace();\n            fail(\"Exception happened while generating key \" + e);\n        }\n\n        Cipher cipher = null;\n        try {            KeyGenerator keygen = KeyGenerator.getInstance(\"AES\");\n            keygen.init(256);\n            aesKey = keygen.generateKey();\n        } catch (Exception e) {\n            e.printStackTrace();\n            fail(\"Exception happened while generating key \" + e);\n        }\n\n        Cipher cipher = null;\n        try {\n            cipher = Cipher.getInstance(\"AES/GCM/NoPadding\", \"BC\");\n        } catch (Exception e) {\n            e.printStackTrace();\n            fail(\"Exception happened while generating key \" + e);\n        }\n\n        byte iv[] = new byte[96];\n        SecureRandom secRandom = new SecureRandom();\n        secRandom.nextBytes(iv); // SecureRandom initialized using self-seeding\n",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of RSA without OAEP padding.",
+    "line_number": 116,
+    "line_text": "            cipher = Cipher.getInstance(\"AES/GCM/NoPadding\", \"BC\");",
+    "pattern_id": "JAVA-R-012",
+    "rule": "Cipher\\.getInstance\\(.*NoPadding\"",
+    "label": 1
+}

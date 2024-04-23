@@ -1,0 +1,13 @@
+{
+    "file_path": "Home Files/LoginandSignupV10.py",
+    "vulnerability": null,
+    "source code": "\n\n        def get_Login_input(self, parent):\n            var = dbConnect()\n            dbconn = mysql.connect(host=var.host, user=var.user, password=var.password, db=var.db)\n            cur = dbconn.cursor()  # Cursor object - required to execute all queries\n\n            cur.execute(\"SELECT username FROM playerinfo WHERE username = '%s' AND password = '%s'\" % (entry_user.get(), entry_pass.get()))\n\n            rows = cur.fetchall()\n\n            if rows:        def get_Login_input(self, parent):\n            var = dbConnect()\n            dbconn = mysql.connect(host=var.host, user=var.user, password=var.password, db=var.db)\n            cur = dbconn.cursor()  # Cursor object - required to execute all queries\n\n            cur.execute(\"SELECT username FROM playerinfo WHERE username = '%s' AND password = '%s'\" % (entry_user.get(), entry_pass.get()))\n\n            rows = cur.fetchall()\n\n            if rows:\n                cur.execute(\"SELECT firstname, lastname, username FROM playerinfo WHERE username = '%s' AND password = '%s'\" % (entry_user.get(), entry_pass.get()))\n                for namerow in cur.fetchall():  # print all the first cell\n                    fn = namerow[0] #store firstname\n                    ln = namerow[1] #store lastname\n                    user = namerow[2]\n\n                self.destroy()\n                parent.destroy()\n                go_to_HomePage(user)\n                '''top = Toplevel(self)",
+    "language": "python",
+    "cwe_identifier": "CWE-89",
+    "pattern_desc": "Potential SQL injection\n",
+    "line_number": 103,
+    "line_text": "                cur.execute(\"SELECT firstname, lastname, username FROM playerinfo WHERE username = '%s' AND password = '%s'\" % (entry_user.get(), entry_pass.get()))",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.third-party.sql_injection",
+    "rule": null,
+    "label": 1
+}

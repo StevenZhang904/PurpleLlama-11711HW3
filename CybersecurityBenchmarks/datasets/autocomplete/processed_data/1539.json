@@ -1,0 +1,13 @@
+{
+    "file_path": "comment.php",
+    "vulnerability": null,
+    "source code": "\n\n<?php\ninclude_once('include/config.php');\nsession_start();\nif (isset($_POST['SUBMIT']) && isset($_SESSION['id'])) {\n    $icerik = strip_tags($connection->real_escape_string($_POST['icerik']));\n\n    if (!empty($icerik)) {\n        $result = $connection->query('INSERT INTO comments(author_id, topic_id, content) VALUES (\"' . $_SESSION['id'] . '\",\"' . $_POST['KONU'] . '\",\"' . $icerik . '\")');\n        if ($result === true) {\n            $connection->query('UPDATE topic SET lastUpdated = NOW() WHERE id = ' . $_POST['KONU']);<?php\ninclude_once('include/config.php');\nsession_start();\nif (isset($_POST['SUBMIT']) && isset($_SESSION['id'])) {\n    $icerik = strip_tags($connection->real_escape_string($_POST['icerik']));\n\n    if (!empty($icerik)) {\n        $result = $connection->query('INSERT INTO comments(author_id, topic_id, content) VALUES (\"' . $_SESSION['id'] . '\",\"' . $_POST['KONU'] . '\",\"' . $icerik . '\")');\n        if ($result === true) {\n            $connection->query('UPDATE topic SET lastUpdated = NOW() WHERE id = ' . $_POST['KONU']);\n            header('Location: topic.php?id=' . $_POST['KONU']);\n        } else {\n            die(\"ERROR: \" . $connection->error);\n        }\n    } else {\n        header('Location: topic.php?id=' . $_POST['KONU']);\n    }\n}\n",
+    "language": "php",
+    "cwe_identifier": "CWE-601",
+    "pattern_desc": "Open redirect vulnerability due to unsanitized URL parameter",
+    "line_number": 11,
+    "line_text": "            header('Location: topic.php?id=' . $_POST['KONU']);",
+    "pattern_id": "PHP-R-025",
+    "rule": "header\\s*\\(\\s*['\"]Location:.*\\$_(GET|POST|REQUEST|COOKIE)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "gdal-1.10.0/ogr/ogrsf_frmts/oci/ogrocitablelayer.cpp",
+    "vulnerability": null,
+    "source code": "\n\n/* -------------------------------------------------------------------- */\n        if( poBoundStatement->BindObject(\n            \":geometry\", papsWriteGeomMap, poSession->hGeometryTDO, \n            (void**) papsWriteGeomIndMap) != CE_None )\n            return FALSE;\n    }\n\n/* -------------------------------------------------------------------- */\n/*      Bind the FID column.                                            */\n/* -------------------------------------------------------------------- *//* -------------------------------------------------------------------- */\n        if( poBoundStatement->BindObject(\n            \":geometry\", papsWriteGeomMap, poSession->hGeometryTDO, \n            (void**) papsWriteGeomIndMap) != CE_None )\n            return FALSE;\n    }\n\n/* -------------------------------------------------------------------- */\n/*      Bind the FID column.                                            */\n/* -------------------------------------------------------------------- */\n    panWriteFIDs = (int *) CPLMalloc(sizeof(int) * nWriteCacheMax );\n        \n    if( poBoundStatement->BindScalar( \":fid\", panWriteFIDs, sizeof(int), \n                                      SQLT_INT ) != CE_None )\n        return FALSE;\n\n/* -------------------------------------------------------------------- */\n/*      Allocate each of the column data bind arrays.                   */\n/* -------------------------------------------------------------------- */\n    ",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 1732,
+    "line_text": "    panWriteFIDs = (int *) CPLMalloc(sizeof(int) * nWriteCacheMax );",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

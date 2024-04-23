@@ -1,0 +1,13 @@
+{
+    "file_path": "wsconn.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    {\n        toSign.append( 1, '/' );\n        toSign.append( key );\n    }       \n\n    // Compute signature.\n\n    unsigned char   hash[ 1024 ];\n    unsigned int    hashSize;\n    {\n        toSign.append( 1, '/' );\n        toSign.append( key );\n    }       \n\n    // Compute signature.\n\n    unsigned char   hash[ 1024 ];\n    unsigned int    hashSize;\n\n    HMAC( EVP_sha1(), secKey.c_str(),  secKey.size(),\n        reinterpret_cast< const unsigned char* >( toSign.c_str() ), toSign.size(),\n        hash, &hashSize );\n\n    signature->append( STRING_WITH_LEN( \" AWS \" ) );\n    signature->append( accKey );\n    signature->append( 1, ':' );\n    append64Encoded( signature, hash, hashSize );\n}\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure.",
+    "line_number": 510,
+    "line_text": "    HMAC( EVP_sha1(), secKey.c_str(),  secKey.size(),",
+    "pattern_id": "C-R-005",
+    "rule": "(SHA1_Init\\s*\\()|(EVP_sha1\\s*\\()|(EVP_sha1_md5\\s*\\()",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "business-service/business-common-widget/src/main/java/com/android/phone/assistant/util/ThemeManager.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\tif(bitmap != null && bitmap.isRecycled() == false){\n\t\t\tbitmap.recycle();\n\t\t\tbitmap = null;\n\t\t}\n\t\tbitmap = ThemeCache.currentThemeCache.get(\"PPP_\");\n\t\tif(bitmap != null && bitmap.isRecycled() == false){\n\t\t\tbitmap.recycle();\n\t\t\tbitmap = null;\n\t\t}*/\n\t\tif(bitmap != null && bitmap.isRecycled() == false){\n\t\t\tbitmap.recycle();\n\t\t\tbitmap = null;\n\t\t}\n\t\tbitmap = ThemeCache.currentThemeCache.get(\"PPP_\");\n\t\tif(bitmap != null && bitmap.isRecycled() == false){\n\t\t\tbitmap.recycle();\n\t\t\tbitmap = null;\n\t\t}*/\n\n\t\tSharedPreferences preferences = context.getSharedPreferences(\"ThemeConfig\", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE);\n\t\tString defaultPPPThemeDir = context.getResources().getString(R.string.PPP_default_theme_path);\n\t\tString defaultTTTThemeDir = context.getResources().getString(R.string.TTT_default_theme_path);\n\t\tif(ThemeCache.currentThemeCache.get(\"PPP_\") == null)\n\t\t\tThemeCache.currentThemeCache.put(\"PPP_\",\n\t\t\t\t\tFileSystem.parsePngFile(\n\t\t\t\t\t\t\tFileSystem.getCacheRootDir(context,\n\t\t\t\t\t\t\t\t\tThemeManager.THEME_PATH_MAINDIR).getAbsolutePath()+\n\t\t\t\t\t\t\t\t\tpreferences.getString(ThemeManager.PPP_CURRENT_THEME_PATH, defaultPPPThemeDir)));\n\t\tif(ThemeCache.currentThemeCache.get(\"TTT_\") == null)",
+    "language": "java",
+    "cwe_identifier": "CWE-276",
+    "pattern_desc": "The application creates world readable or world writable files",
+    "line_number": 86,
+    "line_text": "\t\tSharedPreferences preferences = context.getSharedPreferences(\"ThemeConfig\", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE);",
+    "pattern_id": "JAVA-R-019",
+    "rule": "Context\\.MODE_WORLD_(READABLE|WRITABLE)",
+    "label": 1
+}

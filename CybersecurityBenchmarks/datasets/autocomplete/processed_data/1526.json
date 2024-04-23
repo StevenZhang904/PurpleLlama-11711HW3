@@ -1,0 +1,13 @@
+{
+    "file_path": "src/usr/local/www/status_dhcp_leases.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t$i++;\n\t}\n\n\t/* Write out the new leases file */\n\t$fd = fopen($leasesfile, 'w');\n\tfwrite($fd, implode(\"\\n\", $newleases_contents));\n\tfclose($fd);\n\n\t/* Restart DHCP Service */\n\tservices_dhcpd_configure();\t\t$i++;\n\t}\n\n\t/* Write out the new leases file */\n\t$fd = fopen($leasesfile, 'w');\n\tfwrite($fd, implode(\"\\n\", $newleases_contents));\n\tfclose($fd);\n\n\t/* Restart DHCP Service */\n\tservices_dhcpd_configure();\n\theader(\"Location: status_dhcp_leases.php?all={$_GET['all']}\");\n}\n\n// Load MAC-Manufacturer table\n$mac_man = load_mac_manufacturer_table();\n\ninclude(\"head.inc\");\n\nfunction leasecmp($a, $b) {\n\treturn strcmp($a[$_GET['order']], $b[$_GET['order']]);",
+    "language": "php",
+    "cwe_identifier": "CWE-601",
+    "pattern_desc": "Open redirect vulnerability due to unsanitized URL parameter",
+    "line_number": 71,
+    "line_text": "\theader(\"Location: status_dhcp_leases.php?all={$_GET['all']}\");",
+    "pattern_id": "PHP-R-025",
+    "rule": "header\\s*\\(\\s*['\"]Location:.*\\$_(GET|POST|REQUEST|COOKIE)",
+    "label": 1
+}

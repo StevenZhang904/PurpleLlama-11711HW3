@@ -1,0 +1,13 @@
+{
+    "file_path": "TeamSpeak3/Helper/String.php",
+    "vulnerability": null,
+    "source code": "\n\n    return crc32($this->string);\r\n  }\r\n\r\n  /**\r\n   * Calculates and returns the md5 checksum of the string.\r\n   *\r\n   * @return string\r\n   */\r\n  public function toMd5()\r\n  {\r    return crc32($this->string);\r\n  }\r\n\r\n  /**\r\n   * Calculates and returns the md5 checksum of the string.\r\n   *\r\n   * @return string\r\n   */\r\n  public function toMd5()\r\n  {\r\n    return md5($this->string);\r\n  }\r\n\r\n  /**\r\n   * Calculates and returns the sha1 checksum of the string.\r\n   *\r\n   * @return string\r\n   */\r\n  public function toSha1()\r\n  {\r",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 432,
+    "line_text": "    return md5($this->string);\r",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

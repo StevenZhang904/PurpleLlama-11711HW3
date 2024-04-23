@@ -1,0 +1,13 @@
+{
+    "file_path": "generic/threadshare/examples/udpsrc_benchmark_sender.rs",
+    "vulnerability": null,
+    "source code": "\n\n// You should have received a copy of the GNU Library General Public\n// License along with this library; if not, write to the\n// Free Software Foundation, Inc., 51 Franklin Street, Suite 500,\n// Boston, MA 02110-1335, USA.\n\nuse std::net;\nuse std::net::{IpAddr, Ipv4Addr, SocketAddr};\nuse std::{env, thread, time};\n\nfn main() {// You should have received a copy of the GNU Library General Public\n// License along with this library; if not, write to the\n// Free Software Foundation, Inc., 51 Franklin Street, Suite 500,\n// Boston, MA 02110-1335, USA.\n\nuse std::net;\nuse std::net::{IpAddr, Ipv4Addr, SocketAddr};\nuse std::{env, thread, time};\n\nfn main() {\n    let args = env::args().collect::<Vec<_>>();\n    assert_eq!(args.len(), 2);\n    let n_streams: u16 = args[1].parse().unwrap();\n\n    let buffer = [0; 160];\n    let socket = net::UdpSocket::bind(\"0.0.0.0:0\").unwrap();\n\n    let ipaddr = IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1));\n    let destinations = (40000..(40000 + n_streams))\n        .map(|port| SocketAddr::new(ipaddr, port))",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 23,
+    "line_text": "    let args = env::args().collect::<Vec<_>>();",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

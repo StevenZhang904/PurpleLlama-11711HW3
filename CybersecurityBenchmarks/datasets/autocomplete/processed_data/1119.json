@@ -1,0 +1,13 @@
+{
+    "file_path": "src/test/java/TestHTTPSource.java",
+    "vulnerability": null,
+    "source code": "\n\n      };\n      sc.init(null, trustAllCerts, new SecureRandom());\n\n      if(protocol != null) {\n        factory = new DisabledProtocolsSocketFactory(sc.getSocketFactory(), protocol);\n      } else {\n        factory = sc.getSocketFactory();\n      }\n      HttpsURLConnection.setDefaultSSLSocketFactory(factory);\n      HttpsURLConnection.setDefaultHostnameVerifier(      };\n      sc.init(null, trustAllCerts, new SecureRandom());\n\n      if(protocol != null) {\n        factory = new DisabledProtocolsSocketFactory(sc.getSocketFactory(), protocol);\n      } else {\n        factory = sc.getSocketFactory();\n      }\n      HttpsURLConnection.setDefaultSSLSocketFactory(factory);\n      HttpsURLConnection.setDefaultHostnameVerifier(\n        SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);\n      URL sslUrl = new URL(\"https://0.0.0.0:\" + sslPort);\n      httpsURLConnection = (HttpsURLConnection) sslUrl.openConnection();\n      httpsURLConnection.setDoInput(true);\n      httpsURLConnection.setDoOutput(true);\n      httpsURLConnection.setRequestMethod(\"POST\");\n      httpsURLConnection.getOutputStream().write(json.getBytes());\n\n      int statusCode = httpsURLConnection.getResponseCode();\n      Assert.assertEquals(200, statusCode);",
+    "language": "java",
+    "cwe_identifier": "CWE-295",
+    "pattern_desc": "Unsafe hostname verification",
+    "line_number": 391,
+    "line_text": "        SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);",
+    "pattern_id": "JAVA-R-021",
+    "rule": "(ALLOW_ALL_HOSTNAME_VERIFIER|new AllowAllHostnameVerifier|new NullHostnameVerifier|NoopHostnameVerifier)",
+    "label": 1
+}

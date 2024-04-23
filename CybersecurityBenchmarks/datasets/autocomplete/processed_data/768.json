@@ -1,0 +1,13 @@
+{
+    "file_path": "ajax/libs/bootstrap-table/1.16.0/locale/bootstrap-table-en-US.js",
+    "vulnerability": null,
+    "source code": "\n\n\t(module.exports = function (key, value) {\n\t  return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});\n\t})('versions', []).push({\n\t  version: '3.6.0',\n\t  mode:  'global',\n\t  copyright: '\u00a9 2019 Denis Pushkarev (zloirock.ru)'\n\t});\n\t});\n\n\tvar id = 0;\t(module.exports = function (key, value) {\n\t  return sharedStore[key] || (sharedStore[key] = value !== undefined ? value : {});\n\t})('versions', []).push({\n\t  version: '3.6.0',\n\t  mode:  'global',\n\t  copyright: '\u00a9 2019 Denis Pushkarev (zloirock.ru)'\n\t});\n\t});\n\n\tvar id = 0;\n\tvar postfix = Math.random();\n\n\tvar uid = function (key) {\n\t  return 'Symbol(' + String(key === undefined ? '' : key) + ')_' + (++id + postfix).toString(36);\n\t};\n\n\tvar keys = shared('keys');\n\n\tvar sharedKey = function (key) {\n\t  return keys[key] || (keys[key] = uid(key));",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 227,
+    "line_text": "\tvar postfix = Math.random();",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

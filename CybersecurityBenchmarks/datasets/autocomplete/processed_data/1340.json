@@ -1,0 +1,13 @@
+{
+    "file_path": "src/builder.rs",
+    "vulnerability": null,
+    "source code": "\n\n            repository,\n            templates: query.sanitized_query(),\n        }\n    }\n\n    /// Build a single `.gitignore` file from the query.\n    ///\n    /// The templates selected in the query are written to a single `.gitignore` file at a temporary\n    /// location on the local disk, and the path to the file is returned.\n    pub fn build(&self) -> Result<PathBuf, Error> {            repository,\n            templates: query.sanitized_query(),\n        }\n    }\n\n    /// Build a single `.gitignore` file from the query.\n    ///\n    /// The templates selected in the query are written to a single `.gitignore` file at a temporary\n    /// location on the local disk, and the path to the file is returned.\n    pub fn build(&self) -> Result<PathBuf, Error> {\n        let destination = temp_dir().join(self.file_name());\n        let mut file = File::create(&destination)?;\n\n        for i in 0..self.templates.len() {\n            if let Some(template) = self.templates.get(i) {\n                let template_path = self.repository.path().join(template.file_name());\n                let content = read_to_string(template_path)?;\n\n                file.write_all(format!(\"### {}\\n\", template.file_name()).as_bytes())?;\n                file.write_all(content.as_bytes())?;",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 34,
+    "line_text": "        let destination = temp_dir().join(self.file_name());",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "lib/attr/_make.py",
+    "vulnerability": null,
+    "source code": "\n\n\n\ndef _make_hash(attrs):\n    attrs = tuple(\n        a\n        for a in attrs\n        if a.hash is True or (a.hash is None and a.cmp is True)\n    )\n\n    # We cache the generated hash methods for the same kinds of attributes.\n\ndef _make_hash(attrs):\n    attrs = tuple(\n        a\n        for a in attrs\n        if a.hash is True or (a.hash is None and a.cmp is True)\n    )\n\n    # We cache the generated hash methods for the same kinds of attributes.\n    sha1 = hashlib.sha1()\n    sha1.update(repr(attrs).encode(\"utf-8\"))\n    unique_filename = \"<attrs generated hash %s>\" % (sha1.hexdigest(),)\n    type_hash = hash(unique_filename)\n    lines = [\n        \"def __hash__(self):\",\n        \"    return hash((\",\n        \"        %d,\" % (type_hash,),\n    ]\n    for a in attrs:",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 748,
+    "line_text": "    sha1 = hashlib.sha1()",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

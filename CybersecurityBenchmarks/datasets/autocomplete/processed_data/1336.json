@@ -1,0 +1,13 @@
+{
+    "file_path": "examples/dyldinfo.rs",
+    "vulnerability": null,
+    "source code": "\n\n                    other => {\n                        println!(\"unknown flag: {}\", other);\n                        println!();\n                        usage();\n                    }\n                }\n            }\n        }\n\n        // open the file                    other => {\n                        println!(\"unknown flag: {}\", other);\n                        println!();\n                        usage();\n                    }\n                }\n            }\n        }\n\n        // open the file\n        let path = env::args_os().last().unwrap();\n        let path = Path::new(&path);\n        let buffer = fs::read(&path).unwrap();\n        match mach::Mach::parse(&buffer) {\n            Ok(macho) => match macho {\n                mach::Mach::Fat(bin) => {\n                    print_multi_arch(&bin, arch, bind, lazy_bind);\n                }\n                mach::Mach::Binary(bin) => {\n                    print(&bin, bind, lazy_bind);",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 189,
+    "line_text": "        let path = env::args_os().last().unwrap();",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

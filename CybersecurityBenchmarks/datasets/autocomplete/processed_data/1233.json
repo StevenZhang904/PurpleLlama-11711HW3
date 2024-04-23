@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n        },\n        None => println!(\"Impossible to get your home dir!\"),\n    }\n\n    //canvas default size\n    let mut size = MySize { x: 1024, y:500 };\n\n    let filename;//#FIXME change filename type to Box so we can update\n\n    //deal with command line arguments        },\n        None => println!(\"Impossible to get your home dir!\"),\n    }\n\n    //canvas default size\n    let mut size = MySize { x: 1024, y:500 };\n\n    let filename;//#FIXME change filename type to Box so we can update\n\n    //deal with command line arguments\n    let args: Vec<String> = env::args().collect();\n    \n    //only name given\n    if args.len() > 1 {\n        filename = args[1].clone();\n    } else {\n        filename = String::from(\"../test.png\");  //no name\n    }\n\n    //size given",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 120,
+    "line_text": "    let args: Vec<String> = env::args().collect();",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

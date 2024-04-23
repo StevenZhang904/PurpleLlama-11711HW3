@@ -1,0 +1,13 @@
+{
+    "file_path": "xcc/test/juliet/testcases/CWE134_Uncontrolled_Format_String/s01/CWE134_Uncontrolled_Format_String__char_connect_socket_fprintf_82a.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\r\n#ifndef OMITGOOD\r\n\r\n/* goodG2B uses the GoodSource with the BadSink */\r\nstatic void goodG2B()\r\n{\r\n    char * data;\r\n    char dataBuffer[100] = \"\";\r\n    data = dataBuffer;\r\n    /* FIX: Use a fixed string that does not contain a format specifier */\r\r\n#ifndef OMITGOOD\r\n\r\n/* goodG2B uses the GoodSource with the BadSink */\r\nstatic void goodG2B()\r\n{\r\n    char * data;\r\n    char dataBuffer[100] = \"\";\r\n    data = dataBuffer;\r\n    /* FIX: Use a fixed string that does not contain a format specifier */\r\n    strcpy(data, \"fixedstringtest\");\r\n    CWE134_Uncontrolled_Format_String__char_connect_socket_fprintf_82_base* baseObject = new CWE134_Uncontrolled_Format_String__char_connect_socket_fprintf_82_goodG2B;\r\n    baseObject->action(data);\r\n    delete baseObject;\r\n}\r\n\r\n/* goodB2G uses the BadSource with the GoodSink */\r\nstatic void goodB2G()\r\n{\r\n    char * data;\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 135,
+    "line_text": "    strcpy(data, \"fixedstringtest\");\r",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

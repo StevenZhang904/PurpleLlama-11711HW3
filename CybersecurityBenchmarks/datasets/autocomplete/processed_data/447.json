@@ -1,0 +1,13 @@
+{
+    "file_path": "RayTracer/src/Scene.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    this->hierarchy_->Initialize(this->objects_);\n    std::cout << \"Rendering\" << std::endl;\n    ThreadPool pool(std::thread::hardware_concurrency());\n    for(unsigned int x = 0; x < camera_->GetWidth(); ++x)\n        for(unsigned int y = 0; y < camera_->GetHeight(); ++y)\n        {\n            pool.AddTask([this, x, y](){\n                RenderPixelTask(this, x, y);\n            });\n        }    this->hierarchy_->Initialize(this->objects_);\n    std::cout << \"Rendering\" << std::endl;\n    ThreadPool pool(std::thread::hardware_concurrency());\n    for(unsigned int x = 0; x < camera_->GetWidth(); ++x)\n        for(unsigned int y = 0; y < camera_->GetHeight(); ++y)\n        {\n            pool.AddTask([this, x, y](){\n                RenderPixelTask(this, x, y);\n            });\n        }\n    Color* matrix = new Color[view_->GetResolution().Height*view_->GetResolution().Width];\n    pool.WaitAll();\n    for(unsigned int x = 0; x < camera_->GetWidth(); ++x)\n        for(unsigned int y = 0; y < camera_->GetHeight(); ++y)\n        {\n            pool.AddTask([this, x, y, &matrix](){\n                float power = 8;\n                Color c = this->view_->GetPixelColor(x, y);\n                unsigned int sum = 0;\n                if(x > 0)",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 46,
+    "line_text": "    Color* matrix = new Color[view_->GetResolution().Height*view_->GetResolution().Width];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

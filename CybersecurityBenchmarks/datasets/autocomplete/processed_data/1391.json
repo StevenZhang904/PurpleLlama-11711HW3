@@ -1,0 +1,13 @@
+{
+    "file_path": "src/multiplexer/connection.rs",
+    "vulnerability": null,
+    "source code": "\n\n    },\n    None => false\n  }\n}\n\n#[cfg(feature=\"enable-tls\")]\nfn create_tls_connector() -> Result<TlsConnectorAsync, RedisError> {\n  let mut builder = TlsConnector::builder();\n\n  if should_disable_cert_verification() {    },\n    None => false\n  }\n}\n\n#[cfg(feature=\"enable-tls\")]\nfn create_tls_connector() -> Result<TlsConnectorAsync, RedisError> {\n  let mut builder = TlsConnector::builder();\n\n  if should_disable_cert_verification() {\n    builder.danger_accept_invalid_certs(true);\n  }\n\n  builder.build().map(|t| TlsConnectorAsync::from(t)).map_err(|e| RedisError::new(\n    RedisErrorKind::Unknown, format!(\"TLS Error: {:?}\", e)\n  ))\n}\n\n#[cfg(not(feature=\"enable-tls\"))]\npub fn create_transport_tls(addr: &SocketAddr, handle: &Handle, inner: &Arc<RedisClientInner>)",
+    "language": "rust",
+    "cwe_identifier": "CWE-295",
+    "pattern_desc": "Dangerous APIs: Accepting invalid tls connections",
+    "line_number": 110,
+    "line_text": "    builder.danger_accept_invalid_certs(true);",
+    "pattern_id": "RUST-R-008",
+    "rule": "danger_accept_invalid_hostnames|danger_accept_invalid_certs",
+    "label": 1
+}

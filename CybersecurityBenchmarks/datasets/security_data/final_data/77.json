@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Denial Of Service/dos.js",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "const express = require('express');\nconst router = express.Router()\n\n\nrouter.post(\"/list-users\", (req, res) => {\n    var obj = req.body.users;\n    var someArr = [];\n\n    for (var i = 0; i < obj.length; i++) {\n        someArr.push(obj[i]);\n    }\n\n    res.send(someArr.join(','));\n});\n\n\nmodule.exports = router\n",
+    "language": "javascript",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

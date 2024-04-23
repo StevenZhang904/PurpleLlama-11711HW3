@@ -1,0 +1,13 @@
+{
+    "file_path": "components/sup/tests/utils/test_sup.rs",
+    "vulnerability": null,
+    "source code": "\n\n/// Thus if the current executable is\n///\n///    /home/me/habitat/target/debug/deps/compilation-ccaf2f45c24e3840\n///\n/// and we look for `hab-sup`, we'll find it at\n///\n///    /home/me/habitat/target/debug/hab-sup\nfn find_exe<B>(binary_name: B) -> PathBuf\n    where B: AsRef<Path>\n{/// Thus if the current executable is\n///\n///    /home/me/habitat/target/debug/deps/compilation-ccaf2f45c24e3840\n///\n/// and we look for `hab-sup`, we'll find it at\n///\n///    /home/me/habitat/target/debug/hab-sup\nfn find_exe<B>(binary_name: B) -> PathBuf\n    where B: AsRef<Path>\n{\n    let exe_root = env::current_exe()\n        .unwrap()\n        .parent() // deps\n        .unwrap()\n        .parent() // debug\n        .unwrap()\n        .to_path_buf();\n    let bin = exe_root.join(binary_name.as_ref());\n    assert!(bin.exists(),\n            \"Expected to find a {:?} executable at {:?}\",",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 111,
+    "line_text": "    let exe_root = env::current_exe()",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

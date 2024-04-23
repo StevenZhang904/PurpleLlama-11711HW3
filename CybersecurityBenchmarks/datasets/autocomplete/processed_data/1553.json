@@ -1,0 +1,13 @@
+{
+    "file_path": "app/cloudeware.handler.php",
+    "vulnerability": null,
+    "source code": "\n\n        {\r\n            $_SESSION[\"cloudware_captcha_failure\"] = false;\r\n                    \r\n            $api = new CloudewareAPI();                                \r\n            $result = $api->InsertComment($_POST[\"sectionIdentifier\"], $_POST[\"postIdentifier\"], $_POST[\"name\"], $_POST[\"email\"], $_POST[\"url\"], $_POST[\"twitter\"], $_POST[\"comment\"], $_SERVER[\"REMOTE_ADDR\"], date(\"j/n/Y H:i:s\", time()));\r\n\r\n            $_SESSION[\"cloudware_comment_failure\"] = !$result->successful;\r\n            $_SESSION[\"cloudware_comment_message\"] = $result->message;\r\n        }\r\n        \r        {\r\n            $_SESSION[\"cloudware_captcha_failure\"] = false;\r\n                    \r\n            $api = new CloudewareAPI();                                \r\n            $result = $api->InsertComment($_POST[\"sectionIdentifier\"], $_POST[\"postIdentifier\"], $_POST[\"name\"], $_POST[\"email\"], $_POST[\"url\"], $_POST[\"twitter\"], $_POST[\"comment\"], $_SERVER[\"REMOTE_ADDR\"], date(\"j/n/Y H:i:s\", time()));\r\n\r\n            $_SESSION[\"cloudware_comment_failure\"] = !$result->successful;\r\n            $_SESSION[\"cloudware_comment_message\"] = $result->message;\r\n        }\r\n        \r\n        header(\"Location:\".$_POST[\"source\"]);            \r\n        break;\r\n    default:\r\n        die(\"Invalid widget: \" . $_POST[\"widget\"]);\r\n        break;\r\n}\r\n?>\r\n",
+    "language": "php",
+    "cwe_identifier": "CWE-601",
+    "pattern_desc": "Open redirect vulnerability due to unsanitized URL parameter",
+    "line_number": 42,
+    "line_text": "        header(\"Location:\".$_POST[\"source\"]);            \r",
+    "pattern_id": "PHP-R-025",
+    "rule": "header\\s*\\(\\s*['\"]Location:.*\\$_(GET|POST|REQUEST|COOKIE)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "archive.py",
+    "vulnerability": null,
+    "source code": "\n\n                \"\"\"\r\n                :param: filename\r\n                Outputs a list of archived urls into text format\r\n                \"\"\"\r\n\t\tmap(open(filename, 'w').write, map(lambda x : x+\"\\n\",self.archived_urls))\r\n\t\tprint(\"Done.\")\r\n\tdef save_data(self):\r\n                \"\"\"\r\n                Saves the archived urls into archived_urls.dat\r\n                \"\"\"\r                \"\"\"\r\n                :param: filename\r\n                Outputs a list of archived urls into text format\r\n                \"\"\"\r\n\t\tmap(open(filename, 'w').write, map(lambda x : x+\"\\n\",self.archived_urls))\r\n\t\tprint(\"Done.\")\r\n\tdef save_data(self):\r\n                \"\"\"\r\n                Saves the archived urls into archived_urls.dat\r\n                \"\"\"\r\n\t\tshelve.open(\"archived_urls.dat\")[\"main\"] = self.archived_urls\r\n\tdef archive(self, url):\r\n                \"\"\"\r\n                :param: url\r\n                Archves a url into the wayback machine.\r\n                \"\"\"\r\n\t\tl = requests.get(self._arch+url)\r\n\t\tprint(\"Archiving...\")\r\n\t\tself.archived_urls.append(url)\r\n\t\tself.save_data()\r",
+    "language": "python",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Potential deserialization risk due to pickle usage.",
+    "line_number": 52,
+    "line_text": "\t\tshelve.open(\"archived_urls.dat\")[\"main\"] = self.archived_urls\r",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.unsafe-pickle-use",
+    "rule": null,
+    "label": 1
+}

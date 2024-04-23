@@ -1,0 +1,13 @@
+{
+    "file_path": "src/fs/driver/iso9660/cdfs.c",
+    "vulnerability": null,
+    "source code": "\n\nstatic int cdfs_read_path_table(cdfs_t *cdfs, iso_volume_descriptor_t *vd) {\n\tblock_dev_cache_t *cache;\n\tunsigned char *pt;\n\tint ptblk;\n\tint ptlen;\n\tint ptpos;\n\tint n;\n\tiso_pathtable_record_t *pathrec;\n\tint namelen;\n\tint reclen;static int cdfs_read_path_table(cdfs_t *cdfs, iso_volume_descriptor_t *vd) {\n\tblock_dev_cache_t *cache;\n\tunsigned char *pt;\n\tint ptblk;\n\tint ptlen;\n\tint ptpos;\n\tint n;\n\tiso_pathtable_record_t *pathrec;\n\tint namelen;\n\tint reclen;\n\tchar name[128];\n\n\t/* Determine size and location of path table and allocate buffer */\n\tptlen = cdfs_isonum_733(vd->path_table_size);\n\tptblk = cdfs_isonum_731(vd->type_l_path_table);\n\tcdfs->path_table_buffer = sysmalloc(ptlen);\n\tif (!cdfs->path_table_buffer) {\n\t\treturn -ENOMEM;\n\t}\n",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 147,
+    "line_text": "\tchar name[128];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

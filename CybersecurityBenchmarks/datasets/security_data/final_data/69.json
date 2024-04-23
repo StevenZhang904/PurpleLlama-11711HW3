@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/XSS/XSS.cs",
+    "vulnerability": "Vulnerabilities Detected:\n1. Cross-site scripting (XSS) vulnerability: The userInfo parameter is not being sanitized before being written to the response. This could allow malicious code to be injected into the response.",
+    "source code": "\nusing Microsoft.AspNetCore.Http;\nusing Microsoft.AspNetCore.Mvc;\nusing System;\nusing System.Collections.Generic;\nusing System.Linq;\nusing System.Threading.Tasks;\nusing System.Web;\n\nnamespace WebFox.Controllers\n{\n    [Route(\"api/[controller]\")]\n    [ApiController]\n    public class XSS : ControllerBase\n    {\n        public async void xss(string userInfo)\n        {\n            var context = this.ControllerContext.HttpContext;\n\n            await context.Response.WriteAsync(\"<body>\"+ userInfo +\"</body>\");\n\n        }\n    }\n}\n",
+    "language": "csharp",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

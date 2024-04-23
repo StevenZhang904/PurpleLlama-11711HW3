@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/org/apache/xml/security/stax/impl/processor/input/XMLEncryptedKeyInputHandler.java",
+    "vulnerability": null,
+    "source code": "\n\n        inboundSecurityContext.registerSecurityEvent(tokenSecurityEvent);\n\n        //if this EncryptedKey structure contains a reference list, delegate it to a subclass\n        if (encryptedKeyType.getReferenceList() != null) {\n            handleReferenceList(inputProcessorChain, encryptedKeyType, securityProperties);\n        }\n    }\n\n    private byte[] generateDigest(byte[] inputBytes) throws XMLSecurityException {\n        try {        inboundSecurityContext.registerSecurityEvent(tokenSecurityEvent);\n\n        //if this EncryptedKey structure contains a reference list, delegate it to a subclass\n        if (encryptedKeyType.getReferenceList() != null) {\n            handleReferenceList(inputProcessorChain, encryptedKeyType, securityProperties);\n        }\n    }\n\n    private byte[] generateDigest(byte[] inputBytes) throws XMLSecurityException {\n        try {\n            return MessageDigest.getInstance(\"SHA-1\").digest(inputBytes);\n        } catch (NoSuchAlgorithmException e) {\n            throw new XMLSecurityException(e);\n        }\n    }\n\n    protected void handleReferenceList(final InputProcessorChain inputProcessorChain,\n                                       final EncryptedKeyType encryptedKeyType,\n                                       final XMLSecurityProperties securityProperties) throws XMLSecurityException {\n        // do nothing",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 312,
+    "line_text": "            return MessageDigest.getInstance(\"SHA-1\").digest(inputBytes);",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

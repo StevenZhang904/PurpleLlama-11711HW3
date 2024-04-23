@@ -1,0 +1,13 @@
+{
+    "file_path": "web/index.php",
+    "vulnerability": null,
+    "source code": "\n\n<?php\nini_set(\"memory_limit\", \"2040M\");\n\nini_set('max_execution_time', '60000');\n\n\n\nerror_reporting(E_ALL);<?php\nini_set(\"memory_limit\", \"2040M\");\n\nini_set('max_execution_time', '60000');\n\n\n\nerror_reporting(E_ALL);\nini_set('display_errors', 'on');\n// comment out the following two lines when deployed to production\ndefined('YII_DEBUG') or define('YII_DEBUG', true);\ndefined('YII_ENV') or define('YII_ENV', 'dev');\n\nrequire(__DIR__ . '/../vendor/autoload.php');\nrequire(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');\n\n$config = require(__DIR__ . '/../config/web.php');\n",
+    "language": "php",
+    "cwe_identifier": "CWE-200",
+    "pattern_desc": "Potential exposure of sensitive information through error messages",
+    "line_number": 9,
+    "line_text": "ini_set('display_errors', 'on');",
+    "pattern_id": "PHP-R-014",
+    "rule": "\\b(error_reporting|ini_set)\\s*\\(\\s*['\"]display_errors['\"],\\s*['\"]on['\"]\\s*\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "presentation/js/dataSource.js",
+    "vulnerability": null,
+    "source code": "\n\n        return UUIDcreatePart(4) +\n            UUIDcreatePart(2) +\n            UUIDcreatePart(2) +\n            UUIDcreatePart(2) +\n            UUIDcreatePart(6);\n    };\n\n    function UUIDcreatePart(length) {\n        var uuidpart = \"\";\n        for (var i = 0; i < length; i++) {        return UUIDcreatePart(4) +\n            UUIDcreatePart(2) +\n            UUIDcreatePart(2) +\n            UUIDcreatePart(2) +\n            UUIDcreatePart(6);\n    };\n\n    function UUIDcreatePart(length) {\n        var uuidpart = \"\";\n        for (var i = 0; i < length; i++) {\n            var uuidchar = parseInt((Math.random() * 256), 10).toString(16);\n            if (uuidchar.length == 1) {\n                uuidchar = \"0\" + uuidchar;\n            }\n            uuidpart += uuidchar;\n        }\n        return uuidpart;\n    }\n\n    return {",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 14,
+    "line_text": "            var uuidchar = parseInt((Math.random() * 256), 10).toString(16);",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

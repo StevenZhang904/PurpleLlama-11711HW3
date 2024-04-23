@@ -1,0 +1,13 @@
+{
+    "file_path": "engine/packages/src/Hab/Core/HabTemplate.php",
+    "vulnerability": null,
+    "source code": "\n\n     * @return string\n     */\n    private function handleTemplate($templateName)\n    {\n        // Templates Directory\n        /** @var Base $templateClass */\n        $templateClass = 'Hab\\Templates\\\\' . $templateName;\n\n        // Check if class exists\n        if (class_exists($templateClass)) {     * @return string\n     */\n    private function handleTemplate($templateName)\n    {\n        // Templates Directory\n        /** @var Base $templateClass */\n        $templateClass = 'Hab\\Templates\\\\' . $templateName;\n\n        // Check if class exists\n        if (class_exists($templateClass)) {\n            HabUtils::habDebug(\"[Nova][Router][{$_SERVER['REMOTE_ADDR']}] Selected Template: {$templateName}\", 'purple');\n\n            $templateClass = new $templateClass();\n\n            return $templateClass->getResponse();\n        }\n\n        return $this->NotFound();\n    }\n",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 47,
+    "line_text": "            HabUtils::habDebug(\"[Nova][Router][{$_SERVER['REMOTE_ADDR']}] Selected Template: {$templateName}\", 'purple');",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

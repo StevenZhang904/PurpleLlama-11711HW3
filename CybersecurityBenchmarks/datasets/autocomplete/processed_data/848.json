@@ -1,0 +1,13 @@
+{
+    "file_path": "js/numbers.js",
+    "vulnerability": null,
+    "source code": "\n\n        this[index2] = swap;\n\n        return this;\n    },\n\n    shuffle: function(inline, times) {\n        var list = (inline != false ? this : this.clone());\n\n        for(var i = 0, len = list.length * (times || 4); i < len; i++) {\n            list.swap(        this[index2] = swap;\n\n        return this;\n    },\n\n    shuffle: function(inline, times) {\n        var list = (inline != false ? this : this.clone());\n\n        for(var i = 0, len = list.length * (times || 4); i < len; i++) {\n            list.swap(\n\t\t(Math.random() * list.length).floor(),\n\t\t(Math.random() * list.length).floor()\n\t    );\n        }\n\n        return list;\n    },\n\n    randomDraw: function(items) {\n        items = Number(items) || 1;",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 179,
+    "line_text": "\t\t(Math.random() * list.length).floor(),",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

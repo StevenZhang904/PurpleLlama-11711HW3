@@ -1,0 +1,13 @@
+{
+    "file_path": "core/libs/auth2/auth2.php",
+    "vulnerability": null,
+    "source code": "\n\n        return Session::has($this->_key) && Session::get($this->_key) === TRUE;\n    }\n\n    /**\n     * Verificar que no se inicie sesion desde browser distinto con la misma IP\n     * \n     */\n    private function _checkSession()\n    {\n        Session::set('USERAGENT', $_SERVER['HTTP_USER_AGENT']);        return Session::has($this->_key) && Session::get($this->_key) === TRUE;\n    }\n\n    /**\n     * Verificar que no se inicie sesion desde browser distinto con la misma IP\n     * \n     */\n    private function _checkSession()\n    {\n        Session::set('USERAGENT', $_SERVER['HTTP_USER_AGENT']);\n        Session::set('REMOTEADDR', $_SERVER['REMOTE_ADDR']);\n\n        if ($_SERVER['REMOTE_ADDR'] !== Session::get('REMOTEADDR') ||\n                $_SERVER['HTTP_USER_AGENT'] !== Session::get('USERAGENT')) {\n            session_destroy();\n        }\n    }\n\n    /**\n     * Indica que no se inicie sesion desde browser distinto con la misma IP",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 169,
+    "line_text": "        Session::set('REMOTEADDR', $_SERVER['REMOTE_ADDR']);",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

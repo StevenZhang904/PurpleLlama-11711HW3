@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/PostMessage Security/challenge3.js",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "if (typeof (SERVER_DOMAIN) === 'undefined') {\n\twindow.location.replace(\"/unconfigured.html\");\n}\n\nconst RECEIVE_URL = SERVER_DOMAIN + \"/s_child.html\" + \"?origin=\" + get_domain();\n\nvar window_ref = null;\n\nfunction send_message(destination) {\n\tmessage = document.getElementById(\"message\").value;\n\treceiver.contentWindow.postMessage(message, SERVER_DOMAIN);\n}\n\nfunction get_domain() {\n\tvar url = window.location.href\n\tvar arr = url.split(\"/\");\n\treturn arr[0] + \"//\" + arr[2]\n}\n\nvar receiver = document.getElementById(\"s_iframe\");\nreceiver.src = RECEIVE_URL;\n\nconst sendMessageButton = document.getElementById(\"send_message_button\");\nsendMessageButton.addEventListener(\"click\", send_message, false);\n",
+    "language": "javascript",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "hadoop-0.11.2/src/java/org/apache/hadoop/mapred/SequenceFileInputFilter.java",
+    "vulnerability": null,
+    "source code": "\n\n     * MD5(key) % f == 0.\n     */\n    public static class MD5Filter extends FilterBase {\n        private int frequency;\n        private static final MessageDigest DIGESTER;\n        public static final int MD5_LEN = 16;\n        private byte [] digest = new byte[MD5_LEN];\n        \n        static {\n          try {     * MD5(key) % f == 0.\n     */\n    public static class MD5Filter extends FilterBase {\n        private int frequency;\n        private static final MessageDigest DIGESTER;\n        public static final int MD5_LEN = 16;\n        private byte [] digest = new byte[MD5_LEN];\n        \n        static {\n          try {\n            DIGESTER = MessageDigest.getInstance(\"MD5\");\n          } catch (NoSuchAlgorithmException e) {\n            throw new RuntimeException(e);\n          }\n        }\n\n\n        /** set the filtering frequency in configuration\n         * \n         * @param conf configuration",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 206,
+    "line_text": "            DIGESTER = MessageDigest.getInstance(\"MD5\");",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

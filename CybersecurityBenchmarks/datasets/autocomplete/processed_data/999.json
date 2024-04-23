@@ -1,0 +1,13 @@
+{
+    "file_path": "contiki/tools/cooja/java/org/contikios/cooja/dialogs/CompileContiki.java",
+    "vulnerability": null,
+    "source code": "\n\n      for (String c: command) {\n      \tcmd += c + \" \";\n      }\n      logger.info(\"> \" + cmd);\n      messageDialog.addMessage(\"\", MessageListUI.NORMAL);\n      messageDialog.addMessage(\"> \" + cmd, MessageListUI.NORMAL);\n    }\n\n    final Process compileProcess;\n    try {      for (String c: command) {\n      \tcmd += c + \" \";\n      }\n      logger.info(\"> \" + cmd);\n      messageDialog.addMessage(\"\", MessageListUI.NORMAL);\n      messageDialog.addMessage(\"> \" + cmd, MessageListUI.NORMAL);\n    }\n\n    final Process compileProcess;\n    try {\n      compileProcess = Runtime.getRuntime().exec(command, env, directory);\n\n      final BufferedReader processNormal = new BufferedReader(\n          new InputStreamReader(compileProcess.getInputStream()));\n      final BufferedReader processError = new BufferedReader(\n          new InputStreamReader(compileProcess.getErrorStream()));\n\n      if (outputFile != null) {\n        if (outputFile.exists()) {\n          outputFile.delete();",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 147,
+    "line_text": "      compileProcess = Runtime.getRuntime().exec(command, env, directory);",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

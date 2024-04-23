@@ -1,0 +1,13 @@
+{
+    "file_path": "mergetest.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t// # of keys to in each list\n\tint32_t nk = 200000;\n\t// # keys wanted\n\tint32_t numKeysWanted = 200000;\n\t// get # lists to merge\n\tint32_t numToMerge = arg ; \n\t// print start time\n\tfprintf (stderr,\"smt:: randomizing begin. %\"INT32\" lists of %\"INT32\" keys.\\n\",\n\t\t numToMerge, nk);\n\t// make a list of compressed (6 byte) docIds\t// # of keys to in each list\n\tint32_t nk = 200000;\n\t// # keys wanted\n\tint32_t numKeysWanted = 200000;\n\t// get # lists to merge\n\tint32_t numToMerge = arg ; \n\t// print start time\n\tfprintf (stderr,\"smt:: randomizing begin. %\"INT32\" lists of %\"INT32\" keys.\\n\",\n\t\t numToMerge, nk);\n\t// make a list of compressed (6 byte) docIds\n        key_t *keys0 = (key_t *) malloc ( sizeof(key_t) * nk );\n        key_t *keys1 = (key_t *) malloc ( sizeof(key_t) * nk );\n        key_t *keys2 = (key_t *) malloc ( sizeof(key_t) * nk );\n        key_t *keys3 = (key_t *) malloc ( sizeof(key_t) * nk );\n\t// store radnom docIds in this list\n\tuint32_t *p = (uint32_t *) keys0;\n\t// random docIds\n\tfor ( int32_t i = 0 ; i < nk ; i++ ) {\n\t\t*p++ = rand() ;\n\t\t*p++ = rand() ;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 155,
+    "line_text": "        key_t *keys0 = (key_t *) malloc ( sizeof(key_t) * nk );",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

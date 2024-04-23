@@ -1,0 +1,13 @@
+{
+    "file_path": "src/hashsum/hashsum.rs",
+    "vulnerability": null,
+    "source code": "\n\n            | \"shake256sum\" => true,\n        _ => false\n    }\n}\n\nfn detect_algo(program: &str, matches: &getopts::Matches) -> (&'static str, Box<Digest+'static>, usize) {\n    let mut alg: Option<Box<Digest>> = None;\n    let mut name: &'static str = \"\";\n    let mut output_bits = 0;\n    match program {            | \"shake256sum\" => true,\n        _ => false\n    }\n}\n\nfn detect_algo(program: &str, matches: &getopts::Matches) -> (&'static str, Box<Digest+'static>, usize) {\n    let mut alg: Option<Box<Digest>> = None;\n    let mut name: &'static str = \"\";\n    let mut output_bits = 0;\n    match program {\n        \"md5sum\" => (\"MD5\", Box::new(Md5::new()) as Box<Digest>, 128),\n        \"sha1sum\" => (\"SHA1\", Box::new(Sha1::new()) as Box<Digest>, 160),\n        \"sha224sum\" => (\"SHA224\", Box::new(Sha224::new()) as Box<Digest>, 224),\n        \"sha256sum\" => (\"SHA256\", Box::new(Sha256::new()) as Box<Digest>, 256),\n        \"sha384sum\" => (\"SHA384\", Box::new(Sha384::new()) as Box<Digest>, 384),\n        \"sha512sum\" => (\"SHA512\", Box::new(Sha512::new()) as Box<Digest>, 512),\n        \"sha3sum\" => {\n            match matches.opt_str(\"bits\") {\n                Some(bits_str) => match usize::from_str_radix(&bits_str, 10) {\n                    Ok(224) => (\"SHA3-224\", Box::new(Sha3::new(Sha3Mode::Sha3_224)) as Box<Digest>, 224),",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 56,
+    "line_text": "        \"md5sum\" => (\"MD5\", Box::new(Md5::new()) as Box<Digest>, 128),",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

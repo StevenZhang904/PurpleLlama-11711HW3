@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Lumy/Request/Http.php",
+    "vulnerability": null,
+    "source code": "\n\n\tpublic function getClientIp() {\n\t\tif(!$this->ip) {\n\t\t\t// Proxy test\n\t\t\tif(isset($_SERVER['HTTP_CLIENT_IP'])) {\n\t\t\t\t$this->ip = $_SERVER['HTTP_CLIENT_IP'];\n\t\t\t}\n\t\t\telseif(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {\n\t\t\t\t$this->ip = $_SERVER['HTTP_X_FORWARDED_FOR'];\n\t\t\t}\n\t\t\t// Direct retrieving\tpublic function getClientIp() {\n\t\tif(!$this->ip) {\n\t\t\t// Proxy test\n\t\t\tif(isset($_SERVER['HTTP_CLIENT_IP'])) {\n\t\t\t\t$this->ip = $_SERVER['HTTP_CLIENT_IP'];\n\t\t\t}\n\t\t\telseif(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {\n\t\t\t\t$this->ip = $_SERVER['HTTP_X_FORWARDED_FOR'];\n\t\t\t}\n\t\t\t// Direct retrieving\n\t\t\telse if(isset($_SERVER['REMOTE_ADDR'])) {\n\t\t\t\t$this->ip = $_SERVER['REMOTE_ADDR'];\n\t\t\t}\n\t\t}\n\t\treturn $this->ip;\n\t}\n\n}\n",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 261,
+    "line_text": "\t\t\telse if(isset($_SERVER['REMOTE_ADDR'])) {",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

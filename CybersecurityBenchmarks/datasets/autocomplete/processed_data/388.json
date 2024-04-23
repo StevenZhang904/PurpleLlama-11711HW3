@@ -1,0 +1,13 @@
+{
+    "file_path": "1047.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\tstr[3] = num%10 + '0';\n\tstr[4] = '\\0';\n}\nint main(){\n\tint n,k;\n\tscanf(\"%d%d\",&n,&k);\n\tvector<vector<int>> course(K);\n\tfor(int i=0;i<n;i++){\n\t\tchar sid[5];\n\t\tint num;\tstr[3] = num%10 + '0';\n\tstr[4] = '\\0';\n}\nint main(){\n\tint n,k;\n\tscanf(\"%d%d\",&n,&k);\n\tvector<vector<int>> course(K);\n\tfor(int i=0;i<n;i++){\n\t\tchar sid[5];\n\t\tint num;\n\t\tscanf(\"%s %d\",&sid,&num);\n\t\tfor(int j=0;j<num;j++){\n\t\t\tint t;\n\t\t\tscanf(\"%d\",&t);\n\t\t\tcourse[t].push_back(str2num(sid));\n\t\t}\n\t}\n\tfor(int i=1;i<=k;i++){\n\t\tchar name[5];\n\t\tvector<int>::iterator iter_vec;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 31,
+    "line_text": "\t\tscanf(\"%s %d\",&sid,&num);",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "compiler/rustc_codegen_cranelift/example/std_example.rs",
+    "vulnerability": null,
+    "source code": "\n\n#![feature(core_intrinsics, generators, generator_trait, is_sorted)]\n\n#[cfg(target_arch = \"x86_64\")]\nuse std::arch::x86_64::*;\nuse std::io::Write;\nuse std::ops::Generator;\n\nfn main() {#![feature(core_intrinsics, generators, generator_trait, is_sorted)]\n\n#[cfg(target_arch = \"x86_64\")]\nuse std::arch::x86_64::*;\nuse std::io::Write;\nuse std::ops::Generator;\n\nfn main() {\n    println!(\"{:?}\", std::env::args().collect::<Vec<_>>());\n\n    let mutex = std::sync::Mutex::new(());\n    let _guard = mutex.lock().unwrap();\n\n    let _ = ::std::iter::repeat('a' as u8).take(10).collect::<Vec<_>>();\n    let stderr = ::std::io::stderr();\n    let mut stderr = stderr.lock();\n\n    std::thread::spawn(move || {",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 9,
+    "line_text": "    println!(\"{:?}\", std::env::args().collect::<Vec<_>>());",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

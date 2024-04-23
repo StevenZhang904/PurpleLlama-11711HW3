@@ -1,0 +1,13 @@
+{
+    "file_path": "support/categoryPartitionTool-TSL/main.c",
+    "vulnerability": null,
+    "source code": "\n\n    #if DEBUG\n    debug_info();\n    #endif\n    \n    num_frames = generator( flags );\n    \n    if ( flags & COUNT_ONLY )\n    {\n        printf( \"\\n\\t%d test frames generated\\n\\n\", num_frames );\n        printf( \"Write test frames to %s (y/n)? \", out_file );    #if DEBUG\n    debug_info();\n    #endif\n    \n    num_frames = generator( flags );\n    \n    if ( flags & COUNT_ONLY )\n    {\n        printf( \"\\n\\t%d test frames generated\\n\\n\", num_frames );\n        printf( \"Write test frames to %s (y/n)? \", out_file );\n        scanf( \"%s\", answer );\n        if ( answer[0] == 'y' || answer[0] == 'Y' )\n            printf( \"\\n\\t%d test frames written to %s\\n\\n\", generator( flags & ~COUNT_ONLY ), out_file );\n    }\n    else\n        printf( \"\\n\\t%d test frames generated and written to %s\\n\\n\", num_frames, out_file );\n    \n    /* **** debug **** */\n    #if DEBUG\n    printf( \"program base storage  = %d bytes\\n\", vars_size() );",
+    "language": "c",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 96,
+    "line_text": "        scanf( \"%s\", answer );",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

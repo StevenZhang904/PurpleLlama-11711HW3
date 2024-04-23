@@ -1,0 +1,13 @@
+{
+    "file_path": "src/cl_wrapper/wrapper_utils.c",
+    "vulnerability": null,
+    "source code": "\n\n    commandQueueCache *findme = commandQueueCache_find(get_cmd_queue_cache(), context);\n    pthread_mutex_unlock(&command_queue_cache_lock);\n\n    if (findme == NULL)\n    {\n        uint32_t num_dev;\n        cl_err = clGetContextInfo(context, CL_CONTEXT_NUM_DEVICES, sizeof(uint32_t), &num_dev, NULL);\n        check_cl_error(__FILE__, __LINE__, cl_err);\n\n        cl_device_id *devices;    commandQueueCache *findme = commandQueueCache_find(get_cmd_queue_cache(), context);\n    pthread_mutex_unlock(&command_queue_cache_lock);\n\n    if (findme == NULL)\n    {\n        uint32_t num_dev;\n        cl_err = clGetContextInfo(context, CL_CONTEXT_NUM_DEVICES, sizeof(uint32_t), &num_dev, NULL);\n        check_cl_error(__FILE__, __LINE__, cl_err);\n\n        cl_device_id *devices;\n        devices = malloc(sizeof(cl_device_id) * num_dev);\n\n        cl_err = clGetContextInfo(context, CL_CONTEXT_DEVICES, sizeof(cl_device_id) * num_dev, devices, NULL);\n        check_cl_error(__FILE__, __LINE__, cl_err);\n\n        cl_device_id device = devices[0];\n\n        *cmdQueue = clCreateCommandQueue(context, device, 0, &cl_err);\n        check_cl_error(__FILE__, __LINE__, cl_err);\n        ret = 0;",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 71,
+    "line_text": "        devices = malloc(sizeof(cl_device_id) * num_dev);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "public/scripts/libs/bower/angular-socialshare.js",
+    "vulnerability": null,
+    "source code": "\n\n *            \"A\" (Alpha flag)   return random a-Z string\n *            \"N\" (Numeric flag) return random 0-9 string\n */\nfunction randomString(len, an) {\n\tan = an && an.toLowerCase();\n\tvar str = \"\",\n\t\ti = 0,\n\t\tmin = an == \"a\" ? 10 : 0,\n\t\tmax = an == \"n\" ? 10 : 62;\n\tfor (; i++ < len;) { *            \"A\" (Alpha flag)   return random a-Z string\n *            \"N\" (Numeric flag) return random 0-9 string\n */\nfunction randomString(len, an) {\n\tan = an && an.toLowerCase();\n\tvar str = \"\",\n\t\ti = 0,\n\t\tmin = an == \"a\" ? 10 : 0,\n\t\tmax = an == \"n\" ? 10 : 62;\n\tfor (; i++ < len;) {\n\t\tvar r = Math.random() * (max - min) + min << 0;\n\t\tstr += String.fromCharCode(r += r > 9 ? r < 36 ? 55 : 61 : 48);\n\t}\n\treturn str;\n}\n",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 404,
+    "line_text": "\t\tvar r = Math.random() * (max - min) + min << 0;",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

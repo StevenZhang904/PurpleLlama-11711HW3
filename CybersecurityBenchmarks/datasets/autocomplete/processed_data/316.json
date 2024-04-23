@@ -1,0 +1,13 @@
+{
+    "file_path": "pascalseg/external_src/cpmc_release1/external_code/globalPb/BSE-1.2/util/image.cc",
+    "vulnerability": null,
+    "source code": "\n\n          isGray = false;\n          cinfo.out_color_space = JCS_RGB;\n          cinfo.output_components = 3;\n          bytesPerPixel = 3;\n      }\n      jpeg_calc_output_dimensions (&cinfo);\n      jpeg_start_decompress (&cinfo);\n\n      height = cinfo.output_height;\n      width = cinfo.output_width;          isGray = false;\n          cinfo.out_color_space = JCS_RGB;\n          cinfo.output_components = 3;\n          bytesPerPixel = 3;\n      }\n      jpeg_calc_output_dimensions (&cinfo);\n      jpeg_start_decompress (&cinfo);\n\n      height = cinfo.output_height;\n      width = cinfo.output_width;\n      imbuf = new unsigned char[width * height * bytesPerPixel];\n\n      const int lineSize = width * bytesPerPixel;\n      unsigned char* p = imbuf;\n\n      while (cinfo.output_scanline < cinfo.output_height)\n      {\n        jpeg_read_scanlines (&cinfo, &p, 1);\n        p += lineSize;\n      }",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 85,
+    "line_text": "      imbuf = new unsigned char[width * height * bytesPerPixel];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

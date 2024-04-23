@@ -1,0 +1,13 @@
+{
+    "file_path": "gerrit-pgm/src/main/java/com/google/gerrit/pgm/init/InitHttpd.java",
+    "vulnerability": null,
+    "source code": "\n\n    final String dname =\n        \"CN=\" + hostname + \",OU=Gerrit Code Review,O=\" + domainOf(hostname);\n\n    final File tmpdir = new File(site.etc_dir, \"tmp.sslcertgen\");\n    if (!tmpdir.mkdir()) {\n      throw die(\"Cannot create directory \" + tmpdir);\n    }\n    chmod(0600, tmpdir);\n\n    final File tmpstore = new File(tmpdir, \"keystore\");    final String dname =\n        \"CN=\" + hostname + \",OU=Gerrit Code Review,O=\" + domainOf(hostname);\n\n    final File tmpdir = new File(site.etc_dir, \"tmp.sslcertgen\");\n    if (!tmpdir.mkdir()) {\n      throw die(\"Cannot create directory \" + tmpdir);\n    }\n    chmod(0600, tmpdir);\n\n    final File tmpstore = new File(tmpdir, \"keystore\");\n    Runtime.getRuntime().exec(new String[] {\"keytool\", //\n        \"-keystore\", tmpstore.getAbsolutePath(), //\n        \"-storepass\", ssl_pass, //\n        \"-genkeypair\", //\n        \"-alias\", hostname, //\n        \"-keyalg\", \"RSA\", //\n        \"-validity\", validity, //\n        \"-dname\", dname, //\n        \"-keypass\", ssl_pass, //\n    }).waitFor();",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 173,
+    "line_text": "    Runtime.getRuntime().exec(new String[] {\"keytool\", //",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

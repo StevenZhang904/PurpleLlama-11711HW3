@@ -1,0 +1,13 @@
+{
+    "file_path": "src/RpkUtils/Sysinfo/Client.php",
+    "vulnerability": null,
+    "source code": "\n\n    {\n        \n        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {\n          // check ip from share internet  \n          $ip = $_SERVER['HTTP_CLIENT_IP'];\n        \n        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {\n          // to check ip is pass from proxy\n          $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];\n              {\n        \n        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {\n          // check ip from share internet  \n          $ip = $_SERVER['HTTP_CLIENT_IP'];\n        \n        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {\n          // to check ip is pass from proxy\n          $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];\n          \n        } elseif (!empty($_SERVER['REMOTE_ADDR'])) {\n            \n          $ip = $_SERVER['REMOTE_ADDR'];\n          \n        } else {\n            \n            $ip = '0.0.0.0';\n        }\n        \n        return $ip;",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 32,
+    "line_text": "        } elseif (!empty($_SERVER['REMOTE_ADDR'])) {",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

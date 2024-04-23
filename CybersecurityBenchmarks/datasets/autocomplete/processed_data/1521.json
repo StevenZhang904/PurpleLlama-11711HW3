@@ -1,0 +1,13 @@
+{
+    "file_path": "submissions/include/vendor/tightenco/collect/src/Illuminate/Support/Collection.php",
+    "vulnerability": null,
+    "source code": "\n\n     * @param  int  $seed\n     * @return static\n     */\n    public function shuffle($seed = null)\n    {\n        $items = $this->items;\n\n        if (is_null($seed)) {\n            shuffle($items);\n        } else {     * @param  int  $seed\n     * @return static\n     */\n    public function shuffle($seed = null)\n    {\n        $items = $this->items;\n\n        if (is_null($seed)) {\n            shuffle($items);\n        } else {\n            srand($seed);\n\n            usort($items, function () {\n                return rand(-1, 1);\n            });\n        }\n\n        return new static($items);\n    }\n",
+    "language": "php",
+    "cwe_identifier": "CWE-330",
+    "pattern_desc": "Use of Insufficiently Random Values",
+    "line_number": 1305,
+    "line_text": "            srand($seed);",
+    "pattern_id": "PHP-R-029",
+    "rule": "\\b(mt_rand|rand|uniqid|srand)\\s*\\(\\s*\\$[a-zA-Z0-9_]+\\s*\\)",
+    "label": 1
+}

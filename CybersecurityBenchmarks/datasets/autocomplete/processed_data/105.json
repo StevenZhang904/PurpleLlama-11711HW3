@@ -1,0 +1,13 @@
+{
+    "file_path": "gmetad/cmdline.c",
+    "vulnerability": null,
+    "source code": "\n\nchar *\ngengetopt_strdup (const char *s)\n{\n  char *result = NULL;\n  if (!s)\n    return result;\n\n  result = (char*)malloc(strlen(s) + 1);\n  if (result == (char*)0)\n    return (char*)0;char *\ngengetopt_strdup (const char *s)\n{\n  char *result = NULL;\n  if (!s)\n    return result;\n\n  result = (char*)malloc(strlen(s) + 1);\n  if (result == (char*)0)\n    return (char*)0;\n  strcpy(result, s);\n  return result;\n}\n\nint\ncmdline_parser (int argc, char * const *argv, struct gengetopt_args_info *args_info)\n{\n  return cmdline_parser2 (argc, argv, args_info, 0, 1, 1);\n}\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 254,
+    "line_text": "  strcpy(result, s);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "seguridad/cambiar.php",
+    "vulnerability": null,
+    "source code": "\n\n        </form>\n\n    </div>\n\n</div>\n\n<?php\nif (isset($_REQUEST['tirar'])) {\n    try {\n        include_once '../conexion/php_conexion.php';        </form>\n\n    </div>\n\n</div>\n\n<?php\nif (isset($_REQUEST['tirar'])) {\n    try {\n        include_once '../conexion/php_conexion.php';\n        $actu = password_hash($_POST[\"con2\"], PASSWORD_DEFAULT);\n\n        mysqli_query($conexion, \"UPDATE usuarios SET con='$actu' WHERE id_usuario='$caContra'\");\n\n        echo '<script>swal(\"Contrase\u00f1a Actualizada!\", \"Presione Ok!\", \"success\")</script>';\n    } catch (Exception $exc) {\n        echo '<script>swal(\"No se puedo realizar el registro\", \"Favor revisar los datos\", \"error\");</script>';\n    }\n}\ninclude_once '../plantilla/fin_plantilla.php';",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 109,
+    "line_text": "        $actu = password_hash($_POST[\"con2\"], PASSWORD_DEFAULT);",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

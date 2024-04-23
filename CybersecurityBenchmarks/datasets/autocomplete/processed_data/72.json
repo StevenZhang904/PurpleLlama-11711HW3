@@ -1,0 +1,13 @@
+{
+    "file_path": "tess-two/jni/com_googlecode_leptonica_android/src/prog/splitimage2pdf.c",
+    "vulnerability": null,
+    "source code": "\n\n            } else {\n                convertJpegToPS(fname, psfile, \"a\", 0, 0, 300,\n                                scale, 1, TRUE);\n            }\n        }\n        lept_free(fname);\n        pixDestroy(&pixt);\n    }\n\n    snprintf(buffer, sizeof(buffer), \"ps2pdf %s %s\", psfile, fileout);            } else {\n                convertJpegToPS(fname, psfile, \"a\", 0, 0, 300,\n                                scale, 1, TRUE);\n            }\n        }\n        lept_free(fname);\n        pixDestroy(&pixt);\n    }\n\n    snprintf(buffer, sizeof(buffer), \"ps2pdf %s %s\", psfile, fileout);\n    ignore = system(buffer);  /* ps2pdf */\n\n    pixaDestroy(&pixa);\n    pixDestroy(&pixr);\n    pixDestroy(&pixs);\n    return 0;\n}\n\n",
+    "language": "c",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if the input is not sanitized",
+    "line_number": 122,
+    "line_text": "    ignore = system(buffer);  /* ps2pdf */",
+    "pattern_id": "C-W-015",
+    "rule": "{ system($x); }",
+    "label": 1
+}

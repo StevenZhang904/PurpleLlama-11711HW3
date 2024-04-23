@@ -1,0 +1,13 @@
+{
+    "file_path": "admin/includes/ConexaoMySQL.class.php",
+    "vulnerability": null,
+    "source code": "\n\n     * @param query String\n     */\n    public function salvarAuditoriaInsert($query){\n    \t$Parte = explode(\"into\", strtolower($query));\n    \t$Tabela = explode(\" \", $Parte[1]);\n    \t$Tabela = $Tabela[1];\n    \t\n    \tif (!$this->ConexaoSQL)\n\t\t\t$DBConnecta = $this->conecta();\n                 * @param query String\n     */\n    public function salvarAuditoriaInsert($query){\n    \t$Parte = explode(\"into\", strtolower($query));\n    \t$Tabela = explode(\" \", $Parte[1]);\n    \t$Tabela = $Tabela[1];\n    \t\n    \tif (!$this->ConexaoSQL)\n\t\t\t$DBConnecta = $this->conecta();\n            \n        mysql_query(\"INSERT INTO auditoria (id_usuarios, acao, pagina, data, ip) VALUES('\".$_SESSION[\"iduser\"].\"','insert','\".$Tabela.\"',NOW(),'\".$_SERVER['REMOTE_ADDR'].\"') \");\n    }\n    \n    /**\n     * Salva acoes insert.\n     * @param query String\n     */\n    public function salvarAuditoriaUpdate($query){\n    \t$Parte = explode(\"update\", strtolower($query));\n    \t$Tabela = explode(\" \", $Parte[1]);",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 295,
+    "line_text": "        mysql_query(\"INSERT INTO auditoria (id_usuarios, acao, pagina, data, ip) VALUES('\".$_SESSION[\"iduser\"].\"','insert','\".$Tabela.\"',NOW(),'\".$_SERVER['REMOTE_ADDR'].\"') \");",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "Classes/RayFoundation/Utils/PurgeEvasionParallel.c",
+    "vulnerability": null,
+    "source code": "\n\n\ntypedef struct PrivatePEWokerData {\n     uint8_t keyTemp[purgeBytesCount];\n    uint64_t cipherCount;\n     uint8_t *partStart;\n\n} PrivatePEWokerData;\n\nvoid privatePEEncryptPart(PrivatePEWokerData *worker) {\n    uint64_t iterator;\ntypedef struct PrivatePEWokerData {\n     uint8_t keyTemp[purgeBytesCount];\n    uint64_t cipherCount;\n     uint8_t *partStart;\n\n} PrivatePEWokerData;\n\nvoid privatePEEncryptPart(PrivatePEWokerData *worker) {\n    uint64_t iterator;\n     uint8_t keyTemp[purgeBytesCount];\n\n    forAll(iterator, worker->cipherCount) {\n        evasionRand((uint64_t *) worker->keyTemp);\n        memcpy(keyTemp, worker->keyTemp, purgeBytesCount);\n        purgeEncrypt((uint64_t *) (worker->partStart + iterator * purgeBytesCount), (uint64_t *) keyTemp);\n    }\n\n    deallocator(worker);\n}",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 32,
+    "line_text": "     uint8_t keyTemp[purgeBytesCount];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

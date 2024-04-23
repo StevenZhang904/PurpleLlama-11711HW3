@@ -1,0 +1,13 @@
+{
+    "file_path": "src/pal/src/locale/locale.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    CFIndex length;\n    CFMutableStringRef cfMutableString;\n    UniChar* buf;\n    int j = 0;\n\n    length = CFStringGetLength(cfString);\n\t// PERF: CFStringCreateMutable doesn't preallocate a buffer to hold all the data when you pass\n\t// in a non zero length for the string.  This leads lots of buffer resizing when the string we\n\t// are stripping is large.  Instead we preallocate our buffer upfront and then copy it into a\n\t// CFMutableString at the end.    CFIndex length;\n    CFMutableStringRef cfMutableString;\n    UniChar* buf;\n    int j = 0;\n\n    length = CFStringGetLength(cfString);\n\t// PERF: CFStringCreateMutable doesn't preallocate a buffer to hold all the data when you pass\n\t// in a non zero length for the string.  This leads lots of buffer resizing when the string we\n\t// are stripping is large.  Instead we preallocate our buffer upfront and then copy it into a\n\t// CFMutableString at the end.\n    buf = (UniChar*) PAL_malloc(length * sizeof(UniChar));\n\n    if(buf == NULL)\n    {\n       return NULL;\n    }\n\n    cfMutableString = CFStringCreateMutable(kCFAllocatorDefault, length);\n    if (cfMutableString != NULL)\n    {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 1817,
+    "line_text": "    buf = (UniChar*) PAL_malloc(length * sizeof(UniChar));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/day4.rs",
+    "vulnerability": null,
+    "source code": "\n\n\npub fn part1() -> u64 {\n    calculate_part1(INPUT.as_bytes())\n}\n\npub fn part2() -> u64 {\n    calculate_part2(INPUT.as_bytes())\n}\n\nfn calculate_part1(input: &[u8]) -> u64 {\npub fn part1() -> u64 {\n    calculate_part1(INPUT.as_bytes())\n}\n\npub fn part2() -> u64 {\n    calculate_part2(INPUT.as_bytes())\n}\n\nfn calculate_part1(input: &[u8]) -> u64 {\n    let mut hasher = Md5::new();\n\n    for i in 0..::std::u64::MAX {\n        hasher.input(input);\n        hasher.input(i.to_string().as_bytes());\n\n        let mut output = [0; 16];\n        hasher.result(&mut output);\n\n        let first_five = (output[0] as i32)  + (output[1] as i32) + ((output[2] >> 4) as i32);",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 18,
+    "line_text": "    let mut hasher = Md5::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

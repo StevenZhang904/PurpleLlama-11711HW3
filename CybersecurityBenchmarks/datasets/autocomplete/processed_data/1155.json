@@ -1,0 +1,13 @@
+{
+    "file_path": "oltpdbsim/src/main/java/utils/Utility.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t} else {\n\t\t\t\tkey = getSaltedKey(key);\n\t\t\t}\t\t\t\n\t\t\t\n\t\t\tBigInteger bigInt = new BigInteger(key.getBytes());\n\t\t\tkey = bigInt.toString();\n\t\t\tkey = getAlphaNumericString(key);\n\t\t\t//System.out.println(key);\n\t\t}\n\t\t\t\t\t} else {\n\t\t\t\tkey = getSaltedKey(key);\n\t\t\t}\t\t\t\n\t\t\t\n\t\t\tBigInteger bigInt = new BigInteger(key.getBytes());\n\t\t\tkey = bigInt.toString();\n\t\t\tkey = getAlphaNumericString(key);\n\t\t\t//System.out.println(key);\n\t\t}\n\t\t\n\t\tbyte[] value = DigestUtils.sha1(key.getBytes());\n\t\treturn Utility.convertByteToUnsignedLong(value);\n\t}\n*/\n\t\n\tpublic static String getAlphaNumericString(String str) {\n\t\tString out = null;\n\t\t\n\t\ttry {\n\t\t    byte[] b = str.getBytes(\"ASCII\");",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 263,
+    "line_text": "\t\tbyte[] value = DigestUtils.sha1(key.getBytes());",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

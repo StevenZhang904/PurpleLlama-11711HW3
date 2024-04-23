@@ -1,0 +1,13 @@
+{
+    "file_path": "src/bin/coreutils.rs",
+    "vulnerability": null,
+    "source code": "\n\n    let width = cmp::min(textwrap::termwidth(), 100) - 4 * 2; // (opinion/heuristic) max 100 chars wide with 4 character side indentions\n    println!(\n        \"{}\",\n        textwrap::indent(&textwrap::fill(&display_list, width), \"    \")\n    );\n}\n\nfn binary_path(args: &mut impl Iterator<Item = OsString>) -> PathBuf {\n    match args.next() {\n        Some(ref s) if !s.is_empty() => PathBuf::from(s),    let width = cmp::min(textwrap::termwidth(), 100) - 4 * 2; // (opinion/heuristic) max 100 chars wide with 4 character side indentions\n    println!(\n        \"{}\",\n        textwrap::indent(&textwrap::fill(&display_list, width), \"    \")\n    );\n}\n\nfn binary_path(args: &mut impl Iterator<Item = OsString>) -> PathBuf {\n    match args.next() {\n        Some(ref s) if !s.is_empty() => PathBuf::from(s),\n        _ => std::env::current_exe().unwrap(),\n    }\n}\n\nfn name(binary_path: &Path) -> &str {\n    binary_path.file_stem().unwrap().to_str().unwrap()\n}\n\nfn main() {\n    uucore::panic::mute_sigpipe_panic();",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 40,
+    "line_text": "        _ => std::env::current_exe().unwrap(),",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

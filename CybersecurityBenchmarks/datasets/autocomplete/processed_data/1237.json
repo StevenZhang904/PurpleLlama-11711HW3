@@ -1,0 +1,13 @@
+{
+    "file_path": "src/attributes.rs",
+    "vulnerability": null,
+    "source code": "\n\n        (&buf[..]).as_ptr() as *const c_char\n    }\n}\n\n// These functions are named similiarly to IUP's functions. Summary of IUP functions:\n// IupSetAttribute() - stores a pointer as an attribute's value; could be a pointer to constant string or an app's struct\n// IupSetStrAttribute() - assumes you pass a null-term string and copies it before it returns\n// IupSetAttributeHandle() - same as a IupSetHandle/IupSetAttribute pair; associates a name to an Ihandle then sets an attribute with that name\n\npub fn set_str_attribute(handle: *mut Ihandle, name: &str, value: &str) {        (&buf[..]).as_ptr() as *const c_char\n    }\n}\n\n// These functions are named similiarly to IUP's functions. Summary of IUP functions:\n// IupSetAttribute() - stores a pointer as an attribute's value; could be a pointer to constant string or an app's struct\n// IupSetStrAttribute() - assumes you pass a null-term string and copies it before it returns\n// IupSetAttributeHandle() - same as a IupSetHandle/IupSetAttribute pair; associates a name to an Ihandle then sets an attribute with that name\n\npub fn set_str_attribute(handle: *mut Ihandle, name: &str, value: &str) {\n    unsafe {\n        let mut name_buf = SmallVec::<[u8; 64]>::new();\n        let c_name = str_to_c_vec(name, &mut name_buf);\n        let mut value_buf = SmallVec::<[u8; 64]>::new();\n        let c_value = str_to_c_vec(value, &mut value_buf);\n        //println!(\"setting {:?} to {:?}\", CStr::from_ptr(c_name).to_string_lossy(), CStr::from_ptr(c_value).to_string_lossy());\n        IupSetStrAttribute(handle, c_name, c_value);\n    }\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 37,
+    "line_text": "    unsafe {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

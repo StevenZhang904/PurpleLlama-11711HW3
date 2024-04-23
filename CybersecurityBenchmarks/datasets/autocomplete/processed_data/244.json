@@ -1,0 +1,13 @@
+{
+    "file_path": "android/external/chromium_org/v8/test/cctest/test-api.cc",
+    "vulnerability": null,
+    "source code": "\n\n  TestExternalUnsignedIntArray();\n  TestExternalFloatArray();\n}\n\n\nvoid ExternalArrayInfoTestHelper(v8::ExternalArrayType array_type) {\n  LocalContext context;\n  v8::HandleScope scope(context->GetIsolate());\n  for (int size = 0; size < 100; size += 10) {\n    int element_size = ExternalArrayElementSize(array_type);  TestExternalUnsignedIntArray();\n  TestExternalFloatArray();\n}\n\n\nvoid ExternalArrayInfoTestHelper(v8::ExternalArrayType array_type) {\n  LocalContext context;\n  v8::HandleScope scope(context->GetIsolate());\n  for (int size = 0; size < 100; size += 10) {\n    int element_size = ExternalArrayElementSize(array_type);\n    void* external_data = malloc(size * element_size);\n    v8::Handle<v8::Object> obj = v8::Object::New();\n    obj->SetIndexedPropertiesToExternalArrayData(\n        external_data, array_type, size);\n    CHECK(obj->HasIndexedPropertiesInExternalArrayData());\n    CHECK_EQ(external_data, obj->GetIndexedPropertiesExternalArrayData());\n    CHECK_EQ(array_type, obj->GetIndexedPropertiesExternalArrayDataType());\n    CHECK_EQ(size, obj->GetIndexedPropertiesExternalArrayDataLength());\n    free(external_data);\n  }",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 15988,
+    "line_text": "    void* external_data = malloc(size * element_size);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

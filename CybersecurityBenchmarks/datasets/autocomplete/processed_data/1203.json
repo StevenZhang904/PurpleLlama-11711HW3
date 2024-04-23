@@ -1,0 +1,13 @@
+{
+    "file_path": "src/librustuv/lib.rs",
+    "vulnerability": null,
+    "source code": "\n\n/// ```\npub fn event_loop() -> Box<rtio::EventLoop + Send> {\n    box uvio::UvEventLoop::new() as Box<rtio::EventLoop + Send>\n}\n\n/// A type that wraps a uv handle\npub trait UvHandle<T> {\n    fn uv_handle(&self) -> *mut T;\n\n    fn uv_loop(&self) -> Loop {/// ```\npub fn event_loop() -> Box<rtio::EventLoop + Send> {\n    box uvio::UvEventLoop::new() as Box<rtio::EventLoop + Send>\n}\n\n/// A type that wraps a uv handle\npub trait UvHandle<T> {\n    fn uv_handle(&self) -> *mut T;\n\n    fn uv_loop(&self) -> Loop {\n        Loop::wrap(unsafe { uvll::get_loop_for_uv_handle(self.uv_handle()) })\n    }\n\n    // FIXME(#8888) dummy self\n    fn alloc(_: Option<Self>, ty: uvll::uv_handle_type) -> *mut T {\n        unsafe {\n            let handle = uvll::malloc_handle(ty);\n            assert!(!handle.is_null());\n            handle as *mut T\n        }",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 139,
+    "line_text": "        Loop::wrap(unsafe { uvll::get_loop_for_uv_handle(self.uv_handle()) })",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "design_pattern-chain_of_command.rs",
+    "vulnerability": null,
+    "source code": "\n\n\tfn on_command(&self, name: &str, args: &[&str]) {\n\t\tif name == \"addUser\" {\n\t\t\tprintln!(\"MailCommand handling '{}' with args {:?}.\", name, args);\n\t\t} else if name == \"mail\" {\n\t\t\tprintln!(\"MailCommand handling '{}' with args {:?}.\", name, args);\n\t\t}\n\t}\n}\nfn main() {\n\tlet mut cc = CommandChain::new();\tfn on_command(&self, name: &str, args: &[&str]) {\n\t\tif name == \"addUser\" {\n\t\t\tprintln!(\"MailCommand handling '{}' with args {:?}.\", name, args);\n\t\t} else if name == \"mail\" {\n\t\t\tprintln!(\"MailCommand handling '{}' with args {:?}.\", name, args);\n\t\t}\n\t}\n}\nfn main() {\n\tlet mut cc = CommandChain::new();\n\tcc.add_command(Box::new(UserCommand::new()));\n\tcc.add_command(Box::new(MailCommand::new()));\n\tcc.run_command(\"addUser\", &[\"Toto\", \"users\"]);\n\tcc.run_command(\"mail\", &[\"Sender\", \"Subject\"]);\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential for command injection if input is not sanitized.",
+    "line_number": 65,
+    "line_text": "\tcc.add_command(Box::new(UserCommand::new()));",
+    "pattern_id": "RUST-R-002",
+    "rule": "Command::new\\s*\\(\\s*[^\"']\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "0.63_My_PuTTY/WINDOWS/WINDOW.C",
+    "vulnerability": null,
+    "source code": "\n\n\r\n    error = back->init(NULL, &backhandle, conf,\r\n\t\t       conf_get_str(conf, CONF_host),\r\n\t\t       conf_get_int(conf, CONF_port),\r\n\t\t       &realhost,\r\n\t\t       conf_get_int(conf, CONF_tcp_nodelay),\r\n\t\t       conf_get_int(conf, CONF_tcp_keepalives));\r\n    back->provide_logctx(backhandle, logctx);\r\n    if (error) {\r\n\tchar *str = dupprintf(\"%s Error\", appname);\r\r\n    error = back->init(NULL, &backhandle, conf,\r\n\t\t       conf_get_str(conf, CONF_host),\r\n\t\t       conf_get_int(conf, CONF_port),\r\n\t\t       &realhost,\r\n\t\t       conf_get_int(conf, CONF_tcp_nodelay),\r\n\t\t       conf_get_int(conf, CONF_tcp_keepalives));\r\n    back->provide_logctx(backhandle, logctx);\r\n    if (error) {\r\n\tchar *str = dupprintf(\"%s Error\", appname);\r\n\tsprintf(msg, \"Unable to open connection to\\n\"\r\n\t\t\"%.800s\\n\" \"%s\", conf_dest(conf), error);\r\n\tMessageBox(NULL, msg, str, MB_ICONERROR | MB_OK);\r\n\tsfree(str);\r\n\texit(0);\r\n    }\r\n    window_name = icon_name = NULL;\r\n    title = conf_get_str(conf, CONF_wintitle);\r\n    if (!*title) {\r\n\tsprintf(msg, \"%s - %s\", realhost, appname);\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 337,
+    "line_text": "\tsprintf(msg, \"Unable to open connection to\\n\"\r",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

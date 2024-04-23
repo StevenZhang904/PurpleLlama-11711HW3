@@ -1,0 +1,13 @@
+{
+    "file_path": "assets/AppAssetMultipleLocation.php",
+    "vulnerability": null,
+    "source code": "\n\n    public $basePath = '@webroot';\n    public $baseUrl = '@web';\n    public $css = [\n\n    ];\n    public $js = [\n        'js/public/jAjaxWidget.js',\n        'js/default/marker-cluster.js',\n        'js/default/multiple-location.js',\n        'js/default/gmaprepo.js',    public $basePath = '@webroot';\n    public $baseUrl = '@web';\n    public $css = [\n\n    ];\n    public $js = [\n        'js/public/jAjaxWidget.js',\n        'js/default/marker-cluster.js',\n        'js/default/multiple-location.js',\n        'js/default/gmaprepo.js',\n        'http://maps.googleapis.com/maps/api/js?key=AIzaSyCefZle2DqxF9i51PTfoZsZoOmvWzKYhF4&sensor=true',\n    ];\n    public $depends = [\n        'yii\\bootstrap\\BootstrapAsset', //bootstrap css\n        'yii\\bootstrap\\BootstrapPluginAsset', //bootstrap js\n    ];\n}",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 18,
+    "line_text": "        'http://maps.googleapis.com/maps/api/js?key=AIzaSyCefZle2DqxF9i51PTfoZsZoOmvWzKYhF4&sensor=true',",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

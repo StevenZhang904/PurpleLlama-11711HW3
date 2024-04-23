@@ -1,0 +1,13 @@
+{
+    "file_path": "samples/boards/96b_argonkey/src/main.c",
+    "vulnerability": null,
+    "source code": "\n\n\tstruct sensor_value press, temp;\n#endif\n\n\tlsm6dsl_trig_cnt++;\n\n\tsensor_sample_fetch_chan(dev, SENSOR_CHAN_ACCEL_XYZ);\n\tsensor_channel_get(dev, SENSOR_CHAN_ACCEL_X, &accel_x);\n\tsensor_channel_get(dev, SENSOR_CHAN_ACCEL_Y, &accel_y);\n\tsensor_channel_get(dev, SENSOR_CHAN_ACCEL_Z, &accel_z);\n#ifdef ARGONKEY_TEST_LOG\tstruct sensor_value press, temp;\n#endif\n\n\tlsm6dsl_trig_cnt++;\n\n\tsensor_sample_fetch_chan(dev, SENSOR_CHAN_ACCEL_XYZ);\n\tsensor_channel_get(dev, SENSOR_CHAN_ACCEL_X, &accel_x);\n\tsensor_channel_get(dev, SENSOR_CHAN_ACCEL_Y, &accel_y);\n\tsensor_channel_get(dev, SENSOR_CHAN_ACCEL_Z, &accel_z);\n#ifdef ARGONKEY_TEST_LOG\n\tsprintf(out_str, \"accel (%f %f %f) m/s2\", out_ev(&accel_x),\n\t\t\t\t\t\tout_ev(&accel_y),\n\t\t\t\t\t\tout_ev(&accel_z));\n\tprintk(\"TRIG %s\\n\", out_str);\n#endif\n\n\t/* lsm6dsl gyro */\n\tsensor_sample_fetch_chan(dev, SENSOR_CHAN_GYRO_XYZ);\n\tsensor_channel_get(dev, SENSOR_CHAN_GYRO_X, &gyro_x);\n\tsensor_channel_get(dev, SENSOR_CHAN_GYRO_Y, &gyro_y);",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 51,
+    "line_text": "\tsprintf(out_str, \"accel (%f %f %f) m/s2\", out_ev(&accel_x),",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

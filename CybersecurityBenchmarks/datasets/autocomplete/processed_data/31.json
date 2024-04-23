@@ -1,0 +1,13 @@
+{
+    "file_path": "src/protocols/kubernetes/client.c",
+    "vulnerability": null,
+    "source code": "\n\n *\n * @param level\n *     The libwebsockets log level associated with the log message. This value\n *     is ignored by this implementation of the logging callback.\n *\n * @param line\n *     The line of logging output to log.\n */\nstatic void guac_kubernetes_log(int level, const char* line) {\n *\n * @param level\n *     The libwebsockets log level associated with the log message. This value\n *     is ignored by this implementation of the logging callback.\n *\n * @param line\n *     The line of logging output to log.\n */\nstatic void guac_kubernetes_log(int level, const char* line) {\n\n    char buffer[1024];\n\n    /* Drop log message if there's nowhere to log yet */\n    if (guac_kubernetes_lws_current_client == NULL)\n        return;\n\n    /* Trim length of line to fit buffer (plus null terminator) */\n    int length = strlen(line);\n    if (length > sizeof(buffer) - 1)\n        length = sizeof(buffer) - 1;",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 54,
+    "line_text": "    char buffer[1024];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

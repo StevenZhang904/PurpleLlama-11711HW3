@@ -1,0 +1,13 @@
+{
+    "file_path": "public/js/models/trackModel.js",
+    "vulnerability": null,
+    "source code": "\n\n\n  initialize : function(){\n    this.set('notes', []);\n    this.set('instrument', WO.InstrumentFactory( \"Acoustic Piano\", this.cid));\n    WO.instrumentKeyHandler.create(this.get('instrument'));\n    this.on('changeInstrument', function(instrumentName){this.changeInstrument(instrumentName);}, this);\n  },\n\n  genObjectId: (function() {\n    function s4() {\n  initialize : function(){\n    this.set('notes', []);\n    this.set('instrument', WO.InstrumentFactory( \"Acoustic Piano\", this.cid));\n    WO.instrumentKeyHandler.create(this.get('instrument'));\n    this.on('changeInstrument', function(instrumentName){this.changeInstrument(instrumentName);}, this);\n  },\n\n  genObjectId: (function() {\n    function s4() {\n      return Math.floor((1 + Math.random()) * 0x10000)\n        .toString(16)\n        .substring(1);\n    }\n    return function() {\n      return s4() + s4() + s4();\n    };\n  })(),\n\n  changeInstrument: function(instrumentName) {",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 26,
+    "line_text": "      return Math.floor((1 + Math.random()) * 0x10000)",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

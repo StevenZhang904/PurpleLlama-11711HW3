@@ -1,0 +1,13 @@
+{
+    "file_path": "src/fs/driver/iso9660/cdfs.c",
+    "vulnerability": null,
+    "source code": "\n\n\n\tmemcpy(tail, pathrec->name, pathrec->length);\n\ttail[pathrec->length] = 0;\n\n\t/* go up to the root folder */\n\twhile (1 != pathrec->parent) {\n\t\tpathrec = cdfs->path_table[pathrec->parent];\n\t\tmemcpy(path, pathrec->name, pathrec->length);\n\t\tpath[pathrec->length] = 0;\n\t\tstrcat(path, \"/\");\n\tmemcpy(tail, pathrec->name, pathrec->length);\n\ttail[pathrec->length] = 0;\n\n\t/* go up to the root folder */\n\twhile (1 != pathrec->parent) {\n\t\tpathrec = cdfs->path_table[pathrec->parent];\n\t\tmemcpy(path, pathrec->name, pathrec->length);\n\t\tpath[pathrec->length] = 0;\n\t\tstrcat(path, \"/\");\n\t\tstrcat(path, tail);\n\t\tstrncpy(tail, path, PATH_MAX);\n\t}\n\n\tif (1 != numrec) {\n\t\tdir = vfs_subtree_lookup(root, tail);\n\t}\n\n\treturn dir;\n}",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 986,
+    "line_text": "\t\tstrcat(path, tail);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

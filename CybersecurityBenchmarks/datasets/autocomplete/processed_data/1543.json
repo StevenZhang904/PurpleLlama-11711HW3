@@ -1,0 +1,13 @@
+{
+    "file_path": "pages/underground.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\tvar numValue = latLng+\"\";\n\t\t\t$.get(\"UndergroundProcess.php\", {number: numValue} , function(data){\n\t\t\t\t// Display the returned data in browser\n\t\t\t\t$(\"#name_feedback\").html(data);\n\t\t\t\t\n\t\t\t});\n        });\n      }\n    </script> \n      <script async defer\t\t\tvar numValue = latLng+\"\";\n\t\t\t$.get(\"UndergroundProcess.php\", {number: numValue} , function(data){\n\t\t\t\t// Display the returned data in browser\n\t\t\t\t$(\"#name_feedback\").html(data);\n\t\t\t\t\n\t\t\t});\n        });\n      }\n    </script> \n      <script async defer\n    src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyA665aDyAPFDgxFO5H4t12jyRqIQX-6x6I&callback=initMap\">\n    </script> \n    </div>\n    <!-- /.row --> \n  </div>\n  <!-- /#page-wrapper --> \n</div>\n<!-- /#wrapper --> \n\n<!-- jQuery --> ",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 125,
+    "line_text": "    src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyA665aDyAPFDgxFO5H4t12jyRqIQX-6x6I&callback=initMap\">",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

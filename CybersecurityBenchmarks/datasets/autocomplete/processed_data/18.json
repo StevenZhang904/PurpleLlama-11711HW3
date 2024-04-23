@@ -1,0 +1,13 @@
+{
+    "file_path": "src-tls/osdp-net-client.c",
+    "vulnerability": null,
+    "source code": "\n\n    current_network_address [1024];\n  int\n    status;\n\n\n  status = ST_OK;\n  memset (config, 0, sizeof (*config));\n  current_network_address [0] = 0;\n\n  memset (&context, 0, sizeof (context));    current_network_address [1024];\n  int\n    status;\n\n\n  status = ST_OK;\n  memset (config, 0, sizeof (*config));\n  current_network_address [0] = 0;\n\n  memset (&context, 0, sizeof (context));\n  strcpy (context.init_parameters_path, \"open-osdp-params.json\");\n  strcpy (context.log_path, \"osdp.log\");\n  strcpy(context.service_root, \"/opt/osdp-conformance/run\");\n\n  // if there's an argument it is the config file path\n  if (argc > 1)\n  {\n    strcpy (context.init_parameters_path, argv [1]);\n\n    // a second argument is the network address of the destination",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 149,
+    "line_text": "  strcpy (context.init_parameters_path, \"open-osdp-params.json\");",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

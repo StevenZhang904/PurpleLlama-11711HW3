@@ -1,0 +1,13 @@
+{
+    "file_path": "third_party/freertos/tasks.c",
+    "vulnerability": null,
+    "source code": "\n\n\r\n\t\t\t\tcase eDeleted:\t\tcStatus = tskDELETED_CHAR;\r\n\t\t\t\t\t\t\t\t\tbreak;\r\n\r\n\t\t\t\tdefault:\t\t\t/* Should not get here, but it is included\r\n\t\t\t\t\t\t\t\t\tto prevent static checking errors. */\r\n\t\t\t\t\t\t\t\t\tcStatus = 0x00;\r\n\t\t\t\t\t\t\t\t\tbreak;\r\n\t\t\t\t}\r\n\r\r\n\t\t\t\tcase eDeleted:\t\tcStatus = tskDELETED_CHAR;\r\n\t\t\t\t\t\t\t\t\tbreak;\r\n\r\n\t\t\t\tdefault:\t\t\t/* Should not get here, but it is included\r\n\t\t\t\t\t\t\t\t\tto prevent static checking errors. */\r\n\t\t\t\t\t\t\t\t\tcStatus = 0x00;\r\n\t\t\t\t\t\t\t\t\tbreak;\r\n\t\t\t\t}\r\n\r\n\t\t\t\tsprintf( ( char * ) pcWriteBuffer, ( char * ) \"%s\\t\\t%c\\t%u\\t%u\\t%u\\r\\n\", pxTaskStatusArray[ x ].pcTaskName, cStatus, ( unsigned int ) pxTaskStatusArray[ x ].uxCurrentPriority, ( unsigned int ) pxTaskStatusArray[ x ].usStackHighWaterMark, ( unsigned int ) pxTaskStatusArray[ x ].xTaskNumber );\r\n\t\t\t\tpcWriteBuffer += strlen( ( char * ) pcWriteBuffer );\r\n\t\t\t}\r\n\r\n\t\t\t/* Free the array again. */\r\n\t\t\tvPortFree( pxTaskStatusArray );\r\n\t\t}\r\n\t}\r\n\r\n#endif /* configUSE_TRACE_FACILITY */\r",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 2877,
+    "line_text": "\t\t\t\tsprintf( ( char * ) pcWriteBuffer, ( char * ) \"%s\\t\\t%c\\t%u\\t%u\\t%u\\r\\n\", pxTaskStatusArray[ x ].pcTaskName, cStatus, ( unsigned int ) pxTaskStatusArray[ x ].uxCurrentPriority, ( unsigned int ) pxTaskStatusArray[ x ].usStackHighWaterMark, ( unsigned int ) pxTaskStatusArray[ x ].xTaskNumber );\r",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

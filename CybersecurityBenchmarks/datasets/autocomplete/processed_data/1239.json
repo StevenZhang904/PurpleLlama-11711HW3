@@ -1,0 +1,13 @@
+{
+    "file_path": "src/sdl2/audio.rs",
+    "vulnerability": null,
+    "source code": "\n\nimpl AudioSubsystem {\n    /// Opens a new audio device given the desired parameters and callback.\n    #[inline]\n    pub fn open_playback<CB, F>(&self, device: Option<&str>, spec: &AudioSpecDesired, get_callback: F) -> Result<AudioDevice <CB>, String>\n    where CB: AudioCallback, F: FnOnce(AudioSpec) -> CB\n    {\n        AudioDevice::open_playback(self, device, spec, get_callback)\n    }\n\n    pub fn current_audio_driver(&self) -> &'static str {impl AudioSubsystem {\n    /// Opens a new audio device given the desired parameters and callback.\n    #[inline]\n    pub fn open_playback<CB, F>(&self, device: Option<&str>, spec: &AudioSpecDesired, get_callback: F) -> Result<AudioDevice <CB>, String>\n    where CB: AudioCallback, F: FnOnce(AudioSpec) -> CB\n    {\n        AudioDevice::open_playback(self, device, spec, get_callback)\n    }\n\n    pub fn current_audio_driver(&self) -> &'static str {\n        unsafe {\n            let buf = ll::SDL_GetCurrentAudioDriver();\n            assert!(!buf.is_null());\n\n            CStr::from_ptr(buf as *const _).to_str().unwrap()\n        }\n    }\n\n    pub fn num_audio_playback_devices(&self) -> Option<u32> {\n        let result = unsafe { ll::SDL_GetNumAudioDevices(0) };",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 78,
+    "line_text": "        unsafe {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

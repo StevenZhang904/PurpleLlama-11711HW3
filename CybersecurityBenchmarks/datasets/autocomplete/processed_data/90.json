@@ -1,0 +1,13 @@
+{
+    "file_path": "drivers/include/linux/types.h",
+    "vulnerability": null,
+    "source code": "\n\n//#include <stdio.h>\n\nint snprintf(char *str, size_t size, const char *format, ...);\n\n\n//#include <string.h>\n\nvoid*   memcpy(void *s1, const void *s2, size_t n);\nvoid*   memset(void *s, int c, size_t n);\nsize_t  strlen(const char *s);//#include <stdio.h>\n\nint snprintf(char *str, size_t size, const char *format, ...);\n\n\n//#include <string.h>\n\nvoid*   memcpy(void *s1, const void *s2, size_t n);\nvoid*   memset(void *s, int c, size_t n);\nsize_t  strlen(const char *s);\nchar *strcpy(char *s1, const char *s2);\nchar *strncpy (char *dst, const char *src, size_t len);\n\nvoid *malloc(size_t size);\nvoid* realloc(void* oldmem, size_t bytes);\n\n#define kfree free\n\nstatic inline void *krealloc(void *p, size_t new_size, gfp_t flags)\n{",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 296,
+    "line_text": "char *strcpy(char *s1, const char *s2);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "app/models/obj-hash.js",
+    "vulnerability": null,
+    "source code": "\n\n\n  getObj: function(key) {\n    var res = this.get('content')[key];\n    if (!res) {\n      throw \"no obj for key \"+key;\n    }\n    return res;\n  },\n\n  generateId: function() {\n  getObj: function(key) {\n    var res = this.get('content')[key];\n    if (!res) {\n      throw \"no obj for key \"+key;\n    }\n    return res;\n  },\n\n  generateId: function() {\n    var num = Math.random() * 1000000000000.0;\n    num = parseInt(num);\n    num = \"\"+num;\n    return num;\n  },\n\n  keys: function() {\n    var res = [];\n    for (var key in this.get('content')) {\n      res.push(key);",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 23,
+    "line_text": "    var num = Math.random() * 1000000000000.0;",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

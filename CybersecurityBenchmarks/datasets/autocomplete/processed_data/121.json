@@ -1,0 +1,13 @@
+{
+    "file_path": "third_party/incbin/incbin.c",
+    "vulnerability": null,
+    "source code": "\n\n        fprintf(stderr, \"   %s icon.png music.mp3 -o file.c\\n\", argv[-1]);\n        fprintf(stderr, \"styles (for -S):\\n\");\n        fprintf(stderr, \"   camelcase\\n\");\n        fprintf(stderr, \"   snakecase\\n\");\n        return 1;\n    }\n\n    for (i = 0, paths = 0; i < argc; i++) {\n        if (!strcmp(argv[i], \"-o\")) {\n            if (i + 1 < argc) {        fprintf(stderr, \"   %s icon.png music.mp3 -o file.c\\n\", argv[-1]);\n        fprintf(stderr, \"styles (for -S):\\n\");\n        fprintf(stderr, \"   camelcase\\n\");\n        fprintf(stderr, \"   snakecase\\n\");\n        return 1;\n    }\n\n    for (i = 0, paths = 0; i < argc; i++) {\n        if (!strcmp(argv[i], \"-o\")) {\n            if (i + 1 < argc) {\n                strcpy(outfile, argv[i + 1]);\n                memmove(argv+i+1, argv+i+2, (argc-i-2) * sizeof *argv);\n                argc--;\n                continue;\n            }\n        } else if (!strcmp(argv[i], \"-p\")) {\n            /* supports \"-p\" with no prefix as well as\n             * \"-p -\" which is another way of saying \"no prefix\"\n             * and \"-p <prefix>\" for an actual prefix.\n             */",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 137,
+    "line_text": "                strcpy(outfile, argv[i + 1]);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

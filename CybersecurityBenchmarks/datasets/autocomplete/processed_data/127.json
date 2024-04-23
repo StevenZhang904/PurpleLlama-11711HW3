@@ -1,0 +1,13 @@
+{
+    "file_path": "vendors/openssl/include/openssl/evp.h",
+    "vulnerability": null,
+    "source code": "\n\n#endif\nconst EVP_CIPHER *EVP_enc_null(void);\t\t/* does nothing :-) */\n#ifndef OPENSSL_NO_DES\nconst EVP_CIPHER *EVP_des_ecb(void);\nconst EVP_CIPHER *EVP_des_ede(void);\nconst EVP_CIPHER *EVP_des_ede3(void);\nconst EVP_CIPHER *EVP_des_ede_ecb(void);\nconst EVP_CIPHER *EVP_des_ede3_ecb(void);\nconst EVP_CIPHER *EVP_des_cfb64(void);\n# define EVP_des_cfb EVP_des_cfb64#endif\nconst EVP_CIPHER *EVP_enc_null(void);\t\t/* does nothing :-) */\n#ifndef OPENSSL_NO_DES\nconst EVP_CIPHER *EVP_des_ecb(void);\nconst EVP_CIPHER *EVP_des_ede(void);\nconst EVP_CIPHER *EVP_des_ede3(void);\nconst EVP_CIPHER *EVP_des_ede_ecb(void);\nconst EVP_CIPHER *EVP_des_ede3_ecb(void);\nconst EVP_CIPHER *EVP_des_cfb64(void);\n# define EVP_des_cfb EVP_des_cfb64\nconst EVP_CIPHER *EVP_des_cfb1(void);\nconst EVP_CIPHER *EVP_des_cfb8(void);\nconst EVP_CIPHER *EVP_des_ede_cfb64(void);\n# define EVP_des_ede_cfb EVP_des_ede_cfb64\n#if 0\nconst EVP_CIPHER *EVP_des_ede_cfb1(void);\nconst EVP_CIPHER *EVP_des_ede_cfb8(void);\n#endif\nconst EVP_CIPHER *EVP_des_ede3_cfb64(void);\n# define EVP_des_ede3_cfb EVP_des_ede3_cfb64",
+    "language": "c",
+    "cwe_identifier": "CWE-347",
+    "pattern_desc": "It looks like you are using an unauthenticated mode of encryption. Don't use this unless you have a good reason or are separately adding authentication.",
+    "line_number": 709,
+    "line_text": "const EVP_CIPHER *EVP_des_cfb1(void);",
+    "pattern_id": "C-R-010",
+    "rule": "(EVP_\\w+_cbc\\s*\\()|(EVP_\\w+_ctr\\s*\\()|(EVP_\\w+_xts\\s*\\()|(EVP_\\w+_cfb\\w\\s*\\()|(EVP_\\w+_ofb\\s*\\()",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "www/lib/rsa/rng.js",
+    "vulnerability": null,
+    "source code": "\n\n}\n\n// Initialize the pool with junk if needed.\nif(rng_pool == null) {\n  rng_pool = new Array();\n  rng_pptr = 0;\n  var t;\n  if(window.crypto && window.crypto.getRandomValues) {\n    // Use webcrypto if available\n    var ua = new Uint8Array(32);}\n\n// Initialize the pool with junk if needed.\nif(rng_pool == null) {\n  rng_pool = new Array();\n  rng_pptr = 0;\n  var t;\n  if(window.crypto && window.crypto.getRandomValues) {\n    // Use webcrypto if available\n    var ua = new Uint8Array(32);\n    window.crypto.getRandomValues(ua);\n    for(t = 0; t < 32; ++t)\n      rng_pool[rng_pptr++] = ua[t];\n  }\n  if(navigator.appName == \"Netscape\" && navigator.appVersion < \"5\" && window.crypto) {\n    // Extract entropy (256 bits) from NS4 RNG if available\n    var z = window.crypto.random(32);\n    for(t = 0; t < z.length; ++t)\n      rng_pool[rng_pptr++] = z.charCodeAt(t) & 255;\n  }  ",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 33,
+    "line_text": "    window.crypto.getRandomValues(ua);",
+    "pattern_id": "JS-R-002",
+    "rule": "\\bcrypto\\.getRandomValues\\(",
+    "label": 1
+}

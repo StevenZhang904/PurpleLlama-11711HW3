@@ -1,0 +1,13 @@
+{
+    "file_path": "tools/tracker/src/tune.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\trow++;\n\t\t\t}\n\t\t} while ( tmpNote.time != 0 );\n\t}\n\n\treturn true;\n}\n\nbool Tune::Save(const char * filename)\n{\t\t\t\trow++;\n\t\t\t}\n\t\t} while ( tmpNote.time != 0 );\n\t}\n\n\treturn true;\n}\n\nbool Tune::Save(const char * filename)\n{\n\tchar _filename[256];\n\tstrcpy(_filename, filename);\n\tstrcat(_filename, \".txt\");\n\n\tFILE * f = fopen(_filename, \"wb\");\n\n\tif ( f == 0 ) {\n\t\treturn false;\n\t}\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 171,
+    "line_text": "\tchar _filename[256];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

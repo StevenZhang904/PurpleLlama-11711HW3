@@ -1,0 +1,13 @@
+{
+    "file_path": "src/crypt.c",
+    "vulnerability": null,
+    "source code": "\n\n  password = config_get(\"password\");\n  if (!password || !*password)\n    return;\n\n  crypt_cipher = EVP_aes_256_cbc();\n  if (EVP_CIPHER_iv_length(crypt_cipher) != CRYPT_IV_SIZE)\n    error(\"Cipher IV length does not match built-in length\");\n  if (EVP_CIPHER_key_length(crypt_cipher) != CRYPT_KEY_SIZE)\n    error(\"Cipher KEY length does not match built-in length\");\n  password = config_get(\"password\");\n  if (!password || !*password)\n    return;\n\n  crypt_cipher = EVP_aes_256_cbc();\n  if (EVP_CIPHER_iv_length(crypt_cipher) != CRYPT_IV_SIZE)\n    error(\"Cipher IV length does not match built-in length\");\n  if (EVP_CIPHER_key_length(crypt_cipher) != CRYPT_KEY_SIZE)\n    error(\"Cipher KEY length does not match built-in length\");\n\n  EVP_BytesToKey(crypt_cipher, EVP_sha1(), NULL, (uint8_t*) password,\n                 strlen(password), 8, crypt_cipher_key, NULL);\n\n  crypt_blocksize = EVP_CIPHER_block_size(crypt_cipher);\n  crypt_cipher_enabled = true;\n}\n\nvoid crypt_unload() {\n  crypt_cipher_enabled = false;\n}",
+    "language": "c",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure.",
+    "line_number": 54,
+    "line_text": "  EVP_BytesToKey(crypt_cipher, EVP_sha1(), NULL, (uint8_t*) password,",
+    "pattern_id": "C-R-005",
+    "rule": "(SHA1_Init\\s*\\()|(EVP_sha1\\s*\\()|(EVP_sha1_md5\\s*\\()",
+    "label": 1
+}

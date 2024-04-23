@@ -1,0 +1,13 @@
+{
+    "file_path": "application/models/M_Login.php",
+    "vulnerability": null,
+    "source code": "\n\n        $this->db->where('password', $password);\n        $this->db->where('assigned_role', $role);\n\n        $query = $this->db->get();\n\n        return $query->result();\n    }\n\n    function update_password(){\n        $this->db->where('password', $password);\n        $this->db->where('assigned_role', $role);\n\n        $query = $this->db->get();\n\n        return $query->result();\n    }\n\n    function update_password(){\n\n        $this->db->set('password', sha1($this->input->post('new_pass', TRUE)));\n        $this->db->where('login_id', $this->session->userdata('user_id'));\n\n        return $this->db->update('tbl_login');\n    }\n}",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 72,
+    "line_text": "        $this->db->set('password', sha1($this->input->post('new_pass', TRUE)));",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/org/utilities/CUtils.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\n\t/**\n\t * Gets the random string.\n\t *\n\t * @param rndSeed the rnd seed\n\t * @return the random string\n\t */\n\tpublic static String getRandomString(double rndSeed) {\n\t\tMessageDigest m;\n\t\ttry {\t\n\t/**\n\t * Gets the random string.\n\t *\n\t * @param rndSeed the rnd seed\n\t * @return the random string\n\t */\n\tpublic static String getRandomString(double rndSeed) {\n\t\tMessageDigest m;\n\t\ttry {\n\t\t\tm = MessageDigest.getInstance(\"MD5\");\n\t\t\tbyte[] data = (\"\" + rndSeed).getBytes();\n\t\t\tm.update(data, 0, data.length);\n\t\t\tBigInteger i = new BigInteger(1, m.digest());\n\t\t\treturn String.format(\"%1$032X\", i);\n\t\t} catch (NoSuchAlgorithmException e) {\n\t\t}\n\t\treturn \"\" + rndSeed;\n\t}\n\t",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 41,
+    "line_text": "\t\t\tm = MessageDigest.getInstance(\"MD5\");",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

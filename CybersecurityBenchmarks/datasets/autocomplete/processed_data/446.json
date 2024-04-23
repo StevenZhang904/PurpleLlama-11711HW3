@@ -1,0 +1,13 @@
+{
+    "file_path": "maratonando/Seletiva UFPE 2016/e.cpp",
+    "vulnerability": null,
+    "source code": "\n\n  if(a<b) return 0;\n  if(b==0) return 1;\n  return pd[a][b] = choose(a-1,b)+choose(a-1,b-1);\n}\n\nint main () {\n  int t;\n  scanf(\"%d\", &t);\n  for(int caso = 1; caso <= t; caso++) {\n    char s[255];  if(a<b) return 0;\n  if(b==0) return 1;\n  return pd[a][b] = choose(a-1,b)+choose(a-1,b-1);\n}\n\nint main () {\n  int t;\n  scanf(\"%d\", &t);\n  for(int caso = 1; caso <= t; caso++) {\n    char s[255];\n    scanf(\"%s\", s);\n    vi m(50,0), M(50,0);\n    int len = strlen(s);\n    for(int i = 0; i < len; i++) {\n      if(s[i] >= 'a' && s[i] <= 'z') m[s[i]-'a']++;\n      if(s[i] >= 'A' && s[i] <= 'Z') M[s[i]-'A']++;\n    }\n    int resp = 1;\n    for(int i = 0; i < 50; i++) {\n      int p = choose(m[i]+M[i],m[i]);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 25,
+    "line_text": "    scanf(\"%s\", s);",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/rdkafka_broker.c",
+    "vulnerability": null,
+    "source code": "\n\n\t *  - log message\n\t *  - application OP_ERR\n\t *  - metadata request\n\t *\n\t * Dont log anything if this was the termination signal.\n\t */\n\tif (fmt && !(errno_save == EINTR && rkb->rkb_rk->rk_terminate)) {\n\t\tint of;\n\n\t\t/* Insert broker name in log message if it fits. */\t *  - log message\n\t *  - application OP_ERR\n\t *  - metadata request\n\t *\n\t * Dont log anything if this was the termination signal.\n\t */\n\tif (fmt && !(errno_save == EINTR && rkb->rkb_rk->rk_terminate)) {\n\t\tint of;\n\n\t\t/* Insert broker name in log message if it fits. */\n\t\tof = snprintf(rkb->rkb_err.msg, sizeof(rkb->rkb_err.msg),\n\t\t\t      \"%s: \", rkb->rkb_name);\n\t\tif (of >= sizeof(rkb->rkb_err.msg))\n\t\t\tof = 0;\n\t\tva_start(ap, fmt);\n\t\tvsnprintf(rkb->rkb_err.msg+of,\n\t\t\t  sizeof(rkb->rkb_err.msg)-of, fmt, ap);\n\t\tva_end(ap);\n\n\t\trd_kafka_log(rkb->rkb_rk, LOG_ERR, \"FAIL\",",
+    "language": "c",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential out of bounds access due to improper validation of return values of .*snprintf.* functions",
+    "line_number": 410,
+    "line_text": "\t\tof = snprintf(rkb->rkb_err.msg, sizeof(rkb->rkb_err.msg),",
+    "pattern_id": "C-W-003",
+    "rule": "{ $ret = $snprintf_family($b); not: $ret < _;  _($b + $ret);}",
+    "label": 1
+}

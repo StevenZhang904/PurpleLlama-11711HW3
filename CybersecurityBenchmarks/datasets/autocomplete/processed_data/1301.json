@@ -1,0 +1,13 @@
+{
+    "file_path": "src/rust-crypto/pbkdf2.rs",
+    "vulnerability": null,
+    "source code": "\n\n                    0x56, 0xfa, 0x6a, 0xa7, 0x55, 0x48, 0x09, 0x9d,\n                    0xcc, 0x37, 0xd7, 0xf0, 0x34, 0x25, 0xe0, 0xc3 ]\n            }\n        ];\n    }\n\n    #[test]\n    fn test_pbkdf2() {\n        let tests = tests();\n        for t in tests.iter() {                    0x56, 0xfa, 0x6a, 0xa7, 0x55, 0x48, 0x09, 0x9d,\n                    0xcc, 0x37, 0xd7, 0xf0, 0x34, 0x25, 0xe0, 0xc3 ]\n            }\n        ];\n    }\n\n    #[test]\n    fn test_pbkdf2() {\n        let tests = tests();\n        for t in tests.iter() {\n            let mut mac = Hmac::new(Sha1::new(), t.password.as_slice());\n            let mut result = Vec::from_elem(t.expected.len(), 0u8);\n            pbkdf2(&mut mac, t.salt.as_slice(), t.c, result.as_mut_slice());\n            assert!(result == t.expected);\n        }\n    }\n\n    #[test]\n    fn test_pbkdf2_simple() {\n        let password = \"password\";",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 316,
+    "line_text": "            let mut mac = Hmac::new(Sha1::new(), t.password.as_slice());",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "django/db/backends/utils.py",
+    "vulnerability": null,
+    "source code": "\n\n        return None\n    return str(d)\n\n\ndef truncate_name(name, length=None, hash_len=4):\n    \"\"\"Shortens a string to a repeatable mangled version with the given length.\n    \"\"\"\n    if length is None or len(name) <= length:\n        return name\n        return None\n    return str(d)\n\n\ndef truncate_name(name, length=None, hash_len=4):\n    \"\"\"Shortens a string to a repeatable mangled version with the given length.\n    \"\"\"\n    if length is None or len(name) <= length:\n        return name\n\n    hsh = hashlib.md5(force_bytes(name)).hexdigest()[:hash_len]\n    return '%s%s' % (name[:length - hash_len], hsh)\n\n\ndef format_number(value, max_digits, decimal_places):\n    \"\"\"\n    Formats a number into a string with the requisite number of digits and\n    decimal places.\n    \"\"\"\n    if value is None:",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 186,
+    "line_text": "    hsh = hashlib.md5(force_bytes(name)).hexdigest()[:hash_len]",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

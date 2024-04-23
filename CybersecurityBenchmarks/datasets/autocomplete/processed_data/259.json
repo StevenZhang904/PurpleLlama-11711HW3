@@ -1,0 +1,13 @@
+{
+    "file_path": "test/encoder_settings.cc",
+    "vulnerability": null,
+    "source code": "\n\n  stream_settings.resize(num_streams);\n  return stream_settings;\n}\n\nVideoCodec CreateDecoderVideoCodec(\n    const VideoSendStream::Config::EncoderSettings& encoder_settings) {\n  VideoCodec codec;\n  memset(&codec, 0, sizeof(codec));\n\n  codec.plType = encoder_settings.payload_type;  stream_settings.resize(num_streams);\n  return stream_settings;\n}\n\nVideoCodec CreateDecoderVideoCodec(\n    const VideoSendStream::Config::EncoderSettings& encoder_settings) {\n  VideoCodec codec;\n  memset(&codec, 0, sizeof(codec));\n\n  codec.plType = encoder_settings.payload_type;\n  strcpy(codec.plName, encoder_settings.payload_name.c_str());\n  codec.codecType =\n      (encoder_settings.payload_name == \"VP8\" ? kVideoCodecVP8\n                                              : kVideoCodecGeneric);\n\n  if (codec.codecType == kVideoCodecVP8) {\n    codec.codecSpecific.VP8.resilience = kResilientStream;\n    codec.codecSpecific.VP8.numberOfTemporalLayers = 1;\n    codec.codecSpecific.VP8.denoisingOn = true;\n    codec.codecSpecific.VP8.errorConcealmentOn = false;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 61,
+    "line_text": "  strcpy(codec.plName, encoder_settings.payload_name.c_str());",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "dtn-experiment/DTN/DTN2/applib/APIEndpointIDOpt.cc",
+    "vulnerability": null,
+    "source code": "\n\n                                   dtn_endpoint_id_t* valp,\n                                   const char* valdesc, const char* desc,\n                                   bool* setp)\n    : Opt(shortopt, longopt, valp, setp, true, valdesc, desc)\n{\n}\n\nint\nAPIEndpointIDOpt::set(const char* val, size_t len)\n{                                   dtn_endpoint_id_t* valp,\n                                   const char* valdesc, const char* desc,\n                                   bool* setp)\n    : Opt(shortopt, longopt, valp, setp, true, valdesc, desc)\n{\n}\n\nint\nAPIEndpointIDOpt::set(const char* val, size_t len)\n{\n    char buf[DTN_MAX_ENDPOINT_ID];\n    if (len > (DTN_MAX_ENDPOINT_ID - 1)) {\n        return -1;\n    }\n    \n    memcpy(buf, val, len);\n    buf[len] = '\\0';\n\n    int err = dtn_parse_eid_string(((dtn_endpoint_id_t*)valp_), buf);\n    if (err != 0) {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 45,
+    "line_text": "    char buf[DTN_MAX_ENDPOINT_ID];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

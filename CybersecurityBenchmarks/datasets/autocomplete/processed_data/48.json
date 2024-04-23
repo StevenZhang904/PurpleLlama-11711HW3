@@ -1,0 +1,13 @@
+{
+    "file_path": "xcc/test/juliet/testcases/CWE121_Stack_Based_Buffer_Overflow/s08/CWE121_Stack_Based_Buffer_Overflow__dest_char_alloca_cat_67b.c",
+    "vulnerability": null,
+    "source code": "\n\n#ifndef OMITBAD\r\n\r\nvoid CWE121_Stack_Based_Buffer_Overflow__dest_char_alloca_cat_67b_badSink(CWE121_Stack_Based_Buffer_Overflow__dest_char_alloca_cat_67_structType myStruct)\r\n{\r\n    char * data = myStruct.structFirst;\r\n    {\r\n        char source[100];\r\n        memset(source, 'C', 100-1); /* fill with 'C's */\r\n        source[100-1] = '\\0'; /* null terminate */\r\n        /* POTENTIAL FLAW: Possible buffer overflow if the sizeof(data)-strlen(data) is less than the length of source */\r#ifndef OMITBAD\r\n\r\nvoid CWE121_Stack_Based_Buffer_Overflow__dest_char_alloca_cat_67b_badSink(CWE121_Stack_Based_Buffer_Overflow__dest_char_alloca_cat_67_structType myStruct)\r\n{\r\n    char * data = myStruct.structFirst;\r\n    {\r\n        char source[100];\r\n        memset(source, 'C', 100-1); /* fill with 'C's */\r\n        source[100-1] = '\\0'; /* null terminate */\r\n        /* POTENTIAL FLAW: Possible buffer overflow if the sizeof(data)-strlen(data) is less than the length of source */\r\n        strcat(data, source);\r\n        printLine(data);\r\n    }\r\n}\r\n\r\n#endif /* OMITBAD */\r\n\r\n#ifndef OMITGOOD\r\n\r\n/* goodG2B uses the GoodSource with the BadSink */\r",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 36,
+    "line_text": "        strcat(data, source);\r",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

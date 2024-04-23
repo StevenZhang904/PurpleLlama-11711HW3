@@ -1,0 +1,13 @@
+{
+    "file_path": "src/vnsw/agent/services/test/metadata_test.cc",
+    "vulnerability": null,
+    "source code": "\n\n    MetadataInfo *sand = new MetadataInfo();\n    Sandesh::set_response_callback(\n             boost::bind(&MetadataTest::CheckSandeshResponse, this, _1));\n    sand->HandleRequest();\n    client->WaitForIdle();\n    sand->Release();\n\n    // for agent to identify the vm, the remote end should have vm's ip;\n    // overload the FindVmUuidFromMetadataIp to return true\n    InterfaceTable *intf_table = Agent::GetInstance()->interface_table();    MetadataInfo *sand = new MetadataInfo();\n    Sandesh::set_response_callback(\n             boost::bind(&MetadataTest::CheckSandeshResponse, this, _1));\n    sand->HandleRequest();\n    client->WaitForIdle();\n    sand->Release();\n\n    // for agent to identify the vm, the remote end should have vm's ip;\n    // overload the FindVmUuidFromMetadataIp to return true\n    InterfaceTable *intf_table = Agent::GetInstance()->interface_table();\n    std::auto_ptr<InterfaceTable> interface_table(new TestInterfaceTable());\n    Agent::GetInstance()->set_interface_table(interface_table.get());\n    SendHttpClientRequest(GET_METHOD);\n    METADATA_CHECK (stats.responses < 1);\n    Agent::GetInstance()->set_interface_table(intf_table);\n    EXPECT_EQ(2U, stats.requests);\n    EXPECT_EQ(1U, stats.proxy_sessions);\n    EXPECT_EQ(1U, stats.internal_errors);\n\n    client->Reset();",
+    "language": "cpp",
+    "cwe_identifier": "CWE-665",
+    "pattern_desc": "Uses deprecated auto_ptr, which can lead to undefined behavior.",
+    "line_number": 375,
+    "line_text": "    std::auto_ptr<InterfaceTable> interface_table(new TestInterfaceTable());",
+    "pattern_id": "CPP-R-001",
+    "rule": "\\bstd::auto_ptr<\\s*\\w+\\s*>",
+    "label": 1
+}

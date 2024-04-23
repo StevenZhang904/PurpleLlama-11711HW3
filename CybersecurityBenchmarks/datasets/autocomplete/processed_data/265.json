@@ -1,0 +1,13 @@
+{
+    "file_path": "scripts/gen_rotations/src/RotLib.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\tout << \" - Number of sequences: \" << L.seqs.size() << endl;\n\tout << \"=================================\" << endl;\n\treturn out;\n}\n\nint RotLib::estimate_storage(double thres, int Na) {\n\tint K10 = -log10(thres);\n\tint T = 10 * K10 + 3; // estimated T-count for each angle\n\tint bytes = Na * (2.5 * T + 200) / 8;\n\tchar s_unit[5];\tout << \" - Number of sequences: \" << L.seqs.size() << endl;\n\tout << \"=================================\" << endl;\n\treturn out;\n}\n\nint RotLib::estimate_storage(double thres, int Na) {\n\tint K10 = -log10(thres);\n\tint T = 10 * K10 + 3; // estimated T-count for each angle\n\tint bytes = Na * (2.5 * T + 200) / 8;\n\tchar s_unit[5];\n\tstrcpy(s_unit, lib_s->unit);\n\tfor (int i = 0; s_unit[i] != '\\0'; i++) {\n\t\ts_unit[i] = toupper(s_unit[i]);\n\t}\n\tstring str_unit(s_unit);\n\tstring units[5] = {\"B\", \"KB\", \"MB\", \"GB\", \"TB\"};\n\tint i = 0;\n\tint mult = 1;\n\twhile (i < 5 && str_unit.compare(units[i]) != 0) {\n\t\tmult *= 1024;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 36,
+    "line_text": "\tstrcpy(s_unit, lib_s->unit);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

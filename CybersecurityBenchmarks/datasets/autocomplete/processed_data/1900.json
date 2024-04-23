@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/test_phase2.py",
+    "vulnerability": null,
+    "source code": "\n\nfrom util import app\nimport hashlib\nimport os\n\nphase2_url = '/phase2-%s/' % os.environ.get('PHASE2_TOKEN')\nadmin_password = u'adminpass'from util import app\nimport hashlib\nimport os\n\nphase2_url = '/phase2-%s/' % os.environ.get('PHASE2_TOKEN')\nadmin_password = u'adminpass'\nadmin_hash = hashlib.sha1(admin_password.encode('utf-8')).hexdigest()\nsession_key = 'sessionkey'\nadmin_session_key = 'adminsessionkey'\n\n\ndef init_data(redis):\n    redis.set('user:test:password', hashlib.sha1(b'test').hexdigest())\n    redis.set('user:admin:password', admin_hash)\n    redis.set('user:test:1', 'Buy groceries')\n    redis.set('user:test:2', 'Clean the patio')",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 7,
+    "line_text": "admin_hash = hashlib.sha1(admin_password.encode('utf-8')).hexdigest()",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

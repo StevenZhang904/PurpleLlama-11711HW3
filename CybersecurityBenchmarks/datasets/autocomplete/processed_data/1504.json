@@ -1,0 +1,13 @@
+{
+    "file_path": "header-landing-page.php",
+    "vulnerability": null,
+    "source code": "\n\n\t<script type='text/javascript'>\n\t\twindow.__wtw_lucky_site_id = 25519;\n\n\t\t(function() {\n\t\tvar wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;\n\t\twa.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://cdn') + '.luckyorange.com/w.js';\n\t\tvar s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);\n\t\t})();\n\t</script>\n\t<?php wp_head(); ?>\t<script type='text/javascript'>\n\t\twindow.__wtw_lucky_site_id = 25519;\n\n\t\t(function() {\n\t\tvar wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;\n\t\twa.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://cdn') + '.luckyorange.com/w.js';\n\t\tvar s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);\n\t\t})();\n\t</script>\n\t<?php wp_head(); ?>\n\t<script src=\"http://maps.google.com/maps/api/js?key=AIzaSyDiwiiJnlEJWTVtHoC4PML983F8RmcQPXc&sensor=false\"></script>\n\t<script type=\"text/javascript\" src=\"http://w.sharethis.com/button/buttons.js\"></script>\n\t<script type=\"text/javascript\">stLight.options({publisher: \"dr-f076c7f3-b955-4859-a8e9-5b2fb220c67e\", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>\n\t\n</head>\n<?php \nif (empty($_SESSION['SourceID']) || empty($_SESSION['PhoneNum'])) {\n    set_source_phone(); \n}\n?>",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 35,
+    "line_text": "\t<script src=\"http://maps.google.com/maps/api/js?key=AIzaSyDiwiiJnlEJWTVtHoC4PML983F8RmcQPXc&sensor=false\"></script>",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

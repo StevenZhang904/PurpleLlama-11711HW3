@@ -1,0 +1,13 @@
+{
+    "file_path": "compiler/crates/relay-codegen/src/build_ast.rs",
+    "vulnerability": null,
+    "source code": "\n\n        }\n    };\n    ObjectEntry {\n        key: CODEGEN_CONSTANTS.alias,\n        value: alias,\n    }\n}\n\n/// Computes the md5 hash of a string.\npub fn md5(data: &str) -> String {        }\n    };\n    ObjectEntry {\n        key: CODEGEN_CONSTANTS.alias,\n        value: alias,\n    }\n}\n\n/// Computes the md5 hash of a string.\npub fn md5(data: &str) -> String {\n    let mut md5 = Md5::new();\n    md5.input(data);\n    hex::encode(md5.result())\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 1756,
+    "line_text": "    let mut md5 = Md5::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

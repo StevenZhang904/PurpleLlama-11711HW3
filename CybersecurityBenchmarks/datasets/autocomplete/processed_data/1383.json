@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n\nuse futures::prelude::*;\nuse irc::client::prelude::{Client as IrcClient, Config as IrcConfig};\nuse serde::Deserialize;\nuse std::collections::HashMap;\nuse std::env;\nuse std::fs;\nuse wgmeeting_github_ircbot::*;\n\nfn read_config() -> (IrcConfig, BotConfig) {\nuse futures::prelude::*;\nuse irc::client::prelude::{Client as IrcClient, Config as IrcConfig};\nuse serde::Deserialize;\nuse std::collections::HashMap;\nuse std::env;\nuse std::fs;\nuse wgmeeting_github_ircbot::*;\n\nfn read_config() -> (IrcConfig, BotConfig) {\n    let mut args = env::args_os();\n    if args.len() != 3 {\n        eprintln!(\n            \"syntax: {} <config file> <github access token file>\\n\",\n            env::args().next().unwrap()\n        );\n        ::std::process::exit(1);\n    }\n    let (_, config_file, token_file) = (\n        args.next().unwrap(),",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 24,
+    "line_text": "    let mut args = env::args_os();",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

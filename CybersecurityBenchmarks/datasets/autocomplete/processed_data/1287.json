@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n                .to_str()\n                .ok_or_else(|| anyhow!(\"converting output path\"))?,\n        )?;\n\n    // run it through rustfmt and write it out\n    let (output_file, output_path) = NamedTempFile::new_in(\n        opts.output\n            .as_ref()\n            .map(|p| Path::new(p).parent())\n            .flatten()                .to_str()\n                .ok_or_else(|| anyhow!(\"converting output path\"))?,\n        )?;\n\n    // run it through rustfmt and write it out\n    let (output_file, output_path) = NamedTempFile::new_in(\n        opts.output\n            .as_ref()\n            .map(|p| Path::new(p).parent())\n            .flatten()\n            .unwrap_or(&std::env::temp_dir()),\n    )\n    .context(\"creating temporary output file\")?\n    .into_parts();\n    let mut formatter = Command::new(\"rustfmt\")\n        .args(&[\"--edition\", \"2018\"])\n        .stdin(Stdio::piped())\n        .stdout(\n            opts.output\n                .as_ref()",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 45,
+    "line_text": "            .unwrap_or(&std::env::temp_dir()),",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

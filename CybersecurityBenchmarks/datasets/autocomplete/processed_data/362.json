@@ -1,0 +1,13 @@
+{
+    "file_path": "Code/Sources/AbleDiskTool/AbleDiskEngine.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\tuint32\t \ti,j,k;\n\tchar\t\tit;\n\tuint16\t\t*in_buf  = NULL;\n\tchar\t\t*out_buf = NULL;\n\thandle\t\tin_buf_handle  = NULL;\n\thandle\t\tout_buf_handle = NULL;\n\tOSErr\t\tFSstatus;\n\tlong\t\tfile_size;\n\tlong\t\tcount;\n\tshort\t\tour_ref_num;\tuint32\t \ti,j,k;\n\tchar\t\tit;\n\tuint16\t\t*in_buf  = NULL;\n\tchar\t\t*out_buf = NULL;\n\thandle\t\tin_buf_handle  = NULL;\n\thandle\t\tout_buf_handle = NULL;\n\tOSErr\t\tFSstatus;\n\tlong\t\tfile_size;\n\tlong\t\tcount;\n\tshort\t\tour_ref_num;\n\tchar\t\tpas_name[64];\n\t\n\tstrcpy(pas_name, file_name);\t\t\t\t// get working copy of file name\n\t\n\tif (pas_name[0] == '.')\t\t\t\t\t\t// map leading . to * to avoid\n\t\tpas_name[0] = '*';\t\t\t\t\t\t// mac os conflict with devices\n\n\tc2pstr(pas_name);\t\t\t\t\t\t\t// get in pascal format\n\n\tif (num_words > (MAX_TEXT_SIZE >> 1))",
+    "language": "cpp",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 1802,
+    "line_text": "\tchar\t\tpas_name[64];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

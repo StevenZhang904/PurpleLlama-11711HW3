@@ -1,0 +1,13 @@
+{
+    "file_path": "paddle/math/tests/test_Matrix.cpp",
+    "vulnerability": null,
+    "source code": "\n\n      }\n    }\n  }\n}\n\nvoid testMatrixSelectRows(int numSamples, int tableSize, int inputDim) {\n  AutoCompare test(numSamples, inputDim);\n  CpuMatrix arg1(tableSize, inputDim);\n  CpuIVector arg2(numSamples);\n  arg1.randomizeUniform();      }\n    }\n  }\n}\n\nvoid testMatrixSelectRows(int numSamples, int tableSize, int inputDim) {\n  AutoCompare test(numSamples, inputDim);\n  CpuMatrix arg1(tableSize, inputDim);\n  CpuIVector arg2(numSamples);\n  arg1.randomizeUniform();\n  arg2.rand(tableSize);\n  test.cmpWithArg(&Matrix::selectRows, arg1, arg2);\n}\n\nTEST(Matrix, tableProjection) {\n  for (auto numSamples : {10, 100, 1000, 10000, 80000}) {\n    for (auto tableSize : {10, 100}) {\n      for (auto inputDim : {20, 50}) {\n        VLOG(3) << \" numSamples=\" << numSamples << \" tableSize=\" << tableSize\n                << \" inputDim=\" << inputDim;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 148,
+    "line_text": "  arg2.rand(tableSize);",
+    "pattern_id": "C-W-018",
+    "rule": "{ rand(_); }",
+    "label": 1
+}

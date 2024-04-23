@@ -1,0 +1,13 @@
+{
+    "file_path": "core/src/main/java/com/google/bitcoin/script/Script.java",
+    "vulnerability": null,
+    "source code": "\n\n                    byte[] dataToHash = stack.pollLast();\n                    digest.update(dataToHash, 0, dataToHash.length);\n                    byte[] ripmemdHash = new byte[20];\n                    digest.doFinal(ripmemdHash, 0);\n                    stack.add(ripmemdHash);\n                    break;\n                case OP_SHA1:\n                    if (stack.size() < 1)\n                        throw new ScriptException(\"Attempted OP_SHA1 on an empty stack\");\n                    try {                    byte[] dataToHash = stack.pollLast();\n                    digest.update(dataToHash, 0, dataToHash.length);\n                    byte[] ripmemdHash = new byte[20];\n                    digest.doFinal(ripmemdHash, 0);\n                    stack.add(ripmemdHash);\n                    break;\n                case OP_SHA1:\n                    if (stack.size() < 1)\n                        throw new ScriptException(\"Attempted OP_SHA1 on an empty stack\");\n                    try {\n                        stack.add(MessageDigest.getInstance(\"SHA-1\").digest(stack.pollLast()));\n                    } catch (NoSuchAlgorithmException e) {\n                        throw new RuntimeException(e);  // Cannot happen.\n                    }\n                    break;\n                case OP_SHA256:\n                    if (stack.size() < 1)\n                        throw new ScriptException(\"Attempted OP_SHA256 on an empty stack\");\n                    try {\n                        stack.add(MessageDigest.getInstance(\"SHA-256\").digest(stack.pollLast()));",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 1038,
+    "line_text": "                        stack.add(MessageDigest.getInstance(\"SHA-1\").digest(stack.pollLast()));",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

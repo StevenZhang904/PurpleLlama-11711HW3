@@ -1,0 +1,13 @@
+{
+    "file_path": "plugins/junit_rt/src/com/intellij/rt/execution/junit/ProcessBuilder.java",
+    "vulnerability": null,
+    "source code": "\n\n        }\n\n        if (winShell && containsAnyChar(parameter, WIN_SHELL_SPECIALS)) {\n          parameter = '\"' + parameter + '\"';\n        }\n      }\n\n      commandLine[i] = parameter;\n    }\n        }\n\n        if (winShell && containsAnyChar(parameter, WIN_SHELL_SPECIALS)) {\n          parameter = '\"' + parameter + '\"';\n        }\n      }\n\n      commandLine[i] = parameter;\n    }\n\n    return Runtime.getRuntime().exec(commandLine, null, myWorkingDir);\n  }\n\n  private static boolean isWinShell(String command) {\n    return endsWithIgnoreCase(command, \".cmd\") || endsWithIgnoreCase(command, \".bat\") ||\n           \"cmd\".equalsIgnoreCase(command) || \"cmd.exe\".equalsIgnoreCase(command);\n  }\n\n  private static boolean endsWithIgnoreCase(String str, String suffix) {\n    return str.regionMatches(true, str.length() - suffix.length(), suffix, 0, suffix.length());",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 95,
+    "line_text": "    return Runtime.getRuntime().exec(commandLine, null, myWorkingDir);",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "arnoldi_generic.h",
+    "vulnerability": null,
+    "source code": "\n\nstatic\ncmatrix cmat_new(int n){\n  int i;\n  int stride;\n  cmatrix a;\n  a.n=n;\n  stride = n/ALIGN_MAT;\n  if (stride * ALIGN_MAT < n) stride++;\n  stride *= ALIGN_MAT;\n  a.stride = stride;static\ncmatrix cmat_new(int n){\n  int i;\n  int stride;\n  cmatrix a;\n  a.n=n;\n  stride = n/ALIGN_MAT;\n  if (stride * ALIGN_MAT < n) stride++;\n  stride *= ALIGN_MAT;\n  a.stride = stride;\n  a.e= (lcomplex**) s_mallocf(n*sizeof(lcomplex*));\n  if (a.e){\n      a.e[0] = (lcomplex*) s_mallocf(n*stride*sizeof(lcomplex));\n      if (a.e[0]){\n          for (i=1;i<n;i++)  a.e[i] = a.e[i-1]+stride;\n      } else {\n          s_freef(a.e);\n          a.e = NULL;\n      }\n  }",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 464,
+    "line_text": "  a.e= (lcomplex**) s_mallocf(n*sizeof(lcomplex*));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "study/src/main/java/com/joypupil/study/test/\u6587\u4ef6\u52a0\u89e3\u5bc6/DES\u52a0\u5bc6/TestDES.java",
+    "vulnerability": null,
+    "source code": "\n\n\n\tpublic TestDES(String str) {\n\t\tgetKey(str);// \u751f\u6210\u5bc6\u5319\n\t}\n\n\t/**\n\t * \u6839\u636e\u53c2\u6570\u751f\u6210KEY\n\t */\n\tpublic void getKey(String strKey) {\n\t\ttry {\n\tpublic TestDES(String str) {\n\t\tgetKey(str);// \u751f\u6210\u5bc6\u5319\n\t}\n\n\t/**\n\t * \u6839\u636e\u53c2\u6570\u751f\u6210KEY\n\t */\n\tpublic void getKey(String strKey) {\n\t\ttry {\n\t\t\tKeyGenerator _generator = KeyGenerator.getInstance(\"DES\");\n\t\t\t_generator.init(new SecureRandom(strKey.getBytes()));\n\t\t\tthis.key = _generator.generateKey();\n\t\t\t_generator = null;\n\t\t} catch (Exception e) {\n\t\t\tthrow new RuntimeException(\"Error initializing SqlMap class. Cause: \" + e);\n\t\t}\n\t}\n\n\t/**",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Deprecated cryptographic algorithms being used (3DES/DES/DESede/Blowfish/DESEDEWRAP)",
+    "line_number": 27,
+    "line_text": "\t\t\tKeyGenerator _generator = KeyGenerator.getInstance(\"DES\");",
+    "pattern_id": "JAVA-R-005",
+    "rule": "\\.getInstance\\(\"(3DES|DESede|DES|Blowfish|DESEDEWRAP)",
+    "label": 1
+}

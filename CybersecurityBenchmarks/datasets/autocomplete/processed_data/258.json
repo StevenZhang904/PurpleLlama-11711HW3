@@ -1,0 +1,13 @@
+{
+    "file_path": "libIcu/source/common/putil.cpp",
+    "vulnerability": null,
+    "source code": "\n\n        }\n        /* else use the default */\n    }\n    sprintf(codepage,\"ibm-%d\", ccsid);\n    return codepage;\n\n#elif U_PLATFORM == U_PF_OS390\n    static char codepage[64];\n\n    strncpy(codepage, nl_langinfo(CODESET),63-strlen(UCNV_SWAP_LFNL_OPTION_STRING));        }\n        /* else use the default */\n    }\n    sprintf(codepage,\"ibm-%d\", ccsid);\n    return codepage;\n\n#elif U_PLATFORM == U_PF_OS390\n    static char codepage[64];\n\n    strncpy(codepage, nl_langinfo(CODESET),63-strlen(UCNV_SWAP_LFNL_OPTION_STRING));\n    strcat(codepage,UCNV_SWAP_LFNL_OPTION_STRING);\n    codepage[63] = 0; /* NULL terminate */\n\n    return codepage;\n\n#elif U_PLATFORM_USES_ONLY_WIN32_API\n    static char codepage[64];\n    sprintf(codepage, \"windows-%d\", GetACP());\n    return codepage;\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 1876,
+    "line_text": "    strcat(codepage,UCNV_SWAP_LFNL_OPTION_STRING);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

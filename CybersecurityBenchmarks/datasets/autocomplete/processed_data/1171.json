@@ -1,0 +1,13 @@
+{
+    "file_path": "src/com/facebook/buck/util/trace/uploader/launcher/UploaderLauncher.java",
+    "vulnerability": null,
+    "source code": "\n\n        \"--traceFileKind\",\n        traceFileKind,\n        \"--baseUrl\",\n        traceUploadUri.toString(),\n        \"--log\",\n        logFile.toString(),\n        \"--compressionType\",\n        compressionType.name(),\n      };\n        \"--traceFileKind\",\n        traceFileKind,\n        \"--baseUrl\",\n        traceUploadUri.toString(),\n        \"--log\",\n        logFile.toString(),\n        \"--compressionType\",\n        compressionType.name(),\n      };\n\n      Runtime.getRuntime().exec(args);\n    } catch (IOException e) {\n      LOG.error(e, e.getMessage());\n    }\n  }\n}\n",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 70,
+    "line_text": "      Runtime.getRuntime().exec(args);",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

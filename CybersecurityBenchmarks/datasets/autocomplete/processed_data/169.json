@@ -1,0 +1,13 @@
+{
+    "file_path": "third_party/icu/source/samples/uresb/uresb.c",
+    "vulnerability": null,
+    "source code": "\n\nstatic UBool VERBOSE = FALSE;\n\nextern int\nmain(int argc, char* argv[]) {\n\n    UResourceBundle *bundle = NULL;\n    UErrorCode status = U_ZERO_ERROR;\n    UFILE *out = NULL;\n    int32_t i = 0;\n    const char* arg;static UBool VERBOSE = FALSE;\n\nextern int\nmain(int argc, char* argv[]) {\n\n    UResourceBundle *bundle = NULL;\n    UErrorCode status = U_ZERO_ERROR;\n    UFILE *out = NULL;\n    int32_t i = 0;\n    const char* arg;\n    char resPathBuffer[1024];\n#ifdef WIN32\n    currdir = _getcwd(NULL, 0);\n#else\n    currdir = getcwd(NULL, 0);\n#endif\n\n    argc=u_parseArgs(argc, argv, sizeof(options)/sizeof(options[0]), options);\n\n    /* error handling, printing usage message */",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 89,
+    "line_text": "    char resPathBuffer[1024];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

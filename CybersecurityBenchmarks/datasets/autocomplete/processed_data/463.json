@@ -1,0 +1,13 @@
+{
+    "file_path": "src/core/SkScan_AAAPath.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n    const int left  = sectBounds.left();\n    const int right = sectBounds.right();\n\n    fLeft  = left;\n    fWidth = right - left;\n    fTop   = sectBounds.top();\n    fCurrY = fTop - 1;\n\n    fRunsToBuffer = realBlitter->requestRowsPreserved();\n    const int left  = sectBounds.left();\n    const int right = sectBounds.right();\n\n    fLeft  = left;\n    fWidth = right - left;\n    fTop   = sectBounds.top();\n    fCurrY = fTop - 1;\n\n    fRunsToBuffer = realBlitter->requestRowsPreserved();\n    fRunsBuffer   = realBlitter->allocBlitMemory(fRunsToBuffer * this->getRunsSz());\n    fCurrentRun   = -1;\n\n    this->advanceRuns();\n\n    fOffsetX = 0;\n}\n\nvoid RunBasedAdditiveBlitter::blitAntiH(int x, int y, const SkAlpha antialias[], int len) {\n    checkY(y);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 401,
+    "line_text": "    fRunsBuffer   = realBlitter->allocBlitMemory(fRunsToBuffer * this->getRunsSz());",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

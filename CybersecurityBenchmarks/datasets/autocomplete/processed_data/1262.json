@@ -1,0 +1,13 @@
+{
+    "file_path": "src/emu.rs",
+    "vulnerability": null,
+    "source code": "\n\n}\n\n\nfn print_usage(program: &str, _opts: &[getopts::Opt]) {\n\tprintln(fmt!(\"Usage: %s [options]\", program));\n\tprintln(\"-o\\t\\tOutput\");\n\tprintln(\"-h --help\\tUsage\");\n}\n\nfn main() {}\n\n\nfn print_usage(program: &str, _opts: &[getopts::Opt]) {\n\tprintln(fmt!(\"Usage: %s [options]\", program));\n\tprintln(\"-o\\t\\tOutput\");\n\tprintln(\"-h --help\\tUsage\");\n}\n\nfn main() {\n\tlet args = os::args();\n\n\tlet program = args[0].clone();\n\n\tlet opts = ~[\n\t\tgetopts::optopt(\"o\"),\n\t\tgetopts::optflag(\"h\"),\n\t\tgetopts::optflag(\"help\")\n\t];\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 66,
+    "line_text": "\tlet args = os::args();",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

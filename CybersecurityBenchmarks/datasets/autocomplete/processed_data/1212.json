@@ -1,0 +1,13 @@
+{
+    "file_path": "src/test/bench/shootout-chameneos-redux.rs",
+    "vulnerability": null,
+    "source code": "\n\n    }\n\n    // print the total number of creatures met\n    println!(\"{}\\n\", Number(creatures_met));\n}\n\nfn main() {\n    let nn = if std::os::getenv(\"RUST_BENCH\").is_some() {\n        200000\n    } else {    }\n\n    // print the total number of creatures met\n    println!(\"{}\\n\", Number(creatures_met));\n}\n\nfn main() {\n    let nn = if std::os::getenv(\"RUST_BENCH\").is_some() {\n        200000\n    } else {\n        std::os::args().as_slice()\n                       .get(1)\n                       .and_then(|arg| from_str(arg.as_slice()))\n                       .unwrap_or(600)\n    };\n\n    print_complements();\n    println!(\"\");\n\n    rendezvous(nn, vec!(Blue, Red, Yellow));",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 225,
+    "line_text": "        std::os::args().as_slice()",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

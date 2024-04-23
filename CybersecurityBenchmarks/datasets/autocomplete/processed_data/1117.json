@@ -1,0 +1,13 @@
+{
+    "file_path": "FireflyLite/src/main/java/tw/com/ischool/fireflylite/util/Converter.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\treturn null;\r\n\r\n\t\tCalendar cal = Calendar.getInstance();\r\n\t\tcal.setTimeInMillis(d.getTime());\r\n\r\n\t\treturn cal.getTime();\r\n\t}\r\n\r\n\tpublic static String toSHA1String(String source) {\r\n\t\ttry {\r\t\t\treturn null;\r\n\r\n\t\tCalendar cal = Calendar.getInstance();\r\n\t\tcal.setTimeInMillis(d.getTime());\r\n\r\n\t\treturn cal.getTime();\r\n\t}\r\n\r\n\tpublic static String toSHA1String(String source) {\r\n\t\ttry {\r\n\t\t\tMessageDigest md = MessageDigest.getInstance(\"SHA1\");\r\n\r\n\t\t\tbyte[] result = md.digest(source.getBytes(\"utf-8\"));\r\n\r\n\t\t\treturn Converter.toBase64String(result);\r\n\t\t} catch (Exception ex) {\r\n\t\t\tthrow new RuntimeException(ex);\r\n\t\t}\r\n\t}\r\n\r",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 246,
+    "line_text": "\t\t\tMessageDigest md = MessageDigest.getInstance(\"SHA1\");\r",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

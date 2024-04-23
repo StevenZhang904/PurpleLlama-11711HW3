@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/cpp/src/wrap/python/core.cpp",
+    "vulnerability": null,
+    "source code": "\n\n                        passphrase,\n                        reinterpret_cast<const byte*>(salt.data()),\n                        salt.size(),\n                        iterations).bits_of());\n   }\n\nstd::string python_kdf2(const std::string& param,\n                        const std::string& masterkey,\n                        u32bit outputlength)\n   {                        passphrase,\n                        reinterpret_cast<const byte*>(salt.data()),\n                        salt.size(),\n                        iterations).bits_of());\n   }\n\nstd::string python_kdf2(const std::string& param,\n                        const std::string& masterkey,\n                        u32bit outputlength)\n   {\n   std::auto_ptr<KDF> kdf(get_kdf(\"KDF2(SHA-1)\"));\n\n   return make_string(\n      kdf->derive_key(outputlength,\n                      reinterpret_cast<const byte*>(masterkey.data()),\n                      masterkey.length(),\n                      param));\n   }\n\nBOOST_PYTHON_MODULE(_botan)",
+    "language": "cpp",
+    "cwe_identifier": "CWE-665",
+    "pattern_desc": "Uses deprecated auto_ptr, which can lead to undefined behavior.",
+    "line_number": 181,
+    "line_text": "   std::auto_ptr<KDF> kdf(get_kdf(\"KDF2(SHA-1)\"));",
+    "pattern_id": "CPP-R-001",
+    "rule": "\\bstd::auto_ptr<\\s*\\w+\\s*>",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/bootstrap/lib.rs",
+    "vulnerability": null,
+    "source code": "\n\n            None => true,\n        }\n    }\n\n    /// Returns the path to `FileCheck` binary for the specified target\n    fn llvm_filecheck(&self, target: TargetSelection) -> PathBuf {\n        let target_config = self.config.target_config.get(&target);\n        if let Some(s) = target_config.and_then(|c| c.llvm_filecheck.as_ref()) {\n            s.to_path_buf()\n        } else if let Some(s) = target_config.and_then(|c| c.llvm_config.as_ref()) {            None => true,\n        }\n    }\n\n    /// Returns the path to `FileCheck` binary for the specified target\n    fn llvm_filecheck(&self, target: TargetSelection) -> PathBuf {\n        let target_config = self.config.target_config.get(&target);\n        if let Some(s) = target_config.and_then(|c| c.llvm_filecheck.as_ref()) {\n            s.to_path_buf()\n        } else if let Some(s) = target_config.and_then(|c| c.llvm_config.as_ref()) {\n            let llvm_bindir = output(Command::new(s).arg(\"--bindir\"));\n            let filecheck = Path::new(llvm_bindir.trim()).join(exe(\"FileCheck\", target));\n            if filecheck.exists() {\n                filecheck\n            } else {\n                // On Fedora the system LLVM installs FileCheck in the\n                // llvm subdirectory of the libdir.\n                let llvm_libdir = output(Command::new(s).arg(\"--libdir\"));\n                let lib_filecheck =\n                    Path::new(llvm_libdir.trim()).join(\"llvm\").join(exe(\"FileCheck\", target));",
+    "language": "rust",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential for command injection if input is not sanitized.",
+    "line_number": 788,
+    "line_text": "            let llvm_bindir = output(Command::new(s).arg(\"--bindir\"));",
+    "pattern_id": "RUST-R-002",
+    "rule": "Command::new\\s*\\(\\s*[^\"']\\)",
+    "label": 1
+}

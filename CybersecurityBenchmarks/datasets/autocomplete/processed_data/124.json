@@ -1,0 +1,13 @@
+{
+    "file_path": "libjl777/plugins/common/txnet777.c",
+    "vulnerability": null,
+    "source code": "\n\n        memset(&net->myendpoint,0,sizeof(net->myendpoint));\n        endpoint = \"disconnect\";\n    }\n    else\n    {\n        net->port = parse_endpoint(&net->ip6flag,net->transport,net->ipaddr,retbuf,jstr(json,\"endpoint\"),net->port);\n        net->ipbits = calc_ipbits(net->ipaddr) | ((uint64_t)net->port << 32);\n        net->myendpoint = calc_epbits(net->transport,(uint32_t)net->ipbits,net->port,NN_PUB);\n        expand_epbits(net->endpointstr,net->myendpoint);\n    }        memset(&net->myendpoint,0,sizeof(net->myendpoint));\n        endpoint = \"disconnect\";\n    }\n    else\n    {\n        net->port = parse_endpoint(&net->ip6flag,net->transport,net->ipaddr,retbuf,jstr(json,\"endpoint\"),net->port);\n        net->ipbits = calc_ipbits(net->ipaddr) | ((uint64_t)net->port << 32);\n        net->myendpoint = calc_epbits(net->transport,(uint32_t)net->ipbits,net->port,NN_PUB);\n        expand_epbits(net->endpointstr,net->myendpoint);\n    }\n    sprintf(cmd,\"{\\\"method\\\":\\\"busdata\\\",\\\"plugin\\\":\\\"relay\\\",\\\"submethod\\\":\\\"protocol\\\",\\\"protocol\\\":\\\"%s\\\",\\\"endpoint\\\":\\\"%s\\\"}\",TXNET->protocol,endpoint);\n    return(busdata_sync(&nonce,cmd,\"allrelays\",0));\n}\n\nint32_t txnet777_init(struct txnet777 *TXNET,cJSON *json,char *protocol,char *path,char *name,double pingmillis)\n{\n    int32_t protocols_init(int32_t sock,struct endpoint *connections,char *protocol);\n    cJSON *argjson; char buf[512]; uint16_t port; int32_t sendtimeout = 10,recvtimeout = 1;\n    safecopy(TXNET->name,name,sizeof(TXNET->name)), strcpy(TXNET->protocol,protocol), strcpy(TXNET->path,path);\n    TXNET->TUNE.pinggap = pingmillis, TXNET->TUNE.retransmit = pingmillis;",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 959,
+    "line_text": "    sprintf(cmd,\"{\\\"method\\\":\\\"busdata\\\",\\\"plugin\\\":\\\"relay\\\",\\\"submethod\\\":\\\"protocol\\\",\\\"protocol\\\":\\\"%s\\\",\\\"endpoint\\\":\\\"%s\\\"}\",TXNET->protocol,endpoint);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "buildpatterns/maven/headlessdesigner-maven-plugin/src/main/java/org/openntf/maven/HeadlessDesignerBuilder.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t}\n\t\t\tgetLog().info(buildReportOutput(\"uninstallFeatures\", \"Executed\"));\n\t\t} else {\n\t\t\tgetLog().info(buildReportOutput(\"uninstallFeatures\", \"SKIPPED\"));\n\t\t}\n\n\t}\n\n\tprivate boolean checkIfNotesHasFinished() throws IOException, InterruptedException {\n\t\t\t}\n\t\t\tgetLog().info(buildReportOutput(\"uninstallFeatures\", \"Executed\"));\n\t\t} else {\n\t\t\tgetLog().info(buildReportOutput(\"uninstallFeatures\", \"SKIPPED\"));\n\t\t}\n\n\t}\n\n\tprivate boolean checkIfNotesHasFinished() throws IOException, InterruptedException {\n\n\t\tProcess process = Runtime.getRuntime().exec(\"cmd.exe /c tasklist /fi \\\"IMAGENAME eq notes2.exe\\\"\");\n\t\tprocess.waitFor();\n\t\tfinal InputStream is = process.getInputStream();\n\t\tfinal InputStreamReader isr = new InputStreamReader(is);\n\t\tfinal BufferedReader buff = new BufferedReader(isr);\n\t\tString line = new String();\n\t\twhile ((line = buff.readLine()) != null) {\n\t\t\tMatcher iMapSuccessMatcher = NOTESPATTERN.matcher(line);\n\t\t\tif (iMapSuccessMatcher.find()) {\n\t\t\t\tThread.sleep(1000);",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 302,
+    "line_text": "\t\tProcess process = Runtime.getRuntime().exec(\"cmd.exe /c tasklist /fi \\\"IMAGENAME eq notes2.exe\\\"\");",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "DaiJiale-C-Demo/C Studio/C\u8bed\u8a00\u5b9e\u4f8b\u89e3\u6790\u7cbe\u7cb9/218/CFGMACRO.C",
+    "vulnerability": null,
+    "source code": "\n\n   show_box( 0, 0, macro_screen, NORMAL );\n   xygoto( 42, 14 );\n   c = getkey( );\n   while (c != '1' && c != '2')\n      c = getkey( );\n   if (c == '1') {\n      puts( \"\" );\n      puts( \"\" );\n      puts( \"\" );\n      puts( \"Enter file name that contains the macro definitions :\" );   show_box( 0, 0, macro_screen, NORMAL );\n   xygoto( 42, 14 );\n   c = getkey( );\n   while (c != '1' && c != '2')\n      c = getkey( );\n   if (c == '1') {\n      puts( \"\" );\n      puts( \"\" );\n      puts( \"\" );\n      puts( \"Enter file name that contains the macro definitions :\" );\n      gets( fname );\n      if ((c = access( fname, EXIST )) != 0) {\n         puts( \"\\nFile not found.  Press any key to continue.\" );\n         c = getkey( );\n         cls( );\n         return;\n      } else if ((macro_file = fopen( fname, \"rb\" )) == NULL ) {\n         puts( \"\\nCannot open macro file.  Press any key to contine.\" );\n         c = getkey( );\n         cls( );",
+    "language": "cpp",
+    "cwe_identifier": "CWE-242",
+    "pattern_desc": "Potential buffer overflow risk due to use of gets",
+    "line_number": 51,
+    "line_text": "      gets( fname );",
+    "pattern_id": "C-R-012",
+    "rule": "\\bgets\\s*\\(\\s*\\w*\\s*\\)",
+    "label": 1
+}

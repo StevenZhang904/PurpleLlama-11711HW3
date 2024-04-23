@@ -1,0 +1,13 @@
+{
+    "file_path": "src/treestore.c",
+    "vulnerability": null,
+    "source code": "\n\n\t*dest = *src;\n\n\tdest->str = 0;\n\tdest->vec = 0;\n\tdest->array = 0;\n\n\tif(src->str) {\n\t\tif(!(dest->str = malloc(strlen(src->str) + 1))) {\n\t\t\tgoto fail;\n\t\t}\t*dest = *src;\n\n\tdest->str = 0;\n\tdest->vec = 0;\n\tdest->array = 0;\n\n\tif(src->str) {\n\t\tif(!(dest->str = malloc(strlen(src->str) + 1))) {\n\t\t\tgoto fail;\n\t\t}\n\t\tstrcpy(dest->str, src->str);\n\t}\n\tif(src->vec && src->vec_size > 0) {\n\t\tif(!(dest->vec = malloc(src->vec_size * sizeof *src->vec))) {\n\t\t\tgoto fail;\n\t\t}\n\t\tmemcpy(dest->vec, src->vec, src->vec_size * sizeof *src->vec);\n\t}\n\tif(src->array && src->array_size > 0) {\n\t\tif(!(dest->array = calloc(src->array_size, sizeof *src->array))) {",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 76,
+    "line_text": "\t\tstrcpy(dest->str, src->str);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

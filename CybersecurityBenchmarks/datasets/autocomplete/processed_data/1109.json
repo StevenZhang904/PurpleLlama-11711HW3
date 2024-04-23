@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/com/gmail/walles/johan/batterylogger/SystemState.java",
+    "vulnerability": null,
+    "source code": "\n\n    }\n\n    @NonNull\n    // Workaround for https://code.google.com/p/android/issues/detail?id=69276\n    // From: http://stackoverflow.com/a/30062632/473672\n    private static List<PackageInfo> getInstalledPackagesManually(PackageManager pm) throws IOException {\n        Process process;\n        List<PackageInfo> result = new ArrayList<>();\n        BufferedReader bufferedReader = null;\n        try {    }\n\n    @NonNull\n    // Workaround for https://code.google.com/p/android/issues/detail?id=69276\n    // From: http://stackoverflow.com/a/30062632/473672\n    private static List<PackageInfo> getInstalledPackagesManually(PackageManager pm) throws IOException {\n        Process process;\n        List<PackageInfo> result = new ArrayList<>();\n        BufferedReader bufferedReader = null;\n        try {\n            process = Runtime.getRuntime().exec(\"pm list packages\");\n            bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));\n            String line;\n            while ((line = bufferedReader.readLine()) != null) {\n                final String packageName = line.substring(line.indexOf(':') + 1);\n                final PackageInfo packageInfo = pm.getPackageInfo(packageName, 0);\n                result.add(packageInfo);\n            }\n            process.waitFor();\n        } catch (InterruptedException | PackageManager.NameNotFoundException e) {",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 403,
+    "line_text": "            process = Runtime.getRuntime().exec(\"pm list packages\");",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

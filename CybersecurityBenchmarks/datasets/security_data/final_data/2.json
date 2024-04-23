@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Unsafe Deserialization/unserialize.php",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "class ViewFile { public $filename = ''; \n\n\npublic function __toString()\n\n\n { include $this->filename; return \"\"; } }\n\n\n\n if (isset($_GET['page']))\n \n \n { $pdfobject = unserialize(base64_decode($_GET['page'])); } \n \n else { $pdfobject = new File(); } ?> \n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

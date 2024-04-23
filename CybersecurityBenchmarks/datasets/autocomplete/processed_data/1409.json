@@ -1,0 +1,13 @@
+{
+    "file_path": "module/Media/src/Media/Utility/UploadHandler.php",
+    "vulnerability": null,
+    "source code": "\n\n//                }\n//            } else {\n////                ////$this->log .= '- Fileinfo PECL extension deactivated<br />';\n//            }\n//        }\n        // checks MIME type with shell if unix access is authorized\n        if (!$detectedMime || !is_string($detectedMime) || empty($detectedMime) || strpos($detectedMime, '/') === FALSE) {\n            if ($this->mimeFile) {\n                ////$this->log .= '- Checking MIME type with UNIX file() command<br />';\n                if (substr(PHP_OS, 0, 3) != 'WIN') {//                }\n//            } else {\n////                ////$this->log .= '- Fileinfo PECL extension deactivated<br />';\n//            }\n//        }\n        // checks MIME type with shell if unix access is authorized\n        if (!$detectedMime || !is_string($detectedMime) || empty($detectedMime) || strpos($detectedMime, '/') === FALSE) {\n            if ($this->mimeFile) {\n                ////$this->log .= '- Checking MIME type with UNIX file() command<br />';\n                if (substr(PHP_OS, 0, 3) != 'WIN') {\n                    if (strlen($mime = @exec(\"file -bi \".escapeshellarg($this->srcPath))) != 0) {\n                        $detectedMime = trim($mime);\n                        //$this->log .= '&nbsp;&nbsp;&nbsp;&nbsp;MIME type detected as ' . $detectedMime . ' by UNIX file() command<br />';\n                        if (preg_match(\"/^([\\.\\w-]+)\\/([\\.\\w-]+)(.*)$/i\", $detectedMime)) {\n                            $detectedMime = preg_replace(\"/^([\\.\\w-]+)\\/([\\.\\w-]+)(.*)$/i\", '$1/$2', $detectedMime);\n                            //$this->log .= '-&nbsp;MIME validated as ' . $detectedMime . '<br />';\n                        } else {\n                            $detectedMime = null;\n                        }\n                    } else {",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 525,
+    "line_text": "                    if (strlen($mime = @exec(\"file -bi \".escapeshellarg($this->srcPath))) != 0) {",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

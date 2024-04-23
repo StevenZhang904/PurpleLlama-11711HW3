@@ -1,0 +1,13 @@
+{
+    "file_path": "capnp-rpc/examples/pubsub/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n\npub mod pubsub_capnp {\n  include!(concat!(env!(\"OUT_DIR\"), \"/pubsub_capnp.rs\"));\n}\n\npub mod client;\npub mod server;\n\n#[tokio::main(flavor = \"current_thread\")]\nasync fn main() -> Result<(), Box<dyn std::error::Error>> {\npub mod pubsub_capnp {\n  include!(concat!(env!(\"OUT_DIR\"), \"/pubsub_capnp.rs\"));\n}\n\npub mod client;\npub mod server;\n\n#[tokio::main(flavor = \"current_thread\")]\nasync fn main() -> Result<(), Box<dyn std::error::Error>> {\n    let args: Vec<String> = ::std::env::args().collect();\n    if args.len() >= 2 {\n        match &args[1][..] {\n            \"client\" => return client::main().await,\n            \"server\" => return server::main().await,\n            _ => ()\n        }\n    }\n\n    println!(\"usage: {} [client | server] ADDRESS\", args[0]);",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 33,
+    "line_text": "    let args: Vec<String> = ::std::env::args().collect();",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "home/Lib/Action/MsgAction.class.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\n\t//\u6dfb\u52a0\u6570\u636e\n\tpublic function addData(){\n\t\theader('Content-Type:text/html;charset=utf-8');\n\t\tsession_start();\n\t\tif ($_SESSION['verify'] != md5($_POST['yzm'])){\n\t\t\techo '\u9a8c\u8bc1\u7801\u4e0d\u6b63\u786e&nbsp;&nbsp;&nbsp;<b><a href=\"javascript:history.back()\">\u8fd4\u56de\u4e0a\u4e00\u6b65</a></b>';\n\t\t\treturn;\n\t\t}else{\n\t\t\t$m = M('msgs');\t\n\t//\u6dfb\u52a0\u6570\u636e\n\tpublic function addData(){\n\t\theader('Content-Type:text/html;charset=utf-8');\n\t\tsession_start();\n\t\tif ($_SESSION['verify'] != md5($_POST['yzm'])){\n\t\t\techo '\u9a8c\u8bc1\u7801\u4e0d\u6b63\u786e&nbsp;&nbsp;&nbsp;<b><a href=\"javascript:history.back()\">\u8fd4\u56de\u4e0a\u4e00\u6b65</a></b>';\n\t\t\treturn;\n\t\t}else{\n\t\t\t$m = M('msgs');\n\t\t\t$_POST['m_ip'] = $_SERVER['REMOTE_ADDR'];\t//\u5ba2\u6237\u7aefIP\n\t\t\t$_POST['m_time'] = time();\t\t\t\t\t//\u6dfb\u52a0\u65f6\u95f4\n\t\t\t$_POST['m_status'] = 0;\t\t\t\t\t\t//\u72b6\u6001\n\n\t\t\tforeach ($_POST as $k=>$v){\n\t\t\t\t// htmlspecialchars() \u51fd\u6570\u628a\u4e00\u4e9b\u9884\u5b9a\u4e49\u7684\u5b57\u7b26\u8f6c\u6362\u4e3a HTML \u5b9e\u4f53\u3002\n\t\t\t\t$_POST[$k] = htmlspecialchars($v);\n\t\t\t}\n\t\t\tif ($m->create()){\n\t\t\t\tif ($m->add()){",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 24,
+    "line_text": "\t\t\t$_POST['m_ip'] = $_SERVER['REMOTE_ADDR'];\t//\u5ba2\u6237\u7aefIP",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

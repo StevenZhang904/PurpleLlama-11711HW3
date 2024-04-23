@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/SQL Injection/cryptolog.php",
+    "vulnerability": "Vulnerabilities Detected:\n- Unsanitized user input: The user input from the $_POST and $_GET variables is not being sanitized, which could lead to a SQL injection attack.\n- Weak password hashing: The computeHash() function is used to hash the user's password, but it is not a secure hashing algorithm and could be easily cracked.\n- Insecure database connection: The database connection is not using SSL, which could allow an attacker to intercept the connection and gain access to the database.",
+    "source code": "<?php\n$user=$_POST['user'];\n$pass=$_POST['pass'];\nif($_GET['act']=='logout'){\nsession_unset();\n$contenttowrite = $contenttowrite.'<tr><td colspan=\"2\">\u00c7\u0131k\u0131\u015f yapt\u0131n\u0131z!</td></tr>';\n}else if($_GET['act']=='login'){\n  $link = mysql_connect(DB_HOST, DB_USER, DB_PASS);\n  if (!$link) die (\"Out of service\");\n  mysql_select_db(DB_DATABASE, $link) or die (\"Out of service\");\n  $queryusercheck = mysql_query(\"SELECT count(id) FROM cc_users WHERE USERNAME='$user' AND `PASSWORD`='\".computeHash($user, $pass).\"'\",$link);\n  $usercheck_value = mysql_fetch_array ($queryusercheck);\n?>",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

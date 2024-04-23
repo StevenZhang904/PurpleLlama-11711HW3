@@ -1,0 +1,13 @@
+{
+    "file_path": "src-tls/osdp-net-client.c",
+    "vulnerability": null,
+    "source code": "\n\n  // initialize my current pid\n  if (status EQUALS ST_OK)\n  {\n    pid_t\n      my_pid;\n\n    my_pid = getpid ();\n    context.current_pid = my_pid;\n    sprintf (command, OSPD_LCL_SET_PID_TEMPLATE,\n      tag, my_pid);  // initialize my current pid\n  if (status EQUALS ST_OK)\n  {\n    pid_t\n      my_pid;\n\n    my_pid = getpid ();\n    context.current_pid = my_pid;\n    sprintf (command, OSPD_LCL_SET_PID_TEMPLATE,\n      tag, my_pid);\n    system (command);\n  };\n\n  if (strlen (current_network_address) > 0)\n    strcpy (context.network_address, current_network_address);\n\n  sprintf (context.command_path, \n    OSDP_LCL_COMMAND_PATH, tag);\n\n  context.authenticated = 1; // for now just say we're authenticated.",
+    "language": "c",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if the input is not sanitized",
+    "line_number": 188,
+    "line_text": "    system (command);",
+    "pattern_id": "C-W-015",
+    "rule": "{ system($x); }",
+    "label": 1
+}

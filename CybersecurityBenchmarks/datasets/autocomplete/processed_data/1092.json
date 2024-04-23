@@ -1,0 +1,13 @@
+{
+    "file_path": "core/src/test/java/com/twitter/elephantbird/mapreduce/input/TestLzoTextInputFormat.java",
+    "vulnerability": null,
+    "source code": "\n\n  private MessageDigest md5_;\n  private final String lzoFileName_ = \"part-r-00001\" + new LzopCodec().getDefaultExtension();\n  private Path outputDir_;\n\n  // Test both bigger outputs and small one chunk ones.\n  private static final int OUTPUT_BIG = 10485760;\n  private static final int OUTPUT_SMALL = 50000;\n\n  @Before\n  public void setUp() throws Exception {  private MessageDigest md5_;\n  private final String lzoFileName_ = \"part-r-00001\" + new LzopCodec().getDefaultExtension();\n  private Path outputDir_;\n\n  // Test both bigger outputs and small one chunk ones.\n  private static final int OUTPUT_BIG = 10485760;\n  private static final int OUTPUT_SMALL = 50000;\n\n  @Before\n  public void setUp() throws Exception {\n    md5_ = MessageDigest.getInstance(\"MD5\");\n    Path testBuildData = new Path(System.getProperty(\"test.build.data\", \"data\"));\n    outputDir_ = new Path(testBuildData, \"outputDir\");\n  }\n\n  /**\n   * Make sure the lzo index class works as described.\n   */\n  @Test\n  public void testLzoIndex() {",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 49,
+    "line_text": "    md5_ = MessageDigest.getInstance(\"MD5\");",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

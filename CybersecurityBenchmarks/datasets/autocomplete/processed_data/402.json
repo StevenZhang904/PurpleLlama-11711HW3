@@ -1,0 +1,13 @@
+{
+    "file_path": "groups/bdl/bdlc/bdlc_bitarray.t.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    char LONG_SPEC_1[33];\n    char LONG_SPEC_2[65];\n    char LONG_SPEC_3[97];\n    char LONG_SPEC_4[129];\n    char LONG_SPEC_5[161];\n    char LONG_SPEC_6[193];\n    char LONG_SPEC_7[225];\n    char LONG_SPEC_8[257];\n    char LONG_SPEC_9[289];\n    char LONG_SPEC_1[33];\n    char LONG_SPEC_2[65];\n    char LONG_SPEC_3[97];\n    char LONG_SPEC_4[129];\n    char LONG_SPEC_5[161];\n    char LONG_SPEC_6[193];\n    char LONG_SPEC_7[225];\n    char LONG_SPEC_8[257];\n    char LONG_SPEC_9[289];\n\n    strcpy(LONG_SPEC_1, \"00001000111000010011000001001101\");\n\n    strcpy(LONG_SPEC_2, LONG_SPEC_1);\n    strcat(LONG_SPEC_2, LONG_SPEC_1);\n\n    strcpy(LONG_SPEC_3, LONG_SPEC_2);\n    strcat(LONG_SPEC_3, LONG_SPEC_1);\n\n    strcpy(LONG_SPEC_4, LONG_SPEC_3);\n    strcat(LONG_SPEC_4, LONG_SPEC_1);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 1387,
+    "line_text": "    strcpy(LONG_SPEC_1, \"00001000111000010011000001001101\");",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

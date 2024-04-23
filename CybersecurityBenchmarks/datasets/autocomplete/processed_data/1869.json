@@ -1,0 +1,13 @@
+{
+    "file_path": "kiloeyes/tests/setup_metrics.py",
+    "vulnerability": null,
+    "source code": "\n\n            ''.join(random.sample(string.ascii_uppercase * 6, 6)))\n        MOLD_DIMENSIONS['key_' + str(a)] = (\n            ''.join(random.sample(string.ascii_uppercase * 6, 6)))\n\n        \"\"\"\n        import hashlib\n        key_str = json.dumps(MOLD_DIMENSIONS, sort_keys=True,\n                             indent=None,\n                             separators=(',', ':'))\n            ''.join(random.sample(string.ascii_uppercase * 6, 6)))\n        MOLD_DIMENSIONS['key_' + str(a)] = (\n            ''.join(random.sample(string.ascii_uppercase * 6, 6)))\n\n        \"\"\"\n        import hashlib\n        key_str = json.dumps(MOLD_DIMENSIONS, sort_keys=True,\n                             indent=None,\n                             separators=(',', ':'))\n\n        key = hashlib.md5(key_str).hexdigest()\n        MOLD['dimensions_hash'] = key\n        \"\"\"\n\n        MOLD['dimensions'] = MOLD_DIMENSIONS\n\n        print('starting round %s' % a)\n        # Generate unique 100 metrics\n        for i in range(100):\n            MOLD['name'] = ''.join(random.sample(string.ascii_uppercase * 6,",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 53,
+    "line_text": "        key = hashlib.md5(key_str).hexdigest()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

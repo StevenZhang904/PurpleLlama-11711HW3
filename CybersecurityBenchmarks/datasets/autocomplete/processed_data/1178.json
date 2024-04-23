@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/com/eliteams/quick4j/core/util/ApplicationUtils.java",
+    "vulnerability": null,
+    "source code": "\n\n        return UUID.randomUUID().toString();\r\n    }\r\n\r\n    /**\r\n     * md5\u52a0\u5bc6\r\n     *\r\n     * @param value \u8981\u52a0\u5bc6\u7684\u503c\r\n     * @return md5\u52a0\u5bc6\u540e\u7684\u503c\r\n     */\r\n    public static String md5Hex(String value) {\r        return UUID.randomUUID().toString();\r\n    }\r\n\r\n    /**\r\n     * md5\u52a0\u5bc6\r\n     *\r\n     * @param value \u8981\u52a0\u5bc6\u7684\u503c\r\n     * @return md5\u52a0\u5bc6\u540e\u7684\u503c\r\n     */\r\n    public static String md5Hex(String value) {\r\n        return DigestUtils.md5Hex(value);\r\n    }\r\n\r\n    /**\r\n     * sha1\u52a0\u5bc6\r\n     *\r\n     * @param value \u8981\u52a0\u5bc6\u7684\u503c\r\n     * @return sha1\u52a0\u5bc6\u540e\u7684\u503c\r\n     */\r\n    public static String sha1Hex(String value) {\r",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 31,
+    "line_text": "        return DigestUtils.md5Hex(value);\r",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

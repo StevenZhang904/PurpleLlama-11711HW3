@@ -1,0 +1,13 @@
+{
+    "file_path": "edge-inspect-api-1.0.0.js",
+    "vulnerability": null,
+    "source code": "\n\n    };\n    \n    my.takeScreenshot = function (fullPage, dualOrientation) {\n        var screenshotMessage = MessageFormatter.screenshot(my.generateUUID(), fullPage, dualOrientation, []);\n        ConnectionManager.send(CryptoHandler.encryptMessageForDM(screenshotMessage));\n    };\n\n    my.generateUUID = function () {\n        // Big hat tip to the https://github.com/jed and his public gist for this https://gist.github.com/982883\n        function b(a) {    };\n    \n    my.takeScreenshot = function (fullPage, dualOrientation) {\n        var screenshotMessage = MessageFormatter.screenshot(my.generateUUID(), fullPage, dualOrientation, []);\n        ConnectionManager.send(CryptoHandler.encryptMessageForDM(screenshotMessage));\n    };\n\n    my.generateUUID = function () {\n        // Big hat tip to the https://github.com/jed and his public gist for this https://gist.github.com/982883\n        function b(a) {\n            return a ? (a ^ Math.random() * 16 >> a / 4).toString(16) : ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, b);\n        }\n        return b();\n    };\n    \n\n    return my;\n};\n\nif (typeof exports !== 'undefined') {",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 932,
+    "line_text": "            return a ? (a ^ Math.random() * 16 >> a / 4).toString(16) : ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, b);",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

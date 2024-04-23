@@ -1,0 +1,13 @@
+{
+    "file_path": "java/security/crypto/src/main/java/io/aos/crypto/spl03/MGF1.java",
+    "vulnerability": null,
+    "source code": "\n\n            System.arraycopy(digest.digest(), 0, mask, counter * hLen, mask.length - (counter * hLen));\n        }\n\n        return mask;\n    }\n    \n    public static void main(\n       String[] args)\n       throws Exception\n    {            System.arraycopy(digest.digest(), 0, mask, counter * hLen, mask.length - (counter * hLen));\n        }\n\n        return mask;\n    }\n    \n    public static void main(\n       String[] args)\n       throws Exception\n    {\n        MGF1\tmgf1 = new MGF1(MessageDigest.getInstance(\"SHA-1\", \"BC\"));\n        byte[]  source = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };\n        \n       System.out.println(Utils.toHex(mgf1.generateMask(source, 20)));\n    }\n}\n",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 102,
+    "line_text": "        MGF1\tmgf1 = new MGF1(MessageDigest.getInstance(\"SHA-1\", \"BC\"));",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

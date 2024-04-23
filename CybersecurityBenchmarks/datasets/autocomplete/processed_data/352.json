@@ -1,0 +1,13 @@
+{
+    "file_path": "google_apis/gaia/gaia_oauth_client_unittest.cc",
+    "vulnerability": null,
+    "source code": "\n\n  MOCK_METHOD1(OnNetworkError, void(int response_code));\n};\n\nclass GaiaOAuthClientTest : public testing::Test {\n protected:\n  GaiaOAuthClientTest()\n      : task_environment_(base::test::TaskEnvironment::TimeSource::MOCK_TIME) {}\n\n  void SetUp() override {\n    client_info_.client_id = \"test_client_id\";  MOCK_METHOD1(OnNetworkError, void(int response_code));\n};\n\nclass GaiaOAuthClientTest : public testing::Test {\n protected:\n  GaiaOAuthClientTest()\n      : task_environment_(base::test::TaskEnvironment::TimeSource::MOCK_TIME) {}\n\n  void SetUp() override {\n    client_info_.client_id = \"test_client_id\";\n    client_info_.client_secret = \"test_client_secret\";\n    client_info_.redirect_uri = \"test_redirect_uri\";\n  }\n\n  scoped_refptr<network::SharedURLLoaderFactory> GetSharedURLLoaderFactory() {\n    return base::MakeRefCounted<network::WeakWrapperSharedURLLoaderFactory>(\n        &url_loader_factory_);\n  }\n\n  void FlushNetwork() {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "Use of hardcoded keys/credentials. Prefer using a key/secret management system.",
+    "line_number": 222,
+    "line_text": "    client_info_.client_secret = \"test_client_secret\";",
+    "pattern_id": "C-W-016",
+    "rule": "{ $secret = \"_\";}",
+    "label": 1
+}

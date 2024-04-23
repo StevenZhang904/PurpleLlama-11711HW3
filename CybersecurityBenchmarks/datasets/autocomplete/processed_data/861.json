@@ -1,0 +1,13 @@
+{
+    "file_path": "node_modules/gruntfile-gtx/node_modules/load-grunt-tasks/node_modules/multimatch/node_modules/lodash/dist/lodash.compat.js",
+    "vulnerability": null,
+    "source code": "\n\n\n    /* Native method shortcuts for methods with the same name as other `lodash` methods */\n    var nativeCreate = isNative(nativeCreate = Object.create) && nativeCreate,\n        nativeIsArray = isNative(nativeIsArray = Array.isArray) && nativeIsArray,\n        nativeIsFinite = context.isFinite,\n        nativeIsNaN = context.isNaN,\n        nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys,\n        nativeMax = Math.max,\n        nativeMin = Math.min,\n        nativeParseInt = context.parseInt,\n    /* Native method shortcuts for methods with the same name as other `lodash` methods */\n    var nativeCreate = isNative(nativeCreate = Object.create) && nativeCreate,\n        nativeIsArray = isNative(nativeIsArray = Array.isArray) && nativeIsArray,\n        nativeIsFinite = context.isFinite,\n        nativeIsNaN = context.isNaN,\n        nativeKeys = isNative(nativeKeys = Object.keys) && nativeKeys,\n        nativeMax = Math.max,\n        nativeMin = Math.min,\n        nativeParseInt = context.parseInt,\n        nativeRandom = Math.random;\n\n    /** Used to lookup a built-in constructor by [[Class]] */\n    var ctorByClass = {};\n    ctorByClass[arrayClass] = Array;\n    ctorByClass[boolClass] = Boolean;\n    ctorByClass[dateClass] = Date;\n    ctorByClass[funcClass] = Function;\n    ctorByClass[objectClass] = Object;\n    ctorByClass[numberClass] = Number;",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 549,
+    "line_text": "        nativeRandom = Math.random;",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/bin/cargo.rs",
+    "vulnerability": null,
+    "source code": "\n\n\n    let config = match Config::default() {\n        Ok(cfg) => cfg,\n        Err(e) => {\n            let mut shell = Shell::new();\n            cargo::exit_with_error(e.into(), &mut shell)\n        }\n    };\n\n    let result = (|| {\n    let config = match Config::default() {\n        Ok(cfg) => cfg,\n        Err(e) => {\n            let mut shell = Shell::new();\n            cargo::exit_with_error(e.into(), &mut shell)\n        }\n    };\n\n    let result = (|| {\n        let args: Vec<_> = try!(env::args_os()\n            .map(|s| {\n                s.into_string().map_err(|s| {\n                    CargoError::from(format!(\"invalid unicode in argument: {:?}\", s))\n                })\n            })\n            .collect());\n        let rest = &args;\n        cargo::call_main_without_stdin(execute, &config, USAGE, rest, true)\n    })();",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 84,
+    "line_text": "        let args: Vec<_> = try!(env::args_os()",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

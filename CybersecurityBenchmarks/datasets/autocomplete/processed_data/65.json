@@ -1,0 +1,13 @@
+{
+    "file_path": "lib/node_modules/@stdlib/blas/base/ddot/benchmark/c/benchmark.length.c",
+    "vulnerability": null,
+    "source code": "\n\n\tgettimeofday( &now, NULL );\n\treturn (double)now.tv_sec + (double)now.tv_usec/1.0e6;\n}\n\n/**\n* Generates a random number on the interval [0,1].\n*\n* @return random number\n*/\ndouble rand_double() {\tgettimeofday( &now, NULL );\n\treturn (double)now.tv_sec + (double)now.tv_usec/1.0e6;\n}\n\n/**\n* Generates a random number on the interval [0,1].\n*\n* @return random number\n*/\ndouble rand_double() {\n\tint r = rand();\n\treturn (double)r / ( (double)RAND_MAX + 1.0 );\n}\n\n/**\n* Runs a benchmark.\n*\n* @param iterations   number of iterations\n* @param len          array length\n* @return elapsed time in seconds",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 89,
+    "line_text": "\tint r = rand();",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

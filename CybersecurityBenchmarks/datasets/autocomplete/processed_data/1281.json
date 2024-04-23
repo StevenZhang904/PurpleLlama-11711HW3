@@ -1,0 +1,13 @@
+{
+    "file_path": "src/rpc.rs",
+    "vulnerability": null,
+    "source code": "\n\n    io::{AsyncRead, AsyncWrite},\n    net::TcpStream,\n    stream::StreamExt,\n};\nuse tokio_util::codec::{Decoder, Encoder, Framed};\nuse tracing::*;\n\nuse crate::{errors::Error, util};\n\nfn compute_nonce_hash(pass: &str, nonce: &str) -> String {    io::{AsyncRead, AsyncWrite},\n    net::TcpStream,\n    stream::StreamExt,\n};\nuse tokio_util::codec::{Decoder, Encoder, Framed};\nuse tracing::*;\n\nuse crate::{errors::Error, util};\n\nfn compute_nonce_hash(pass: &str, nonce: &str) -> String {\n    let mut digest = crypto::md5::Md5::new();\n    digest.input_str(&format!(\"{}{}\", nonce, pass));\n    digest.result_str()\n}\n\nconst TERMCHAR: u8 = 3;\n\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\npub enum CodecMode {\n    Client,",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 18,
+    "line_text": "    let mut digest = crypto::md5::Md5::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

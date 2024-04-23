@@ -1,0 +1,13 @@
+{
+    "file_path": "shell/src/main/java/alluxio/shell/command/ChecksumCommand.java",
+    "vulnerability": null,
+    "source code": "\n\n   *\n   * @param filePath The {@link AlluxioURI} path of the file calculate MD5 checksum on\n   * @return A string representation of the file's MD5 checksum\n   * @throws AlluxioException when Alluxio exception occurs\n   * @throws IOException when non-Alluxio exception occurs\n   */\n  private String calculateChecksum(AlluxioURI filePath)\n      throws AlluxioException, IOException {\n    OpenFileOptions options = OpenFileOptions.defaults().setReadType(ReadType.NO_CACHE);\n    try (FileInStream fis = mFileSystem.openFile(filePath, options)) {   *\n   * @param filePath The {@link AlluxioURI} path of the file calculate MD5 checksum on\n   * @return A string representation of the file's MD5 checksum\n   * @throws AlluxioException when Alluxio exception occurs\n   * @throws IOException when non-Alluxio exception occurs\n   */\n  private String calculateChecksum(AlluxioURI filePath)\n      throws AlluxioException, IOException {\n    OpenFileOptions options = OpenFileOptions.defaults().setReadType(ReadType.NO_CACHE);\n    try (FileInStream fis = mFileSystem.openFile(filePath, options)) {\n      return DigestUtils.md5Hex(fis);\n    }\n  }\n\n  @Override\n  public String getUsage() {\n    return \"checksum <Alluxio path>\";\n  }\n\n  @Override",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 78,
+    "line_text": "      return DigestUtils.md5Hex(fis);",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

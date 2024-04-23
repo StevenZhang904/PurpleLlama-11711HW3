@@ -1,0 +1,13 @@
+{
+    "file_path": "c/template/\u7c7b\u6a21\u677f.cpp",
+    "vulnerability": null,
+    "source code": "\n\n}\nvoid Disp(MyType *MyArray, int size)\n{\n\tfor(int i = 0;i < size; i++)\n\t\tcout<<MyArray[i].value<<\" \";\n\tcout<<endl;\n}\nint main()\n{\n\tint a, b;}\nvoid Disp(MyType *MyArray, int size)\n{\n\tfor(int i = 0;i < size; i++)\n\t\tcout<<MyArray[i].value<<\" \";\n\tcout<<endl;\n}\nint main()\n{\n\tint a, b;\n\ta= rand();\n\tb= rand();\n\tMyType A(a), B(b);\n\tcout<<\"a= \"<<a<<endl;\n\tcout<<\"b= \"<<b<<endl;\n\tMyType myarray[] = {MyType(82), MyType(34), MyType(26), MyType(77), MyType(68)};\n\tsort(myarray, 5);\n\tDisp(myarray, 5);\n\treturn 0;\n}",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 59,
+    "line_text": "\ta= rand();",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

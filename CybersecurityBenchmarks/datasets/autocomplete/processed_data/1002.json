@@ -1,0 +1,13 @@
+{
+    "file_path": "test/org/apache/pig/test/Util.java",
+    "vulnerability": null,
+    "source code": "\n\n        }\n    }\n\n    public static ProcessReturnInfo executeJavaCommandAndReturnInfo(String cmd)\n    throws Exception {\n        String javaHome = System.getenv(\"JAVA_HOME\");\n        if(javaHome != null) {\n            String fileSeparator = System.getProperty(\"file.separator\");\n            cmd = javaHome + fileSeparator + \"bin\" + fileSeparator + cmd;\n        }        }\n    }\n\n    public static ProcessReturnInfo executeJavaCommandAndReturnInfo(String cmd)\n    throws Exception {\n        String javaHome = System.getenv(\"JAVA_HOME\");\n        if(javaHome != null) {\n            String fileSeparator = System.getProperty(\"file.separator\");\n            cmd = javaHome + fileSeparator + \"bin\" + fileSeparator + cmd;\n        }\n        Process cmdProc = Runtime.getRuntime().exec(cmd);\n        ProcessReturnInfo pri = new ProcessReturnInfo();\n        ReadStream stdoutStream = new ReadStream(cmdProc.getInputStream ());\n        ReadStream stderrStream = new ReadStream(cmdProc.getErrorStream ());\n        stdoutStream.start();\n        stderrStream.start();\n        cmdProc.waitFor();\n        pri.exitCode = cmdProc.exitValue();\n        pri.stdoutContents = stdoutStream.getMessage();\n        pri.stderrContents = stderrStream.getMessage();",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 1012,
+    "line_text": "        Process cmdProc = Runtime.getRuntime().exec(cmd);",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

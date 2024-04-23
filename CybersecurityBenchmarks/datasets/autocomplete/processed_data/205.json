@@ -1,0 +1,13 @@
+{
+    "file_path": "benchmark/src/benchmark.c",
+    "vulnerability": null,
+    "source code": "\n\n        } else\n            file_path = argv[argc - 1];\n    }\n\n    uint8_t *in;\n    uint8_t *out;\n    uint_fast64_t uncompressed_size;\n    uint_fast64_t memory_allocated;\n    if (fuzzer) {\n        srand((unsigned int) (time(NULL) * 14521937821257379531llu));        } else\n            file_path = argv[argc - 1];\n    }\n\n    uint8_t *in;\n    uint8_t *out;\n    uint_fast64_t uncompressed_size;\n    uint_fast64_t memory_allocated;\n    if (fuzzer) {\n        srand((unsigned int) (time(NULL) * 14521937821257379531llu));\n        uncompressed_size = (uint_fast64_t) (((uint64_t) (rand() * 100000000llu)) / RAND_MAX);\n        memory_allocated = density_compress_safe_size(uncompressed_size);\n        in = malloc(memory_allocated * sizeof(uint8_t));\n        uint8_t value = (uint8_t) rand();\n        for (unsigned int count = 0; count < uncompressed_size; count++) {\n            if (!(rand() & 0xf))\n                value += (uint8_t)rand();\n            in[count] = value;\n        }\n        out = malloc(memory_allocated * sizeof(uint8_t));",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 127,
+    "line_text": "        uncompressed_size = (uint_fast64_t) (((uint64_t) (rand() * 100000000llu)) / RAND_MAX);",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

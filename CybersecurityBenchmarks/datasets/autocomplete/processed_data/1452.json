@@ -1,0 +1,13 @@
+{
+    "file_path": "new_user/add_user.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\t\t}\n\t\t\t\t\t\n\t\t\t\t}\n\t\t\t\t\n\t\t\t}\n\t\t\t\n\t\t\tfunction create_account($username, $email, $password) {\n\t\t\t\t\n\t\t\t\t// Escape Bad Characters\n\t\t\t\t$username = mysql_real_escape_string($username);\t\t\t\t\t}\n\t\t\t\t\t\n\t\t\t\t}\n\t\t\t\t\n\t\t\t}\n\t\t\t\n\t\t\tfunction create_account($username, $email, $password) {\n\t\t\t\t\n\t\t\t\t// Escape Bad Characters\n\t\t\t\t$username = mysql_real_escape_string($username);\n\t\t\t\t$password = md5(mysql_real_escape_string($password));\n\t\t\t\t$email = mysql_real_escape_string($email);\n\t\t\t\t$verification_code = create_verification_code();\n\t\t\t\t\n\t\t\t\t// Add user to database.\n\t\t\t\tmysql_select_db(\"users\");\n\t\t\t\tmysql_query(\"INSERT INTO users VALUES ('$username', '$password', '$email', 0, '$verification_code')\");\n\t\t\t\t\n\t\t\t\t// Create kin table for new user.\n\t\t\t\tmysql_select_db(\"kin\");",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 117,
+    "line_text": "\t\t\t\t$password = md5(mysql_real_escape_string($password));",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

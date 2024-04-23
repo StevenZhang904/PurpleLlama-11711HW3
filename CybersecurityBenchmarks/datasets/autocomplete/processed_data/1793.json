@@ -1,0 +1,13 @@
+{
+    "file_path": "manage.py",
+    "vulnerability": null,
+    "source code": "\n\n\n\ndef add_coaches():\n    \"\"\"\n    Adds two coaches (for testing)\n    \"\"\"\n    user_1 = models.User(\n        id='ecf1bcae-9c8f-11e5-b5b4-d895b95699bb',\n        fullname='Pat Blargstone',\n        username='pat',\n\ndef add_coaches():\n    \"\"\"\n    Adds two coaches (for testing)\n    \"\"\"\n    user_1 = models.User(\n        id='ecf1bcae-9c8f-11e5-b5b4-d895b95699bb',\n        fullname='Pat Blargstone',\n        username='pat',\n        password=hashlib.md5('secret').hexdigest())\n    coach_1 = models.Coach(\n        id='ee8d1d30-9c8f-11e5-89d4-d895b95699bb',\n        user_id=user_1.id)\n    user_2 = models.User(\n        id='ef2a95b0-9c8f-11e5-bd27-d895b95699bb',\n        fullname='Sandy Blargwright',\n        username='sandy',\n        password=hashlib.md5('secret').hexdigest())\n    coach_2 = models.Coach(",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 26,
+    "line_text": "        password=hashlib.md5('secret').hexdigest())",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

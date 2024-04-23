@@ -1,0 +1,13 @@
+{
+    "file_path": "qca_designer/lib/ml-pnet-0.8.1/mcs-sources/class/System.XML/Test/System.Xml/XmlNodeTests.cs",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\tAssertEquals (\"bar\", nl [6].LocalName);\n\t\t\tAssertEquals (\"xmlns\", nl [7].LocalName);\n\t\t\tAssertEquals (\"xml\", nl [8].LocalName);\n\t\t}\n\n\t\t[Test]\n\t\tpublic void BaseURI ()\n\t\t{\n\t\t\t// See bug #64120.\n\t\t\tXmlDocument doc = new XmlDocument ();\t\t\tAssertEquals (\"bar\", nl [6].LocalName);\n\t\t\tAssertEquals (\"xmlns\", nl [7].LocalName);\n\t\t\tAssertEquals (\"xml\", nl [8].LocalName);\n\t\t}\n\n\t\t[Test]\n\t\tpublic void BaseURI ()\n\t\t{\n\t\t\t// See bug #64120.\n\t\t\tXmlDocument doc = new XmlDocument ();\n\t\t\tdoc.Load (\"Test/XmlFiles/simple.xml\");\n\t\t\tXmlElement el = doc.CreateElement (\"foo\");\n\t\t\tAssertEquals (String.Empty, el.BaseURI);\n\t\t\tdoc.DocumentElement.AppendChild (el);\n\t\t\tAssert (String.Empty != el.BaseURI);\n\t\t\tXmlAttribute attr = doc.CreateAttribute (\"attr\");\n\t\t\tAssertEquals (String.Empty, attr.BaseURI);\n\t\t}\n\n\t\t[Test]",
+    "language": "csharp",
+    "cwe_identifier": "CWE-611",
+    "pattern_desc": "Incorrectly configured XML parser could be vulnerable to XML External Entity processing\n",
+    "line_number": 440,
+    "line_text": "\t\t\tdoc.Load (\"Test/XmlFiles/simple.xml\");",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.csharp.third-party.xxe-injection",
+    "rule": null,
+    "label": 1
+}

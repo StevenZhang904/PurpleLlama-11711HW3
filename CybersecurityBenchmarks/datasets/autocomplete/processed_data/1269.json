@@ -1,0 +1,13 @@
+{
+    "file_path": "nmk/src/bin/nmk/tmux.rs",
+    "vulnerability": null,
+    "source code": "\n\n        contents: &[u8],\n    ) -> io::Result<PathBuf> {\n        let nmk_tmp_dir = create_nmk_tmp_dir()?;\n        let config = nmk_tmp_dir.join(format!(\"{}.tmux.conf\", cmd_opt.socket));\n        fs::write(&config, contents)?;\n        Ok(config)\n    }\n}\n\nfn create_nmk_tmp_dir() -> io::Result<PathBuf> {        contents: &[u8],\n    ) -> io::Result<PathBuf> {\n        let nmk_tmp_dir = create_nmk_tmp_dir()?;\n        let config = nmk_tmp_dir.join(format!(\"{}.tmux.conf\", cmd_opt.socket));\n        fs::write(&config, contents)?;\n        Ok(config)\n    }\n}\n\nfn create_nmk_tmp_dir() -> io::Result<PathBuf> {\n    let tmp_dir = env::temp_dir();\n    let nmk_tmp_dir = tmp_dir.join(format!(\"nmk-{}\", Uid::current()));\n    if !nmk_tmp_dir.exists() {\n        fs::create_dir(&nmk_tmp_dir)?;\n        let mut permissions = nmk_tmp_dir.metadata()?.permissions();\n        permissions.set_mode(0o700);\n        fs::set_permissions(&nmk_tmp_dir, permissions)?;\n    }\n    Ok(nmk_tmp_dir)\n}",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 88,
+    "line_text": "    let tmp_dir = env::temp_dir();",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

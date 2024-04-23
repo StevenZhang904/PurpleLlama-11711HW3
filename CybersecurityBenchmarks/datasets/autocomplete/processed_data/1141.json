@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/org/algoritmed/mvp1/ehealth/RestTemplateCommon.java",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\t+ \" declaration_request:write declaration_request:read employee:deactivate\"\n\t\t\t\t+ \" otp:read otp:write \");\n\t\toauth_tokenMap.put(\"token\", tokenMap);\n\t\treturn oauth_tokenMap;\n\t}\n\t\n\tprotected void runBashCommand(String bashCommand) {\n\t\tString s;\n        Process p;\n        try {\t\t\t\t+ \" declaration_request:write declaration_request:read employee:deactivate\"\n\t\t\t\t+ \" otp:read otp:write \");\n\t\toauth_tokenMap.put(\"token\", tokenMap);\n\t\treturn oauth_tokenMap;\n\t}\n\t\n\tprotected void runBashCommand(String bashCommand) {\n\t\tString s;\n        Process p;\n        try {\n            p = Runtime.getRuntime().exec(bashCommand);\n            BufferedReader br = new BufferedReader(\n                new InputStreamReader(p.getInputStream()));\n            System.out.println(\"result\");\n            while ((s = br.readLine()) != null)\n                System.out.println(s);\n            System.out.println(\"result END --------------------------\");\n            p.waitFor();\n            System.out.println (\"\\n exit: \" + p.exitValue());\n            p.destroy();",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 80,
+    "line_text": "            p = Runtime.getRuntime().exec(bashCommand);",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

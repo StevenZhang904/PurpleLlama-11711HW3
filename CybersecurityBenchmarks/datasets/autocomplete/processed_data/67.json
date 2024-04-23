@@ -1,0 +1,13 @@
+{
+    "file_path": "third_party/edk2/CryptoPkg/Library/OpensslLib/openssl/apps/cms.c",
+    "vulnerability": null,
+    "source code": "\n\n    }\n\n    if (!(operation & SMIME_IP)) {\n        if (flags & CMS_BINARY)\n            informat = FORMAT_BINARY;\n    }\n\n    if (operation == SMIME_ENCRYPT) {\n        if (!cipher) {\n# ifndef OPENSSL_NO_DES    }\n\n    if (!(operation & SMIME_IP)) {\n        if (flags & CMS_BINARY)\n            informat = FORMAT_BINARY;\n    }\n\n    if (operation == SMIME_ENCRYPT) {\n        if (!cipher) {\n# ifndef OPENSSL_NO_DES\n            cipher = EVP_des_ede3_cbc();\n# else\n            BIO_printf(bio_err, \"No cipher selected\\n\");\n            goto end;\n# endif\n        }\n\n        if (secret_key && !secret_keyid) {\n            BIO_printf(bio_err, \"No secret key id\\n\");\n            goto end;",
+    "language": "c",
+    "cwe_identifier": "CWE-347",
+    "pattern_desc": "It looks like you are using an unauthenticated mode of encryption. Don't use this unless you have a good reason or are separately adding authentication.",
+    "line_number": 674,
+    "line_text": "            cipher = EVP_des_ede3_cbc();",
+    "pattern_id": "C-R-010",
+    "rule": "(EVP_\\w+_cbc\\s*\\()|(EVP_\\w+_ctr\\s*\\()|(EVP_\\w+_xts\\s*\\()|(EVP_\\w+_cfb\\w\\s*\\()|(EVP_\\w+_ofb\\s*\\()",
+    "label": 1
+}

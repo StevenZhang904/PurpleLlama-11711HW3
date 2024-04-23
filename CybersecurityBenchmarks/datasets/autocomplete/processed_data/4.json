@@ -1,0 +1,13 @@
+{
+    "file_path": "openssl/crypto/rand/randfile.c",
+    "vulnerability": null,
+    "source code": "\n\n    } else {\n        if (len + 1 + strlen(RFILE) + 1 >= size)\n            return NULL;\n        strcpy(buf, s);\n#if !defined(OPENSSL_SYS_VMS) && !defined(OPENSSL_SYS_AMIGA)\n        strcat(buf, \"/\");\n#endif\n#if defined(OPENSSL_SYS_AMIGA)\n        AddPart(buf, RFILE, size);\n#else    } else {\n        if (len + 1 + strlen(RFILE) + 1 >= size)\n            return NULL;\n        strcpy(buf, s);\n#if !defined(OPENSSL_SYS_VMS) && !defined(OPENSSL_SYS_AMIGA)\n        strcat(buf, \"/\");\n#endif\n#if defined(OPENSSL_SYS_AMIGA)\n        AddPart(buf, RFILE, size);\n#else\n        strcat(buf, RFILE);\n#endif\n    }\n\n    return buf;\n}\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 332,
+    "line_text": "        strcat(buf, RFILE);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

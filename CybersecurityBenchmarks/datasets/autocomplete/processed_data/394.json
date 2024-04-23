@@ -1,0 +1,13 @@
+{
+    "file_path": "Modeling/World.cpp",
+    "vulnerability": null,
+    "source code": "\n\nint RobotWorld::LoadRobot(const string& fn)\n{\n  Robot* robot = new Robot;\n  printf(\"RobotWorld::LoadRobot: %s\\n\",fn.c_str());\n  if(!robot->Load(fn.c_str())) {\n    delete robot;\n    return -1;\n  }\n  const char* justfn = GetFileName(fn.c_str());\n  char* buf = new char[strlen(justfn)+1];int RobotWorld::LoadRobot(const string& fn)\n{\n  Robot* robot = new Robot;\n  printf(\"RobotWorld::LoadRobot: %s\\n\",fn.c_str());\n  if(!robot->Load(fn.c_str())) {\n    delete robot;\n    return -1;\n  }\n  const char* justfn = GetFileName(fn.c_str());\n  char* buf = new char[strlen(justfn)+1];\n  strcpy(buf,justfn);\n  StripExtension(buf);\n  string name=buf;\n  delete [] buf;\n  int i = AddRobot(name,robot);\n  return i;\n}\n\nint RobotWorld::AddRobot(const string& name,Robot* robot)\n{",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 281,
+    "line_text": "  strcpy(buf,justfn);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

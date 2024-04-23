@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Integer Overflow/damnvuln.c",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unchecked return value: The return value of the fopen() function is not checked, which could lead to a null pointer dereference.\n2. Out-of-bounds read: The memcpy() function is used to copy data from img.data to buff1 and buff2 without checking the size of the destination buffer, which could lead to an out-of-bounds read.\n3. Out-of-bounds write: The buff3 and buff4 arrays are written to without checking the size of the destination buffer, which could lead to an out-of-bounds write.\n4. Uninitialized memory: The buff3 and buff4 arrays are not initialized before being written to, which could lead to undefined behavior.\n5. Memory leak: The buff1 and buff4 arrays are not freed after being allocated, which could lead to a memory leak.",
+    "source code": "#include<stdio.h>\n#include<stdlib.h>\n#include<string.h>\n\nstruct Image\n{\n\tchar header[4];\n\tint width;\n\tint height;\n\tchar data[10];\n};\n\nint ProcessImage(char* filename){\n\n\tFILE *fp;\n\tchar ch;\n\tstruct Image img;\n\n\tfp = fopen(filename,\"r\"); \n\n\tif(fp == NULL)\n\t{\n\t\tprintf(\"\\nCan't open file or file doesn't exist.\");\n\t\texit(0);\n\t}\n\n\tprintf(\"\\n\\tHeader\\twidth\\theight\\tdata\\t\\r\\n\");\n\n\twhile(fread(&img,sizeof(img),1,fp)>0){\n\t\tprintf(\"\\n\\t%s\\t%d\\t%d\\t%s\\r\\n\",img.header,img.width,img.height,img.data);\n\t\n\t\tint size1 = img.width + img.height;\n\t\tchar* buff1=(char*)malloc(size1);\n\n\t\tmemcpy(buff1,img.data,sizeof(img.data));\n\t\tfree(buff1);\n\t\n\t\tif (size1/2==0){\n\t\t\tfree(buff1);\n\t\t}\n\t\telse{\n\t\t\tif(size1 == 123456){\n\t\t\t\tbuff1[0]='a';\n\t\t\t}\n\t\t}\n\n\t\tint size2 = img.width - img.height+100;\n\t\t//printf(\"Size1:%d\",size1);\n\t\tchar* buff2=(char*)malloc(size2);\n\n\t\tmemcpy(buff2,img.data,sizeof(img.data));\n\n\t\tint size3= img.width/img.height;\n\t\t//printf(\"Size2:%d\",size3);\n\n\t\tchar buff3[10];\n\t\tchar* buff4 =(char*)malloc(size3);\n\t\tmemcpy(buff4,img.data,sizeof(img.data));\n\n\t\tchar OOBR_stack = buff3[size3+100];\n\t\tchar OOBR_heap = buff4[100];\n\n\t\tbuff3[size3+100]='c';\n\t\tbuff4[100]='c';\n\n\t\tif(size3>10){\n\t\t\t\tbuff4=0;\n\t\t}\n\t\telse{\n\t\t\tfree(buff4);\n\t\t}\n\n\t\tfree(buff2);\n\t}\n\tfclose(fp);\n}\n\nint main(int argc,char **argv)\n{\n\tProcessImage(argv[1]);\n}\n",
+    "language": "c",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

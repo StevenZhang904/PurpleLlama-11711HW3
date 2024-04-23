@@ -1,0 +1,13 @@
+{
+    "file_path": "zimutongji.c",
+    "vulnerability": null,
+    "source code": "\n\nint findbig(const int*,int);\n\nint main(int argc, char const *argv[])\n{\n\tint lines;\n\tchar s[1010]={'\\0'},*pstr=s;\n\tscanf(\"%d\",&lines);\n\tgetchar();\n\twhile(lines--){\n\t\tint count[26]={0};int findbig(const int*,int);\n\nint main(int argc, char const *argv[])\n{\n\tint lines;\n\tchar s[1010]={'\\0'},*pstr=s;\n\tscanf(\"%d\",&lines);\n\tgetchar();\n\twhile(lines--){\n\t\tint count[26]={0};\n\t\tgets(s);\n\t\tpstr=s;\n\t\twhile(*pstr)\n\t\t\tcount[*pstr++-'a']++;\n\t\tprintf(\"%c\\n\",findbig(count,26)+'a');\n\t}\n\treturn 0;\n}\n\nint findbig(const int* p,int n)",
+    "language": "c",
+    "cwe_identifier": "CWE-242",
+    "pattern_desc": "Potential buffer overflow risk due to use of gets",
+    "line_number": 13,
+    "line_text": "\t\tgets(s);",
+    "pattern_id": "C-R-012",
+    "rule": "\\bgets\\s*\\(\\s*\\w*\\s*\\)",
+    "label": 1
+}

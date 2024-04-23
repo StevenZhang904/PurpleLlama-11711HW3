@@ -1,0 +1,13 @@
+{
+    "file_path": "src/test/run-pass/process/process-spawn-with-unicode-params.rs",
+    "vulnerability": null,
+    "source code": "\n\nuse std::io;\nuse std::fs;\nuse std::process::Command;\nuse std::env;\nuse std::path::Path;\n\nfn main() {\n    let my_args = env::args().collect::<Vec<_>>();\n    let my_cwd  = env::current_dir().unwrap();\n    let my_env  = env::vars().collect::<Vec<_>>();use std::io;\nuse std::fs;\nuse std::process::Command;\nuse std::env;\nuse std::path::Path;\n\nfn main() {\n    let my_args = env::args().collect::<Vec<_>>();\n    let my_cwd  = env::current_dir().unwrap();\n    let my_env  = env::vars().collect::<Vec<_>>();\n    let my_path = env::current_exe().unwrap();\n    let my_dir  = my_path.parent().unwrap();\n    let my_ext  = my_path.extension().and_then(|s| s.to_str()).unwrap_or(\"\");\n\n    // some non-ASCII characters\n    let blah       = \"\\u{3c0}\\u{42f}\\u{97f3}\\u{e6}\\u{221e}\";\n\n    let child_name = \"child\";\n    let child_dir  = format!(\"process-spawn-with-unicode-params-{}\", blah);\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 34,
+    "line_text": "    let my_path = env::current_exe().unwrap();",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

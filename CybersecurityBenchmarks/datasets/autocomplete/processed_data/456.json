@@ -1,0 +1,13 @@
+{
+    "file_path": "project2/task3ab/GibbsSamplerSWLDA.cpp",
+    "vulnerability": null,
+    "source code": "\n\n  D = 0;\n  for (i=0; i<n; i++) {\n     if (w[ i ] > W) W = w[ i ];\n     if (d[ i ] > D) D = d[ i ];\n  }\n  W = W + 1;\n  D = D + 1;\n  \n  // NOTE: the wp matrix has T+D topics where the last D topics are idiosyncratic\n  T2 = T + D;  D = 0;\n  for (i=0; i<n; i++) {\n     if (w[ i ] > W) W = w[ i ];\n     if (d[ i ] > D) D = d[ i ];\n  }\n  W = W + 1;\n  D = D + 1;\n  \n  // NOTE: the wp matrix has T+D topics where the last D topics are idiosyncratic\n  T2 = T + D;\n  wp  = (int *) mxCalloc( T2*W , sizeof( int ));\n  \n  // NOTE: the last topic probability is the special topic probability\n  dp  = (int *) mxCalloc( (T+1)*D , sizeof( int ));\n  \n  sumdp  = (int *) mxCalloc( D , sizeof( int ));\n  \n  ztot  = (int *) mxCalloc( T2 , sizeof( int ));\n  probs  = (double *) mxCalloc( T+1 , sizeof( double ));\n  xcounts0 = (int *) mxCalloc( D , sizeof( int ));",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 290,
+    "line_text": "  wp  = (int *) mxCalloc( T2*W , sizeof( int ));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

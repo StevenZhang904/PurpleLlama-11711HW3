@@ -1,0 +1,13 @@
+{
+    "file_path": "src/core/map/ctf_soldier_spawn_target.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    return mCursorId;\n}\n\nint32_t CtfSoldierSpawnTarget::GetActorId() const\n{\n    return mActorId;\n}\n\nvoid CtfSoldierSpawnTarget::PutTarget( glm::vec2 position )\n{    return mCursorId;\n}\n\nint32_t CtfSoldierSpawnTarget::GetActorId() const\n{\n    return mActorId;\n}\n\nvoid CtfSoldierSpawnTarget::PutTarget( glm::vec2 position )\n{\n    std::auto_ptr<MapElement> mapElement( MapElementFactory::Get()( AutoId( \"ctf_soldier_spawn_point\" ) ) );\n    Opt<ctf::CtfSoldierSpawnPointMapElement> ctfSoldierSpawn( static_cast<ctf::CtfSoldierSpawnPointMapElement*>( mapElement.get() ) );\n    ctfSoldierSpawn->SetTeam( mTeam );\n    ctfSoldierSpawn->SetX( position.x );\n    ctfSoldierSpawn->SetY( position.y );\n    EditorSoldierSpawnSystem::Spawn( ctfSoldierSpawn );\n    MapSystem::Get()->GetMapElementList().insert( Opt<MapElement>( mapElement.release() ) );\n}\n\nstd::auto_ptr<Actor> CtfSoldierSpawnTarget::GetCursor()",
+    "language": "cpp",
+    "cwe_identifier": "CWE-665",
+    "pattern_desc": "Uses deprecated auto_ptr, which can lead to undefined behavior.",
+    "line_number": 54,
+    "line_text": "    std::auto_ptr<MapElement> mapElement( MapElementFactory::Get()( AutoId( \"ctf_soldier_spawn_point\" ) ) );",
+    "pattern_id": "CPP-R-001",
+    "rule": "\\bstd::auto_ptr<\\s*\\w+\\s*>",
+    "label": 1
+}

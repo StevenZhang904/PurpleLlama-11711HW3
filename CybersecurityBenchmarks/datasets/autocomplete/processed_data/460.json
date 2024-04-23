@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/client/udf_register.cc",
+    "vulnerability": null,
+    "source code": "\n\n        as_v8_error(log, \"No callback to register\");\n        COPY_ERR_MESSAGE(data->err, AEROSPIKE_ERR_PARAM);\n        data->param_err = 1;\n\t\tscope.Close(Undefined());\n\t\treturn data;\n    }\n\n\t// The first argument should be the UDF file name.\n\tif ( args[UDF_ARG_FILE]->IsString()) {\n\t\tint length =  args[UDF_ARG_FILE]->ToString()->Length()+1;        as_v8_error(log, \"No callback to register\");\n        COPY_ERR_MESSAGE(data->err, AEROSPIKE_ERR_PARAM);\n        data->param_err = 1;\n\t\tscope.Close(Undefined());\n\t\treturn data;\n    }\n\n\t// The first argument should be the UDF file name.\n\tif ( args[UDF_ARG_FILE]->IsString()) {\n\t\tint length =  args[UDF_ARG_FILE]->ToString()->Length()+1;\n\t\tfilepath = (char*) cf_malloc( sizeof(char) * length);\n\t\tstrcpy( filepath, *String::Utf8Value(args[UDF_ARG_FILE]->ToString()) );\n\t\tfilepath[length-1] = '\\0';\n\t\targpos++;\n\t}\n\telse {\n\t\tas_v8_error(log, \"UDF file name should be string\");\n        COPY_ERR_MESSAGE(data->err, AEROSPIKE_ERR_PARAM);\n\t\tdata->param_err = 1;\n\t\tscope.Close(Undefined());",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 114,
+    "line_text": "\t\tfilepath = (char*) cf_malloc( sizeof(char) * length);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

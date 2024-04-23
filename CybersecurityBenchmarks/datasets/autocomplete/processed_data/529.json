@@ -1,0 +1,13 @@
+{
+    "file_path": "OfficeDevPnP.Core/OfficeDevPnP.Core/AppModelExtensions/ListExtensions.cs",
+    "vulnerability": null,
+    "source code": "\n\n        /// <param name=\"filePath\"></param>\n        public static void CreateViewsFromXMLFile(this List list, string filePath)\n        {\n            if (string.IsNullOrEmpty(filePath))\n                throw new ArgumentNullException(\"filePath\");\n\n            if (!System.IO.File.Exists(filePath))\n                throw new System.IO.FileNotFoundException(filePath);\n\n            XmlDocument xd = new XmlDocument();        /// <param name=\"filePath\"></param>\n        public static void CreateViewsFromXMLFile(this List list, string filePath)\n        {\n            if (string.IsNullOrEmpty(filePath))\n                throw new ArgumentNullException(\"filePath\");\n\n            if (!System.IO.File.Exists(filePath))\n                throw new System.IO.FileNotFoundException(filePath);\n\n            XmlDocument xd = new XmlDocument();\n            xd.Load(filePath);\n            list.CreateViewsFromXML(xd);\n        }\n\n        /// <summary>\n        /// Create list views based on specific xml structure in string \n        /// </summary>\n        /// <param name=\"list\"></param>\n        /// <param name=\"xmlString\"></param>\n        public static void CreateViewsFromXMLString(this List list, string xmlString)",
+    "language": "csharp",
+    "cwe_identifier": "CWE-611",
+    "pattern_desc": "Incorrectly configured XML parser could be vulnerable to XML External Entity processing\n",
+    "line_number": 829,
+    "line_text": "            xd.Load(filePath);",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.csharp.third-party.xxe-injection",
+    "rule": null,
+    "label": 1
+}

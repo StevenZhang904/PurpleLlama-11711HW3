@@ -1,0 +1,13 @@
+{
+    "file_path": "packages/daemon/src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n            Some(h) => h.get(0).unwrap(),\n            None => return Ok(Response::with((status::NotFound, \"Missing Github Header.\"))),\n        };\n\n        // Create HMAC result handler from Hex value\n        let header_str = String::from_utf8(header.to_vec()).unwrap();\n        let header_split: Vec<&str> = header_str.split(\"sha1=\").collect();\n        let result = crypto::mac::MacResult::new(&header_split[1].from_hex().unwrap());\n\n        // Compare HMAC of body to header signature.            Some(h) => h.get(0).unwrap(),\n            None => return Ok(Response::with((status::NotFound, \"Missing Github Header.\"))),\n        };\n\n        // Create HMAC result handler from Hex value\n        let header_str = String::from_utf8(header.to_vec()).unwrap();\n        let header_split: Vec<&str> = header_str.split(\"sha1=\").collect();\n        let result = crypto::mac::MacResult::new(&header_split[1].from_hex().unwrap());\n\n        // Compare HMAC of body to header signature.\n        let mut hmac = crypto::hmac::Hmac::new(crypto::sha1::Sha1::new(), config.secret.as_bytes());\n        let payload_str = match req.get::<bodyparser::Raw>() {\n            Ok(Some(body)) => body,\n            Ok(None) => return Ok(Response::with((status::NotFound, \"Missing Request Body.\"))),\n            Err(_) => return Ok(Response::with((status::NotFound, \"UTF8 Error\"))),\n        };\n\n        hmac.input(payload_str.as_bytes());\n        let computed_result = hmac.result();\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 57,
+    "line_text": "        let mut hmac = crypto::hmac::Hmac::new(crypto::sha1::Sha1::new(), config.secret.as_bytes());",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Symlink Attack/file.c",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unchecked return value of access() - The access() function is used to check if a file exists, but the return value is not checked. This could lead to a denial of service attack if the file does not exist.\n2. Unchecked return value of fopen() - The fopen() function is used to open a file, but the return value is not checked. This could lead to a denial of service attack if the file cannot be opened.\n3. Unsafe use of tmpFile - The tmpFile variable is used without any checks to ensure that it is valid. This could lead to a buffer overflow attack if the file is too large.",
+    "source code": "#include <stdio.h>\n#include <stdlib.h>\n#include <unistd.h>\n \n#define MY_TMP_FILE \"/tmp/file.tmp\"\n \n \nint main(int argc, char* argv[])\n{\n    FILE * f;\n    if (!access(MY_TMP_FILE, F_OK)) {\n        printf external link(\"File exists!\\n\");\n        return EXIT_FAILURE;\n    }\n    tmpFile = fopen(MY_TMP_FILE, \"w\");\n \n    if (tmpFile == NULL) {\n        return EXIT_FAILURE;\n    }\n \n    fputs(\"Some text...\\n\", tmpFile);\n \n    fclose(tmpFile);\n    return EXIT_SUCCESS;\n}\n",
+    "language": "c",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

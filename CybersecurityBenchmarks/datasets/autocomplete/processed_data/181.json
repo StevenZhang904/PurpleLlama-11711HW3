@@ -1,0 +1,13 @@
+{
+    "file_path": "src/C/libressl/libressl-2.0.0/ssl/ssl_algs.c",
+    "vulnerability": null,
+    "source code": "\n\n\tEVP_add_cipher(EVP_aes_128_cbc_hmac_sha1());\n\tEVP_add_cipher(EVP_aes_256_cbc_hmac_sha1());\n#ifndef OPENSSL_NO_CAMELLIA\n\tEVP_add_cipher(EVP_camellia_128_cbc());\n\tEVP_add_cipher(EVP_camellia_256_cbc());\n#endif\n\n\tEVP_add_digest(EVP_md5());\n\tEVP_add_digest_alias(SN_md5, \"ssl2-md5\");\n\tEVP_add_digest_alias(SN_md5, \"ssl3-md5\");\tEVP_add_cipher(EVP_aes_128_cbc_hmac_sha1());\n\tEVP_add_cipher(EVP_aes_256_cbc_hmac_sha1());\n#ifndef OPENSSL_NO_CAMELLIA\n\tEVP_add_cipher(EVP_camellia_128_cbc());\n\tEVP_add_cipher(EVP_camellia_256_cbc());\n#endif\n\n\tEVP_add_digest(EVP_md5());\n\tEVP_add_digest_alias(SN_md5, \"ssl2-md5\");\n\tEVP_add_digest_alias(SN_md5, \"ssl3-md5\");\n\tEVP_add_digest(EVP_sha1()); /* RSA with sha1 */\n\tEVP_add_digest_alias(SN_sha1, \"ssl3-sha1\");\n\tEVP_add_digest_alias(SN_sha1WithRSAEncryption, SN_sha1WithRSA);\n\tEVP_add_digest(EVP_sha224());\n\tEVP_add_digest(EVP_sha256());\n\tEVP_add_digest(EVP_sha384());\n\tEVP_add_digest(EVP_sha512());\n\tEVP_add_digest(EVP_dss1()); /* DSA with sha1 */\n\tEVP_add_digest_alias(SN_dsaWithSHA1, SN_dsaWithSHA1_2);\n\tEVP_add_digest_alias(SN_dsaWithSHA1, \"DSS1\");",
+    "language": "c",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure.",
+    "line_number": 103,
+    "line_text": "\tEVP_add_digest(EVP_sha1()); /* RSA with sha1 */",
+    "pattern_id": "C-R-005",
+    "rule": "(SHA1_Init\\s*\\()|(EVP_sha1\\s*\\()|(EVP_sha1_md5\\s*\\()",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "Kwf/Controller/Action/Cli/Web/FulltextController.php",
+    "vulnerability": null,
+    "source code": "\n\n        exit;\n    }\n\n    public function checkForInvalidAction()\n    {\n        if ($this->_getParam('debug')) echo \"check for invalid entries...\\n\";\n        foreach (Kwf_Util_Fulltext_Backend_Abstract::getInstance()->getSubroots() as $subroot) {\n            if ($this->_getParam('debug')) echo \"$subroot\\n\";\n            $cmd = Kwf_Config::getValue('server.phpCli').\" bootstrap.php fulltext check-for-invalid-subroot --subroot=$subroot\";\n            if ($this->_getParam('debug')) $cmd .= \" --debug\";        exit;\n    }\n\n    public function checkForInvalidAction()\n    {\n        if ($this->_getParam('debug')) echo \"check for invalid entries...\\n\";\n        foreach (Kwf_Util_Fulltext_Backend_Abstract::getInstance()->getSubroots() as $subroot) {\n            if ($this->_getParam('debug')) echo \"$subroot\\n\";\n            $cmd = Kwf_Config::getValue('server.phpCli').\" bootstrap.php fulltext check-for-invalid-subroot --subroot=$subroot\";\n            if ($this->_getParam('debug')) $cmd .= \" --debug\";\n            system($cmd);\n        }\n\n        $cmd = Kwf_Config::getValue('server.phpCli').\" bootstrap.php fulltext optimize\";\n        if ($this->_getParam('debug')) $cmd .= \" --debug\";\n        system($cmd);\n\n        exit;\n    }\n",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 25,
+    "line_text": "            system($cmd);",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

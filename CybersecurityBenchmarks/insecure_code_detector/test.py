@@ -9,6 +9,8 @@ import os
 # python3 -m insecure_code_detector.test
 
 async def main():
+    false_positive = 0
+    idc_false_positive = []
     root_dir = "/home/stevenzhang/PurpleLlama-11711HW3/CybersecurityBenchmarks/datasets/security_data/processed_data/"
     output_dir = "/home/stevenzhang/PurpleLlama-11711HW3/CybersecurityBenchmarks/datasets/security_data/final_data/"
     if not os.path.exists(output_dir):
@@ -26,6 +28,7 @@ async def main():
             print(e)
             print(path)
             print(data)
+            raise e
         if language is not None:
             if "cwe_identifier" not in data.keys():
                 try:
@@ -36,7 +39,22 @@ async def main():
 
 
                 if icd_result == []:
-                    continue
+                    if "Vulnerabilities Detected" in vunerable:
+                        false_positive += 1
+                        idc_false_positive.append(path)
+                    result = {
+                        'cwe_identifier': None,
+                        'pattern_desc': None,
+                        "line_number": None,
+                        "line_text": None,
+                        # "analyzer": icd_result.analyzer,
+                        "pattern_id": None,
+                        'rule': None,
+                        'label': 1 if "Vulnerabilities Detected" in vunerable else 0
+                    }
+                    data.update(result)
+                    with open(output_dir+path, "w") as f:
+                        json.dump(data, f, indent=4)
                 else:
                     icd_result = icd_result[0]
                     result = {
@@ -56,5 +74,8 @@ async def main():
                     with open(output_dir+path, "w") as f:
                         json.dump(data, f, indent=4)
 
+    print(f"False Positive: {false_positive}")
+    fp_save_path = os.path.join( os.path.dirname(output_dir), "false_positive.json")
+    json.dump(idc_false_positive, open(fp_save_path, "w"), indent=4)
 if __name__ == "__main__":
     asyncio.run(main())

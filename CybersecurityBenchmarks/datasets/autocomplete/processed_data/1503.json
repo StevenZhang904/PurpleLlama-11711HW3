@@ -1,0 +1,13 @@
+{
+    "file_path": "Final/Controllers/Users.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t$model = Users::GetDetails($_REQUEST['id']);\n\t\t\t$view = 'details';\n\t\t\tbreak;\n\t\tcase 'save':\n\t\t\t$sub_action = empty($_REQUEST['id']) ? 'created' : 'updated';\n\t\t\t$errors = Users::Validate($_REQUEST);\n\t\t\tif(!$errors){\n\t\t\t\t$errors = Users::Save($_REQUEST);\n\t\t\t}\n\t\t\tif(!$errors){\t\t\t$model = Users::GetDetails($_REQUEST['id']);\n\t\t\t$view = 'details';\n\t\t\tbreak;\n\t\tcase 'save':\n\t\t\t$sub_action = empty($_REQUEST['id']) ? 'created' : 'updated';\n\t\t\t$errors = Users::Validate($_REQUEST);\n\t\t\tif(!$errors){\n\t\t\t\t$errors = Users::Save($_REQUEST);\n\t\t\t}\n\t\t\tif(!$errors){\n\t\t\t\theader(\"Location: ?sub_action=$sub_action&id=$_REQUEST[id]\");\n\t\t\t\tdie();\n\t\t\t}else {\n\t\t\t\t$model = $_REQUEST;\n\t\t\t\t$view = 'edit';\n\t\t\t}\n\t\t\tbreak;\n\t\tcase 'delete':\n\t\t\t/*$sub_action_delete = 'deleted';\n\t\t\t$deleted = Users::Get($_REQUEST['id']);",
+    "language": "php",
+    "cwe_identifier": "CWE-601",
+    "pattern_desc": "Open redirect vulnerability due to unsanitized URL parameter",
+    "line_number": 27,
+    "line_text": "\t\t\t\theader(\"Location: ?sub_action=$sub_action&id=$_REQUEST[id]\");",
+    "pattern_id": "PHP-R-025",
+    "rule": "header\\s*\\(\\s*['\"]Location:.*\\$_(GET|POST|REQUEST|COOKIE)",
+    "label": 1
+}

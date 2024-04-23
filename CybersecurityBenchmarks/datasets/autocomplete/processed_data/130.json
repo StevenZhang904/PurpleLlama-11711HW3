@@ -1,0 +1,13 @@
+{
+    "file_path": "tools/erlang/tools/binary/lib/ic-4.4/examples/c-server/callbacks.c",
+    "vulnerability": null,
+    "source code": "\n\n */\n\n#include <stdlib.h>\n#include \"rmod_random__s.h\"\n\n\nrmod_random_produce__rs* \nrmod_random_produce__cb(rmod_random oe_obj, double *rs,  CORBA_Environment *oe_env)\n\n{ */\n\n#include <stdlib.h>\n#include \"rmod_random__s.h\"\n\n\nrmod_random_produce__rs* \nrmod_random_produce__cb(rmod_random oe_obj, double *rs,  CORBA_Environment *oe_env)\n\n{\n  *rs = (double) rand();\n\n  return (rmod_random_produce__rs*) NULL;\n}\n \n\nrmod_random_init__rs* \nrmod_random_init__cb(rmod_random oe_obj,  long* seed1, long* seed2, long* seed3, CORBA_Environment *oe_env)\n\n{",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 30,
+    "line_text": "  *rs = (double) rand();",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

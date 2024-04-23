@@ -1,0 +1,13 @@
+{
+    "file_path": "openssl/crypto/rand/randfile.c",
+    "vulnerability": null,
+    "source code": "\n\n    if (!use_randfile && s == NULL)\n        s = DEFAULT_HOME;\n#endif\n    if (s == NULL || *s == '\\0')\n        return NULL;\n\n    len = strlen(s);\n    if (use_randfile) {\n        if (len + 1 >= size)\n            return NULL;    if (!use_randfile && s == NULL)\n        s = DEFAULT_HOME;\n#endif\n    if (s == NULL || *s == '\\0')\n        return NULL;\n\n    len = strlen(s);\n    if (use_randfile) {\n        if (len + 1 >= size)\n            return NULL;\n        strcpy(buf, s);\n    } else {\n        if (len + 1 + strlen(RFILE) + 1 >= size)\n            return NULL;\n        strcpy(buf, s);\n#if !defined(OPENSSL_SYS_VMS) && !defined(OPENSSL_SYS_AMIGA)\n        strcat(buf, \"/\");\n#endif\n#if defined(OPENSSL_SYS_AMIGA)\n        AddPart(buf, RFILE, size);",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 321,
+    "line_text": "        strcpy(buf, s);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "uri/1009salarywithBonus.cpp",
+    "vulnerability": null,
+    "source code": "\n\n#include <bits/stdc++.h>\n\nusing namespace std;\n\nint main() \n{\n\tchar ch[100];#include <bits/stdc++.h>\n\nusing namespace std;\n\nint main() \n{\n\tchar ch[100];\n\tscanf(\"%s\",ch);\n\tdouble a,b;\n\tscanf(\"%lf%lf\",&a,&b);\t\n\tprintf(\"TOTAL = R$ %.2lf\\n\",a+b*.15);\n\treturn 0;\n}\n\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 8,
+    "line_text": "\tscanf(\"%s\",ch);",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

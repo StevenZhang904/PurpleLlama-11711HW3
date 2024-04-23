@@ -1,0 +1,13 @@
+{
+    "file_path": "SOURCE/COMPILER/scstate.c",
+    "vulnerability": null,
+    "source code": "\n\n{\n  statelist *ptr;\n  int last;\n\n  assert(list!=NULL);\n  assert(count>0);\n  ptr=state_findlist(list,count,fsa,&last);\n  if (ptr==NULL) {\n    if ((ptr=(statelist*)malloc(sizeof(statelist)))==NULL)\n      error(103);       /* insufficient memory */{\n  statelist *ptr;\n  int last;\n\n  assert(list!=NULL);\n  assert(count>0);\n  ptr=state_findlist(list,count,fsa,&last);\n  if (ptr==NULL) {\n    if ((ptr=(statelist*)malloc(sizeof(statelist)))==NULL)\n      error(103);       /* insufficient memory */\n    if ((ptr->states=(int*)malloc(count*sizeof(int)))==NULL) {\n      free(ptr);\n      error(103);       /* insufficient memory */\n    } /* if */\n    memcpy(ptr->states,list,count*sizeof(int));\n    ptr->numstates=count;\n    ptr->fsa=fsa;\n    ptr->listid=last+1;\n    ptr->next=statelist_tab.next;\n    statelist_tab.next=ptr;",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 241,
+    "line_text": "    if ((ptr->states=(int*)malloc(count*sizeof(int)))==NULL) {",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Acme/MainBundle/Libs/PEAR/HTTP/Request2/MultipartBody.php",
+    "vulnerability": null,
+    "source code": "\n\n    }\n\n    /**\n     * Returns the boundary to use in Content-Type header\n     *\n     * @return string\n     */\n    public function getBoundary()\n    {\n        if (empty($this->_boundary)) {    }\n\n    /**\n     * Returns the boundary to use in Content-Type header\n     *\n     * @return string\n     */\n    public function getBoundary()\n    {\n        if (empty($this->_boundary)) {\n            $this->_boundary = '--' . md5('PEAR-HTTP_Request2-' . microtime());\n        }\n\n        return $this->_boundary;\n    }\n\n    /**\n     * Returns next chunk of request body\n     *\n     * @param integer $length Number of bytes to read",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 159,
+    "line_text": "            $this->_boundary = '--' . md5('PEAR-HTTP_Request2-' . microtime());",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

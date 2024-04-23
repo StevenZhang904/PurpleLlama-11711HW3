@@ -1,0 +1,13 @@
+{
+    "file_path": "sqlite/src/cliente.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t   cout << \"Forma de uso: \" << argv[0] << \" [DIR_IP] \" << \"[PORT]\" << endl;\n\t   exit(0);\n   }\n   SocketDatagrama s(7780);\n   struct pck_votos msg;\n   struct pck_votos res;\n   \n   bzero((char *)&msg, sizeof(pck_votos));\n   bzero((char *)&res, sizeof(pck_votos));\n  \t   cout << \"Forma de uso: \" << argv[0] << \" [DIR_IP] \" << \"[PORT]\" << endl;\n\t   exit(0);\n   }\n   SocketDatagrama s(7780);\n   struct pck_votos msg;\n   struct pck_votos res;\n   \n   bzero((char *)&msg, sizeof(pck_votos));\n   bzero((char *)&res, sizeof(pck_votos));\n  \n   strcpy(msg.CURP,\"000000000000000002\");\n   strcpy(msg.celular,\"0000000002\");\n   strcpy(msg.partido,\"PRD\");\n   \n   PaqueteDatagrama mensaje((char *)&msg, sizeof(pck_votos),argv[1], atoi(argv[2]));\n   PaqueteDatagrama respuesta(sizeof(pck_votos));\n   s.envia( mensaje );\n    \n\ts.recibe( respuesta );\n\tmemcpy( (char *)&res, respuesta.obtieneDatos(), sizeof(res) );",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 31,
+    "line_text": "   strcpy(msg.CURP,\"000000000000000002\");",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

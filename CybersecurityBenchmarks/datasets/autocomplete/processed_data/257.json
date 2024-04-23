@@ -1,0 +1,13 @@
+{
+    "file_path": "0.63_My_PuTTY/WINDOWS/WINDOW.C",
+    "vulnerability": null,
+    "source code": "\n\n    DWORD self_hi_date_time;\r\n    DWORD self_lo_date_time;\r\n    HWND  next;\r\n    DWORD next_hi_date_time;\r\n    DWORD next_lo_date_time;\r\n    int   next_self;\r\n};\r\n\r\nstatic BOOL CALLBACK CtrlTabWindowProc(HWND hwnd, LPARAM lParam) {\r\n    struct ctrl_tab_info* info = (struct ctrl_tab_info*) lParam;\r    DWORD self_hi_date_time;\r\n    DWORD self_lo_date_time;\r\n    HWND  next;\r\n    DWORD next_hi_date_time;\r\n    DWORD next_lo_date_time;\r\n    int   next_self;\r\n};\r\n\r\nstatic BOOL CALLBACK CtrlTabWindowProc(HWND hwnd, LPARAM lParam) {\r\n    struct ctrl_tab_info* info = (struct ctrl_tab_info*) lParam;\r\n    char lpszClassName[256];\r\n#if (defined PERSOPORT) && (!defined FDJ)\r\n\tstrcpy(lpszClassName,KiTTYClassName) ;\r\n#else\r\n\tstrcpy(lpszClassName,appname) ;\r\n#endif\r\n    char class_name[16];\r\n    int wndExtra;\r\n    if (info->self != hwnd && (wndExtra = GetClassLong(hwnd, GCL_CBWNDEXTRA)) >= 8 && GetClassName(hwnd, class_name, sizeof class_name) >= 5 && memcmp(class_name, lpszClassName, 5) == 0) {\r\n\tDWORD hwnd_hi_date_time = GetWindowLong(hwnd, wndExtra - 8);\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 2742,
+    "line_text": "    char lpszClassName[256];\r",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

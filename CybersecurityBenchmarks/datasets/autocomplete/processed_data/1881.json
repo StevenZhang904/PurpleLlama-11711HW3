@@ -1,0 +1,13 @@
+{
+    "file_path": "powerpages/cachekeys.py",
+    "vulnerability": null,
+    "source code": "\n\n\n\ndef get_cache_name(prefix, name):\n    \"\"\"\n    Cache name constructor. Uses the same methods as django cache system\n    Examples:\n    *) prefix=profile.cache, name=<requestuser.id>\n    *) prefix=template.cache.sidebar, name=<requestuser.id>\n    \"\"\"\n    return '{0}.{1}'.format(\n\ndef get_cache_name(prefix, name):\n    \"\"\"\n    Cache name constructor. Uses the same methods as django cache system\n    Examples:\n    *) prefix=profile.cache, name=<requestuser.id>\n    *) prefix=template.cache.sidebar, name=<requestuser.id>\n    \"\"\"\n    return '{0}.{1}'.format(\n        prefix, hashlib.md5(six.text_type(name).encode('utf-8')).hexdigest()\n    )\n\n\ndef template_source(page_pk):\n    \"\"\"Create cache key for page template\"\"\"\n    return 'powerpages:template:{0}'.format(page_pk)\n\n\ndef rendered_source_for_user(page_pk, user_id):",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 23,
+    "line_text": "        prefix, hashlib.md5(six.text_type(name).encode('utf-8')).hexdigest()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

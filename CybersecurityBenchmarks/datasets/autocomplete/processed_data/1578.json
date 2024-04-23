@@ -1,0 +1,13 @@
+{
+    "file_path": "scipy/stats/tests/test_distributions.py",
+    "vulnerability": null,
+    "source code": "\n\n        poiss = stats.poisson(3.)\n        sample = stats.rv_discrete(values=([0, 1, 2, 3],\n                                           [0.1, 0.2, 0.3, 0.4]))\n\n        for distfn in [beta, poiss, sample]:\n            distfn.random_state = 1234\n            distfn.rvs(size=8)\n            s = pickle.dumps(distfn)\n            r0 = distfn.rvs(size=8)\n        poiss = stats.poisson(3.)\n        sample = stats.rv_discrete(values=([0, 1, 2, 3],\n                                           [0.1, 0.2, 0.3, 0.4]))\n\n        for distfn in [beta, poiss, sample]:\n            distfn.random_state = 1234\n            distfn.rvs(size=8)\n            s = pickle.dumps(distfn)\n            r0 = distfn.rvs(size=8)\n\n            unpickled = pickle.loads(s)\n            r1 = unpickled.rvs(size=8)\n            assert_equal(r0, r1)\n\n            # also smoke test some methods\n            medians = [distfn.ppf(0.5), unpickled.ppf(0.5)]\n            assert_equal(medians[0], medians[1])\n            assert_equal(distfn.cdf(medians[0]),\n                         unpickled.cdf(medians[1]))\n",
+    "language": "python",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Potential deserialization risk due to pickle usage.",
+    "line_number": 2669,
+    "line_text": "            unpickled = pickle.loads(s)",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.unsafe-pickle-use",
+    "rule": null,
+    "label": 1
+}

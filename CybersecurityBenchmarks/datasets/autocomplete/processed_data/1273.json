@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/support/mod.rs",
+    "vulnerability": null,
+    "source code": "\n\n        match self {\n            Ok(val) => Ok(val),\n            Err(err) => Err(format!(\"{}; original={}\", val, err))\n        }\n    }\n}\n\n// Path to cargo executables\npub fn cargo_dir() -> PathBuf {\n    env::var_os(\"CARGO_BIN_PATH\").map(PathBuf::from).or_else(|| {        match self {\n            Ok(val) => Ok(val),\n            Err(err) => Err(format!(\"{}; original={}\", val, err))\n        }\n    }\n}\n\n// Path to cargo executables\npub fn cargo_dir() -> PathBuf {\n    env::var_os(\"CARGO_BIN_PATH\").map(PathBuf::from).or_else(|| {\n        env::current_exe().ok().as_ref().and_then(|s| s.parent())\n            .map(|s| s.to_path_buf())\n    }).unwrap_or_else(|| {\n        panic!(\"CARGO_BIN_PATH wasn't set. Cannot continue running test\")\n    })\n}\n\n/// Returns an absolute path in the filesystem that `path` points to. The\n/// returned path does not contain any symlinks in its hierarchy.\n/*",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 255,
+    "line_text": "        env::current_exe().ok().as_ref().and_then(|s| s.parent())",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "sys/contrib/dev/acpica/os_specific/service_layers/osunixxf.c",
+    "vulnerability": null,
+    "source code": "\n\n    sem_t               *Sem;\n\n\n    if (!OutHandle)\n    {\n        return (AE_BAD_PARAMETER);\n    }\n\n#ifdef __APPLE__\n    {    sem_t               *Sem;\n\n\n    if (!OutHandle)\n    {\n        return (AE_BAD_PARAMETER);\n    }\n\n#ifdef __APPLE__\n    {\n        char            *SemaphoreName = tmpnam (NULL);\n\n        Sem = sem_open (SemaphoreName, O_EXCL|O_CREAT, 0755, InitialUnits);\n        if (!Sem)\n        {\n            return (AE_NO_MEMORY);\n        }\n        sem_unlink (SemaphoreName); /* This just deletes the name */\n    }\n",
+    "language": "c",
+    "cwe_identifier": "CWE-377",
+    "pattern_desc": "Usage of tmpnam, which generates temporary file without exclusive access. It may lead to race conditions.",
+    "line_number": 760,
+    "line_text": "        char            *SemaphoreName = tmpnam (NULL);",
+    "pattern_id": "C-R-013",
+    "rule": "tmpnam\\s*\\(\\s*\\w+\\s*\\)",
+    "label": 1
+}

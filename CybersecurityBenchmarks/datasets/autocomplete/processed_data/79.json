@@ -1,0 +1,13 @@
+{
+    "file_path": "Code_Source/fonctions.c",
+    "vulnerability": null,
+    "source code": "\n\n*/\n\nvoid gameOverScreen(int *grille, int *score)\n{\n    int i;\n    char TabPseudo[20];\n\n    printf(\"Vous avez perdu\\n\");\n    printf(\"Votre score : %d\\n\", *score);\n    printf(\"Entrez votre pseudo (max 19 caracteres) : \");*/\n\nvoid gameOverScreen(int *grille, int *score)\n{\n    int i;\n    char TabPseudo[20];\n\n    printf(\"Vous avez perdu\\n\");\n    printf(\"Votre score : %d\\n\", *score);\n    printf(\"Entrez votre pseudo (max 19 caracteres) : \");\n    scanf(\"%s\", TabPseudo);\n\n    i=0;\n    // Entree du pseudo\n    while(TabPseudo[i]!='\\0')\n    {\n        i++;\n        if (i==20)\n        {\n            clearScreen();",
+    "language": "c",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 777,
+    "line_text": "    scanf(\"%s\", TabPseudo);",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

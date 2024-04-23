@@ -1,0 +1,13 @@
+{
+    "file_path": "third_party/imgui_memory_editor/imgui_memory_editor.h",
+    "vulnerability": null,
+    "source code": "\n\n            out_buf[out_n++] = ' ';\n        }\n        IM_ASSERT(out_n < IM_ARRAYSIZE(out_buf));\n        out_buf[out_n] = 0;\n        return out_buf;\n    }\n\n    // [Internal]\n    void DrawPreviewData(size_t addr, const ImU8* mem_data, size_t mem_size, ImGuiDataType data_type, DataFormat data_format, char* out_buf, size_t out_buf_size) const\n    {            out_buf[out_n++] = ' ';\n        }\n        IM_ASSERT(out_n < IM_ARRAYSIZE(out_buf));\n        out_buf[out_n] = 0;\n        return out_buf;\n    }\n\n    // [Internal]\n    void DrawPreviewData(size_t addr, const ImU8* mem_data, size_t mem_size, ImGuiDataType data_type, DataFormat data_format, char* out_buf, size_t out_buf_size) const\n    {\n        uint8_t buf[8];\n        size_t elem_size = DataTypeGetSize(data_type);\n        size_t size = addr + elem_size > mem_size ? mem_size - addr : elem_size;\n        if (ReadFn)\n            for (int i = 0, n = (int)size; i < n; ++i)\n                buf[i] = ReadFn(mem_data, addr + i, FnUserData);\n        else\n            memcpy(buf, mem_data + addr, size);\n\n        if (data_format == DataFormat_Bin)",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 642,
+    "line_text": "        uint8_t buf[8];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

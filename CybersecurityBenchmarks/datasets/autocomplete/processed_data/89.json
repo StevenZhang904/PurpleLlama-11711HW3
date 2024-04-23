@@ -1,0 +1,13 @@
+{
+    "file_path": "x/gtk2/dialog_serial.c",
+    "vulnerability": null,
+    "source code": "\n\n\tch1_ext_speed_combo = gtk_combo_box_entry_new_text();\n\tgtk_widget_show(ch1_ext_speed_combo);\n\tgtk_container_add(GTK_CONTAINER(ch1_ext_speed_hbox), ch1_ext_speed_combo);\n\tgtk_widget_set_size_request(ch1_ext_speed_combo, 80, -1);\n\tfor (i = 0; i < NELEMENTS(ext_speed_str); i++) {\n\t\tgtk_combo_box_append_text(GTK_COMBO_BOX(ch1_ext_speed_combo), ext_speed_str[i]);\n\t}\n\tch1_ext_speed_entry = gtk_bin_get_child(GTK_BIN(ch1_ext_speed_combo));\n\tgtk_widget_show(ch1_ext_speed_entry);\n\tgtk_editable_set_editable(GTK_EDITABLE(ch1_ext_speed_entry), FALSE);\tch1_ext_speed_combo = gtk_combo_box_entry_new_text();\n\tgtk_widget_show(ch1_ext_speed_combo);\n\tgtk_container_add(GTK_CONTAINER(ch1_ext_speed_hbox), ch1_ext_speed_combo);\n\tgtk_widget_set_size_request(ch1_ext_speed_combo, 80, -1);\n\tfor (i = 0; i < NELEMENTS(ext_speed_str); i++) {\n\t\tgtk_combo_box_append_text(GTK_COMBO_BOX(ch1_ext_speed_combo), ext_speed_str[i]);\n\t}\n\tch1_ext_speed_entry = gtk_bin_get_child(GTK_BIN(ch1_ext_speed_combo));\n\tgtk_widget_show(ch1_ext_speed_entry);\n\tgtk_editable_set_editable(GTK_EDITABLE(ch1_ext_speed_entry), FALSE);\n\tsprintf(str, \"%d\", np2oscfg.com[0].speed);\n\tgtk_entry_set_text(GTK_ENTRY(ch1_ext_speed_entry), str);\n\tif (np2oscfg.com[0].direct)\n\t\tgtk_widget_set_sensitive(ch1_ext_speed_combo, FALSE);\n\n\tch1_ext_datasize_hbox = gtk_hbox_new(FALSE, 0);\n\tgtk_container_set_border_width(GTK_CONTAINER(ch1_ext_datasize_hbox), 5);\n\tgtk_widget_show(ch1_ext_datasize_hbox);\n\tgtk_box_pack_start(GTK_BOX(external_frame_vbox), ch1_ext_datasize_hbox, FALSE, FALSE, 0);\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 1184,
+    "line_text": "\tsprintf(str, \"%d\", np2oscfg.com[0].speed);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

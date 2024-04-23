@@ -1,0 +1,13 @@
+{
+    "file_path": "vendors/openssl/include/openssl/evp.h",
+    "vulnerability": null,
+    "source code": "\n\nBIO_METHOD *BIO_f_md(void);\nBIO_METHOD *BIO_f_base64(void);\nBIO_METHOD *BIO_f_cipher(void);\nBIO_METHOD *BIO_f_reliable(void);\nvoid BIO_set_cipher(BIO *b,const EVP_CIPHER *c,const unsigned char *k,\n\t\tconst unsigned char *i, int enc);\n#endif\n\nconst EVP_MD *EVP_md_null(void);\n#ifndef OPENSSL_NO_MD2BIO_METHOD *BIO_f_md(void);\nBIO_METHOD *BIO_f_base64(void);\nBIO_METHOD *BIO_f_cipher(void);\nBIO_METHOD *BIO_f_reliable(void);\nvoid BIO_set_cipher(BIO *b,const EVP_CIPHER *c,const unsigned char *k,\n\t\tconst unsigned char *i, int enc);\n#endif\n\nconst EVP_MD *EVP_md_null(void);\n#ifndef OPENSSL_NO_MD2\nconst EVP_MD *EVP_md2(void);\n#endif\n#ifndef OPENSSL_NO_MD4\nconst EVP_MD *EVP_md4(void);\n#endif\n#ifndef OPENSSL_NO_MD5\nconst EVP_MD *EVP_md5(void);\n#endif\n#ifndef OPENSSL_NO_SHA\nconst EVP_MD *EVP_sha(void);",
+    "language": "c",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD2 and MD4 hash functions are considered insecure.",
+    "line_number": 668,
+    "line_text": "const EVP_MD *EVP_md2(void);",
+    "pattern_id": "C-R-006",
+    "rule": "(MD2_Init\\s*\\()|(EVP_md2\\s*\\()|(MD4_Init\\s*\\()|(EVP_md4\\s*\\()",
+    "label": 1
+}

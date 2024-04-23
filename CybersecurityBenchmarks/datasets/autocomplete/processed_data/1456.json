@@ -1,0 +1,13 @@
+{
+    "file_path": "cache/frontend/prod/config/config_core_compile.yml.php",
+    "vulnerability": null,
+    "source code": "\n\n  }\n  public function configureRoute(sfRoute $route)\n  {\n    $route->setDefaultParameters($this->defaultParameters);\n    $route->setDefaultOptions($this->options);\n  }\n  public function generate($name, $params = array(), $absolute = false)\n  {\n        if (null !== $this->cache)\n    {  }\n  public function configureRoute(sfRoute $route)\n  {\n    $route->setDefaultParameters($this->defaultParameters);\n    $route->setDefaultOptions($this->options);\n  }\n  public function generate($name, $params = array(), $absolute = false)\n  {\n        if (null !== $this->cache)\n    {\n      $cacheKey = 'generate_'.$name.'_'.md5(serialize(array_merge($this->defaultParameters, $params))).'_'.md5(serialize($this->options['context']));\n      if ($this->options['lookup_cache_dedicated_keys'] && $url = $this->cache->get('symfony.routing.data.'.$cacheKey))\n      {\n        return $this->fixGeneratedUrl($url, $absolute);\n      }\n      elseif (isset($this->cacheData[$cacheKey]))\n      {\n        return $this->fixGeneratedUrl($this->cacheData[$cacheKey], $absolute);\n      }\n    }",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 3064,
+    "line_text": "      $cacheKey = 'generate_'.$name.'_'.md5(serialize(array_merge($this->defaultParameters, $params))).'_'.md5(serialize($this->options['context']));",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

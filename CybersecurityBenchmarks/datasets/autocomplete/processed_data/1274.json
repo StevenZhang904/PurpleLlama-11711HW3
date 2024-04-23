@@ -1,0 +1,13 @@
+{
+    "file_path": "third_party/clap/src/app/mod.rs",
+    "vulnerability": null,
+    "source code": "\n\n    ///\n    /// # Examples\n    ///\n    /// ```no_run\n    /// # use clap::{App, Arg};\n    /// let matches = App::new(\"myprog\")\n    ///     // Args and options go here...\n    ///     .get_matches();\n    /// ```\n    /// [`env::args_os`]: https://doc.rust-lang.org/std/env/fn.args_os.html    ///\n    /// # Examples\n    ///\n    /// ```no_run\n    /// # use clap::{App, Arg};\n    /// let matches = App::new(\"myprog\")\n    ///     // Args and options go here...\n    ///     .get_matches();\n    /// ```\n    /// [`env::args_os`]: https://doc.rust-lang.org/std/env/fn.args_os.html\n    pub fn get_matches(self) -> ArgMatches<'a> { self.get_matches_from(&mut env::args_os()) }\n\n    /// Starts the parsing process. This method will return a [`clap::Result`] type instead of exiting\n    /// the process on failed parse. By default this method gets matches from [`env::args_os`]\n    ///\n    /// **NOTE:** This method WILL NOT exit when `--help` or `--version` (or short versions) are\n    /// used. It will return a [`clap::Error`], where the [`kind`] is a\n    /// [`ErrorKind::HelpDisplayed`] or [`ErrorKind::VersionDisplayed`] respectively. You must call\n    /// [`Error::exit`] or perform a [`std::process::exit`].\n    ///",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 1455,
+    "line_text": "    pub fn get_matches(self) -> ArgMatches<'a> { self.get_matches_from(&mut env::args_os()) }",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

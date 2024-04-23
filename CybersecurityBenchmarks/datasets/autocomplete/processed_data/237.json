@@ -1,0 +1,13 @@
+{
+    "file_path": "src/c_sdl.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    if (!pLog) pLog = new CLog(\"gfx.log\");\n    RebuildGAF();\n    pLog->AddEntry(\"CSDL_Wrap::Begin(2)...\");\n    pMouse = new CMouse();\n    Font   = new C2DFont(this);\n    w      = nw;\n    h      = nh;\n    b      = np;\n    if (!pGAF) pGAF = new CGAF(\"gfx.gaf\", GAFCOMP_BEST);\n    Icon = icon;    if (!pLog) pLog = new CLog(\"gfx.log\");\n    RebuildGAF();\n    pLog->AddEntry(\"CSDL_Wrap::Begin(2)...\");\n    pMouse = new CMouse();\n    Font   = new C2DFont(this);\n    w      = nw;\n    h      = nh;\n    b      = np;\n    if (!pGAF) pGAF = new CGAF(\"gfx.gaf\", GAFCOMP_BEST);\n    Icon = icon;\n    strcpy(APP_NAME, appname);\n    InitSuccess = Init2D(w, h, b, Icon);\n    return InitSuccess;\n}\n\nvoid CSDL_Wrap::RebuildGAF(void) {\n    if (!dlcs_file_exists(\"gfx.gaf\")) {\n        pLog->AddEntry(\"Rebuilding gfx.gaf gaf...\");\n        remove(\"gfx.pGAF\");\n        CGAF *pRebuildGAF;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 88,
+    "line_text": "    strcpy(APP_NAME, appname);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

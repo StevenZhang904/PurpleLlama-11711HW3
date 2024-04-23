@@ -1,0 +1,13 @@
+{
+    "file_path": "lugre/baselib/openal-soft-1.8.466/Alc/alcReverb.c",
+    "vulnerability": null,
+    "source code": "\n\n    for(index = 0;index < 4;index++)\n    {\n        samples = (ALuint)(LATE_LINE_LENGTH[index] *\n                           (1.0f + LATE_LINE_MULTIPLIER) * Context->Frequency) + 1;\n        length[9 + index] = NextPowerOf2(samples);\n        totalLength += length[9 + index];\n    }\n\n    // All lines share a single sample buffer and have their masks and start\n    // addresses calculated once.    for(index = 0;index < 4;index++)\n    {\n        samples = (ALuint)(LATE_LINE_LENGTH[index] *\n                           (1.0f + LATE_LINE_MULTIPLIER) * Context->Frequency) + 1;\n        length[9 + index] = NextPowerOf2(samples);\n        totalLength += length[9 + index];\n    }\n\n    // All lines share a single sample buffer and have their masks and start\n    // addresses calculated once.\n    State->SampleBuffer = malloc(totalLength * sizeof(ALfloat));\n    if(!State->SampleBuffer)\n    {\n        free(State);\n        alSetError(AL_OUT_OF_MEMORY);\n        return NULL;\n    }\n    for(index = 0; index < totalLength;index++)\n        State->SampleBuffer[index] = 0.0f;\n",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 713,
+    "line_text": "    State->SampleBuffer = malloc(totalLength * sizeof(ALfloat));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

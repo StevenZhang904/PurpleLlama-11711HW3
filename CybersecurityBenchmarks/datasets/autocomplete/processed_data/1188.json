@@ -1,0 +1,13 @@
+{
+    "file_path": "src/info/guardianproject/otr/OtrDataHandler.java",
+    "vulnerability": null,
+    "source code": "\n\n        return Integer.toHexString(b & 0xF);\n    }\n\n    private static String toHex(int b) {\n        return hexChr((b & 0xF0) >> 4) + hexChr(b & 0x0F);\n    }\n\n    private String sha1sum(byte[] bytes) {\n        MessageDigest digest;\n        try {        return Integer.toHexString(b & 0xF);\n    }\n\n    private static String toHex(int b) {\n        return hexChr((b & 0xF0) >> 4) + hexChr(b & 0x0F);\n    }\n\n    private String sha1sum(byte[] bytes) {\n        MessageDigest digest;\n        try {\n            digest = MessageDigest.getInstance(\"SHA1\");\n        } catch (NoSuchAlgorithmException e) {\n            throw new RuntimeException(e);\n        }\n        digest.update(bytes, 0, bytes.length);\n        byte[] sha1sum = digest.digest();\n        String display = \"\";\n        for(byte b : sha1sum)\n            display += toHex(b);\n        return display;",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 646,
+    "line_text": "            digest = MessageDigest.getInstance(\"SHA1\");",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

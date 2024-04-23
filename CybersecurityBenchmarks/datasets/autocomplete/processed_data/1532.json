@@ -1,0 +1,13 @@
+{
+    "file_path": "test/unit/CachingContainerTest.php",
+    "vulnerability": null,
+    "source code": "\n\n     * @since [*next-version*]\n     *\n     * @param string   $className      Name of the class for the mock to extend.\n     * @param string[] $interfaceNames Names of the interfaces for the mock to implement.\n     *\n     * @return MockBuilder The builder for a mock of an object that extends and implements\n     *                     the specified class and interfaces.\n     */\n    public function mockClassAndInterfaces($className, $interfaceNames = [])\n    {     * @since [*next-version*]\n     *\n     * @param string   $className      Name of the class for the mock to extend.\n     * @param string[] $interfaceNames Names of the interfaces for the mock to implement.\n     *\n     * @return MockBuilder The builder for a mock of an object that extends and implements\n     *                     the specified class and interfaces.\n     */\n    public function mockClassAndInterfaces($className, $interfaceNames = [])\n    {\n        $paddingClassName = uniqid($className);\n        $definition = vsprintf('abstract class %1$s extends %2$s implements %3$s {}', [\n            $paddingClassName,\n            $className,\n            implode(', ', $interfaceNames),\n        ]);\n        eval($definition);\n\n        return $this->getMockBuilder($paddingClassName);\n    }",
+    "language": "php",
+    "cwe_identifier": "CWE-330",
+    "pattern_desc": "Use of Insufficiently Random Values",
+    "line_number": 87,
+    "line_text": "        $paddingClassName = uniqid($className);",
+    "pattern_id": "PHP-R-029",
+    "rule": "\\b(mt_rand|rand|uniqid|srand)\\s*\\(\\s*\\$[a-zA-Z0-9_]+\\s*\\)",
+    "label": 1
+}

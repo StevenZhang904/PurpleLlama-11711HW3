@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Application/Domain/Entity/User.php",
+    "vulnerability": null,
+    "source code": "\n\n        $this->password = $password;\n        $this->firstName = $firstName;\n        $this->lastName = $lastName;\n        $this->created = $created;\n        $this->updated = $updated;\n    }\n\n    public static function createUser($email, $password, $firstName, $lastName)\n    {\n        $updated = $created = new DateTime('now', new DateTimeZone('UTC'));        $this->password = $password;\n        $this->firstName = $firstName;\n        $this->lastName = $lastName;\n        $this->created = $created;\n        $this->updated = $updated;\n    }\n\n    public static function createUser($email, $password, $firstName, $lastName)\n    {\n        $updated = $created = new DateTime('now', new DateTimeZone('UTC'));\n        $hashedPass = password_hash($password, PASSWORD_DEFAULT);\n        return new static(null, $email, $hashedPass, $firstName, $lastName, $created, $updated);\n    }\n\n    public function id()\n    {\n        return $this->id;\n    }\n\n    public function email()",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 38,
+    "line_text": "        $hashedPass = password_hash($password, PASSWORD_DEFAULT);",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

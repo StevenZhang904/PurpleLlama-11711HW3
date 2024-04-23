@@ -1,0 +1,13 @@
+{
+    "file_path": "sample_app/controllers/Users.php",
+    "vulnerability": null,
+    "source code": "\n\n\n  public function create() {\n    $email = $this->post->getString('email');\n    $password = $this->post->getString('password');\n    $user = User::getOneByEmail($email);\n    if ($user) {\n      Welcome::redirect();\n    }\n    $user = (new User())\n      ->setEmail($email)\n  public function create() {\n    $email = $this->post->getString('email');\n    $password = $this->post->getString('password');\n    $user = User::getOneByEmail($email);\n    if ($user) {\n      Welcome::redirect();\n    }\n    $user = (new User())\n      ->setEmail($email)\n      ->setPassword(password_hash($password, PASSWORD_DEFAULT))\n      ->save();\n    $this->login();\n  }\n\n  public function logout() {\n    GPSession::destroy();\n    Welcome::redirect();\n  }\n}",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 25,
+    "line_text": "      ->setPassword(password_hash($password, PASSWORD_DEFAULT))",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "Devoir2/SP1.c",
+    "vulnerability": null,
+    "source code": "\n\n}\n\n\n///////////////////  d\u00e9veloppement des fonctions  /////////////////////////////////\n\nvoid remplirTABrand(int* TAB, int n)\n{\n\tint i;\n\tsrand(time(NULL));\n\tfor(i=0;i<n;i++)}\n\n\n///////////////////  d\u00e9veloppement des fonctions  /////////////////////////////////\n\nvoid remplirTABrand(int* TAB, int n)\n{\n\tint i;\n\tsrand(time(NULL));\n\tfor(i=0;i<n;i++)\n\t\tTAB[i] = rand()%10000; //limit\u00e9 par unsigned long long int\n}\n\nvoid afficherTAB(int* TAB, int n)\n{\n\tint j;\n\tprintf(\"TAB : { \");\n\n\tfor(j = 0; j < n; j++)\n\t{",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 50,
+    "line_text": "\t\tTAB[i] = rand()%10000; //limit\u00e9 par unsigned long long int",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

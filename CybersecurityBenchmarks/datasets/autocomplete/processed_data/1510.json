@@ -1,0 +1,13 @@
+{
+    "file_path": "application/views/contato.php",
+    "vulnerability": null,
+    "source code": "\n\n                <!-- Contatc form end-->\n                <!-- Footer-->\n                <?php $this->load->view('footer'); ?>\n                <!-- Footer end-->\n            </section>\n            <!-- Content section end-->\n        </div>\n        <!-- Scripts-->\n        <script src=\"<?php echo base_url('assets/js/jquery-2.2.4.min.js'); ?>\"></script>\n        <script src=\"<?php echo base_url('assets/bootstrap/js/bootstrap.min.js'); ?>\"></script>                <!-- Contatc form end-->\n                <!-- Footer-->\n                <?php $this->load->view('footer'); ?>\n                <!-- Footer end-->\n            </section>\n            <!-- Content section end-->\n        </div>\n        <!-- Scripts-->\n        <script src=\"<?php echo base_url('assets/js/jquery-2.2.4.min.js'); ?>\"></script>\n        <script src=\"<?php echo base_url('assets/bootstrap/js/bootstrap.min.js'); ?>\"></script>\n        <script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyA0rANX07hh6ASNKdBr4mZH0KZSqbHYc3Q\"></script>\n        <script src=\"<?php echo base_url('assets/js/plugins.min.js'); ?>\"></script>\n        <script src=\"<?php echo base_url('assets/js/custom.min.js'); ?>\"></script>\n        <!-- Color Switcher (Remove these lines)-->\n        <script src=\"<?php echo base_url('assets/js/style-switcher.min.js'); ?>\"></script>\n    </body>\n</html>",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 118,
+    "line_text": "        <script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyA0rANX07hh6ASNKdBr4mZH0KZSqbHYc3Q\"></script>",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

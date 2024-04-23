@@ -1,0 +1,13 @@
+{
+    "file_path": "calicoctl/tests/st/utils/utils.py",
+    "vulnerability": null,
+    "source code": "\n\n        if results is None:\n            logger.info(\"  # <no output>\")\n\n        lines = results.split(\"\\n\")\n        for line in lines:\n            logger.info(\"  # %s\", line.rstrip())\n\n    try:\n        logger.info(\"%s\", command)\n        try:        if results is None:\n            logger.info(\"  # <no output>\")\n\n        lines = results.split(\"\\n\")\n        for line in lines:\n            logger.info(\"  # %s\", line.rstrip())\n\n    try:\n        logger.info(\"%s\", command)\n        try:\n            results = check_output(command, shell=True, stderr=stderr).rstrip()\n        finally:\n            # Restore terminal settings in case the command we ran manipulated\n            # them. Note: under concurrent access, this is still not a perfect\n            # solution since another thread's child process may break the\n            # settings again before we log below.\n            termios.tcsetattr(sys.stdin.fileno(), termios.TCSADRAIN, _term_settings)\n        log_output(results)\n        return results\n    except CalledProcessError as e:",
+    "language": "python",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection due to subprocess usage with shell=True.",
+    "line_number": 425,
+    "line_text": "            results = check_output(command, shell=True, stderr=stderr).rstrip()",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.insecure-subprocess-using-shell",
+    "rule": null,
+    "label": 1
+}

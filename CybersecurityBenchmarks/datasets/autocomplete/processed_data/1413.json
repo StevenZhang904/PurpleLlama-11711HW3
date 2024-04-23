@@ -1,0 +1,13 @@
+{
+    "file_path": "reader/reader.source.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t{\n\t\t\t\t$output .= ++$counter . '. ' . $item['q'] . \"\\n\";\n\n\t\t\t\tforeach (array('a', 'b', 'c', 'd') as $o)\n\t\t\t\t\t$output .= $o . '. ' . $item[$o] . \"\\n\";\n\n\t\t\t\t$output .= 'ANS: ' . strtoupper($item['t']) . \"\\n\";\n\t\t\t}\n\t\t}\n\t\t\t{\n\t\t\t\t$output .= ++$counter . '. ' . $item['q'] . \"\\n\";\n\n\t\t\t\tforeach (array('a', 'b', 'c', 'd') as $o)\n\t\t\t\t\t$output .= $o . '. ' . $item[$o] . \"\\n\";\n\n\t\t\t\t$output .= 'ANS: ' . strtoupper($item['t']) . \"\\n\";\n\t\t\t}\n\t\t}\n\n\t\t$file_name = $user['id'] . substr(md5(session_id() . mt_rand() . (string) microtime()), 0, 14);\n\t\t$file_alias = preg_replace('~[^A-Za-z0-9_]~', '', str_replace(' ', '_', strtolower(htmlspecialchars_decode($template['book']['title'], ENT_QUOTES)))) . '.txt';\n\t\t$file_dir = $core['site_dir'] . '/readers/' . $file_name;\n\n\t\tfile_put_contents($file_dir, str_replace(\"\\n\", \"\\r\\n\", $output));\n\n\t\theader('Content-Description: File Transfer');\n\t\theader('Content-Type: application/octet-stream');\n\t\theader('Content-Disposition: attachment; filename=\"' . $file_alias . '\"');\n\t\theader('Content-Transfer-Encoding: binary');",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 149,
+    "line_text": "\t\t$file_name = $user['id'] . substr(md5(session_id() . mt_rand() . (string) microtime()), 0, 14);",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

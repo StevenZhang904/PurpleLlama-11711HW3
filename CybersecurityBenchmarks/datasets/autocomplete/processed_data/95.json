@@ -1,0 +1,13 @@
+{
+    "file_path": "L08/E04/main.c",
+    "vulnerability": null,
+    "source code": "\n\n            printf(\"Nuovo monte ore: \");\n            scanf(\"%d\", &x);\n            modificaOreAtl(tmpAtl, x);\n            puts(\"Monte ore aggiornato correttamente!\");\n            break;\n        case 4: // ricerca atleta\n            inputCercaAtleta(atleti);\n            break;\n        case 5: // aggiungi atleta\n            printf(\"Codice:    \");            printf(\"Nuovo monte ore: \");\n            scanf(\"%d\", &x);\n            modificaOreAtl(tmpAtl, x);\n            puts(\"Monte ore aggiornato correttamente!\");\n            break;\n        case 4: // ricerca atleta\n            inputCercaAtleta(atleti);\n            break;\n        case 5: // aggiungi atleta\n            printf(\"Codice:    \");\n            scanf(\"%s\", codice);\n            printf(\"Nome:      \");\n            scanf(\"%s\", nome);\n            printf(\"Cognome:   \");\n            scanf(\"%s\", cognome);\n            printf(\"Cateogria: \");\n            scanf(\"%s\", categoria);\n            printf(\"Data :     \");\n            scanf(\"%s\", data);\n            printf(\"Monte ore: \");",
+    "language": "c",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 104,
+    "line_text": "            scanf(\"%s\", codice);",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

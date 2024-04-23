@@ -1,0 +1,13 @@
+{
+    "file_path": "pnf_sim/src/main.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\tpdus[0].crc_indication_rel8.crc_flag = rand_range(0, 1);\n\t\t\n\t\tcrc_ind.crc_indication_body.crc_pdu_list = pdus;\n\t\tnfapi_pnf_p7_crc_ind(data->p7_config, &crc_ind);\n\t}\n\telse\n\t{\n\t\tcrc_ind.crc_indication_body.tl.tag = NFAPI_CRC_INDICATION_BODY_TAG;\n\t\tcrc_ind.crc_indication_body.number_of_crcs = ind->body.number_of_crcs;\n\t\t\tpdus[0].crc_indication_rel8.crc_flag = rand_range(0, 1);\n\t\t\n\t\tcrc_ind.crc_indication_body.crc_pdu_list = pdus;\n\t\tnfapi_pnf_p7_crc_ind(data->p7_config, &crc_ind);\n\t}\n\telse\n\t{\n\t\tcrc_ind.crc_indication_body.tl.tag = NFAPI_CRC_INDICATION_BODY_TAG;\n\t\tcrc_ind.crc_indication_body.number_of_crcs = ind->body.number_of_crcs;\n\t\n\t\tcrc_ind.crc_indication_body.crc_pdu_list = (nfapi_crc_indication_pdu_t*)malloc(sizeof(nfapi_crc_indication_pdu_t) * ind->body.number_of_crcs);\n\t\n\t\tfor(int i = 0; i < ind->body.number_of_crcs; ++i)\n\t\t{\n\t\t\tcrc_ind.crc_indication_body.crc_pdu_list[i].rx_ue_information.tl.tag = NFAPI_RX_UE_INFORMATION_TAG;\n\t\t\tcrc_ind.crc_indication_body.crc_pdu_list[i].rx_ue_information.handle = ind->body.pdus[i].rx_ue_info.handle;\n\t\t\tcrc_ind.crc_indication_body.crc_pdu_list[i].rx_ue_information.rnti = ind->body.pdus[i].rx_ue_info.rnti;\n\t\t\tcrc_ind.crc_indication_body.crc_pdu_list[i].crc_indication_rel8.tl.tag = NFAPI_CRC_INDICATION_REL8_TAG;\n\t\t\tcrc_ind.crc_indication_body.crc_pdu_list[i].crc_indication_rel8.crc_flag = ind->body.pdus[i].rel8_pdu.crc_flag;\n\t\t}",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 1099,
+    "line_text": "\t\tcrc_ind.crc_indication_body.crc_pdu_list = (nfapi_crc_indication_pdu_t*)malloc(sizeof(nfapi_crc_indication_pdu_t) * ind->body.number_of_crcs);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/mem/epoch/garbage.rs",
+    "vulnerability": null,
+    "source code": "\n\n    data: Bag,\n    next: AtomicPtr<Node>,\n}\n\nimpl ConcBag {\n    pub fn insert(&self, t: Bag){\n        let n = Box::into_raw(Box::new(\n            Node { data: t, next: AtomicPtr::new(ptr::null_mut()) })) as *mut Node;\n        loop {\n            let head = self.head.load(Relaxed);    data: Bag,\n    next: AtomicPtr<Node>,\n}\n\nimpl ConcBag {\n    pub fn insert(&self, t: Bag){\n        let n = Box::into_raw(Box::new(\n            Node { data: t, next: AtomicPtr::new(ptr::null_mut()) })) as *mut Node;\n        loop {\n            let head = self.head.load(Relaxed);\n            unsafe { (*n).next.store(head, Relaxed) };\n            if self.head.compare_and_swap(head, n, Release) == head { break }\n        }\n    }\n\n    pub unsafe fn collect(&self) {\n        let mut head = self.head.load(Relaxed);\n        self.head.store(ptr::null_mut(), Relaxed);\n\n        while head != ptr::null_mut() {",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 109,
+    "line_text": "            unsafe { (*n).next.store(head, Relaxed) };",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

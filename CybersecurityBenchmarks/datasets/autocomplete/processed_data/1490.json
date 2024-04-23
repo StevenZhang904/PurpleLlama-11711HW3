@@ -1,0 +1,13 @@
+{
+    "file_path": "vendor/backend/modules/tools/controllers/AnalystController.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\t\t'url'=>$url,\n\t\t\t\t\t'trackid'=>$trackid,\n\t\t\t\t\t'user_id'=>$this->current_user,\n\t\t\t\t\t'create_time'=>$this->current_time,\n\t\t\t\t\t'create_date'=>$date,\n\t\t\t\t\t'hour'=>$hour,\n\t\t\t\t\t'site'=>$this->input->get('si', 'intval'),\n\t\t\t\t\t'short_url'=>$short_url,\n\t\t\t\t\t'HTTP_CLIENT_IP'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '',\n\t\t\t\t\t'HTTP_X_FORWARDED_FOR'=>isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : '',\t\t\t\t\t'url'=>$url,\n\t\t\t\t\t'trackid'=>$trackid,\n\t\t\t\t\t'user_id'=>$this->current_user,\n\t\t\t\t\t'create_time'=>$this->current_time,\n\t\t\t\t\t'create_date'=>$date,\n\t\t\t\t\t'hour'=>$hour,\n\t\t\t\t\t'site'=>$this->input->get('si', 'intval'),\n\t\t\t\t\t'short_url'=>$short_url,\n\t\t\t\t\t'HTTP_CLIENT_IP'=>isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : '',\n\t\t\t\t\t'HTTP_X_FORWARDED_FOR'=>isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : '',\n\t\t\t\t\t'REMOTE_ADDR'=>isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '',\n\t\t\t\t));\n\t\t\t}else{\n\t\t\t\t//\u975e\u9996\u6b21\u8bbf\u95ee\n\t\t\t\t$mac = AnalystMacs::model()->fetchRow(array(\n\t\t\t\t\t'hash = ?'=>$_COOKIE['fmac'],\n\t\t\t\t), 'id');\n\t\t\t\tif($mac){\n\t\t\t\t\t$today = Date::today();\n\t\t\t\t\t//\u5f53\u65e5\u91cd\u590d\u8bbf\u95ee\u4e0d\u65b0\u589e\u8bb0\u5f55\uff0c\u4ec5\u9012\u589eviews",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 75,
+    "line_text": "\t\t\t\t\t'REMOTE_ADDR'=>isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '',",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

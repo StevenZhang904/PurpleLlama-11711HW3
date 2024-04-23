@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n    let args = args.map(|arg| arg.into_string()).collect::<Result<Vec<_>, _>>()?;\n    if args.is_empty() { return Err(Error::MissingCliArg) }\n    let mut data = Data::load()?;\n    data.deferred = Some(timespec::next(args)?.ok_or(Error::EmptyTimespec)?);\n    data.save()?;\n    Ok(())\n}\n\n#[bitbar::main(error_template_image = \"../assets/wurstpick-2x.png\")] //TODO use wurstpick.png for low-DPI screens?\nasync fn main() -> Result<Menu, Error> {    let args = args.map(|arg| arg.into_string()).collect::<Result<Vec<_>, _>>()?;\n    if args.is_empty() { return Err(Error::MissingCliArg) }\n    let mut data = Data::load()?;\n    data.deferred = Some(timespec::next(args)?.ok_or(Error::EmptyTimespec)?);\n    data.save()?;\n    Ok(())\n}\n\n#[bitbar::main(error_template_image = \"../assets/wurstpick-2x.png\")] //TODO use wurstpick.png for low-DPI screens?\nasync fn main() -> Result<Menu, Error> {\n    let current_exe = env::current_exe()?;\n    let client = reqwest::Client::builder()\n        .user_agent(concat!(\"bitbar-wurstmineberg-status/\", env!(\"CARGO_PKG_VERSION\")))\n        .timeout(Duration::from_secs(30))\n        .use_rustls_tls()\n        .build()?;\n    let data = Data::load()?;\n    if data.deferred.map_or(false, |deferred| deferred >= Utc::now()) {\n        return Ok(Menu::default())\n    }",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 232,
+    "line_text": "    let current_exe = env::current_exe()?;",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

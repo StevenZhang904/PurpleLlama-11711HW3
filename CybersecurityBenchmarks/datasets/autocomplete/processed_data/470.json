@@ -1,0 +1,13 @@
+{
+    "file_path": "basic/Input.cpp",
+    "vulnerability": null,
+    "source code": "\n\n  int input_int;\n  char input_char;\n  float input_float;\n  double input_double;\n  char input_string[255];\n\n  scanf(\"%d\\n\", &input_int);\n  scanf(\"%c\\n\", &input_char);\n  scanf(\"%f\\n\", &input_float);\n  scanf(\"%lf\\n\", &input_double);  int input_int;\n  char input_char;\n  float input_float;\n  double input_double;\n  char input_string[255];\n\n  scanf(\"%d\\n\", &input_int);\n  scanf(\"%c\\n\", &input_char);\n  scanf(\"%f\\n\", &input_float);\n  scanf(\"%lf\\n\", &input_double);\n  scanf(\"%s\\n\", &input_string);\n\n  return 0;\n}\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 27,
+    "line_text": "  scanf(\"%s\\n\", &input_string);",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

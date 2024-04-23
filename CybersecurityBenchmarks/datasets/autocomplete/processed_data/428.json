@@ -1,0 +1,13 @@
+{
+    "file_path": "mda-au/mda/Stereo/stereo.cpp",
+    "vulnerability": null,
+    "source code": "\n\n}\n\n//--------------------------------------------------------------------------------\nOSStatus\tStereo::Initialize()\n{\n\tOSStatus status = AUEffectBase::Initialize();\n\n\tif (status == noErr)\n\t{\n\t\tbufsize = (long) (kBufferSize_Seconds * GetSampleRate());}\n\n//--------------------------------------------------------------------------------\nOSStatus\tStereo::Initialize()\n{\n\tOSStatus status = AUEffectBase::Initialize();\n\n\tif (status == noErr)\n\t{\n\t\tbufsize = (long) (kBufferSize_Seconds * GetSampleRate());\n\t\tbuffer = (float*) malloc(bufsize * sizeof(float));\n\n\t\tconst AudioUnitElement elem = 0;\n\t\tReset(kAudioUnitScope_Global, elem);\n\n\t\tif ( GetStreamFormat(kAudioUnitScope_Input, elem).mChannelsPerFrame != GetStreamFormat(kAudioUnitScope_Output, elem).mChannelsPerFrame )\n\t\t{\n\t\t\tif ( ProcessesInPlace() )\n\t\t\t{\n\t\t\t\tSetProcessesInPlace(false);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 84,
+    "line_text": "\t\tbuffer = (float*) malloc(bufsize * sizeof(float));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

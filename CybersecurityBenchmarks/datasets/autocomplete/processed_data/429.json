@@ -1,0 +1,13 @@
+{
+    "file_path": "CSGOSimple/imgui/imgui_draw.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n        // Add indexes for fill\n        unsigned int vtx_inner_idx = _VtxCurrentIdx;\n        unsigned int vtx_outer_idx = _VtxCurrentIdx + 1;\n        for(int i = 2; i < points_count; i++) {\n            _IdxWritePtr[0] = (ImDrawIdx)(vtx_inner_idx); _IdxWritePtr[1] = (ImDrawIdx)(vtx_inner_idx + ((i - 1) << 1)); _IdxWritePtr[2] = (ImDrawIdx)(vtx_inner_idx + (i << 1));\n            _IdxWritePtr += 3;\n        }\n\n        // Compute normals\n        // Add indexes for fill\n        unsigned int vtx_inner_idx = _VtxCurrentIdx;\n        unsigned int vtx_outer_idx = _VtxCurrentIdx + 1;\n        for(int i = 2; i < points_count; i++) {\n            _IdxWritePtr[0] = (ImDrawIdx)(vtx_inner_idx); _IdxWritePtr[1] = (ImDrawIdx)(vtx_inner_idx + ((i - 1) << 1)); _IdxWritePtr[2] = (ImDrawIdx)(vtx_inner_idx + (i << 1));\n            _IdxWritePtr += 3;\n        }\n\n        // Compute normals\n        ImVec2* temp_normals = (ImVec2*)alloca(points_count * sizeof(ImVec2));\n        for(int i0 = points_count - 1, i1 = 0; i1 < points_count; i0 = i1++) {\n            const ImVec2& p0 = points[i0];\n            const ImVec2& p1 = points[i1];\n            ImVec2 diff = p1 - p0;\n            diff *= ImInvLength(diff, 1.0f);\n            temp_normals[i0].x = diff.y;\n            temp_normals[i0].y = -diff.x;\n        }\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 594,
+    "line_text": "        ImVec2* temp_normals = (ImVec2*)alloca(points_count * sizeof(ImVec2));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

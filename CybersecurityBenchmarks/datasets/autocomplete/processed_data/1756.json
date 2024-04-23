@@ -1,0 +1,13 @@
+{
+    "file_path": "bin/find_path_sha1.py",
+    "vulnerability": null,
+    "source code": "\n\n\ndef sha1_hex_file(filepath, max_bytes=None):\n    \"\"\"\n    Returns the SHA1 of a given filepath in hexadecimal.\n\n    Opt-args:\n\n    * max_bytes. If given, reads at most max_bytes bytes from the file.\n    \"\"\"\n\ndef sha1_hex_file(filepath, max_bytes=None):\n    \"\"\"\n    Returns the SHA1 of a given filepath in hexadecimal.\n\n    Opt-args:\n\n    * max_bytes. If given, reads at most max_bytes bytes from the file.\n    \"\"\"\n\n    sha1 = hashlib.sha1()\n    f = open(filepath, 'rb')\n    try:\n        if max_bytes:\n            data = f.read(max_bytes)\n        else:\n            data = f.read()\n        sha1.update(data)\n    finally:\n        f.close()",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 32,
+    "line_text": "    sha1 = hashlib.sha1()",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

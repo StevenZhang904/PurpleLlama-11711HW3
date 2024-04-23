@@ -1,0 +1,13 @@
+{
+    "file_path": "Hackathon-111/SecurityController/confd-6.6/examples.confd/linuxcfg/ipmibs/utils.c",
+    "vulnerability": null,
+    "source code": "\n\n\n    while ((d = readdir(dir)) != NULL && cnt < size) {\n        DIR *dir1;\n        struct dirent *d1;\n        int pos;\n        char crap;\n\n        if (sscanf(d->d_name, \"%d%c\", &pid, &crap) != 1)\n            continue;\n\n    while ((d = readdir(dir)) != NULL && cnt < size) {\n        DIR *dir1;\n        struct dirent *d1;\n        int pos;\n        char crap;\n\n        if (sscanf(d->d_name, \"%d%c\", &pid, &crap) != 1)\n            continue;\n\n        pos = sprintf(name, \"/proc/%d/fd/\", pid);\n        if ((dir1 = opendir(name)) == NULL)\n            continue;\n\n        while ((d1 = readdir(dir1)) != NULL && cnt < size) {\n            int fd, n;\n            char lnk[64];\n\n            if (sscanf(d1->d_name, \"%d\", &fd) != 1)\n                continue;",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 35,
+    "line_text": "        pos = sprintf(name, \"/proc/%d/fd/\", pid);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

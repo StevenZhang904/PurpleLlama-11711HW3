@@ -1,0 +1,13 @@
+{
+    "file_path": "wxpy/ext/xiaoi.py",
+    "vulnerability": null,
+    "source code": "\n\n    def _make_signature(self):\n        \"\"\"\n        \u751f\u6210\u8bf7\u6c42\u7b7e\u540d\n        \"\"\"\n\n        # 40\u4f4d\u968f\u673a\u5b57\u7b26\n        # nonce = \"\".join([str(randint(0, 9)) for _ in range(40)])\n        nonce = \"4103657107305326101203516108016101205331\"\n\n        sha1 = \"{0}:{1}:{2}\".format(self.key, self.realm, self.secret).encode(\"utf-8\")    def _make_signature(self):\n        \"\"\"\n        \u751f\u6210\u8bf7\u6c42\u7b7e\u540d\n        \"\"\"\n\n        # 40\u4f4d\u968f\u673a\u5b57\u7b26\n        # nonce = \"\".join([str(randint(0, 9)) for _ in range(40)])\n        nonce = \"4103657107305326101203516108016101205331\"\n\n        sha1 = \"{0}:{1}:{2}\".format(self.key, self.realm, self.secret).encode(\"utf-8\")\n        sha1 = hashlib.sha1(sha1).hexdigest()\n        sha2 = \"{0}:{1}\".format(self.http_method, self.uri).encode(\"utf-8\")\n        sha2 = hashlib.sha1(sha2).hexdigest()\n\n        signature = \"{0}:{1}:{2}\".format(sha1, nonce, sha2).encode(\"utf-8\")\n        signature = hashlib.sha1(signature).hexdigest()\n\n        ret = collections.namedtuple(\"signature_return\", \"signature nonce\")\n        ret.signature = signature\n        ret.nonce = nonce",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 66,
+    "line_text": "        sha1 = hashlib.sha1(sha1).hexdigest()",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

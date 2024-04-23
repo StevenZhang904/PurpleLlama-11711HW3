@@ -1,0 +1,13 @@
+{
+    "file_path": "app/src/main/java/com/cody/app/framework/hybrid/JsBridge.java",
+    "vulnerability": null,
+    "source code": "\n\n        if (webView == null) {\n            throw new NullPointerException(\"webView is null,can't build js handler!\");\n        }\n        mWebViewRef = new WeakReference<>(webView);\n        getInstance().mJsHandlerFactory.build();\n        WebSettings settings = webView.getSettings();\n        settings.setJavaScriptEnabled(true);\n        String userAgentString = settings.getUserAgentString();\n        settings.setUserAgentString(userAgentString + USER_AGENT);\n//\t\tsettings.setPluginState(PluginState.ON_DEMAND);        if (webView == null) {\n            throw new NullPointerException(\"webView is null,can't build js handler!\");\n        }\n        mWebViewRef = new WeakReference<>(webView);\n        getInstance().mJsHandlerFactory.build();\n        WebSettings settings = webView.getSettings();\n        settings.setJavaScriptEnabled(true);\n        String userAgentString = settings.getUserAgentString();\n        settings.setUserAgentString(userAgentString + USER_AGENT);\n//\t\tsettings.setPluginState(PluginState.ON_DEMAND);\n        settings.setAllowFileAccess(true);\n        // \u8bbe\u7f6e \u7f13\u5b58\u6a21\u5f0f\n        settings.setCacheMode(WebSettings.LOAD_DEFAULT);\n        // \u5f00\u542f DOM storage API \u529f\u80fd\n        settings.setDomStorageEnabled(true);\n        String cacheDirPath = webView.getContext().getFilesDir().getAbsolutePath() + \"/webView\";\n        //\u8bbe\u7f6e  Application Caches \u7f13\u5b58\u76ee\u5f55\n        settings.setAppCachePath(cacheDirPath);\n        //\u5f00\u542f Application Caches \u529f\u80fd\n        settings.setAppCacheEnabled(true);",
+    "language": "java",
+    "cwe_identifier": "CWE-200",
+    "pattern_desc": "Content loaded in the WebView is allowed to access the filesystem",
+    "line_number": 221,
+    "line_text": "        settings.setAllowFileAccess(true);",
+    "pattern_id": "JAVA-R-020",
+    "rule": "\\.(setAllowFileAccess|setAllowFileAccessFromURLs|setAllowUniversalAccessFromURLs)\\(true\\)",
+    "label": 1
+}

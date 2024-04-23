@@ -1,0 +1,13 @@
+{
+    "file_path": "libs/cegui/cegui/src/minibidi.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\tcase NSM:\n\t\t\tfNSM = 1;\n\t\t\tbreak;\n\t\t}\n\t}\n\n\tif(!fAL && !fX)\n\t\treturn 0;\n\n   /* Initialize types, levels */\t\tcase NSM:\n\t\t\tfNSM = 1;\n\t\t\tbreak;\n\t\t}\n\t}\n\n\tif(!fAL && !fX)\n\t\treturn 0;\n\n   /* Initialize types, levels */\n   types = (unsigned char*)malloc(sizeof(unsigned char) * count);\n   levels = (unsigned char*)malloc(sizeof(unsigned char) * count);\n   if(applyShape)\n\t   shapeTo = (CHARTYPE*)malloc(sizeof(CHARTYPE) * count);\n\n   /* Rule (P1)  NOT IMPLEMENTED\n    * P1. Split the text into separate paragraphs. A paragraph separator is\n    * kept with the previous paragraph. Within each paragraph, apply all the\n    * other rules of this algorithm.\n    */",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 1163,
+    "line_text": "   types = (unsigned char*)malloc(sizeof(unsigned char) * count);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

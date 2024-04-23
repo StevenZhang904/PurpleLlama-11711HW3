@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\nfn convert_generated_field(field: &option::GeneratedField) -> schema::generator::GeneratedField {\n    schema::generator::GeneratedField {\n        name: field.field_name.clone(),\n        data_type: field.data_type.clone(),\n        nullable: field.nullable,\n    }\n}\n\nfn main() {\n    let args = option::parse();fn convert_generated_field(field: &option::GeneratedField) -> schema::generator::GeneratedField {\n    schema::generator::GeneratedField {\n        name: field.field_name.clone(),\n        data_type: field.data_type.clone(),\n        nullable: field.nullable,\n    }\n}\n\nfn main() {\n    let args = option::parse();\n    let exe_path = env::current_exe().unwrap();\n    let exe_dir = exe_path.parent().unwrap();\n    let template_dir = exe_dir.clone().join(\"template\").to_str().unwrap().to_string();\n\n    if args.is_init() {\n        let param = unwrap_result(args.as_init());\n        let _ = unwrap_result(create_dir_all(&format!(\"{}/logs\", &param.schema_dir)[..]));\n        let _ = unwrap_result(create_dir_all(&format!(\"{}/types\", &param.schema_dir)[..]));\n        let _ = unwrap_result(file::write(&format!(\"{}/schema.config\", &param.schema_dir)[..],\n            &format!(\"{{\\n    \\\"log_label\\\": \\\"{}\\\"\\n}}\\n\", &param.log_label)[..]));",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 35,
+    "line_text": "    let exe_path = env::current_exe().unwrap();",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

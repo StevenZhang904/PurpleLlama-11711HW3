@@ -1,0 +1,13 @@
+{
+    "file_path": "UVA/vol-108/10800.cpp",
+    "vulnerability": null,
+    "source code": "\n\n#include <iostream>\nusing namespace std;\n\nint mxx[104];\nchar board[104][52];\nint main() {\n    int T;\n    char s[100];\n    scanf(\"%d\", &T);\n    for (int cse=1; cse<=T; cse++) {#include <iostream>\nusing namespace std;\n\nint mxx[104];\nchar board[104][52];\nint main() {\n    int T;\n    char s[100];\n    scanf(\"%d\", &T);\n    for (int cse=1; cse<=T; cse++) {\n        scanf(\"%s\", s);\n        memset(mxx, 0, sizeof(mxx));\n        memset(board, ' ', sizeof(board));\n\n        int x=0, y=50, mny=y, mxy=y-1;\n        for (int i=0; s[i]; i++)\n            if (s[i] == 'R') {\n                mxx[y] = x + 1;\n                if (y > mxy) mxy = y;\n                board[y++][x++] = '/';",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 13,
+    "line_text": "        scanf(\"%s\", s);",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

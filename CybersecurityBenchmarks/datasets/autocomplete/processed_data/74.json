@@ -1,0 +1,13 @@
+{
+    "file_path": "NDKFFmpeg/jni/ffmpeg/libavfilter/af_firequalizer.c",
+    "vulnerability": null,
+    "source code": "\n\n\n    if (rdft_bits > RDFT_BITS_MAX) {\n        av_log(ctx, AV_LOG_ERROR, \"too small accuracy, please increase it.\\n\");\n        return AVERROR(EINVAL);\n    }\n\n    if (!(s->analysis_irdft = av_rdft_init(rdft_bits, IDFT_C2R)))\n        return AVERROR(ENOMEM);\n\n    s->analysis_buf = av_malloc_array(s->analysis_rdft_len, sizeof(*s->analysis_buf));\n    if (rdft_bits > RDFT_BITS_MAX) {\n        av_log(ctx, AV_LOG_ERROR, \"too small accuracy, please increase it.\\n\");\n        return AVERROR(EINVAL);\n    }\n\n    if (!(s->analysis_irdft = av_rdft_init(rdft_bits, IDFT_C2R)))\n        return AVERROR(ENOMEM);\n\n    s->analysis_buf = av_malloc_array(s->analysis_rdft_len, sizeof(*s->analysis_buf));\n    s->kernel_tmp_buf = av_malloc_array(s->rdft_len * (s->multi ? inlink->channels : 1), sizeof(*s->kernel_tmp_buf));\n    s->kernel_buf = av_malloc_array(s->rdft_len * (s->multi ? inlink->channels : 1), sizeof(*s->kernel_buf));\n    s->conv_buf   = av_calloc(2 * s->rdft_len * inlink->channels, sizeof(*s->conv_buf));\n    s->conv_idx   = av_calloc(inlink->channels, sizeof(*s->conv_idx));\n    if (!s->analysis_buf || !s->kernel_tmp_buf || !s->kernel_buf || !s->conv_buf || !s->conv_idx)\n        return AVERROR(ENOMEM);\n\n    av_log(ctx, AV_LOG_DEBUG, \"sample_rate = %d, channels = %d, analysis_rdft_len = %d, rdft_len = %d, fir_len = %d, nsamples_max = %d.\\n\",\n           inlink->sample_rate, inlink->channels, s->analysis_rdft_len, s->rdft_len, s->fir_len, s->nsamples_max);\n",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 467,
+    "line_text": "    s->kernel_tmp_buf = av_malloc_array(s->rdft_len * (s->multi ? inlink->channels : 1), sizeof(*s->kernel_tmp_buf));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

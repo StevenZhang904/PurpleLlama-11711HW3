@@ -1,0 +1,13 @@
+{
+    "file_path": "admin/webapp/static/app/bower_components/webcomponentsjs/ShadowDOM.min.js",
+    "vulnerability": null,
+    "source code": "\n\n\n    function l(e) {\n        return /^on[a-z]+$/.test(e)\n    }\n\n    function p(e) {\n        return /^[a-zA-Z_$][a-zA-Z_$0-9]*$/.test(e)\n    }\n\n    function d(e) {\n    function l(e) {\n        return /^on[a-z]+$/.test(e)\n    }\n\n    function p(e) {\n        return /^[a-zA-Z_$][a-zA-Z_$0-9]*$/.test(e)\n    }\n\n    function d(e) {\n        return I && p(e) ? new Function(\"return this.__impl4cf1e782hg__.\" + e) : function () {\n            return this.__impl4cf1e782hg__[e]\n        }\n    }\n\n    function f(e) {\n        return I && p(e) ? new Function(\"v\", \"this.__impl4cf1e782hg__.\" + e + \" = v\") : function (t) {\n            this.__impl4cf1e782hg__[e] = t\n        }\n    }",
+    "language": "javascript",
+    "cwe_identifier": "CWE-95",
+    "pattern_desc": "The application was found calling the `evalScript` or `Function` function with a non-literal variable. If the\nvariable comes from user-supplied input, an adversary could attempt to execute arbitrary\nJavaScript\ncode. This could lead to a full system compromise in Node applications or Cross-site Scripting\n(XSS) in web applications.\n",
+    "line_number": 110,
+    "line_text": "        return I && p(e) ? new Function(\"return this.__impl4cf1e782hg__.\" + e) : function () {",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.javascript.implied-eval-with-expression",
+    "rule": null,
+    "label": 1
+}

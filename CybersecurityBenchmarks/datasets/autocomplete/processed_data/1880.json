@@ -1,0 +1,13 @@
+{
+    "file_path": "response.py",
+    "vulnerability": null,
+    "source code": "\n\nfrom extractor import Ways\nfrom date import way_date\n\nclass Helpers:\n    '''\n    '''\n    @staticmethod\n    def make_id(website, timestamp):\n        '''\n        '''from extractor import Ways\nfrom date import way_date\n\nclass Helpers:\n    '''\n    '''\n    @staticmethod\n    def make_id(website, timestamp):\n        '''\n        '''\n        m=hashlib.md5()\n        m.update(''.join([website, timestamp]).encode())\n        return m.hexdigest()\n\n\n\nclass WayDefault:\n    '''\n    '''\n",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 14,
+    "line_text": "        m=hashlib.md5()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "vcx/dummy-cloud-agent/src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\npub(crate) mod domain;\npub(crate) mod indy;\n\nfn main() {\n    indy::logger::set_default_logger(None)\n        .expect(\"Can't init indy logger\");\n\n    env_logger::try_init()\n        .expect(\"Can't init env logger\");\npub(crate) mod domain;\npub(crate) mod indy;\n\nfn main() {\n    indy::logger::set_default_logger(None)\n        .expect(\"Can't init indy logger\");\n\n    env_logger::try_init()\n        .expect(\"Can't init env logger\");\n\n    let mut args = env::args();\n    args.next(); // skip app name\n\n    while let Some(arg) = args.next() {\n        match arg.as_str() {\n            \"-h\" | \"--help\" => return _print_help(),\n            _ if args.len() == 0 => return _start(&arg),\n            _ => {\n                println!(\"Unknown option\");\n                return _print_help();",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 55,
+    "line_text": "    let mut args = env::args();",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

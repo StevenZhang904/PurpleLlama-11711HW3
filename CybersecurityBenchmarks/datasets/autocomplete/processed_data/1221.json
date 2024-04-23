@@ -1,0 +1,13 @@
+{
+    "file_path": "src/test/run-make-fulldeps/reproducible-build/linker.rs",
+    "vulnerability": null,
+    "source code": "\n\n    let mut dst = env::current_exe().unwrap();\n    dst.pop();\n    dst.push(\"linker-arguments1\");\n    if dst.exists() {\n        dst.pop();\n        dst.push(\"linker-arguments2\");\n        assert!(!dst.exists());\n    }\n\n    let mut out = String::new();    let mut dst = env::current_exe().unwrap();\n    dst.pop();\n    dst.push(\"linker-arguments1\");\n    if dst.exists() {\n        dst.pop();\n        dst.push(\"linker-arguments2\");\n        assert!(!dst.exists());\n    }\n\n    let mut out = String::new();\n    for arg in env::args().skip(1) {\n        let path = Path::new(&arg);\n        if !path.is_file() {\n            out.push_str(&arg);\n            out.push_str(\"\\n\");\n            continue\n        }\n\n        let mut contents = Vec::new();\n        File::open(path).unwrap().read_to_end(&mut contents).unwrap();",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 17,
+    "line_text": "    for arg in env::args().skip(1) {",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

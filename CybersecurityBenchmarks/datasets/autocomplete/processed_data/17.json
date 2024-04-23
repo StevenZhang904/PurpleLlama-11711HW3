@@ -1,0 +1,13 @@
+{
+    "file_path": "src/mod_usertrack.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\t{ \"usertrack.cookie-name\",       NULL, T_CONFIG_STRING, T_CONFIG_SCOPE_CONNECTION },       /* 0 */\n\t\t{ \"usertrack.cookie-max-age\",    NULL, T_CONFIG_INT, T_CONFIG_SCOPE_CONNECTION },          /* 1 */\n\t\t{ \"usertrack.cookie-domain\",     NULL, T_CONFIG_STRING, T_CONFIG_SCOPE_CONNECTION },       /* 2 */\n\n\t\t{ \"usertrack.cookiename\",        NULL, T_CONFIG_DEPRECATED, T_CONFIG_SCOPE_CONNECTION },\n\t\t{ NULL,                          NULL, T_CONFIG_UNSET, T_CONFIG_SCOPE_UNSET }\n\t};\n\n\tif (!p) return HANDLER_ERROR;\n\t\t{ \"usertrack.cookie-name\",       NULL, T_CONFIG_STRING, T_CONFIG_SCOPE_CONNECTION },       /* 0 */\n\t\t{ \"usertrack.cookie-max-age\",    NULL, T_CONFIG_INT, T_CONFIG_SCOPE_CONNECTION },          /* 1 */\n\t\t{ \"usertrack.cookie-domain\",     NULL, T_CONFIG_STRING, T_CONFIG_SCOPE_CONNECTION },       /* 2 */\n\n\t\t{ \"usertrack.cookiename\",        NULL, T_CONFIG_DEPRECATED, T_CONFIG_SCOPE_CONNECTION },\n\t\t{ NULL,                          NULL, T_CONFIG_UNSET, T_CONFIG_SCOPE_UNSET }\n\t};\n\n\tif (!p) return HANDLER_ERROR;\n\n\tp->config_storage = calloc(1, srv->config_context->used * sizeof(specific_config *));\n\n\tfor (i = 0; i < srv->config_context->used; i++) {\n\t\tplugin_config *s;\n\n\t\ts = calloc(1, sizeof(plugin_config));\n\t\ts->cookie_name    = buffer_init();\n\t\ts->cookie_domain  = buffer_init();\n\t\ts->cookie_max_age = 0;\n",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 81,
+    "line_text": "\tp->config_storage = calloc(1, srv->config_context->used * sizeof(specific_config *));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

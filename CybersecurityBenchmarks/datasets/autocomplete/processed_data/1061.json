@@ -1,0 +1,13 @@
+{
+    "file_path": "toolslibrary/src/main/java/com/jusenr/toolslibrary/utils/FileUtils.java",
+    "vulnerability": null,
+    "source code": "\n\n     * @return The SHA1 value of the file\n     */\n    public static String getSHA1ByFile(File file) {\n        if (file == null || !file.exists()) return \"FileNotFoundException\";\n        long time = System.currentTimeMillis();\n        InputStream in = null;\n        String value = null;\n        try {\n            in = new FileInputStream(file);\n            byte[] buffer = new byte[1024];     * @return The SHA1 value of the file\n     */\n    public static String getSHA1ByFile(File file) {\n        if (file == null || !file.exists()) return \"FileNotFoundException\";\n        long time = System.currentTimeMillis();\n        InputStream in = null;\n        String value = null;\n        try {\n            in = new FileInputStream(file);\n            byte[] buffer = new byte[1024];\n            MessageDigest digest = MessageDigest.getInstance(\"SHA-1\");\n            int numRead = 0;\n            while (numRead != -1) {\n                numRead = in.read(buffer);\n                if (numRead > 0) digest.update(buffer, 0, numRead);\n            }\n            byte[] sha1Bytes = digest.digest();\n//            String t = new String(buffer);\n            value = convertHashToString(sha1Bytes);\n        } catch (Exception e) {",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 202,
+    "line_text": "            MessageDigest digest = MessageDigest.getInstance(\"SHA-1\");",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

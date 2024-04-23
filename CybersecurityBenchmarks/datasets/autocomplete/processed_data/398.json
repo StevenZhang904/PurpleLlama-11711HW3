@@ -1,0 +1,13 @@
+{
+    "file_path": "platform/HWUCSDK/windows/eSpace_Desktop_V200R001C50SPC100B091/include/ace/ACE.cpp",
+    "vulnerability": null,
+    "source code": "\n\n// *total* number of trailing arguments, *not* a couple of the number\n// of tuple pairs!\n\nssize_t\nACE::recv (ACE_HANDLE handle, size_t n, ...)\n{\n  va_list argp;\n  int total_tuples = static_cast<int> (n / 2);\n  iovec *iovp;\n#if defined (ACE_HAS_ALLOCA)// *total* number of trailing arguments, *not* a couple of the number\n// of tuple pairs!\n\nssize_t\nACE::recv (ACE_HANDLE handle, size_t n, ...)\n{\n  va_list argp;\n  int total_tuples = static_cast<int> (n / 2);\n  iovec *iovp;\n#if defined (ACE_HAS_ALLOCA)\n  iovp = (iovec *) alloca (total_tuples * sizeof (iovec));\n#else\n  ACE_NEW_RETURN (iovp,\n                  iovec[total_tuples],\n                  -1);\n#endif /* !defined (ACE_HAS_ALLOCA) */\n\n  va_start (argp, n);\n\n  for (int i = 0; i < total_tuples; i++)",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 937,
+    "line_text": "  iovp = (iovec *) alloca (total_tuples * sizeof (iovec));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

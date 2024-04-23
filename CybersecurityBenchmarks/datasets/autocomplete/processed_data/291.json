@@ -1,0 +1,13 @@
+{
+    "file_path": "gpu/command_buffer/client/gles2_implementation_unittest.cc",
+    "vulnerability": null,
+    "source code": "\n\n\n  Cmds expected;\n  expected.read1.Init(\n      0, 0, kWidth, kHeight / 2, kFormat, kType,\n      mem1.id, mem1.offset, result1.id, result1.offset);\n  expected.set_token1.Init(GetNextToken());\n  expected.read2.Init(\n      0, kHeight / 2, kWidth, kHeight / 2, kFormat, kType,\n      mem2.id, mem2.offset, result2.id, result2.offset);\n  expected.set_token2.Init(GetNextToken());\n  Cmds expected;\n  expected.read1.Init(\n      0, 0, kWidth, kHeight / 2, kFormat, kType,\n      mem1.id, mem1.offset, result1.id, result1.offset);\n  expected.set_token1.Init(GetNextToken());\n  expected.read2.Init(\n      0, kHeight / 2, kWidth, kHeight / 2, kFormat, kType,\n      mem2.id, mem2.offset, result2.id, result2.offset);\n  expected.set_token2.Init(GetNextToken());\n  scoped_array<int8> buffer(new int8[kWidth * kHeight * kBytesPerPixel]);\n\n  EXPECT_CALL(*command_buffer(), OnFlush())\n      .WillOnce(SetMemory(result1.ptr, static_cast<uint32>(1)))\n      .WillOnce(SetMemory(result2.ptr, static_cast<uint32>(1)))\n      .RetiresOnSaturation();\n\n  gl_->ReadPixels(0, 0, kWidth, kHeight, kFormat, kType, buffer.get());\n  EXPECT_EQ(0, memcmp(&expected, commands_, sizeof(expected)));\n}",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 1261,
+    "line_text": "  scoped_array<int8> buffer(new int8[kWidth * kHeight * kBytesPerPixel]);",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

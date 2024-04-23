@@ -1,0 +1,13 @@
+{
+    "file_path": "WebServer.php",
+    "vulnerability": null,
+    "source code": "\n\n                    $_SERVER['REMOTE_ADDR'] = $connection->getRemoteIp();\n                    $_SERVER['REMOTE_PORT'] = $connection->getRemotePort();\n                    include $workerman_file;\n                } catch (\\Exception $e) {\n                    // Jump_exit?\n                    if ($e->getMessage() != 'jump_exit') {\n                        echo $e;\n                    }\n                }\n                $content = ob_get_clean();                    $_SERVER['REMOTE_ADDR'] = $connection->getRemoteIp();\n                    $_SERVER['REMOTE_PORT'] = $connection->getRemotePort();\n                    include $workerman_file;\n                } catch (\\Exception $e) {\n                    // Jump_exit?\n                    if ($e->getMessage() != 'jump_exit') {\n                        echo $e;\n                    }\n                }\n                $content = ob_get_clean();\n                ini_set('display_errors', 'on');\n                if (strtolower($_SERVER['HTTP_CONNECTION']) === \"keep-alive\") {\n                    $connection->send($content);\n                } else {\n                    $connection->close($content);\n                }\n                chdir($workerman_cwd);\n                return;\n            }\n",
+    "language": "php",
+    "cwe_identifier": "CWE-200",
+    "pattern_desc": "Potential exposure of sensitive information through error messages",
+    "line_number": 212,
+    "line_text": "                ini_set('display_errors', 'on');",
+    "pattern_id": "PHP-R-014",
+    "rule": "\\b(error_reporting|ini_set)\\s*\\(\\s*['\"]display_errors['\"],\\s*['\"]on['\"]\\s*\\)",
+    "label": 1
+}

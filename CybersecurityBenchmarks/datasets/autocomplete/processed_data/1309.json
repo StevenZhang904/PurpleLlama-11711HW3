@@ -1,0 +1,13 @@
+{
+    "file_path": "src/site.rs",
+    "vulnerability": null,
+    "source code": "\n\n}\n\n#[cfg(test)]\nmod tests {\n    use super::*;\n    use ::std::{env, fs};\n    use ::post::{create_post, PostKind};\n\n    #[test]\n    fn test_generate() {}\n\n#[cfg(test)]\nmod tests {\n    use super::*;\n    use ::std::{env, fs};\n    use ::post::{create_post, PostKind};\n\n    #[test]\n    fn test_generate() {\n        let dir = env::temp_dir().join(\"site\");\n        ::new::create_site(dir.clone(), true).unwrap();\n\n        let mut c = Conf::default();\n        c.force = Some(true);\n        c.in_dir = Some(dir.to_str().unwrap().to_string());\n        c.out_dir = Some(dir.to_str().unwrap().to_string());\n\n        create_post(dir.join(::SRC_DIR).join(\"a.md\"), c.clone(), PostKind::Article).unwrap();\n        create_post(dir.join(::SRC_DIR).join(\"p.md\"), c.clone(), PostKind::Page).unwrap();",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 95,
+    "line_text": "        let dir = env::temp_dir().join(\"site\");",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

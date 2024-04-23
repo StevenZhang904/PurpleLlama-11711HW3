@@ -1,0 +1,13 @@
+{
+    "file_path": "x265/source/x265.cpp",
+    "vulnerability": null,
+    "source code": "\n\n        char buf[128];\n        int p = sprintf(buf, \"%dx%d fps %d/%d %sp%d\", param->sourceWidth, param->sourceHeight,\n                        param->fpsNum, param->fpsDenom, x265_source_csp_names[param->internalCsp], info.depth);\n\n        int width, height;\n        getParamAspectRatio(param, width, height);\n        if (width && height)\n            p += sprintf(buf + p, \" sar %d:%d\", width, height);\n\n        if (framesToBeEncoded <= 0 || info.frameCount <= 0)        char buf[128];\n        int p = sprintf(buf, \"%dx%d fps %d/%d %sp%d\", param->sourceWidth, param->sourceHeight,\n                        param->fpsNum, param->fpsDenom, x265_source_csp_names[param->internalCsp], info.depth);\n\n        int width, height;\n        getParamAspectRatio(param, width, height);\n        if (width && height)\n            p += sprintf(buf + p, \" sar %d:%d\", width, height);\n\n        if (framesToBeEncoded <= 0 || info.frameCount <= 0)\n            strcpy(buf + p, \" unknown frame count\");\n        else\n            sprintf(buf + p, \" frames %u - %d of %d\", this->seek, this->seek + this->framesToBeEncoded - 1, info.frameCount);\n\n        general_log(param, input->getName(), X265_LOG_INFO, \"%s\\n\", buf);\n    }\n\n    this->input->startReader();\n\n    if (reconfn)",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 415,
+    "line_text": "            strcpy(buf + p, \" unknown frame count\");",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

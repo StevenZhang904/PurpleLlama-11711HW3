@@ -1,0 +1,13 @@
+{
+    "file_path": "PLC/snap7/snap_tcpsrvr.cpp",
+    "vulnerability": null,
+    "source code": "\n\n                if (Valid)\r\n                    Msg_CloseSocket(Sock);\r\n        };\r\n    }\r\n}\r\n//---------------------------------------------------------------------------\r\n// TCP SERVER\r\n//---------------------------------------------------------------------------\r\nTCustomMsgServer::TCustomMsgServer() \r\n{\r                if (Valid)\r\n                    Msg_CloseSocket(Sock);\r\n        };\r\n    }\r\n}\r\n//---------------------------------------------------------------------------\r\n// TCP SERVER\r\n//---------------------------------------------------------------------------\r\nTCustomMsgServer::TCustomMsgServer() \r\n{\r\n    strcpy(FLocalAddress, \"0.0.0.0\");\r\n    CSList = new TSnapCriticalSection();\r\n    CSEvent = new TSnapCriticalSection();\r\n    FEventQueue = new TMsgEventQueue(MaxEvents, sizeof (TSrvEvent));\r\n    memset(Workers, 0, sizeof (Workers));\r\n    for (int i = 0; i < MaxWorkers; i++)\r\n        Workers[i] = NULL;\r\n    Status = SrvStopped;\r\n    EventMask = 0xFFFFFFFF;\r\n    LogMask = 0xFFFFFFFF;\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 183,
+    "line_text": "    strcpy(FLocalAddress, \"0.0.0.0\");\r",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

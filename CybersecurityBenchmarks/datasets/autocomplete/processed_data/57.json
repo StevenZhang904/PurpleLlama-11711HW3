@@ -1,0 +1,13 @@
+{
+    "file_path": "OPERATORS/AX_EQUALS_B/src/matrix_helpers.c",
+    "vulnerability": null,
+    "source code": "\n\n\nextern int\nalloc_symm_matrix(\n    double ***ptr_X,\n    int n\n    )\n{\n  int status = 0;\n  double **X = NULL;\n  *ptr_X = NULL;\nextern int\nalloc_symm_matrix(\n    double ***ptr_X,\n    int n\n    )\n{\n  int status = 0;\n  double **X = NULL;\n  *ptr_X = NULL;\n  X = (double **) malloc(n * sizeof(double*));\n  return_if_malloc_failed(X);\n  for ( int i = 0; i < n; i++ ) { X[i] = NULL; }\n  for ( int i = 0; i < n; i++ ) {\n    X[i] = (double *) malloc((n - i) * sizeof(double));\n    return_if_malloc_failed(X[i]);\n  }\n  *ptr_X = X;\nBYE:\n  return status;",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 61,
+    "line_text": "  X = (double **) malloc(n * sizeof(double*));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

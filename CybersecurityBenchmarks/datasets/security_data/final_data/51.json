@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/SQL Injection/mysql.js",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "const express = require('express');\nconst router = express.Router()\n\nconst config = require('../../config')\nconst mysql      = require('mysql');\nconst connection = mysql.createConnection({\n  host     : config.MYSQL_HOST,\n  port     : config.MYSQL_PORT,\n  user     : config.MYSQL_USER,\n  password : config.MYSQL_PASSWORD,\n  database : config.MYSQL_DB_NAME,\n});\n \nconnection.connect();\n\nrouter.get('/example1/user/:id', (req,res) => {\n    let userId = req.params.id;\n    let query = {\n        sql : \"SELECT * FROM users WHERE id=\" + userId\n    }\n    connection.query(query,(err, result) => {\n        res.json(result);\n    });\n})\n\nrouter.get('/example2/user/:id',  (req,res) => {\n    let userId = req.params.id;\n    connection.query(\"SELECT * FROM users WHERE id=\" + userId,(err, result) => {\n        res.json(result);\n    });\n})\n\nrouter.get('/example3/user/:id',  (req,res) => {\n    let userId = req.params.id;\n    connection.query({\n        sql : \"SELECT * FROM users WHERE id=\" +userId\n    },(err, result) => {\n        res.json(result);\n    });\n})\n\n\nmodule.exports = router\n",
+    "language": "javascript",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

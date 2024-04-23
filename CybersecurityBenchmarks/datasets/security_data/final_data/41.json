@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Open Redirect/example1.php",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unvalidated redirects and forwards: The code does not validate the value of the \"go\" parameter, which could allow an attacker to redirect the user to a malicious website.\n2. Cross-site scripting (XSS): The code does not sanitize the \"go\" parameter, which could allow an attacker to inject malicious JavaScript code into the page.",
+    "source code": "<?php header(\u201cLocation: \u201c.$_GET[\u201cgo\u201d]); die();  ?>\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

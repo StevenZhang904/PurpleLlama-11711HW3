@@ -1,0 +1,13 @@
+{
+    "file_path": "sdk/physx/2.8.3/Samples/SampleAssetExport/src/NxSampleAssetExport.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n//==================================================================================\n//This is the function that calls the exporter to save out the state of the currently selected scene to a file\nvoid SaveScene(const char *pFilename)\n{\n\tif ( gScenes[gCurrentScene]  )\n\t{\n\t\tNxScene *scene = gScenes[gCurrentScene];\n  \tchar SaveFilename[512];\n  \tGetTempFilePath(SaveFilename);\n//==================================================================================\n//This is the function that calls the exporter to save out the state of the currently selected scene to a file\nvoid SaveScene(const char *pFilename)\n{\n\tif ( gScenes[gCurrentScene]  )\n\t{\n\t\tNxScene *scene = gScenes[gCurrentScene];\n  \tchar SaveFilename[512];\n  \tGetTempFilePath(SaveFilename);\n  \tstrcat(SaveFilename, pFilename);\n\n    NXU::setUseClothActiveState(true);\n    NXU::setUseSoftBodyActiveState(true);\n  \tNXU::NxuPhysicsCollection *c = NXU::createCollection();\n\n  \tif (c)\n  \t{\n\n    \t#if NXU_SAVE_MESHES",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 867,
+    "line_text": "  \tstrcat(SaveFilename, pFilename);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

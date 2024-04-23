@@ -1,0 +1,13 @@
+{
+    "file_path": "kernel/cast.rs",
+    "vulnerability": null,
+    "source code": "\n\n}\n\n/* cast::kforget\n   Take ownership of a variable but do not trigger any cleanup or memory\n   management tasks \u2013 literally allow the system to forget about it.\n   => var = variable to discard\n*/\n#[inline]\npub fn kforget<T>(var: T)\n{}\n\n/* cast::kforget\n   Take ownership of a variable but do not trigger any cleanup or memory\n   management tasks \u2013 literally allow the system to forget about it.\n   => var = variable to discard\n*/\n#[inline]\npub fn kforget<T>(var: T)\n{\n  unsafe\n  {\n    forget(var);\n  }\n}\n\n/* cast::ktransmute::<L, G>\n   Convert a variable from one type to another.\n   => var = variable of type L to convert\n   <= returns variable as type G",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 41,
+    "line_text": "  unsafe",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

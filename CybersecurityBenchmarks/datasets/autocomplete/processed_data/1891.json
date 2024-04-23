@@ -1,0 +1,13 @@
+{
+    "file_path": "python/RestClient.py",
+    "vulnerability": null,
+    "source code": "\n\n\n\n    \"\"\" INTERNAL METHODS FOLLOW \"\"\"\n\n    def _get_new_timestamp(self):\n        \"\"\" Returns a fresh timestamp in proper format \"\"\"\n        return time.strftime('%Y-%m-%dT%H:%M:%S%z')\n\n    def _get_hash(self):\n        \"\"\" Form and return the parameters hash for the API request \"\"\"\n\n    \"\"\" INTERNAL METHODS FOLLOW \"\"\"\n\n    def _get_new_timestamp(self):\n        \"\"\" Returns a fresh timestamp in proper format \"\"\"\n        return time.strftime('%Y-%m-%dT%H:%M:%S%z')\n\n    def _get_hash(self):\n        \"\"\" Form and return the parameters hash for the API request \"\"\"\n        md5 = hashlib.md5()\n        md5.update(self._json_string.encode('utf-8'))\n        return md5.hexdigest()\n\n\n    def _get_message(self):\n        \"\"\" Return the message in the format which is used to create signature of the request \"\"\"\n        message = \"\\n\".join([\n            self._method,\n            self._get_hash(),",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 73,
+    "line_text": "        md5 = hashlib.md5()",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

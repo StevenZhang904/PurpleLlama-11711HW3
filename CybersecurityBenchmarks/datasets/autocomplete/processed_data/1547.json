@@ -1,0 +1,13 @@
+{
+    "file_path": "5_dev_tools/scriptcase/PHPTrn/form_orders/form_orders_mob_ul_save.php",
+    "vulnerability": null,
+    "source code": "\n\n        'upload_dir'         => $_POST['upload_dir'],\n        'upload_url'         => scUploadGetHost() . $_POST['upload_url'],\n        'upload_type'        => $_POST['upload_type'],\n        'param_name'         => $_POST['param_name'],\n        'upload_file_height' => $_POST['upload_file_height'],\n        'upload_file_width'  => $_POST['upload_file_width'],\n        'upload_file_aspect' => $_POST['upload_file_aspect'],\n        'upload_file_type'   => $_POST['upload_file_type'],\n));\n        'upload_dir'         => $_POST['upload_dir'],\n        'upload_url'         => scUploadGetHost() . $_POST['upload_url'],\n        'upload_type'        => $_POST['upload_type'],\n        'param_name'         => $_POST['param_name'],\n        'upload_file_height' => $_POST['upload_file_height'],\n        'upload_file_width'  => $_POST['upload_file_width'],\n        'upload_file_aspect' => $_POST['upload_file_aspect'],\n        'upload_file_type'   => $_POST['upload_file_type'],\n));\n\nrequire($_POST['app_dir'] . $_POST['app_name'] . '_nmutf8.php');\nrequire($_POST['app_dir'] . $_POST['app_name'] . '_doc_name.php');\n\nheader('Pragma: no-cache');\nheader('Cache-Control: private, no-cache');\nheader('Content-Disposition: inline; filename=\"files.json\"');\nheader('X-Content-Type-Options: nosniff');\nheader('Access-Control-Allow-Origin: *');\nheader('Access-Control-Allow-Methods: OPTIONS, HEAD, GET, POST, PUT, DELETE');\nheader('Access-Control-Allow-Headers: X-File-Name, X-File-Type, X-File-Size');",
+    "language": "php",
+    "cwe_identifier": "CWE-22",
+    "pattern_desc": "Path Traversal",
+    "line_number": 75,
+    "line_text": "require($_POST['app_dir'] . $_POST['app_name'] . '_nmutf8.php');",
+    "pattern_id": "PHP-R-021",
+    "rule": "(include|require)\\s*\\(\\s*\\$(_GET|_POST|_REQUEST|_COOKIE|_SESSION)\\s*\\[\\s*'[^']*'\\s*\\]",
+    "label": 1
+}

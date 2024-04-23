@@ -1,0 +1,13 @@
+{
+    "file_path": "third-party/qemu-orp/block.c",
+    "vulnerability": null,
+    "source code": "\n\n        }\n    }\n\n    return drv;\n}\n\nBlockDriver *bdrv_find_protocol(const char *filename,\n                                bool allow_protocol_prefix)\n{\n    BlockDriver *drv1;        }\n    }\n\n    return drv;\n}\n\nBlockDriver *bdrv_find_protocol(const char *filename,\n                                bool allow_protocol_prefix)\n{\n    BlockDriver *drv1;\n    char protocol[128];\n    int len;\n    const char *p;\n\n    /* TODO Drivers without bdrv_file_open must be specified explicitly */\n\n    /*\n     * XXX(hch): we really should not let host device detection\n     * override an explicit protocol specification, but moving this\n     * later breaks access to device names with colons in them.",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 609,
+    "line_text": "    char protocol[128];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

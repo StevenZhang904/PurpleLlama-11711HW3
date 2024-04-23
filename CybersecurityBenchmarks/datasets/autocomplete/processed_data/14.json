@@ -1,0 +1,13 @@
+{
+    "file_path": "src/buzz/buzzasm.c",
+    "vulnerability": null,
+    "source code": "\n\n      trimline = rawline;\n      while(isspace(*trimline)) ++trimline;\n      /* Skip empty lines and comment lines */\n      if(*trimline == 0 || *trimline == '#') continue;\n      /* Is the line a string? */\n      if(*trimline == '\\'') {\n         ++trimline;\n         trimline[strlen(trimline)-1] = 0;\n         size_t l = strlen(trimline) + 1;\n         bcode_resize(l);      trimline = rawline;\n      while(isspace(*trimline)) ++trimline;\n      /* Skip empty lines and comment lines */\n      if(*trimline == 0 || *trimline == '#') continue;\n      /* Is the line a string? */\n      if(*trimline == '\\'') {\n         ++trimline;\n         trimline[strlen(trimline)-1] = 0;\n         size_t l = strlen(trimline) + 1;\n         bcode_resize(l);\n         strcpy((char*)(*buf + *size), trimline);\n         *size += l;\n         continue;\n      }\n      /* Trim trailing space */\n      char* endc = trimline + strlen(trimline) - 1;\n      while(endc > trimline && isspace(*endc)) --endc;\n      *(endc + 1) = 0;\n      /* Is the line a string count marker? */\n      if(*trimline == '!') {",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 195,
+    "line_text": "         strcpy((char*)(*buf + *size), trimline);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "third_party/libwebm/common/file_util.cc",
+    "vulnerability": null,
+    "source code": "\n\n  delete[] temp_file_name_template;\n  if (fd != -1) {\n    close(fd);\n  }\n  return temp_file_name;\n#else\n  char tmp_file_name[_MAX_PATH];\n#if defined _MSC_VER || defined MINGW_HAS_SECURE_API\n  errno_t err = tmpnam_s(tmp_file_name);\n#else  delete[] temp_file_name_template;\n  if (fd != -1) {\n    close(fd);\n  }\n  return temp_file_name;\n#else\n  char tmp_file_name[_MAX_PATH];\n#if defined _MSC_VER || defined MINGW_HAS_SECURE_API\n  errno_t err = tmpnam_s(tmp_file_name);\n#else\n  char* fname_pointer = tmpnam(tmp_file_name);\n  errno_t err = (fname_pointer == &tmp_file_name[0]) ? 0 : -1;\n#endif\n  if (err == 0) {\n    return std::string(tmp_file_name);\n  }\n  return std::string();\n#endif\n}\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-377",
+    "pattern_desc": "Usage of tmpnam, which generates temporary file without exclusive access. It may lead to race conditions.",
+    "line_number": 48,
+    "line_text": "  char* fname_pointer = tmpnam(tmp_file_name);",
+    "pattern_id": "C-R-013",
+    "rule": "tmpnam\\s*\\(\\s*\\w+\\s*\\)",
+    "label": 1
+}

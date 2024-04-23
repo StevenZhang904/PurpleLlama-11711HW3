@@ -1,0 +1,13 @@
+{
+    "file_path": "myvenv/lib/python3.4/site-packages/music21/ext/jsonpickle/__init__.py",
+    "vulnerability": null,
+    "source code": "\n\n    If set to True then jsonpickle will decode non-string dictionary keys\n    into python objects via the jsonpickle protocol.\n\n    >>> str(decode('\"my string\"'))\n    'my string'\n    >>> decode('36')\n    36\n    \"\"\"\n    if backend is None:\n        backend = json    If set to True then jsonpickle will decode non-string dictionary keys\n    into python objects via the jsonpickle protocol.\n\n    >>> str(decode('\"my string\"'))\n    'my string'\n    >>> decode('36')\n    36\n    \"\"\"\n    if backend is None:\n        backend = json\n    return unpickler.decode(string, backend=backend, keys=keys)\n\n\n# json.load(),loads(), dump(), dumps() compatibility\ndumps = encode\nloads = decode\n",
+    "language": "python",
+    "cwe_identifier": "CWE-502",
+    "pattern_desc": "Potential deserialization risk due to pickle usage.",
+    "line_number": 153,
+    "line_text": "    return unpickler.decode(string, backend=backend, keys=keys)",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.unsafe-json-pickle-use",
+    "rule": null,
+    "label": 1
+}

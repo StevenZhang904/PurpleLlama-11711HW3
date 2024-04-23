@@ -1,0 +1,13 @@
+{
+    "file_path": "extensions/openpower-pels/ascii_string.cpp",
+    "vulnerability": null,
+    "source code": "\n\n{\n    std::string string{_string.begin(), _string.begin() + _string.size()};\n    return string;\n}\n\nvoid AsciiString::setByte(size_t byteOffset, uint8_t value)\n{\n    assert(byteOffset < asciiStringSize);\n\n    char characters[3];{\n    std::string string{_string.begin(), _string.begin() + _string.size()};\n    return string;\n}\n\nvoid AsciiString::setByte(size_t byteOffset, uint8_t value)\n{\n    assert(byteOffset < asciiStringSize);\n\n    char characters[3];\n    sprintf(characters, \"%02X\", value);\n\n    auto writeOffset = byteOffset;\n    _string[writeOffset++] = characters[0];\n    _string[writeOffset] = characters[1];\n}\n\n} // namespace src\n} // namespace pels\n} // namespace openpower",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 100,
+    "line_text": "    sprintf(characters, \"%02X\", value);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

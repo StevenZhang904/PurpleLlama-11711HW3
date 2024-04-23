@@ -1,0 +1,13 @@
+{
+    "file_path": "samples/Juliet/testcases/CWE789_Uncontrolled_Mem_Alloc/s01/CWE789_Uncontrolled_Mem_Alloc__malloc_wchar_t_listen_socket_61a.c",
+    "vulnerability": null,
+    "source code": "\n\n    /* Initialize data */\r\n    data = 0;\r\n    data = CWE789_Uncontrolled_Mem_Alloc__malloc_wchar_t_listen_socket_61b_badSource(data);\r\n    {\r\n        wchar_t * myString;\r\n        /* POTENTIAL FLAW: No MAXIMUM limitation for memory allocation, but ensure data is large enough\r\n         * for the wcscpy() function to not cause a buffer overflow */\r\n        /* INCIDENTAL FLAW: The source could cause a type overrun in data or in the memory allocation */\r\n        if (data > wcslen(HELLO_STRING))\r\n        {\r    /* Initialize data */\r\n    data = 0;\r\n    data = CWE789_Uncontrolled_Mem_Alloc__malloc_wchar_t_listen_socket_61b_badSource(data);\r\n    {\r\n        wchar_t * myString;\r\n        /* POTENTIAL FLAW: No MAXIMUM limitation for memory allocation, but ensure data is large enough\r\n         * for the wcscpy() function to not cause a buffer overflow */\r\n        /* INCIDENTAL FLAW: The source could cause a type overrun in data or in the memory allocation */\r\n        if (data > wcslen(HELLO_STRING))\r\n        {\r\n            myString = (wchar_t *)malloc(data*sizeof(wchar_t));\r\n            /* Copy a small string into myString */\r\n            wcscpy(myString, HELLO_STRING);\r\n            printWLine(myString);\r\n            free(myString);\r\n        }\r\n        else\r\n        {\r\n            printLine(\"Input is less than the length of the source string\");\r\n        }\r",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 66,
+    "line_text": "            myString = (wchar_t *)malloc(data*sizeof(wchar_t));\r",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

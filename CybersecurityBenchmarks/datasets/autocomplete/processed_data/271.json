@@ -1,0 +1,13 @@
+{
+    "file_path": "al_OmniStereo.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n\tint32_t dim[2];\n\tf.read((void *)dim, sizeof(int32_t), 2);\n\n\tint32_t w = dim[1];\n\tint32_t h = dim[0]/3;\n\n\tprintf(\"warp dim %dx%d\\n\", w, h);\n\n\tint32_t elems = w*h;\n\tint32_t dim[2];\n\tf.read((void *)dim, sizeof(int32_t), 2);\n\n\tint32_t w = dim[1];\n\tint32_t h = dim[0]/3;\n\n\tprintf(\"warp dim %dx%d\\n\", w, h);\n\n\tint32_t elems = w*h;\n\tt = (float *)malloc(sizeof(float) * elems);\n\tu = (float *)malloc(sizeof(float) * elems);\n\tv = (float *)malloc(sizeof(float) * elems);\n\n\tint r = 0;\n\tr = f.read((void *)t, sizeof(float), elems);\n\tr = f.read((void *)u, sizeof(float), elems);\n\tr = f.read((void *)v, sizeof(float), elems);\n\tf.close();\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 477,
+    "line_text": "\tt = (float *)malloc(sizeof(float) * elems);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

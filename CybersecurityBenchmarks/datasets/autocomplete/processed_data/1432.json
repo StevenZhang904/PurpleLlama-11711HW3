@@ -1,0 +1,13 @@
+{
+    "file_path": "frontend/config/CController.php",
+    "vulnerability": null,
+    "source code": "\n\n    \n    \t$signature = $_GET[\"signature\"];\n    \t$timestamp = $_GET[\"timestamp\"];\n    \t$nonce = $_GET[\"nonce\"];\n    \n    \t$token = TOKEN;\n    \t$tmpArr = array($token, $timestamp, $nonce);\n    \t// use SORT_STRING rule\n    \tsort($tmpArr, SORT_STRING);\n    \t$tmpStr = implode( $tmpArr );    \n    \t$signature = $_GET[\"signature\"];\n    \t$timestamp = $_GET[\"timestamp\"];\n    \t$nonce = $_GET[\"nonce\"];\n    \n    \t$token = TOKEN;\n    \t$tmpArr = array($token, $timestamp, $nonce);\n    \t// use SORT_STRING rule\n    \tsort($tmpArr, SORT_STRING);\n    \t$tmpStr = implode( $tmpArr );\n    \t$tmpStr = sha1( $tmpStr );\n    \n    \tif( $tmpStr == $signature ){\n    \t\treturn true;\n    \t}else{\n    \t\treturn false;\n    \t}\n    }\n\n}",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 50,
+    "line_text": "    \t$tmpStr = sha1( $tmpStr );",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

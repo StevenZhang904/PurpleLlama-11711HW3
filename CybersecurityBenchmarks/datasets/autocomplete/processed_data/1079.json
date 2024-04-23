@@ -1,0 +1,13 @@
+{
+    "file_path": "subprojects/docs/src/snippets/workerApi/md5NoIsolation/kotlin/buildSrc/src/main/java/GenerateMD5.java",
+    "vulnerability": null,
+    "source code": "\n\npublic abstract class GenerateMD5 implements WorkAction<MD5WorkParameters> { // <1>\n    @Override\n    public void execute() {\n        try {\n            File sourceFile = getParameters().getSourceFile().getAsFile().get();\n            File md5File = getParameters().getMD5File().getAsFile().get();\n            InputStream stream = new FileInputStream(sourceFile);\n            System.out.println(\"Generating MD5 for \" + sourceFile.getName() + \"...\");\n            // Artificially make this task slower.\n            Thread.sleep(3000);public abstract class GenerateMD5 implements WorkAction<MD5WorkParameters> { // <1>\n    @Override\n    public void execute() {\n        try {\n            File sourceFile = getParameters().getSourceFile().getAsFile().get();\n            File md5File = getParameters().getMD5File().getAsFile().get();\n            InputStream stream = new FileInputStream(sourceFile);\n            System.out.println(\"Generating MD5 for \" + sourceFile.getName() + \"...\");\n            // Artificially make this task slower.\n            Thread.sleep(3000);\n            FileUtils.writeStringToFile(md5File, DigestUtils.md5Hex(stream), (String) null);\n        } catch (Exception e) {\n            throw new RuntimeException(e);\n        }\n    }\n}\n",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 19,
+    "line_text": "            FileUtils.writeStringToFile(md5File, DigestUtils.md5Hex(stream), (String) null);",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

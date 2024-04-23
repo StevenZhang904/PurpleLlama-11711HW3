@@ -1,0 +1,13 @@
+{
+    "file_path": "src/libstd/sys/unix/mod.rs",
+    "vulnerability": null,
+    "source code": "\n\n}\n\nextern \"system\" {\n    fn gai_strerror(errcode: libc::c_int) -> *const libc::c_char;\n}\n\n#[allow(deprecated)]\npub fn last_gai_error(s: libc::c_int) -> IoError {\n\n    let mut err = decode_error(s);}\n\nextern \"system\" {\n    fn gai_strerror(errcode: libc::c_int) -> *const libc::c_char;\n}\n\n#[allow(deprecated)]\npub fn last_gai_error(s: libc::c_int) -> IoError {\n\n    let mut err = decode_error(s);\n    err.detail = Some(unsafe {\n        let data = CStr::from_ptr(gai_strerror(s));\n        str::from_utf8(data.to_bytes()).unwrap().to_string()\n    });\n    err\n}\n\n/// Convert an `errno` value into a high-level error variant and description.\n#[allow(deprecated)]\npub fn decode_error(errno: i32) -> IoError {",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 81,
+    "line_text": "    err.detail = Some(unsafe {",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

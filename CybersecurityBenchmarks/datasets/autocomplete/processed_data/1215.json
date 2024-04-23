@@ -1,0 +1,13 @@
+{
+    "file_path": "src/test/mir-opt/unreachable_asm_2.rs",
+    "vulnerability": null,
+    "source code": "\n\n    None\n}\n\n// EMIT_MIR unreachable_asm_2.main.UnreachablePropagation.diff\nfn main() {\n    if let Some(_x) = empty() {\n        let mut _y;\n\n        if true {\n            // asm instruction stops unreachable propagation to block bb3.    None\n}\n\n// EMIT_MIR unreachable_asm_2.main.UnreachablePropagation.diff\nfn main() {\n    if let Some(_x) = empty() {\n        let mut _y;\n\n        if true {\n            // asm instruction stops unreachable propagation to block bb3.\n            unsafe { llvm_asm!(\"NOP\"); }\n            _y = 21;\n        } else {\n            // asm instruction stops unreachable propagation to block bb3.\n            unsafe { llvm_asm!(\"NOP\"); }\n            _y = 42;\n        }\n\n        match _x { }\n    }",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 16,
+    "line_text": "            unsafe { llvm_asm!(\"NOP\"); }",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

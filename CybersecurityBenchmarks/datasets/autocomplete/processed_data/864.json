@@ -1,0 +1,13 @@
+{
+    "file_path": "src/js/photostack.js",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\tnewmarr.push( tmparr );\n\t\t}\n\t\treturn newmarr;\n\t}\n\n\tfunction shuffleArr( array ) {\n\t\tvar m = array.length, t, i;\n\t\t// While there remain elements to shuffle\u2026\n\t\twhile (m) {\n\t\t\t// Pick a remaining element\u2026\t\t\tnewmarr.push( tmparr );\n\t\t}\n\t\treturn newmarr;\n\t}\n\n\tfunction shuffleArr( array ) {\n\t\tvar m = array.length, t, i;\n\t\t// While there remain elements to shuffle\u2026\n\t\twhile (m) {\n\t\t\t// Pick a remaining element\u2026\n\t\t\ti = Math.floor(Math.random() * m--);\n\t\t\t// And swap it with the current element.\n\t\t\tt = array[m];\n\t\t\tarray[m] = array[i];\n\t\t\tarray[i] = t;\n\t\t}\n\t\treturn array;\n\t}\n\n\tfunction Photostack( el, options ) {",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 132,
+    "line_text": "\t\t\ti = Math.floor(Math.random() * m--);",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

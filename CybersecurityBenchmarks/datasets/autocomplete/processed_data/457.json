@@ -1,0 +1,13 @@
+{
+    "file_path": "Externals/Bitmap/bitmap_image.hpp",
+    "vulnerability": null,
+    "source code": "\n\n      h = height / 2;\n   else\n   {\n      h = 1 + (height / 2);\n      odd_height = true;\n   }\n\n   unsigned int horizontal_upper = (odd_width)  ? w - 1 : w;\n   unsigned int vertical_upper   = (odd_height) ? h - 1 : h;\n      h = height / 2;\n   else\n   {\n      h = 1 + (height / 2);\n      odd_height = true;\n   }\n\n   unsigned int horizontal_upper = (odd_width)  ? w - 1 : w;\n   unsigned int vertical_upper   = (odd_height) ? h - 1 : h;\n\n   *dest = new double[w * h];\n\n   double* s_itr = *dest;\n   const double* itr1 = source;\n   const double* itr2 = source + width;\n\n   for (unsigned int j = 0; j < vertical_upper; ++j)\n   {\n      for (unsigned int i = 0; i < horizontal_upper; ++i, ++s_itr)\n      {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 1537,
+    "line_text": "   *dest = new double[w * h];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

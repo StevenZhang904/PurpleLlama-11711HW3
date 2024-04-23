@@ -1,0 +1,13 @@
+{
+    "file_path": "packages/wbsairback-kernel-image/wbsairback-kernel-image-3.2.43/drivers/staging/wlags49_h2/wl_netdev.c",
+    "vulnerability": null,
+    "source code": "\n\n           the net_device pointer. Set the private member of all devices to point\n           to the same net_device struct; that way, all information gets\n           funnelled through the one \"real\" net_device. Name the WDS ports\n           \"wds<n>\" */\n        lp->wds_port[count].dev->init           = &wl_init;\n        lp->wds_port[count].dev->get_stats      = &wl_stats;\n        lp->wds_port[count].dev->tx_timeout     = &wl_tx_timeout;\n        lp->wds_port[count].dev->watchdog_timeo = TX_TIMEOUT;\n        lp->wds_port[count].dev->priv           = lp;\n           the net_device pointer. Set the private member of all devices to point\n           to the same net_device struct; that way, all information gets\n           funnelled through the one \"real\" net_device. Name the WDS ports\n           \"wds<n>\" */\n        lp->wds_port[count].dev->init           = &wl_init;\n        lp->wds_port[count].dev->get_stats      = &wl_stats;\n        lp->wds_port[count].dev->tx_timeout     = &wl_tx_timeout;\n        lp->wds_port[count].dev->watchdog_timeo = TX_TIMEOUT;\n        lp->wds_port[count].dev->priv           = lp;\n\n        sprintf( lp->wds_port[count].dev->name, \"wds%d\", count );\n    }\n\n    /* Register the Tx handlers */\n    lp->wds_port[0].dev->hard_start_xmit = &wl_tx_port1;\n    lp->wds_port[1].dev->hard_start_xmit = &wl_tx_port2;\n    lp->wds_port[2].dev->hard_start_xmit = &wl_tx_port3;\n    lp->wds_port[3].dev->hard_start_xmit = &wl_tx_port4;\n    lp->wds_port[4].dev->hard_start_xmit = &wl_tx_port5;\n    lp->wds_port[5].dev->hard_start_xmit = &wl_tx_port6;",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 1534,
+    "line_text": "        sprintf( lp->wds_port[count].dev->name, \"wds%d\", count );",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

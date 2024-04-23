@@ -1,0 +1,13 @@
+{
+    "file_path": "Engine/TerrainClass.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t// Close the file.\n\terror = fclose(filePtr);\n\tif(error != 0)\n\t{\n\t\treturn false;\n\t}\n\n\t//Now that the bitmap has been read in create the two dimensional height map array and read the buffer into it. Note that during the for loop I use the two loop variables (i and j) to be the X (width) and Z (depth) of the terrain. And then I use the bitmap value to be the Y (height) of the terrain. You will also see I increment the index into the bitmap (k) by three since we only need one of the color values (red, green, or blue) to be used as the grey scale value.\n\n\t// Create the structure to hold the height map data.\t// Close the file.\n\terror = fclose(filePtr);\n\tif(error != 0)\n\t{\n\t\treturn false;\n\t}\n\n\t//Now that the bitmap has been read in create the two dimensional height map array and read the buffer into it. Note that during the for loop I use the two loop variables (i and j) to be the X (width) and Z (depth) of the terrain. And then I use the bitmap value to be the Y (height) of the terrain. You will also see I increment the index into the bitmap (k) by three since we only need one of the color values (red, green, or blue) to be used as the grey scale value.\n\n\t// Create the structure to hold the height map data.\n\tm_heightMap = new HeightMapType[m_terrainWidth * m_terrainHeight];\n\tif(!m_heightMap)\n\t{\n\t\treturn false;\n\t}\n\n\t// Initialize the position in the image data buffer.\n\tk=1;\n\tif(bitmapData)\n\t\tk=0;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 167,
+    "line_text": "\tm_heightMap = new HeightMapType[m_terrainWidth * m_terrainHeight];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

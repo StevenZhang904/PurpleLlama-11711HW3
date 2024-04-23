@@ -1,0 +1,13 @@
+{
+    "file_path": "src/cmd/adc-demo/adc-demo.c",
+    "vulnerability": null,
+    "source code": "\n\n\n    while ((opt = getopt(argc, argv, \":d:\")) != -1) {\n        switch (opt) {\n            case 'd':\n                delay_msec = strtol(optarg, 0, 0);\n                break;\n        }\n    }\n\n    for (i=0; i<16; i++) {\n    while ((opt = getopt(argc, argv, \":d:\")) != -1) {\n        switch (opt) {\n            case 'd':\n                delay_msec = strtol(optarg, 0, 0);\n                break;\n        }\n    }\n\n    for (i=0; i<16; i++) {\n        sprintf(buf, \"/dev/adc%d\", i);\n        fd[i] = open(buf, O_RDWR);\n        if (fd[i] < 0) {\n            perror(buf);\n            return -1;\n        }\n        fcntl(fd[i], F_GETFD, &flags);\n        flags |= O_NONBLOCK;\n        fcntl(fd[i], F_SETFD, &flags);\n    }",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 32,
+    "line_text": "        sprintf(buf, \"/dev/adc%d\", i);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

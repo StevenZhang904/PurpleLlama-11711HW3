@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/XSS/dom.php",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unsanitized user input: The $_GET['name'] variable is not being sanitized, which could lead to a cross-site scripting (XSS) attack.\n2. Unrestricted access to external resources: The script element is being created without any restrictions on the source of the script, which could lead to malicious code being injected into the page.",
+    "source code": "<?php\nrequire_once('../_helpers/strip.php');\n?>\n<html>\n  <head>\n\n  </head>\n  <body>\n    <p>\n      Hi, <?= $_GET['name']; ?>\n    </p>\n    <script>\n      window.onload = function(){\n        let someObject = window.someObject || {};\n        let script = document.createElement('script');\n        script.src = someObject.url;\n        document.body.appendChild(script);\n     };\n    </script>\n  </body>\n</html>\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

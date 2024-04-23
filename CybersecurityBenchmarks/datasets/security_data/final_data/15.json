@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Path Traversal/example2.php",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unsanitized user input: The user input from the $_GET variables is not being sanitized, which could lead to malicious code being executed.\n2. File path traversal: The file path is not being validated, which could allow an attacker to write to any file on the system.",
+    "source code": "<?php\n$file = $_GET['file'];\n$content = $_GET['content'];\nfile_put_contents(\"/some/path/$file\",$content);\nfclose($fh);\n?>\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

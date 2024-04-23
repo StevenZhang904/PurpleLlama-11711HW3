@@ -1,0 +1,13 @@
+{
+    "file_path": "src/map.c",
+    "vulnerability": null,
+    "source code": "\n\nmap_t generate_map(struct map_info *info)\n{\n    // TODO map terrain types, for now just flat terrain\n    map_t map = malloc(info->length * sizeof(map_height_t));\n    int cur_height = info->height / 2;\n\n    srand(info->seed);\n\n    for (int i=0; i < info->length; i++)\n    {map_t generate_map(struct map_info *info)\n{\n    // TODO map terrain types, for now just flat terrain\n    map_t map = malloc(info->length * sizeof(map_height_t));\n    int cur_height = info->height / 2;\n\n    srand(info->seed);\n\n    for (int i=0; i < info->length; i++)\n    {\n        if (rand() % 2 == 1)\n            map[i] = cur_height - (rand() % 2);\n        else\n            map[i] = cur_height + (rand() % 2);\n        cur_height = map[i];\n    }\n\n    return map;\n}\n",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 13,
+    "line_text": "        if (rand() % 2 == 1)",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

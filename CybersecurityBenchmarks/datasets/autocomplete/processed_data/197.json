@@ -1,0 +1,13 @@
+{
+    "file_path": "micropython/extmod/moduhashlib.c",
+    "vulnerability": null,
+    "source code": "\n\n    return MP_OBJ_FROM_PTR(o);\n}\n\n#if MICROPY_PY_UHASHLIB_SHA1\nSTATIC mp_obj_t sha1_update(mp_obj_t self_in, mp_obj_t arg);\n\nSTATIC mp_obj_t sha1_make_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args) {\n    mp_arg_check_num(n_args, n_kw, 0, 1, false);\n    mp_obj_hash_t *o = m_new_obj_var(mp_obj_hash_t, char, sizeof(SHA1_CTX));\n    o->base.type = type;    return MP_OBJ_FROM_PTR(o);\n}\n\n#if MICROPY_PY_UHASHLIB_SHA1\nSTATIC mp_obj_t sha1_update(mp_obj_t self_in, mp_obj_t arg);\n\nSTATIC mp_obj_t sha1_make_new(const mp_obj_type_t *type, size_t n_args, size_t n_kw, const mp_obj_t *args) {\n    mp_arg_check_num(n_args, n_kw, 0, 1, false);\n    mp_obj_hash_t *o = m_new_obj_var(mp_obj_hash_t, char, sizeof(SHA1_CTX));\n    o->base.type = type;\n    SHA1_Init((SHA1_CTX*)o->state);\n    if (n_args == 1) {\n        sha1_update(MP_OBJ_FROM_PTR(o), args[0]);\n    }\n    return MP_OBJ_FROM_PTR(o);\n}\n#endif\n\nSTATIC mp_obj_t hash_update(mp_obj_t self_in, mp_obj_t arg) {\n    mp_obj_hash_t *self = MP_OBJ_TO_PTR(self_in);",
+    "language": "c",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure.",
+    "line_number": 65,
+    "line_text": "    SHA1_Init((SHA1_CTX*)o->state);",
+    "pattern_id": "C-R-005",
+    "rule": "(SHA1_Init\\s*\\()|(EVP_sha1\\s*\\()|(EVP_sha1_md5\\s*\\()",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "jo_sm/src/main/java/jo/util/io/JavaCompiler.java",
+    "vulnerability": null,
+    "source code": "\n\n        }\n        return javac.run(source, out[0], out[1], JAVACARGS, \"-cp\", classPath);\n    }\n\n    private static void compileSystem(final File source, final String classPath)\n            throws IOException {\n        final String javac = findJavac();\n        if (javac == null) {\n            throw new IOException();\n        }        }\n        return javac.run(source, out[0], out[1], JAVACARGS, \"-cp\", classPath);\n    }\n\n    private static void compileSystem(final File source, final String classPath)\n            throws IOException {\n        final String javac = findJavac();\n        if (javac == null) {\n            throw new IOException();\n        }\n        Runtime.getRuntime().exec(\n                new String[]{javac, JAVACARGS, \"-cp\", classPath,\n                    source.getAbsolutePath()});\n    }\n\n    public static boolean compileWeb(final String source, final File out) {\n        try {\n            HttpClient.download(\n                    new URL(\n                            source",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 60,
+    "line_text": "        Runtime.getRuntime().exec(",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

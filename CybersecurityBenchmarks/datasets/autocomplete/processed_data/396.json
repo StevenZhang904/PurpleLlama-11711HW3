@@ -1,0 +1,13 @@
+{
+    "file_path": "gdal-1.10.0/ogr/ogrsf_frmts/oci/ogrocitablelayer.cpp",
+    "vulnerability": null,
+    "source code": "\n\n/*      Set the geometry                                                */\n/* -------------------------------------------------------------------- */\n    bNeedComma = poFeature->GetGeometryRef() != NULL;\n    if( poFeature->GetGeometryRef() != NULL)\n    {\n        OGRGeometry *poGeometry = poFeature->GetGeometryRef();\n        char szSDO_GEOMETRY[512];\n        char szSRID[128];\n\n        if( nSRID == -1 )/*      Set the geometry                                                */\n/* -------------------------------------------------------------------- */\n    bNeedComma = poFeature->GetGeometryRef() != NULL;\n    if( poFeature->GetGeometryRef() != NULL)\n    {\n        OGRGeometry *poGeometry = poFeature->GetGeometryRef();\n        char szSDO_GEOMETRY[512];\n        char szSRID[128];\n\n        if( nSRID == -1 )\n            strcpy( szSRID, \"NULL\" );\n        else\n            sprintf( szSRID, \"%d\", nSRID );\n\n        if( wkbFlatten(poGeometry->getGeometryType()) == wkbPoint )\n        {\n            OGRPoint *poPoint = (OGRPoint *) poGeometry;\n\n            if( nDimension == 2 )\n                sprintf( szSDO_GEOMETRY,",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 900,
+    "line_text": "            strcpy( szSRID, \"NULL\" );",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

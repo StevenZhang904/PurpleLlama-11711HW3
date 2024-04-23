@@ -1,0 +1,13 @@
+{
+    "file_path": "bottery.core/src/main/java/rocks/bottery/bot/crypto/AESHelper.java",
+    "vulnerability": null,
+    "source code": "\n\n\t *             if something went wrong :)\r\n\t */\r\n\tstatic String encrypt(String value) throws Exception {\r\n\t\tbyte[] input = value.getBytes(ENCODING);\r\n\t\tbyte[] result = doChiper(ALIAS, KEYSTORE, input, Cipher.ENCRYPT_MODE);\r\n\t\treturn Base64.getEncoder().encodeToString(result);\r\n\t}\r\n\r\n\tstatic byte[] doChiper(String alias, String keystore, byte[] value, int mode) throws Exception {\r\n\r\t *             if something went wrong :)\r\n\t */\r\n\tstatic String encrypt(String value) throws Exception {\r\n\t\tbyte[] input = value.getBytes(ENCODING);\r\n\t\tbyte[] result = doChiper(ALIAS, KEYSTORE, input, Cipher.ENCRYPT_MODE);\r\n\t\treturn Base64.getEncoder().encodeToString(result);\r\n\t}\r\n\r\n\tstatic byte[] doChiper(String alias, String keystore, byte[] value, int mode) throws Exception {\r\n\r\n\t\tCipher cipher = Cipher.getInstance(\"AES\");\r\n\t\tSecretKeySpec spec = loadKey(alias, keystore);\r\n\t\tcipher.init(mode, spec);\r\n\r\n\t\treturn cipher.doFinal(value);\r\n\t}\r\n\r\n\tstatic SecretKeySpec loadKey(String alias, String keystore) throws Exception {\r\n\t\tif (key != null) {\r\n\t\t\treturn key;\r",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Deprecated cryptographic algorithms being used (ECB)",
+    "line_number": 80,
+    "line_text": "\t\tCipher cipher = Cipher.getInstance(\"AES\");\r",
+    "pattern_id": "JAVA-R-003",
+    "rule": "Cipher\\.getInstance\\(\"AES\"\\)",
+    "label": 1
+}

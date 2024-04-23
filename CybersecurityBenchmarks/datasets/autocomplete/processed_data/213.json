@@ -1,0 +1,13 @@
+{
+    "file_path": "src/mod_usertrack.c",
+    "vulnerability": null,
+    "source code": "\n\n\n\t/* generate shared-secret */\n\tli_MD5_Init(&Md5Ctx);\n\tli_MD5_Update(&Md5Ctx, (unsigned char *)con->uri.path->ptr, con->uri.path->used - 1);\n\tli_MD5_Update(&Md5Ctx, (unsigned char *)\"+\", 1);\n\n\t/* we assume sizeof(time_t) == 4 here, but if not it ain't a problem at all */\n\tLI_ltostr(hh, srv->cur_ts);\n\tli_MD5_Update(&Md5Ctx, (unsigned char *)hh, strlen(hh));\n\tli_MD5_Update(&Md5Ctx, (unsigned char *)srv->entropy, sizeof(srv->entropy));\n\t/* generate shared-secret */\n\tli_MD5_Init(&Md5Ctx);\n\tli_MD5_Update(&Md5Ctx, (unsigned char *)con->uri.path->ptr, con->uri.path->used - 1);\n\tli_MD5_Update(&Md5Ctx, (unsigned char *)\"+\", 1);\n\n\t/* we assume sizeof(time_t) == 4 here, but if not it ain't a problem at all */\n\tLI_ltostr(hh, srv->cur_ts);\n\tli_MD5_Update(&Md5Ctx, (unsigned char *)hh, strlen(hh));\n\tli_MD5_Update(&Md5Ctx, (unsigned char *)srv->entropy, sizeof(srv->entropy));\n\tLI_ltostr(hh, rand());\n\tli_MD5_Update(&Md5Ctx, (unsigned char *)hh, strlen(hh));\n\n\tli_MD5_Final(h, &Md5Ctx);\n\n\tbuffer_append_string_encoded(ds->value, (char *)h, 16, ENCODING_HEX);\n\tbuffer_append_string_len(ds->value, CONST_STR_LEN(\"; Path=/\"));\n\tbuffer_append_string_len(ds->value, CONST_STR_LEN(\"; Version=1\"));\n\n\tif (!buffer_is_empty(p->conf.cookie_domain)) {",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 229,
+    "line_text": "\tLI_ltostr(hh, rand());",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

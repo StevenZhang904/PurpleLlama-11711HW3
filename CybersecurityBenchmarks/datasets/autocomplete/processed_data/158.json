@@ -1,0 +1,13 @@
+{
+    "file_path": "src/user/applications/fire/fire.c",
+    "vulnerability": null,
+    "source code": "\n\n\tif(mousex>10 && mousex<XSIZE-10 && mousey>10 && mousey<YSIZE-10)\n\t\tdisk(mousex,mousey,8);\n}\n\nvoid addblob(void)\n{\nint dx,dy;\nstruct blob *ablob;\n\n\tif(!freeblobs) return;\tif(mousex>10 && mousex<XSIZE-10 && mousey>10 && mousey<YSIZE-10)\n\t\tdisk(mousex,mousey,8);\n}\n\nvoid addblob(void)\n{\nint dx,dy;\nstruct blob *ablob;\n\n\tif(!freeblobs) return;\n\tdx=(rand()&255)-128;\n\tdy=(rand()%200)+340;\n\tablob=freeblobs;\n\tfreeblobs=freeblobs->blobnext;\n\tablob->bloblife=(rand()&511)+256;\n\tablob->blobdx=dx;\n\tablob->blobdy=dy;\n\tablob->blobx=(256+(rand()&127))<<BLOBFRAC;\n\tablob->bloby=2<<BLOBFRAC;\n\tablob->blobnext=activeblobs;",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 150,
+    "line_text": "\tdx=(rand()&255)-128;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

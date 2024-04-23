@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/PHP Object Injection/tarlogic-ex1.php",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unserialize vulnerability: The code is vulnerable to PHP Object Injection attacks due to the use of the unserialize() function.\n2. Insufficient Authorization: The code does not properly check for authorization before granting access to the flag.txt file.",
+    "source code": "<?php \nclass login {\n  public $username = \"X-C3LL\";\n  public $password = \"Insanity\";\n  public $role = \"MUGGLE\";\n}\n$one = new login();\n$a = serialize($one);\necho \"Example of an object:\\n$a\\n\\n\";\necho \"FLAG: \\n\";\n$test = unserialize($argv[1]);\n$check = $test->role - 1337;\nif ($check == \"ADMIN\") {\n  $flag = file_get_contents(\"flag.txt\");\n  echo $flag;\n} else {\n  echo \"No flag for you!! Better luck next time!\\n\";\n}\n?>\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

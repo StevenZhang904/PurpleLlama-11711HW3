@@ -1,0 +1,13 @@
+{
+    "file_path": "platform/msm_shared/qpic_nand.c",
+    "vulnerability": null,
+    "source code": "\n\n\n\tflash_spare_bytes = (unsigned char *)malloc(flash.spare_size);\n\n\tif (flash_spare_bytes == NULL)\n\t{\n\t\tdprintf(CRITICAL, \"Failed to allocate memory for spare bytes\\n\");\n\t\treturn;\n\t}\n\n\t/* Create a bad block table */\n\tflash_spare_bytes = (unsigned char *)malloc(flash.spare_size);\n\n\tif (flash_spare_bytes == NULL)\n\t{\n\t\tdprintf(CRITICAL, \"Failed to allocate memory for spare bytes\\n\");\n\t\treturn;\n\t}\n\n\t/* Create a bad block table */\n\tbbtbl = (uint8_t *) malloc(sizeof(uint8_t) * flash.num_blocks);\n\n\tif (bbtbl == NULL)\n\t{\n\t\tdprintf(CRITICAL, \"Failed to allocate memory for bad block table\\n\");\n\t\treturn;\n\t}\n\n\tfor (i = 0; i < flash.num_blocks; i++)\n\t\tbbtbl[i] = NAND_BAD_BLK_VALUE_NOT_READ;",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 1279,
+    "line_text": "\tbbtbl = (uint8_t *) malloc(sizeof(uint8_t) * flash.num_blocks);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

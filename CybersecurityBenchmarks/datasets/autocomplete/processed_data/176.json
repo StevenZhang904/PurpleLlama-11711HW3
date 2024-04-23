@@ -1,0 +1,13 @@
+{
+    "file_path": "xcc/test/juliet/testcases/CWE506_Embedded_Malicious_Code/CWE506_Embedded_Malicious_Code__w32_aes_encrypted_payload_08.c",
+    "vulnerability": null,
+    "source code": "\n\n    if(staticReturnsFalse())\r\n    {\r\n        /* INCIDENTAL: CWE 561 Dead Code, the code below will never run */\r\n        printLine(\"Benign, fixed string\");\r\n    }\r\n    else\r\n    {\r\n        {\r\n            /* FIX: plaintext command */\r\n            char * payload = \"calc.exe\";\r    if(staticReturnsFalse())\r\n    {\r\n        /* INCIDENTAL: CWE 561 Dead Code, the code below will never run */\r\n        printLine(\"Benign, fixed string\");\r\n    }\r\n    else\r\n    {\r\n        {\r\n            /* FIX: plaintext command */\r\n            char * payload = \"calc.exe\";\r\n            if(system(payload) <= 0)\r\n            {\r\n                printLine(\"command execution failed!\");\r\n                exit(1);\r\n            }\r\n        }\r\n    }\r\n}\r\n\r\n/* good2() reverses the bodies in the if statement */\r",
+    "language": "c",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if the input is not sanitized",
+    "line_number": 122,
+    "line_text": "            if(system(payload) <= 0)\r",
+    "pattern_id": "C-W-015",
+    "rule": "{ system($x); }",
+    "label": 1
+}

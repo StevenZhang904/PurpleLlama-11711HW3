@@ -1,0 +1,13 @@
+{
+    "file_path": "src/processing.rs",
+    "vulnerability": null,
+    "source code": "\n\n\n//================\npub fn start(options: &ProjectOptions) {\n  let worker_count = options.workers as u32;\n  let mut command_pool: Vec<Command> = Vec::new();\n  let mut answer_pool: Vec<Answer> = Vec::new();\n  let mut connection_data_pool: Vec<ClientConnectionData> = Vec::new();\n\n  let command_buffer_size = options.command_buffer as usize;\n  for _ in 0..command_buffer_size {\n//================\npub fn start(options: &ProjectOptions) {\n  let worker_count = options.workers as u32;\n  let mut command_pool: Vec<Command> = Vec::new();\n  let mut answer_pool: Vec<Answer> = Vec::new();\n  let mut connection_data_pool: Vec<ClientConnectionData> = Vec::new();\n\n  let command_buffer_size = options.command_buffer as usize;\n  for _ in 0..command_buffer_size {\n    command_pool.push(Command::new());\n    answer_pool.push(Answer::new());\n    connection_data_pool.push(ClientConnectionData::new());\n  }\n\n  let arc_command_pool = Arc::new(Mutex::new(command_pool));\n  let arc_answer_pool = Arc::new(Mutex::new(answer_pool));\n  let arc_closed_clients_set = Arc::new(Mutex::new(HashSet::new()));\n  let arc_connection_data_pool = Arc::new(Mutex::new(connection_data_pool));\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential for command injection if input is not sanitized.",
+    "line_number": 26,
+    "line_text": "    command_pool.push(Command::new());",
+    "pattern_id": "RUST-R-002",
+    "rule": "Command::new\\s*\\(\\s*[^\"']\\)",
+    "label": 1
+}

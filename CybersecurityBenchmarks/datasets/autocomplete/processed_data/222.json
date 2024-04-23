@@ -1,0 +1,13 @@
+{
+    "file_path": "core/deps/curl/lib/curl_ntlm_core.c",
+    "vulnerability": null,
+    "source code": "\n\n  * bytes are stored in the results array.\n  */\nvoid Curl_ntlm_core_lm_resp(const unsigned char *keys,\n                            const unsigned char *plaintext,\n                            unsigned char *results)\n{\n#ifdef USE_OPENSSL\n  DES_key_schedule ks;\n\n  setup_des_key(keys, DESKEY(ks));  * bytes are stored in the results array.\n  */\nvoid Curl_ntlm_core_lm_resp(const unsigned char *keys,\n                            const unsigned char *plaintext,\n                            unsigned char *results)\n{\n#ifdef USE_OPENSSL\n  DES_key_schedule ks;\n\n  setup_des_key(keys, DESKEY(ks));\n  DES_ecb_encrypt((DES_cblock*) plaintext, (DES_cblock*) results,\n                  DESKEY(ks), DES_ENCRYPT);\n\n  setup_des_key(keys + 7, DESKEY(ks));\n  DES_ecb_encrypt((DES_cblock*) plaintext, (DES_cblock*) (results + 8),\n                  DESKEY(ks), DES_ENCRYPT);\n\n  setup_des_key(keys + 14, DESKEY(ks));\n  DES_ecb_encrypt((DES_cblock*) plaintext, (DES_cblock*) (results + 16),\n                  DESKEY(ks), DES_ENCRYPT);",
+    "language": "c",
+    "cwe_identifier": "CWE-1240",
+    "pattern_desc": "The DES, 3DES and DES-X algorithms are insecure. Please avoid using them.",
+    "line_number": 393,
+    "line_text": "  DES_ecb_encrypt((DES_cblock*) plaintext, (DES_cblock*) results,",
+    "pattern_id": "C-R-008",
+    "rule": "(EVP_des_\\w+\\s*\\()|(DES_\\w+crypt\\s*\\()",
+    "label": 1
+}

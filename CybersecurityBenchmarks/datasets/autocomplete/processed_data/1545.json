@@ -1,0 +1,13 @@
+{
+    "file_path": "company_backend_tmpl.php",
+    "vulnerability": null,
+    "source code": "\n\n        geocoder.geocode({'address': address}, function (results, status) {\n            if (status === google.maps.GeocoderStatus.OK) {\n                document.getElementById('inputLatitude').value = results[0].geometry.location.H;\n                document.getElementById('inputLongitude').value = results[0].geometry.location.L;\n            } else {\n                alert('Geocode was not successful for the following reason: ' + status);\n            }\n        });\n    }\n</script>        geocoder.geocode({'address': address}, function (results, status) {\n            if (status === google.maps.GeocoderStatus.OK) {\n                document.getElementById('inputLatitude').value = results[0].geometry.location.H;\n                document.getElementById('inputLongitude').value = results[0].geometry.location.L;\n            } else {\n                alert('Geocode was not successful for the following reason: ' + status);\n            }\n        });\n    }\n</script>\n<script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyCLgez1M-ZaVnXYnl1gJtx_EQFWiK-gZT0&signed_in=true&callback=initMap\"\nasync defer></script>\n\n<?php get_footer(); ?>\n",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 392,
+    "line_text": "<script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyCLgez1M-ZaVnXYnl1gJtx_EQFWiK-gZT0&signed_in=true&callback=initMap\"",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

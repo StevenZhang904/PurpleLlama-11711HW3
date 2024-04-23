@@ -1,0 +1,13 @@
+{
+    "file_path": "indexing-service/src/main/java/io/druid/indexing/common/task/MergeTaskBase.java",
+    "vulnerability": null,
+    "source code": "\n\n                    x.getShardSpec().getPartitionNum()\n                );\n              }\n            }\n        )\n    );\n\n    return StringUtils.format(\n        \"%s_%s\",\n        dataSource,                    x.getShardSpec().getPartitionNum()\n                );\n              }\n            }\n        )\n    );\n\n    return StringUtils.format(\n        \"%s_%s\",\n        dataSource,\n        Hashing.sha1().hashString(segmentIDs, Charsets.UTF_8).toString()\n    );\n  }\n\n  private static Interval computeMergedInterval(final List<DataSegment> segments)\n  {\n    Preconditions.checkArgument(segments.size() > 0, \"segments.size() > 0\");\n\n    DateTime start = null;\n    DateTime end = null;",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 292,
+    "line_text": "        Hashing.sha1().hashString(segmentIDs, Charsets.UTF_8).toString()",
+    "pattern_id": "JAVA-R-007",
+    "rule": "\\.getSha1Digest\\(\\)|\\.sha1\\(|\\.sha1Hex\\(|\\.getInstance\\(\"(SHA1|SHA-1)\"",
+    "label": 1
+}

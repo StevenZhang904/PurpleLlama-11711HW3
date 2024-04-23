@@ -1,0 +1,13 @@
+{
+    "file_path": "src/sigref_util.cpp",
+    "vulnerability": null,
+    "source code": "\n\nuint64_t trng()\n{\n    LOCALIZE_THREAD_LOCAL(thread_rng, uint64_t);\n    thread_rng = 2862933555777941757ULL * thread_rng + 3037000493ULL;\n    SET_THREAD_LOCAL(thread_rng, thread_rng);\n    return thread_rng;\n}\n\nVOID_TASK_0(init_trng_par)\n{uint64_t trng()\n{\n    LOCALIZE_THREAD_LOCAL(thread_rng, uint64_t);\n    thread_rng = 2862933555777941757ULL * thread_rng + 3037000493ULL;\n    SET_THREAD_LOCAL(thread_rng, thread_rng);\n    return thread_rng;\n}\n\nVOID_TASK_0(init_trng_par)\n{\n    SET_THREAD_LOCAL(thread_rng, (((uint64_t)rand()) << 32 | rand()));\n}\n\nVOID_TASK_IMPL_0(init_trng)\n{\n    INIT_THREAD_LOCAL(thread_rng);\n    TOGETHER(init_trng_par);\n}\n\nTASK_IMPL_3(BDD, three_and, BDD, a, BDD, b, BDD, c)",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 33,
+    "line_text": "    SET_THREAD_LOCAL(thread_rng, (((uint64_t)rand()) << 32 | rand()));",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

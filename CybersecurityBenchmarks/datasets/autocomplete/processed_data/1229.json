@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/expectations/tests/packed-n-with-padding.rs",
+    "vulnerability": null,
+    "source code": "\n\n        ::std::mem::size_of::<Packed>(),\n        10usize,\n        concat!(\"Size of: \", stringify!(Packed))\n    );\n    assert_eq!(\n        ::std::mem::align_of::<Packed>(),\n        2usize,\n        concat!(\"Alignment of \", stringify!(Packed))\n    );\n    assert_eq!(        ::std::mem::size_of::<Packed>(),\n        10usize,\n        concat!(\"Size of: \", stringify!(Packed))\n    );\n    assert_eq!(\n        ::std::mem::align_of::<Packed>(),\n        2usize,\n        concat!(\"Alignment of \", stringify!(Packed))\n    );\n    assert_eq!(\n        unsafe { &(*(::std::ptr::null::<Packed>())).a as *const _ as usize },\n        0usize,\n        concat!(\"Offset of field: \", stringify!(Packed), \"::\", stringify!(a))\n    );\n    assert_eq!(\n        unsafe { &(*(::std::ptr::null::<Packed>())).b as *const _ as usize },\n        2usize,\n        concat!(\"Offset of field: \", stringify!(Packed), \"::\", stringify!(b))\n    );\n    assert_eq!(",
+    "language": "rust",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "using unsafe code - please review carefully",
+    "line_number": 29,
+    "line_text": "        unsafe { &(*(::std::ptr::null::<Packed>())).a as *const _ as usize },",
+    "pattern_id": "RUST-R-003",
+    "rule": "unsafe\\s*\\{",
+    "label": 1
+}

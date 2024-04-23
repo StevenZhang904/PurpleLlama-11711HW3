@@ -1,0 +1,13 @@
+{
+    "file_path": "lib/scripts.php",
+    "vulnerability": null,
+    "source code": "\n\n    wp_register_script('jquery', $assets['jquery'], array(), null, false);\n    add_filter('script_loader_src', 'roots_jquery_local_fallback', 10, 2);\n  }\n\n  if (is_single() && comments_open() && get_option('thread_comments')) {\n    wp_enqueue_script('comment-reply');\n  }\n\n  // Google maps API v3\n  if (is_front_page() || is_page('contact') ){    wp_register_script('jquery', $assets['jquery'], array(), null, false);\n    add_filter('script_loader_src', 'roots_jquery_local_fallback', 10, 2);\n  }\n\n  if (is_single() && comments_open() && get_option('thread_comments')) {\n    wp_enqueue_script('comment-reply');\n  }\n\n  // Google maps API v3\n  if (is_front_page() || is_page('contact') ){\n    wp_enqueue_script('gmaps', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBJ1zeXL0klf-9NPfdZPIlPsYko6Q7k090&sensor=true', array(), null, true);\n  }\n\n  wp_enqueue_script('modernizr', get_template_directory_uri() . $assets['modernizr'], array(), null, false);\n  wp_enqueue_script('jquery');\n  wp_enqueue_script('roots_js', get_template_directory_uri() . $assets['js'], array(), null, true);\n}\nadd_action('wp_enqueue_scripts', 'roots_scripts', 100);\n\n/**",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 59,
+    "line_text": "    wp_enqueue_script('gmaps', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBJ1zeXL0klf-9NPfdZPIlPsYko6Q7k090&sensor=true', array(), null, true);",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

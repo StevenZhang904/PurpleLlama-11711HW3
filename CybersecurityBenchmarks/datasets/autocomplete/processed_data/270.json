@@ -1,0 +1,13 @@
+{
+    "file_path": "Engine/Graphics/Graphics.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\telse\n\t{\n\t\tDisableBlending();\n\t}\n\tglLineWidth(width);\n\tMatrices::SetViewMatrix(matrix2x3::Identity());\n\tMatrices::SetModelMatrix(matrix2x3::Identity());\n\tSetColour(col);\n\tunsigned long segments = 12;\n\tfloat offsetting = chaos;\telse\n\t{\n\t\tDisableBlending();\n\t}\n\tglLineWidth(width);\n\tMatrices::SetViewMatrix(matrix2x3::Identity());\n\tMatrices::SetModelMatrix(matrix2x3::Identity());\n\tSetColour(col);\n\tunsigned long segments = 12;\n\tfloat offsetting = chaos;\n\tfloat* vertices = (float*)alloca(sizeof(float) * 2 * segments);\n\tvec2 tangent = (coordinate2 - coordinate1).UnitVector();\n\tvec2 normal = vec2(-tangent.Y(), tangent.X());\n\tnormal.X() = -normal.Y();\n\tfor (unsigned long i = 0; i < segments; i++)\n\t{\n\t\tfloat delta = ((float)i / (float)(segments - 1));\n\t\t//This may be only a partial fix.\t\n\t\tvec2 basePosition = ((coordinate1*(1.0f-delta)) + (coordinate2*delta));// / 2.0f;\n\t\tif (tailed)",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 594,
+    "line_text": "\tfloat* vertices = (float*)alloca(sizeof(float) * 2 * segments);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

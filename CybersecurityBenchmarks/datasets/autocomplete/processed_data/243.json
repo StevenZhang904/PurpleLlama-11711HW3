@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/src/named_segment.cpp",
+    "vulnerability": null,
+    "source code": "\n\n#include <string>\n\n#include \"viennagrid/forwards.hpp\"\n#include \"viennagrid/config/default_configs.hpp\"\n#include \"viennagrid/mesh/element_creation.hpp\"\n\n\ninline std::string random_name()\n{\n  std::string name;#include <string>\n\n#include \"viennagrid/forwards.hpp\"\n#include \"viennagrid/config/default_configs.hpp\"\n#include \"viennagrid/mesh/element_creation.hpp\"\n\n\ninline std::string random_name()\n{\n  std::string name;\n  name.resize( rand() % 10 + 2 );\n\n  for (std::string::size_type i = 0; i < name.size(); ++i)\n    name[i] = 'a' + rand() % 26;\n\n  return name;\n}\n\n\ntemplate<typename MeshT, typename SegmentationT>",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 33,
+    "line_text": "  name.resize( rand() % 10 + 2 );",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

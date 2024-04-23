@@ -1,0 +1,13 @@
+{
+    "file_path": "crypto_aead_round1/joltikeq9696v1/ref/joltik.c",
+    "vulnerability": null,
+    "source code": "\n\n*/\nvoid XLS(const uint8_t isDirect,\n         uint8_t message[],\n         const uint32_t s,\n         uint8_t* tweakey, /* of size TWEAKEY_STATE_SIZE/8 bytes */\n         uint8_t* tweak,\n         const uint32_t l,\n         uint8_t* cipher) {\n\n  uint8_t M1[8];*/\nvoid XLS(const uint8_t isDirect,\n         uint8_t message[],\n         const uint32_t s,\n         uint8_t* tweakey, /* of size TWEAKEY_STATE_SIZE/8 bytes */\n         uint8_t* tweak,\n         const uint32_t l,\n         uint8_t* cipher) {\n\n  uint8_t M1[8];\n  uint8_t M2[8];\n  uint8_t X1[8];\n  uint8_t X1ns[8];\n  uint8_t X1s[8];\n  uint8_t Xp1ns[8];\n  uint8_t Xp1s[8];\n  uint8_t X2[8];\n  uint8_t Xp1[8];\n  uint8_t Y1[8];\n  uint8_t Y1ns[8];",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 148,
+    "line_text": "  uint8_t M2[8];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

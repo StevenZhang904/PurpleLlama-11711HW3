@@ -1,0 +1,13 @@
+{
+    "file_path": "Stream-2/Back-End-Development/18.Using-Python-with-MySQL-Part-Three-Intro/3.How-to-Build-an-Update-SQL-String/database/mysql.py",
+    "vulnerability": null,
+    "source code": "\n\n            print \"MySQL Connection Closed\"\n\n    def get_available_tables(self):\n        \"\"\"\n        This method will allow us to see what\n        tables are available to us when we're\n        running our queries\n        \"\"\"\n\n        cursor = self.db.cursor()            print \"MySQL Connection Closed\"\n\n    def get_available_tables(self):\n        \"\"\"\n        This method will allow us to see what\n        tables are available to us when we're\n        running our queries\n        \"\"\"\n\n        cursor = self.db.cursor()\n        cursor.execute(\"SHOW TABLES;\")\n        self.tables = cursor.fetchall()\n\n        cursor.close()\n\n        return self.tables\n\n    def convert_to_named_tuples(self, cursor):\n        results = None\n        names = \" \".join(d[0] for d in cursor.description)",
+    "language": "python",
+    "cwe_identifier": "CWE-89",
+    "pattern_desc": "Potential SQL injection\n",
+    "line_number": 57,
+    "line_text": "        cursor.execute(\"SHOW TABLES;\")",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.python.third-party.sql_injection",
+    "rule": null,
+    "label": 1
+}

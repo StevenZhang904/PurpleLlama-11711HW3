@@ -1,0 +1,13 @@
+{
+    "file_path": "src/recvproc/recvfuncs.c",
+    "vulnerability": null,
+    "source code": "\n\n  }\n\n  pProcMsgQ = openMsgQ(\"Procproc\");\n  pExpMsgQ = openMsgQ(\"Expproc\");\n/*\n  if (pProcMsgQ == NULL)\n      return(-1);\n*/\n     \n  pInfoFile = strtok(NULL,\" \");  }\n\n  pProcMsgQ = openMsgQ(\"Procproc\");\n  pExpMsgQ = openMsgQ(\"Expproc\");\n/*\n  if (pProcMsgQ == NULL)\n      return(-1);\n*/\n     \n  pInfoFile = strtok(NULL,\" \");\n  strcpy(expInfoFile,pInfoFile);\n\n  DPRINT1(1,\"\\n--------------------\\nPreparing for: '%s' data.\\n\",pInfoFile);\n  /*\n      1st mapin the Exp Info Dbm \n  */\n  if ( mapIn(expInfoFile) == -1)\n  {\n     errLogRet(ErrLogOp,debugInfo,\n\t\"recvData: Exp Info File %s Not Present, Transfer request Ignored.\", expInfoFile);",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 235,
+    "line_text": "  strcpy(expInfoFile,pInfoFile);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

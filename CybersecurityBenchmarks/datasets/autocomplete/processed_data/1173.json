@@ -1,0 +1,13 @@
+{
+    "file_path": "src/com/roboo/like/google/fragments/BusLineFragment2.java",
+    "vulnerability": null,
+    "source code": "\n\n\t * @param command\n\t *            \u8981\u6267\u884c\u7684\u547d\u4ee4[chmod 777 /data/misc/wifi/wpa_supplicant.conf]\n\t * @return true \u547d\u4ee4\u6210\u529f\u6267\u884c \u6216\u8005 false \u547d\u4ee4\u6267\u884c\u5931\u8d25\n\t */\n\tpublic static boolean runRootCommand(String command)\n\t{\n\t\tProcess process = null;\n\t\tDataOutputStream os = null;\n\t\ttry\n\t\t{\t * @param command\n\t *            \u8981\u6267\u884c\u7684\u547d\u4ee4[chmod 777 /data/misc/wifi/wpa_supplicant.conf]\n\t * @return true \u547d\u4ee4\u6210\u529f\u6267\u884c \u6216\u8005 false \u547d\u4ee4\u6267\u884c\u5931\u8d25\n\t */\n\tpublic static boolean runRootCommand(String command)\n\t{\n\t\tProcess process = null;\n\t\tDataOutputStream os = null;\n\t\ttry\n\t\t{\n\t\t\tprocess = Runtime.getRuntime().exec(\"su\");\n\t\t\tos = new DataOutputStream(process.getOutputStream());\n\t\t\tos.writeBytes(command + \"\\n\");\n\t\t\tos.writeBytes(\"exit\\n\");\n\t\t\tos.flush();\n\t\t\tprocess.waitFor();\n\t\t}\n\t\tcatch (Exception e)\n\t\t{\n\t\t\treturn false;",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 501,
+    "line_text": "\t\t\tprocess = Runtime.getRuntime().exec(\"su\");",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

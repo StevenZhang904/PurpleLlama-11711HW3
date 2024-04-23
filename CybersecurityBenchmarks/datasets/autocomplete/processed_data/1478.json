@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/unit/extensions/authclient/signature/RsaSha1Test.php",
+    "vulnerability": null,
+    "source code": "\n\ngVdK2V4fYsUeT6u49ONshvJ/8xhHz2gGXeLWaqHwtK3Dl3S6TIDuoQ==\n-----END CERTIFICATE-----';\n    }\n\n    /**\n     * Returns test private certificate string.\n     * @return string private certificate string.\n     */\n    protected function getTestPrivateCertificate()\n    {gVdK2V4fYsUeT6u49ONshvJ/8xhHz2gGXeLWaqHwtK3Dl3S6TIDuoQ==\n-----END CERTIFICATE-----';\n    }\n\n    /**\n     * Returns test private certificate string.\n     * @return string private certificate string.\n     */\n    protected function getTestPrivateCertificate()\n    {\n        return '-----BEGIN RSA PRIVATE KEY-----\nMIICXAIBAAKBgQDE0d63YwpBLxzxQAW887JALcGruAHkHu7Ui1oc7bCIMy+ud6rP\ngNmbFLw3GoGzQ8xhMmksZHsS07IfWRTDeisPHAqfgcApOZbyMyZUAL6+1ko4xAIP\nnQSia7l8M4nWgtgqifDCbFKAoPXuWSrYDOFtgSkBLH5xYyFPRc04nnHpoQIDAQAB\nAoGAPm1e2gYE86Xw5ShsaYFWcXrR6hiEKQoSsMG+hFxz2M97eTglqolw+/p4tHWo\n2+ZORioKJ/V6//67iavkpRfz3dloUlNE9ZzlvqvPjHePt3BI22GI8D84dcqnxWW5\n4okEAfDfXk2B4UNOpVNU5FZjg4XvBEbbhRVrsBWAPMduDX0CQQDtFgLLLWr50F3z\nlGuFy68Y1d01sZsyf7xUPaLcDWbrnVMIjZIs60BbLg9PZ6sYcwV2RwL/WaJU0Ap/\nKKjHW51zAkEA1IWBicQtt6yGaUqydq+ifX8/odFjIrlZklwckLl65cImyxqDYMnA\nm+QdbZznSH96BHjduhJAEAtfYx5CVMrXmwJAHKiWedzpm3z2fmUoginW5pejf8QS",
+    "language": "php",
+    "cwe_identifier": "CWE-312",
+    "pattern_desc": "Private Keys",
+    "line_number": 43,
+    "line_text": "        return '-----BEGIN RSA PRIVATE KEY-----",
+    "pattern_id": "ALL-R-009",
+    "rule": "(-{3,}\\s*\\bBEGIN\\b.*PRIVATE KEY\\b\\s*-{3,}\\s*([\\S\\n]+?)-{3,}\\s*\\bEND\\b.*PRIVATE KEY\\b\\s*-{3,})",
+    "label": 1
+}

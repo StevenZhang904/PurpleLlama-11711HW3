@@ -1,0 +1,13 @@
+{
+    "file_path": "functions.php",
+    "vulnerability": null,
+    "source code": "\n\n// To prevent mistakes, also supply the alias\nfunction __is_writable($path) {\n    _is_writable($path);\n}\n\nfunction uid()\n{\n    mt_srand(crc32(microtime()));\n    $prefix = sprintf(\"%05d\", mt_rand(5,99999));\n// To prevent mistakes, also supply the alias\nfunction __is_writable($path) {\n    _is_writable($path);\n}\n\nfunction uid()\n{\n    mt_srand(crc32(microtime()));\n    $prefix = sprintf(\"%05d\", mt_rand(5,99999));\n\n    return uniqid($prefix);\n}\n\nfunction getVersion()\n{\n    $version = file(dirname(__FILE__) . \"/version.txt\", FILE_IGNORE_NEW_LINES);\n    return $version[0];\n}\n\nfunction true_or_false($var)",
+    "language": "php",
+    "cwe_identifier": "CWE-330",
+    "pattern_desc": "Use of Insufficiently Random Values",
+    "line_number": 266,
+    "line_text": "    return uniqid($prefix);",
+    "pattern_id": "PHP-R-029",
+    "rule": "\\b(mt_rand|rand|uniqid|srand)\\s*\\(\\s*\\$[a-zA-Z0-9_]+\\s*\\)",
+    "label": 1
+}

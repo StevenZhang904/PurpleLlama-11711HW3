@@ -1,0 +1,13 @@
+{
+    "file_path": "examples/imphash.rs",
+    "vulnerability": null,
+    "source code": "\n\n\n* https://github.com/erocarrera/pefile/blob/4c57c1443bb504281dcc00e1ddec9d62c5e39b35/pefile.py#L3824\n* https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html\n*/\n\nuse std::env;\nuse std::collections::hash_map::DefaultHasher;\nuse std::hash::{Hash, Hasher};\n\nfn main() {\n* https://github.com/erocarrera/pefile/blob/4c57c1443bb504281dcc00e1ddec9d62c5e39b35/pefile.py#L3824\n* https://www.fireeye.com/blog/threat-research/2014/01/tracking-malware-import-hashing.html\n*/\n\nuse std::env;\nuse std::collections::hash_map::DefaultHasher;\nuse std::hash::{Hash, Hasher};\n\nfn main() {\n\tlet mut args = env::args_os();\n\tif let (Some(_), Some(path), None) = (args.next(), args.next(), args.next()) {\n\t\tmatch pelite::FileMap::open(&path) {\n\t\t\tOk(file_map) => {\n\t\t\t\tlet result = imphash(file_map.as_ref());\n\t\t\t\tmatch result {\n\t\t\t\t\tOk(hash) => {\n\t\t\t\t\t\tprintln!(\"Import hash is {:016X} for {:?}.\", hash, path);\n\t\t\t\t\t},\n\t\t\t\t\tErr(err) => {",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 15,
+    "line_text": "\tlet mut args = env::args_os();",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

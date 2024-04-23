@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/integer_constant.rs",
+    "vulnerability": null,
+    "source code": "\n\nextern crate probe_c_api;\n\nuse std::env;\nuse std::process::Command;\n\nuse probe_c_api::Probe;\n\nfn new_constant_probe() -> Probe<'static> {\n    Probe::new(\n        vec![\"\\\"tests/test_constants.h\\\"\".into()],extern crate probe_c_api;\n\nuse std::env;\nuse std::process::Command;\n\nuse probe_c_api::Probe;\n\nfn new_constant_probe() -> Probe<'static> {\n    Probe::new(\n        vec![\"\\\"tests/test_constants.h\\\"\".into()],\n        &env::temp_dir(),\n        |source_path, exe_path| {\n            Command::new(\"gcc\").arg(source_path)\n                               .arg(format!(\"-I{}\", env!(\"CARGO_MANIFEST_DIR\")))\n                               .arg(\"-o\").arg(exe_path)\n                               .output()\n        },\n        |exe_path| {\n            Command::new(exe_path).output()\n        },",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 27,
+    "line_text": "        &env::temp_dir(),",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

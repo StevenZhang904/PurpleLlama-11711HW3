@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/XSS/express.js",
+    "vulnerability": "No vulnerabilities detected.",
+    "source code": "const express = require('express')\nconst router = express.Router()\n\nrouter.get('/greeting', (req, res) => {\n    const { name }  = req.query;\n    res.send('<h1> Hello :'+ name +\"</h1>\")\n})\n\nrouter.get('/greet-template', (req,res) => {\n    name = req.query.name\n    res.render('index', { user_name: name});\n})\n\nmodule.exports = router\n",
+    "language": "javascript",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 0
+}

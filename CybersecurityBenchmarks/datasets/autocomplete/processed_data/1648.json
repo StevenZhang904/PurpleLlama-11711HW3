@@ -1,0 +1,13 @@
+{
+    "file_path": "win32/bin/Lib/hashlib.py",
+    "vulnerability": null,
+    "source code": "\n\n - hexdigest(): Like digest() except the digest is returned as a string of\r\n                double length, containing only hexadecimal digits.\r\n - copy():      Return a copy (clone) of the hash object. This can be used to\r\n                efficiently compute the digests of strings that share a common\r\n                initial substring.\r\n\r\nFor example, to obtain the digest of the string 'Nobody inspects the\r\nspammish repetition':\r\n\r\n    >>> import hashlib\r - hexdigest(): Like digest() except the digest is returned as a string of\r\n                double length, containing only hexadecimal digits.\r\n - copy():      Return a copy (clone) of the hash object. This can be used to\r\n                efficiently compute the digests of strings that share a common\r\n                initial substring.\r\n\r\nFor example, to obtain the digest of the string 'Nobody inspects the\r\nspammish repetition':\r\n\r\n    >>> import hashlib\r\n    >>> m = hashlib.md5()\r\n    >>> m.update(\"Nobody inspects\")\r\n    >>> m.update(\" the spammish repetition\")\r\n    >>> m.digest()\r\n    '\\\\xbbd\\\\x9c\\\\x83\\\\xdd\\\\x1e\\\\xa5\\\\xc9\\\\xd9\\\\xde\\\\xc9\\\\xa1\\\\x8d\\\\xf0\\\\xff\\\\xe9'\r\n\r\nMore condensed:\r\n\r\n    >>> hashlib.sha224(\"Nobody inspects the spammish repetition\").hexdigest()\r\n    'a4337bc45a8fc544c03f52dc550cd6e1e87021bc896588bd79e901e2'\r",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 45,
+    "line_text": "    >>> m = hashlib.md5()\r",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

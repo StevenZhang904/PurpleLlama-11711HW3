@@ -1,0 +1,13 @@
+{
+    "file_path": "test/Catch/catch.hpp",
+    "vulnerability": null,
+    "source code": "\n\n#include <vector>\n#include <set>\n#include <sstream>\n#include <algorithm>\n\nnamespace Catch {\n\n    struct RandomNumberGenerator {\n        typedef std::ptrdiff_t result_type;\n#include <vector>\n#include <set>\n#include <sstream>\n#include <algorithm>\n\nnamespace Catch {\n\n    struct RandomNumberGenerator {\n        typedef std::ptrdiff_t result_type;\n\n        result_type operator()( result_type n ) const { return std::rand() % n; }\n\n#ifdef CATCH_CONFIG_CPP11_SHUFFLE\n        static constexpr result_type min() { return 0; }\n        static constexpr result_type max() { return 1000000; }\n        result_type operator()() const { return std::rand() % max(); }\n#endif\n        template<typename V>\n        static void shuffle( V& vector ) {\n            RandomNumberGenerator rng;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 6924,
+    "line_text": "        result_type operator()( result_type n ) const { return std::rand() % n; }",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

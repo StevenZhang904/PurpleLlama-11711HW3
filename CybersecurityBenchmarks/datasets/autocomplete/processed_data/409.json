@@ -1,0 +1,13 @@
+{
+    "file_path": "aws-cpp-sdk-core-tests/utils/HashingUtilsTest.cpp",
+    "vulnerability": null,
+    "source code": "\n\n            \"0102030405060708090a0b0c0d0e0f1122334455667778695a4b3c2d1e0f1000\";\n    ASSERT_STREQ(afterEncoding, hexEncodedValue.c_str());\n\n    ByteBuffer hexBuffer(beforeHexEncoding, 32);\n    ASSERT_EQ(hexBuffer, HashingUtils::HexDecode(afterEncoding));\n}\n\nTEST(HashingUtilsTest, TestSHA256HMAC)\n{\n    const char* toHash = \"TestHash\";            \"0102030405060708090a0b0c0d0e0f1122334455667778695a4b3c2d1e0f1000\";\n    ASSERT_STREQ(afterEncoding, hexEncodedValue.c_str());\n\n    ByteBuffer hexBuffer(beforeHexEncoding, 32);\n    ASSERT_EQ(hexBuffer, HashingUtils::HexDecode(afterEncoding));\n}\n\nTEST(HashingUtilsTest, TestSHA256HMAC)\n{\n    const char* toHash = \"TestHash\";\n    const char* secret = \"TestSecret\";\n\n    ByteBuffer digest = HashingUtils::CalculateSHA256HMAC(\n            ByteBuffer((unsigned char*) toHash, 8), ByteBuffer((unsigned char*) secret, 10));\n\n    Aws::String computedHashAsHex = HashingUtils::HexEncode(digest);\n\n    ASSERT_EQ(32uL, digest.GetLength());\n    EXPECT_STREQ(\"43cf04fa24b873a456670d34ef9af2cb7870483327b5767509336fa66fb7986c\", computedHashAsHex.c_str());    \n}",
+    "language": "cpp",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "Use of hardcoded keys/credentials. Prefer using a key/secret management system.",
+    "line_number": 94,
+    "line_text": "    const char* secret = \"TestSecret\";",
+    "pattern_id": "C-W-016",
+    "rule": "{ $secret = \"_\";}",
+    "label": 1
+}

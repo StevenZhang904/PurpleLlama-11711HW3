@@ -1,0 +1,13 @@
+{
+    "file_path": "public/assets/client_installer/payload/usr/local/munkireport/munkilib/reportcommon.py",
+    "vulnerability": null,
+    "source code": "\n\n        num /= 1000.0\n    return \"%.1f%s\" % (num, \"YB\")\n\n\ndef gethash(filename, hash_function):\n    \"\"\"Calculates the hashvalue of the given file with the given hash_function.\n\n    Args:\n      filename: The file name to calculate the hash value of.\n      hash_function: The hash function object to use, which was instantiated        num /= 1000.0\n    return \"%.1f%s\" % (num, \"YB\")\n\n\ndef gethash(filename, hash_function):\n    \"\"\"Calculates the hashvalue of the given file with the given hash_function.\n\n    Args:\n      filename: The file name to calculate the hash value of.\n      hash_function: The hash function object to use, which was instantiated\n          before calling this function, e.g. hashlib.md5().\n\n    Returns:\n      The hashvalue of the given file as hex string.\n    \"\"\"\n    if not os.path.isfile(filename):\n        return \"NOT A FILE\"\n\n    fileref = open(filename, \"rb\")\n    while 1:",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The MD5 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 522,
+    "line_text": "          before calling this function, e.g. hashlib.md5().",
+    "pattern_id": "PY-R-002",
+    "rule": "\\bhashlib\\.md5\\(",
+    "label": 1
+}

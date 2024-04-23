@@ -1,0 +1,13 @@
+{
+    "file_path": "tools/tracker/src/tune.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t}\n\t\t} while ( tmpNote.time != 0 );\n\t}\n\n\treturn true;\n}\n\nbool Tune::Save(const char * filename)\n{\n\tchar _filename[256];\t\t\t}\n\t\t} while ( tmpNote.time != 0 );\n\t}\n\n\treturn true;\n}\n\nbool Tune::Save(const char * filename)\n{\n\tchar _filename[256];\n\tstrcpy(_filename, filename);\n\tstrcat(_filename, \".txt\");\n\n\tFILE * f = fopen(_filename, \"wb\");\n\n\tif ( f == 0 ) {\n\t\treturn false;\n\t}\n\n\tfprintf(f, \"%d\\n\", rpm);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 172,
+    "line_text": "\tstrcpy(_filename, filename);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

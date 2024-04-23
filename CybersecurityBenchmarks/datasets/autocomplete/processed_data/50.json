@@ -1,0 +1,13 @@
+{
+    "file_path": "src/print_cpu_usage.c",
+    "vulnerability": null,
+    "source code": "\n\n        colorful_output = true;\n        if (ctx->format_above_degraded_threshold != NULL)\n            selected_format = ctx->format_above_degraded_threshold;\n    }\n\n    for (walk = selected_format; *walk != '\\0'; walk++) {\n        if (*walk != '%') {\n            *(outwalk++) = *walk;\n\n        } else if (BEGINS_WITH(walk + 1, \"usage\")) {        colorful_output = true;\n        if (ctx->format_above_degraded_threshold != NULL)\n            selected_format = ctx->format_above_degraded_threshold;\n    }\n\n    for (walk = selected_format; *walk != '\\0'; walk++) {\n        if (*walk != '%') {\n            *(outwalk++) = *walk;\n\n        } else if (BEGINS_WITH(walk + 1, \"usage\")) {\n            outwalk += sprintf(outwalk, \"%02d%s\", diff_usage, pct_mark);\n            walk += strlen(\"usage\");\n        }\n#if defined(__linux__)\n        else if (BEGINS_WITH(walk + 1, \"cpu\")) {\n            int number = -1;\n            int length = strlen(\"cpu\");\n            sscanf(walk + 1, \"cpu%d%n\", &number, &length);\n            if (number == -1) {\n                fprintf(stderr, \"i3status: provided CPU number cannot be parsed\\n\");",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 204,
+    "line_text": "            outwalk += sprintf(outwalk, \"%02d%s\", diff_usage, pct_mark);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

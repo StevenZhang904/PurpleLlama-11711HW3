@@ -1,0 +1,13 @@
+{
+    "file_path": "01.ASP.NET Web API/1.StudentSystem/StudentSystem.Services/Controllers/HomeworksController.cs",
+    "vulnerability": null,
+    "source code": "\n\n                .Select(HomeworkModel.FromHomework);\n\n            if (!homework.Any())\n            {\n                return this.NotFound();\n            }\n\n            return this.Ok(homework);\n        }\n                .Select(HomeworkModel.FromHomework);\n\n            if (!homework.Any())\n            {\n                return this.NotFound();\n            }\n\n            return this.Ok(homework);\n        }\n\n        [HttpPut]\n        public IHttpActionResult Update(HomeworkModel homework)\n        {\n            if (!this.ModelState.IsValid || homework == null)\n            {\n                return this.BadRequest(this.ModelState);\n            }\n\n            var existingHomework = this.data.Homeworks.FindById(homework.Id);\n",
+    "language": "csharp",
+    "cwe_identifier": "CWE-352",
+    "pattern_desc": "The application failed to protect against Cross-Site Request Forgery (CSRF)\ndue to not including the `[ValidateAntiForgeryToken]` attribute on an\nHTTP method handler that could change user state (usually in the form of POST or PUT\nmethods).\n",
+    "line_number": 41,
+    "line_text": "        [HttpPut]",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.csharp.third-party.csrf",
+    "rule": null,
+    "label": 1
+}

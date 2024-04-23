@@ -1,0 +1,13 @@
+{
+    "file_path": "awx/main/tests/functional/api/test_credential.py",
+    "vulnerability": null,
+    "source code": "\n\n\nimport mock # noqa\nimport pytest\n\nfrom awx.main.models import (AdHocCommand, Credential, CredentialType, Job, JobTemplate,\n                             Inventory, InventorySource, Project,\n                             WorkflowJobNode)\nfrom awx.main.utils import decrypt_field\nfrom awx.api.versioning import reverse\n\nimport mock # noqa\nimport pytest\n\nfrom awx.main.models import (AdHocCommand, Credential, CredentialType, Job, JobTemplate,\n                             Inventory, InventorySource, Project,\n                             WorkflowJobNode)\nfrom awx.main.utils import decrypt_field\nfrom awx.api.versioning import reverse\n\nEXAMPLE_PRIVATE_KEY = '-----BEGIN PRIVATE KEY-----\\nxyz==\\n-----END PRIVATE KEY-----'\nEXAMPLE_ENCRYPTED_PRIVATE_KEY = '-----BEGIN PRIVATE KEY-----\\nProc-Type: 4,ENCRYPTED\\nxyz==\\n-----END PRIVATE KEY-----'\n\n\n@pytest.mark.django_db\ndef test_idempotent_credential_type_setup():\n    assert CredentialType.objects.count() == 0\n    CredentialType.setup_tower_managed_defaults()\n    total = CredentialType.objects.count()\n    assert total > 0",
+    "language": "python",
+    "cwe_identifier": "CWE-312",
+    "pattern_desc": "Private Keys",
+    "line_number": 13,
+    "line_text": "EXAMPLE_PRIVATE_KEY = '-----BEGIN PRIVATE KEY-----\\nxyz==\\n-----END PRIVATE KEY-----'",
+    "pattern_id": "ALL-R-009",
+    "rule": "(-{3,}\\s*\\bBEGIN\\b.*PRIVATE KEY\\b\\s*-{3,}\\s*([\\S\\n]+?)-{3,}\\s*\\bEND\\b.*PRIVATE KEY\\b\\s*-{3,})",
+    "label": 1
+}

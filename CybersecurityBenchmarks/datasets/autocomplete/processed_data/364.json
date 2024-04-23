@@ -1,0 +1,13 @@
+{
+    "file_path": "libIcu/source/common/putil.cpp",
+    "vulnerability": null,
+    "source code": "\n\n        sizeFileLeft = sizeFile;\n\n        if (sizeFile != tzInfo->defaultTZFileSize) {\n            result = FALSE;\n        } else {\n            /* Store the data from the files in seperate buffers and\n             * compare each byte to determine equality.\n             */\n            if (tzInfo->defaultTZBuffer == NULL) {\n                rewind(tzInfo->defaultTZFilePtr);        sizeFileLeft = sizeFile;\n\n        if (sizeFile != tzInfo->defaultTZFileSize) {\n            result = FALSE;\n        } else {\n            /* Store the data from the files in seperate buffers and\n             * compare each byte to determine equality.\n             */\n            if (tzInfo->defaultTZBuffer == NULL) {\n                rewind(tzInfo->defaultTZFilePtr);\n                tzInfo->defaultTZBuffer = (char*)uprv_malloc(sizeof(char) * tzInfo->defaultTZFileSize);\n                sizeFileRead = fread(tzInfo->defaultTZBuffer, 1, tzInfo->defaultTZFileSize, tzInfo->defaultTZFilePtr);\n            }\n            rewind(file);\n            while(sizeFileLeft > 0) {\n                uprv_memset(bufferFile, 0, MAX_READ_SIZE);\n                sizeFileToRead = sizeFileLeft < MAX_READ_SIZE ? sizeFileLeft : MAX_READ_SIZE;\n\n                sizeFileRead = fread(bufferFile, 1, sizeFileToRead, file);\n                if (memcmp(tzInfo->defaultTZBuffer + tzInfo->defaultTZPosition, bufferFile, sizeFileRead) != 0) {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 884,
+    "line_text": "                tzInfo->defaultTZBuffer = (char*)uprv_malloc(sizeof(char) * tzInfo->defaultTZFileSize);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "external/fieldtrip-20160128/external/dmlt/external/gpstuff/SuiteSparse/LDL/MATLAB/ldlsymbolmex.c",
+    "vulnerability": null,
+    "source code": "\n\n\n    /* get fill-reducing ordering, if present */\n    permute = ((nargin > 1) && !mxIsEmpty (pargin [1])) ;\n    if (permute)\n    {\n\tif (mxGetM (pargin [1]) * mxGetN (pargin [1]) != n ||\n\t\tmxIsSparse (pargin [1]))\n\t{\n\t    mexErrMsgTxt (\"ldlsymbol: invalid input permutation\\n\") ;\n\t}\n    /* get fill-reducing ordering, if present */\n    permute = ((nargin > 1) && !mxIsEmpty (pargin [1])) ;\n    if (permute)\n    {\n\tif (mxGetM (pargin [1]) * mxGetN (pargin [1]) != n ||\n\t\tmxIsSparse (pargin [1]))\n\t{\n\t    mexErrMsgTxt (\"ldlsymbol: invalid input permutation\\n\") ;\n\t}\n\tP    = (UF_long *) mxMalloc (nn * sizeof (UF_long)) ;\n\tPinv = (UF_long *) mxMalloc (nn * sizeof (UF_long)) ;\n\tp = mxGetPr (pargin [1]) ;\n\tfor (k = 0 ; k < n ; k++)\n\t{\n\t    P [k] = p [k] - 1 ;\t/* convert to 0-based */\n\t}\n    }\n    else\n    {",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 95,
+    "line_text": "\tP    = (UF_long *) mxMalloc (nn * sizeof (UF_long)) ;",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

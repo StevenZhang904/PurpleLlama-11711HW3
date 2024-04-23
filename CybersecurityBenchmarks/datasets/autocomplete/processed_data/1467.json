@@ -1,0 +1,13 @@
+{
+    "file_path": "gphoto2.php",
+    "vulnerability": null,
+    "source code": "\n\n\tclass GPHOTO2 {\n\t\t\n\t\tpublic static function GP2_PortCommand($port, $cmd, $AddBRs, $MakeArray) {\n\t\t\treturn self::GP2_CommandEx($cmd.' --port '.$port, $AddBRs, $MakeArray);\n\t\t}\n\n\t\tpublic static function GP2_CommandEx($cmd, $AddBRs, $MakeArray) {\n\t\t\t\n\t\t\terror_log($cmd.\"\\r\\n\", 3, \"/var/www/shutterweb/my-errors.log\");\n\t\t\terror_log($cmd.\"\\r\\n\", 3, \"/var/www/shutterweb/logging.log\");\tclass GPHOTO2 {\n\t\t\n\t\tpublic static function GP2_PortCommand($port, $cmd, $AddBRs, $MakeArray) {\n\t\t\treturn self::GP2_CommandEx($cmd.' --port '.$port, $AddBRs, $MakeArray);\n\t\t}\n\n\t\tpublic static function GP2_CommandEx($cmd, $AddBRs, $MakeArray) {\n\t\t\t\n\t\t\terror_log($cmd.\"\\r\\n\", 3, \"/var/www/shutterweb/my-errors.log\");\n\t\t\terror_log($cmd.\"\\r\\n\", 3, \"/var/www/shutterweb/logging.log\");\n\t\t\t$results = shell_exec('gphoto2 --quiet '.$cmd);\n\t\t\t//error_log($results.\"\\r\\n\", 3, \"/var/www/shutterweb/my-errors.log\");\n\t\t\tif($AddBRs)\n\t\t\t\treturn str_replace(\"\\n\", \"<br/>\\r\\n\", $results);\n\t\t\telse if($MakeArray)\n\t\t\t\treturn explode('||',str_replace(\"\\n\", '||', $results));\n\t\t\telse\n\t\t\t\treturn $results;\n\t\t}\n\t}",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 18,
+    "line_text": "\t\t\t$results = shell_exec('gphoto2 --quiet '.$cmd);",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

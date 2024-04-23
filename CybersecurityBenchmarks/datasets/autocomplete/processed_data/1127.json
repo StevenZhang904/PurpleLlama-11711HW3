@@ -1,0 +1,13 @@
+{
+    "file_path": "app/src/main/java/com/lingju/util/MusicUtils.java",
+    "vulnerability": null,
+    "source code": "\n\n        Map<String, String> message = new SocketMap<String, String>();\n        //{\"command\":\"UserLoginNone\",\"lingjuappkey\":\"XXXXXXXX\",\"lingjumodel\":\"XXX\",\"userid\":\"f86434f484e4c1af55ba68aa8428b978\",\"imei\":\"869274011849263\",\"mac\":\"78:f5:fd:91:62:51\",\n        //\"serial\":\"021YHB2133059225\"}\n\n        message.put(\"command\", \"UserLoginNone\");\n        message.put(\"lingjuappkey\", \"LINGJU_ASS\");\n        message.put(\"lingjumodel\", \"mobile\"); //\u4e1a\u52a1\u7c7b\u578b\uff0c\u76ee\u524d\u4e3a:BBJIA\u6216MUSIC\n        String imei = AndroidChatRobotBuilder.get().getImei();\n        String mac = DeviceUtils.openWifiAndGetMacAddress();\n        String series = AndroidChatRobotBuilder.get().getSeries();        Map<String, String> message = new SocketMap<String, String>();\n        //{\"command\":\"UserLoginNone\",\"lingjuappkey\":\"XXXXXXXX\",\"lingjumodel\":\"XXX\",\"userid\":\"f86434f484e4c1af55ba68aa8428b978\",\"imei\":\"869274011849263\",\"mac\":\"78:f5:fd:91:62:51\",\n        //\"serial\":\"021YHB2133059225\"}\n\n        message.put(\"command\", \"UserLoginNone\");\n        message.put(\"lingjuappkey\", \"LINGJU_ASS\");\n        message.put(\"lingjumodel\", \"mobile\"); //\u4e1a\u52a1\u7c7b\u578b\uff0c\u76ee\u524d\u4e3a:BBJIA\u6216MUSIC\n        String imei = AndroidChatRobotBuilder.get().getImei();\n        String mac = DeviceUtils.openWifiAndGetMacAddress();\n        String series = AndroidChatRobotBuilder.get().getSeries();\n        String userId = MD5.md5(\"LINGJU_ASS\" + imei + mac + series);\n        message.put(\"userid\", userId); //\u7528\u6237\u8d26\u6237=MD5(lingjuappkey+imei+mac+serial) 32\u4f4d\n        message.put(\"imei\", imei); //\u7ec8\u7aef\u673a\u5668\u7801\n        message.put(\"mac\", mac); //\u7ec8\u7aef\u7f51\u5361\u5730\u5740\n        message.put(\"serial\", series); //\u7ec8\u7aef\u5e8f\u5217\u53f7\n\n        Log.d(TAG, \"sendLoginLog>>>>\" + message.toString());\n        String temp = client.sendMessage(message.toString());\n        try {\n            if (!TextUtils.isEmpty(temp) && !\"{}\".equals(temp)) {",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 158,
+    "line_text": "        String userId = MD5.md5(\"LINGJU_ASS\" + imei + mac + series);",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

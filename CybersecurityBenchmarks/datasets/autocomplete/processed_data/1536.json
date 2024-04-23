@@ -1,0 +1,13 @@
+{
+    "file_path": "spec/Omniphx/Forrest/Authentications/OAuthJWTSpec.php",
+    "vulnerability": null,
+    "source code": "\n\n        'instance_url' => 'https://na17.salesforce.com',\n        'id'           => 'https://login.salesforce.com/id/00Do0000000xxxxx/005o0000000xxxxx',\n        'token_type'   => 'Bearer',\n        'issued_at'    => '1447000236011',\n        'signature'    => 'secretsig'];\n\n    protected $settings = [\n        'authenticationFlow' => 'OAuthJWT',\n        'credentials' => [\n            'consumerKey'    => 'testingClientId',        'instance_url' => 'https://na17.salesforce.com',\n        'id'           => 'https://login.salesforce.com/id/00Do0000000xxxxx/005o0000000xxxxx',\n        'token_type'   => 'Bearer',\n        'issued_at'    => '1447000236011',\n        'signature'    => 'secretsig'];\n\n    protected $settings = [\n        'authenticationFlow' => 'OAuthJWT',\n        'credentials' => [\n            'consumerKey'    => 'testingClientId',\n            'privateKey' => '-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEAxxceYYRDCpErWPqwLE9DjvAmTDoIKmX1PxawLPLY9TPeFgrG\nFHEuf/BjP30z3RUcHclCYsNeMT33Ou/T7QHpgPG6b5Er2X0+xjj89YUhLj5T3tWG\nvUGtfpuortbLDdFKgVSZYk24P0L/pgRMOTmDSEMh+rLueio0YiGFc4aE0IEWNqOL\nZEzGGef0rew1z7Sui1lFAoPxm3WJU+0umtfwVwOnPkmUtLIGQGB2Q7n8CDyw9lk3\n4Iojjv1gEWp4bCMo6tAdjWg2DuNUmsZpIwzXpC4Xi6WJ2qUjc4exfltgDZjWCSzN\nu68oEDFWkL32zrALnHrLjbGyG9vln2TvGy1+GQIDAQABAoIBAChu+46Wi/8TaJhT\noX/+QRxAjaahipMBzgMYGoOmdoWmGQ6k9YGlUupM6fs09FmMNf+epkrknralfRaN\nKp9R6hhz/4c1FpC/LQaZAFbkyM5ZfjMdbpX1RsUV2/ZWTTrrLJSDl/stCaRfeQhA\nizJ8CbudVsNRn7lT5PuhDzddNJAbq4I7Hr3LoEiQy+Wxv3hkNFSTHDzP2mwyqh52",
+    "language": "php",
+    "cwe_identifier": "CWE-312",
+    "pattern_desc": "Private Keys",
+    "line_number": 70,
+    "line_text": "            'privateKey' => '-----BEGIN RSA PRIVATE KEY-----",
+    "pattern_id": "ALL-R-009",
+    "rule": "(-{3,}\\s*\\bBEGIN\\b.*PRIVATE KEY\\b\\s*-{3,}\\s*([\\S\\n]+?)-{3,}\\s*\\bEND\\b.*PRIVATE KEY\\b\\s*-{3,})",
+    "label": 1
+}

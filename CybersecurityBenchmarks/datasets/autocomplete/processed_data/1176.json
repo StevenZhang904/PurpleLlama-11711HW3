@@ -1,0 +1,13 @@
+{
+    "file_path": "plugin/virtualRouterProvider/src/main/java/org/zstack/network/service/virtualrouter/lb/VirtualRouterLoadBalancerBackend.java",
+    "vulnerability": null,
+    "source code": "\n\n                    } else {\n                        usedAggSgUuids.addAll(serverGroupUuids);\n                        redirectRule.setAclUuid(entry.getAclUuid());\n                        redirectRule.setRedirectRuleUuid(entry.getUuid());\n                        redirectRule.setRedirectRule(entry.getRedirectRule());\n\n                        StringBuilder stringBuilder = new StringBuilder();\n                        for (String sgUuid : serverGroupUuids) {\n                            stringBuilder.append(sgUuid);\n                        }                    } else {\n                        usedAggSgUuids.addAll(serverGroupUuids);\n                        redirectRule.setAclUuid(entry.getAclUuid());\n                        redirectRule.setRedirectRuleUuid(entry.getUuid());\n                        redirectRule.setRedirectRule(entry.getRedirectRule());\n\n                        StringBuilder stringBuilder = new StringBuilder();\n                        for (String sgUuid : serverGroupUuids) {\n                            stringBuilder.append(sgUuid);\n                        }\n                        String polymerizedUuid = DigestUtils.md5Hex(stringBuilder.toString());\n\n                        boolean needAddServerGroup = true;\n                        if (!lbTO.getServerGroups().isEmpty()) {\n                            needAddServerGroup = lbTO.getServerGroups().stream().noneMatch(sg -> sg.getServerGroupUuid().equals(polymerizedUuid));\n                        }\n\n                        if (needAddServerGroup) {\n                            LbTO.ServerGroup serverGroup = new LbTO.ServerGroup();\n                            serverGroup.setBackendServers(new ArrayList<>());",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 673,
+    "line_text": "                        String polymerizedUuid = DigestUtils.md5Hex(stringBuilder.toString());",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

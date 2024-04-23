@@ -1,0 +1,13 @@
+{
+    "file_path": "src-tls/osdp-net-client.c",
+    "vulnerability": null,
+    "source code": "\n\n            status = ST_OSDP_TLS_ERROR;\n          if (status EQUALS ST_OK)\n          {\n            {\n              int i;\n              char octet [1024];\n\n              for(i=0; i<tls_current_length; i++)\n              {\n                sprintf(octet, \" %02x\", buffer [i]);            status = ST_OSDP_TLS_ERROR;\n          if (status EQUALS ST_OK)\n          {\n            {\n              int i;\n              char octet [1024];\n\n              for(i=0; i<tls_current_length; i++)\n              {\n                sprintf(octet, \" %02x\", buffer [i]);\n                strcat(trace_in_buffer, octet);\n              };\n            };\n            if (context.verbosity > 9)\n              fprintf (stderr, \"%d bytes received via TLS:\\n\",\n                status_tls);\n\n            // append buffer to osdp buffer\n            if (context.authenticated)\n            {",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 590,
+    "line_text": "                strcat(trace_in_buffer, octet);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

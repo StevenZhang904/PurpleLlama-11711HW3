@@ -1,0 +1,13 @@
+{
+    "file_path": "src-tls/osdp-net-client.c",
+    "vulnerability": null,
+    "source code": "\n\n  // if there's an argument it is the config file path\n  if (argc > 1)\n  {\n    strcpy (context.init_parameters_path, argv [1]);\n\n    // a second argument is the network address of the destination\n    if (argc > 2)\n      strcpy (current_network_address, argv [2]);\n  };\n  // if there's an argument it is the config file path\n  if (argc > 1)\n  {\n    strcpy (context.init_parameters_path, argv [1]);\n\n    // a second argument is the network address of the destination\n    if (argc > 2)\n      strcpy (current_network_address, argv [2]);\n  };\n\n  sprintf (config->version, \"v%d.%d-Build%d\",\n    OSDP_VERSION_MAJOR, OSDP_VERSION_MINOR, OSDP_VERSION_BUILD);\n  strcpy (config->ca_file, OSDP_LCL_CA_KEYS);\n// sets port\nconfig->listen_sap = 10443;\n\n  strcpy (specified_passphrase, \"speakFriend&3ntr\");\n\n  if (status EQUALS ST_OK)\n    status = initialize_osdp (&context);",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 163,
+    "line_text": "  sprintf (config->version, \"v%d.%d-Build%d\",",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\n\n    let executor = ThreadPoolExecutor::new().unwrap();\n\n    let handle = executor.handle();\n\n    let tmp_handle = handle.clone();\n    let db_actor = DBSupervisor::new(handle.clone(), move |sender, receiver| {\n        DBActor::create_and_monitor(sender, receiver, get_db(), &tmp_handle)\n    });\n\n    let executor = ThreadPoolExecutor::new().unwrap();\n\n    let handle = executor.handle();\n\n    let tmp_handle = handle.clone();\n    let db_actor = DBSupervisor::new(handle.clone(), move |sender, receiver| {\n        DBActor::create_and_monitor(sender, receiver, get_db(), &tmp_handle)\n    });\n\n    GSBUpdater::begin_processing(\"AIzaSyCB0IE_olGU8GTHhoWnKsRGIKyQszXmr5A\".to_owned(), db_actor.channel.0.clone(),\nhandle.clone());\n\n    let query_actor = QueryClient::process(\"AIzaSyCB0IE_olGU8GTHhoWnKsRGIKyQszXmr5A\".to_owned(), db_actor.channel.0,\nhandle);\n\n    let (send, _) = chan::async();\n\n    for _ in 0..100 {\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 53,
+    "line_text": "    GSBUpdater::begin_processing(\"AIzaSyCB0IE_olGU8GTHhoWnKsRGIKyQszXmr5A\".to_owned(), db_actor.channel.0.clone(),",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

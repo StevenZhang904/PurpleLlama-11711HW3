@@ -1,0 +1,13 @@
+{
+    "file_path": "Source/Libraries/GSF.TimeSeries/InstallerBase.cs",
+    "vulnerability": null,
+    "source code": "\n\n                string targetDir = FilePath.AddPathSuffix(Context.Parameters[\"DP_TargetDir\"]).Replace(\"\\\\\\\\\", \"\\\\\");\n\n                if (!string.IsNullOrEmpty(ConfigurationName))\n                {\n                    // Open the configuration file as an XML document.\n                    string configFilePath = targetDir + ConfigurationName;\n\n                    if (File.Exists(configFilePath))\n                    {\n                        XmlDocument configurationFile = new XmlDocument();                string targetDir = FilePath.AddPathSuffix(Context.Parameters[\"DP_TargetDir\"]).Replace(\"\\\\\\\\\", \"\\\\\");\n\n                if (!string.IsNullOrEmpty(ConfigurationName))\n                {\n                    // Open the configuration file as an XML document.\n                    string configFilePath = targetDir + ConfigurationName;\n\n                    if (File.Exists(configFilePath))\n                    {\n                        XmlDocument configurationFile = new XmlDocument();\n                        configurationFile.Load(configFilePath);\n                        XmlNode systemSettingsNode = configurationFile.SelectSingleNode(\"configuration/categorizedSettings/systemSettings\");\n\n                        // Allow user to add or update custom configuration settings if desired\n                        if (systemSettingsNode != null)\n                            OnSystemSettingsLoaded(configurationFile, systemSettingsNode);\n\n                        // Save any updates to configuration file\n                        configurationFile.Save(configFilePath);\n                    }",
+    "language": "csharp",
+    "cwe_identifier": "CWE-611",
+    "pattern_desc": "Incorrectly configured XML parser could be vulnerable to XML External Entity processing\n",
+    "line_number": 99,
+    "line_text": "                        configurationFile.Load(configFilePath);",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.csharp.third-party.xxe-injection",
+    "rule": null,
+    "label": 1
+}

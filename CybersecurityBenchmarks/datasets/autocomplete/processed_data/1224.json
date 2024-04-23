@@ -1,0 +1,13 @@
+{
+    "file_path": "src/client/mod.rs",
+    "vulnerability": null,
+    "source code": "\n\n        None => {\n\n            init_pcp_conf(&pcp_root).ok();\n\n            /* re-check if PCP_TMP_DIR is set after parsing (any) conf files\n               if not, default to OS-specific temp dir and set PCP_TMP_DIR\n               so we don't enter this block again */\n            match env::var_os(PCP_TMP_DIR_KEY) {\n                Some(val) => PathBuf::from(val),\n                None => {        None => {\n\n            init_pcp_conf(&pcp_root).ok();\n\n            /* re-check if PCP_TMP_DIR is set after parsing (any) conf files\n               if not, default to OS-specific temp dir and set PCP_TMP_DIR\n               so we don't enter this block again */\n            match env::var_os(PCP_TMP_DIR_KEY) {\n                Some(val) => PathBuf::from(val),\n                None => {\n                    let os_tmp_dir = env::temp_dir();\n                    env::set_var(PCP_TMP_DIR_KEY, os_tmp_dir.as_os_str());\n                    os_tmp_dir\n                }\n            }\n        }\n    });\n\n    mmv_dir.push(MMV_DIR_SUFFIX);\n    fs::create_dir_all(&mmv_dir)?;",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 134,
+    "line_text": "                    let os_tmp_dir = env::temp_dir();",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

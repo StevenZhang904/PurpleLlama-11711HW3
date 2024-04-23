@@ -1,0 +1,13 @@
+{
+    "file_path": "templates/villa_blanca/contact.php",
+    "vulnerability": null,
+    "source code": "\n\n            <div class=\"page-header\">\n                <h1>Contact</h1>\n            </div>\n        </div>\n        <br>\n        <br>\n        <br>\n        <div class=\"ui grid stackable\">\n            <div class=\"two wide column\"></div>\n            <div class=\"twelve wide column\">            <div class=\"page-header\">\n                <h1>Contact</h1>\n            </div>\n        </div>\n        <br>\n        <br>\n        <br>\n        <div class=\"ui grid stackable\">\n            <div class=\"two wide column\"></div>\n            <div class=\"twelve wide column\">\n                <!--                <iframe style=\"border: 0;\" src=\"https://www.google.com/maps/embed/v1/search?key=AIzaSyCisQVncn8n6L3RrF6I0vjM4v5Fi-x3KJ8&amp;q=Passeig+dels+Pins+4+08394+Sant+Vicen\u00e7+de+Montalt&amp;zoom=7\" width=\"100%\" height=\"350\" frameborder=\"0\" allowfullscreen=\"\"></iframe>-->\n                <!--                <iframe style=\"border: 0;\" src=\"https://www.google.com/maps/embed/v1/search?key=AIzaSyCisQVncn8n6L3RrF6I0vjM4v5Fi-x3KJ8&amp;q=Passeig%20dels%20Pins%2C%2037%2C%20Sant%20Vicen%C3%A7%20de%20Montalt&amp;zoom=7\" width=\"100%\" height=\"350\" frameborder=\"0\" allowfullscreen=\"\"></iframe>-->\n                <iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2591307.3754614117!2d0.9806422572994274!3d41.038902834382164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12bb4a7a3b6e6c73%3A0xbf440a4ae4a50c8f!2sPasseig+dels+Pins%2C+37%2C+08394+Sant+Vicen%C3%A7+de+Montalt%2C+Barcelona%2C+Espa%C3%B1a!5e0!3m2!1ses-419!2sus!4v1481552032449\" width=\"100%\" height=\"350\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>\n            </div>\n            <div class=\"two wide column\"></div>\n        </div>\n        <div class=\"ui three column grid stackable center aligned\">\n            <div class=\"column\">\n                <h5>ADDRESS</h5>\n                7 Sant Vic\u0327ens de Montalt",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 18,
+    "line_text": "                <!--                <iframe style=\"border: 0;\" src=\"https://www.google.com/maps/embed/v1/search?key=AIzaSyCisQVncn8n6L3RrF6I0vjM4v5Fi-x3KJ8&amp;q=Passeig+dels+Pins+4+08394+Sant+Vicen\u00e7+de+Montalt&amp;zoom=7\" width=\"100%\" height=\"350\" frameborder=\"0\" allowfullscreen=\"\"></iframe>-->",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

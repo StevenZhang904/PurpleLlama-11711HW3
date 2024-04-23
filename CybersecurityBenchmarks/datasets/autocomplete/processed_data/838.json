@@ -1,0 +1,13 @@
+{
+    "file_path": "stacktodo/api/core/jsoncors.js",
+    "vulnerability": null,
+    "source code": "\n\n\t\t* @param failure: executed on failure. Given http status then error then xhr\n\t\t* @return the XHR object\n\t\t*/\n\t\tself.requestJSONP = function(url, method, payload, success, failure) {\n\t\t\tmethod = method.toUpperCase();\n\n\t\t\tvar jsonp = document.createElement('script');\n\t\t\tjsonp.type = 'text/javascript';\n\n\t\t\t// Success callback\t\t* @param failure: executed on failure. Given http status then error then xhr\n\t\t* @return the XHR object\n\t\t*/\n\t\tself.requestJSONP = function(url, method, payload, success, failure) {\n\t\t\tmethod = method.toUpperCase();\n\n\t\t\tvar jsonp = document.createElement('script');\n\t\t\tjsonp.type = 'text/javascript';\n\n\t\t\t// Success callback\n\t\t\tvar id = '__jsonp_' + Math.ceil(Math.random() * 10000);\n\t\t\tvar dxhr = { jsonp:true, id:id, response:undefined };\n\t\t\twindow[id] = function(r) {\n\t\t\t\tjsonp.parentElement.removeChild(jsonp);\n\t\t\t\tdelete window[id];\n\t\t\t\tdxhr.response = r;\n\n\t\t\t\tif (r === undefined || r === null) {\n\t\t\t\t\tsuccess(undefined, 200, dxhr);\n\t\t\t\t} else {",
+    "language": "javascript",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Use of cryptographically weak random number generator.",
+    "line_number": 98,
+    "line_text": "\t\t\tvar id = '__jsonp_' + Math.ceil(Math.random() * 10000);",
+    "pattern_id": "JS-R-003",
+    "rule": "\\bMath\\.random",
+    "label": 1
+}

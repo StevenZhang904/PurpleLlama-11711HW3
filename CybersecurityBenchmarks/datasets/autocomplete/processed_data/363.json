@@ -1,0 +1,13 @@
+{
+    "file_path": "test/encoder/EncUT_MemoryAlloc.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\tASSERT_EQ( 16, cTestMa.WelsGetCacheLineSize() );\n}\n//Tests of WelsGetCacheLineSize End\n//Tests of WelsMallocAndFree Begin\nTEST(MemoryAlignTest, WelsMallocAndFreeOnceFunctionVerify) {\n  const uint32_t kuiTargetAlignSize[4] = {32, 16, 64, 8};\n  srand((uint32_t)time(NULL));\n\n  for (int i=0; i<4; i++) {\n    const uint32_t kuiTestAlignSize\t= kuiTargetAlignSize[i];\tASSERT_EQ( 16, cTestMa.WelsGetCacheLineSize() );\n}\n//Tests of WelsGetCacheLineSize End\n//Tests of WelsMallocAndFree Begin\nTEST(MemoryAlignTest, WelsMallocAndFreeOnceFunctionVerify) {\n  const uint32_t kuiTargetAlignSize[4] = {32, 16, 64, 8};\n  srand((uint32_t)time(NULL));\n\n  for (int i=0; i<4; i++) {\n    const uint32_t kuiTestAlignSize\t= kuiTargetAlignSize[i];\n    const uint32_t kuiTestDataSize\t\t= abs(rand());\n\n    CMemoryAlign cTestMa(kuiTestAlignSize);\n    const uint32_t uiSize = kuiTestDataSize;\n    const char strUnitTestTag[100] = \"pUnitTestData\";\n    const uint32_t kuiUsedCacheLineSize\t= ((kuiTestAlignSize == 0) || (kuiTestAlignSize & 0x0F)) ? (16) : (kuiTestAlignSize);\n    const uint32_t kuiExtraAlignSize\t= kuiUsedCacheLineSize-1;\n    const uint32_t kuiExpectedSize\t= sizeof( void ** ) + sizeof( int32_t ) + kuiExtraAlignSize + uiSize;\n    uint8_t *pUnitTestData = static_cast<uint8_t *>(cTestMa.WelsMalloc(uiSize, strUnitTestTag));\n    if ( pUnitTestData != NULL ) {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 35,
+    "line_text": "    const uint32_t kuiTestDataSize\t\t= abs(rand());",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

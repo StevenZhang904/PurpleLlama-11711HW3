@@ -1,0 +1,13 @@
+{
+    "file_path": "application/views/register.php",
+    "vulnerability": null,
+    "source code": "\n\n\n\n\t<!-- <![endif]-->\n\n\t<!--[if IE]>\n<script src=\"assets/js/jquery-1.11.3.min.js\"></script>\n<![endif]-->\n\t<script type=\"text/javascript\">\n\t\tif('ontouchstart' in document.documentElement) document.write(\"<script src='assets/js/jquery.mobile.custom.min.js'>\"+\"<\"+\"/script>\");\n\t</script>\n\n\t<!-- <![endif]-->\n\n\t<!--[if IE]>\n<script src=\"assets/js/jquery-1.11.3.min.js\"></script>\n<![endif]-->\n\t<script type=\"text/javascript\">\n\t\tif('ontouchstart' in document.documentElement) document.write(\"<script src='assets/js/jquery.mobile.custom.min.js'>\"+\"<\"+\"/script>\");\n\t</script>\n\t<script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyDPMTQLm7omfoGI6tpH2AtNrL-_5aBdLsE&libraries=places\"\n        async defer></script>\n    <script type=\"text/javascript\">\n    </script>\n\t<script type=\"text/javascript\">\n    \tfunction initAutoComplete(input){\n    \t\tvar autocomplete = new google.maps.places.Autocomplete(input);\n    \t}\n\t\tjQuery(function($) {\n\t\t\t$(\"#user_typer\").change(function() {",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 167,
+    "line_text": "\t<script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyDPMTQLm7omfoGI6tpH2AtNrL-_5aBdLsE&libraries=places\"",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

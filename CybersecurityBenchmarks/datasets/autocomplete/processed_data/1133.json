@@ -1,0 +1,13 @@
+{
+    "file_path": "src/test/java/org/test/web/client/Encrypt.java",
+    "vulnerability": null,
+    "source code": "\n\n\t * \n\t * @param data\n\t * @return\n\t * @throws Exception\n\t */\n\tpublic static String sign(byte[] data) throws Exception {\n\t\treturn parseByte2HexStr(encryptByte(data));\n\t}\n\n\tpublic static byte[] encryptByte(byte[] data) throws Exception {\t * \n\t * @param data\n\t * @return\n\t * @throws Exception\n\t */\n\tpublic static String sign(byte[] data) throws Exception {\n\t\treturn parseByte2HexStr(encryptByte(data));\n\t}\n\n\tpublic static byte[] encryptByte(byte[] data) throws Exception {\n\t\tMessageDigest md = MessageDigest.getInstance(\"md5\");\n\t\tmd.update(data);\n\t\treturn md.digest();\n\t}\n\n\tprivate static String parseByte2HexStr(byte buf[]) {\n\t\tStringBuilder sb = new StringBuilder(32);\n\t\tfor (int i = 0; i < buf.length; i++) {\n\t\t\tString hex = Integer.toHexString(buf[i] & 0xFF);\n\t\t\tif (hex.length() == 1) {",
+    "language": "java",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of weak hashing algorithm",
+    "line_number": 48,
+    "line_text": "\t\tMessageDigest md = MessageDigest.getInstance(\"md5\");",
+    "pattern_id": "JAVA-R-015",
+    "rule": "\\.getMd5Digest\\(\\)|\\.md5\\(|\\.md5Hex\\(|\\.getInstance\\(\"(MD5|md5)\"",
+    "label": 1
+}

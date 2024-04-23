@@ -1,0 +1,13 @@
+{
+    "file_path": "src/framework/standard/mod.rs",
+    "vulnerability": null,
+    "source code": "\n\n                    Arc::new(CommandGroup::default())\n                },\n            );\n\n            if let Some(ref mut group) = Arc::get_mut(ungrouped) {\n                let name = command_name.into();\n\n                group.commands.insert(\n                    name,\n                    CommandOrAlias::Command(                    Arc::new(CommandGroup::default())\n                },\n            );\n\n            if let Some(ref mut group) = Arc::get_mut(ungrouped) {\n                let name = command_name.into();\n\n                group.commands.insert(\n                    name,\n                    CommandOrAlias::Command(\n                        Arc::new(Command::new(f)),\n                    ),\n                );\n            }\n        }\n\n        self.initialized = true;\n\n        self\n    }",
+    "language": "rust",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential for command injection if input is not sanitized.",
+    "line_number": 614,
+    "line_text": "                        Arc::new(Command::new(f)),",
+    "pattern_id": "RUST-R-002",
+    "rule": "Command::new\\s*\\(\\s*[^\"']\\)",
+    "label": 1
+}

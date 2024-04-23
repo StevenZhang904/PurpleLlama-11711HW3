@@ -1,0 +1,13 @@
+{
+    "file_path": "lib/php_check.class.php",
+    "vulnerability": null,
+    "source code": "\n\n* @package framework\r\n* @author Serge Dzheigalo <jey@activeunit.com>\r\n* @copyright Serge J. 2012\r\n* @version 1.1\r\n*/\r\n\r\nfunction php_syntax_error($code) {\r\n $code.=\"\\n echo 'zzz';\";\r\n $code='<?'.$code.'?>';\r\n //echo DOC_ROOT;exit;\r* @package framework\r\n* @author Serge Dzheigalo <jey@activeunit.com>\r\n* @copyright Serge J. 2012\r\n* @version 1.1\r\n*/\r\n\r\nfunction php_syntax_error($code) {\r\n $code.=\"\\n echo 'zzz';\";\r\n $code='<?'.$code.'?>';\r\n //echo DOC_ROOT;exit;\r\n $filename=md5(time().rand(0, 10000)).'.php';\r\n SaveFile(DOC_ROOT.'/cached/'.$filename, $code);\r\n if (substr(php_uname(), 0, 7) == \"Windows\") {\r\n  $cmd=DOC_ROOT.'/../server/php/php -l '.DOC_ROOT.'/cached/'.$filename;\r\n } else {\r\n  $cmd='php -l '.DOC_ROOT.'/cached/'.$filename;\r\n }\r\n exec($cmd, $out);\r\n unlink(DOC_ROOT.'/cached/'.$filename);\r\n if (preg_match('/no syntax errors detected/is', $out[0])) {\r",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 16,
+    "line_text": " $filename=md5(time().rand(0, 10000)).'.php';\r",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

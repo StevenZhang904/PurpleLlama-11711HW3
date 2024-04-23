@@ -1,0 +1,13 @@
+{
+    "file_path": "src/tmp-files.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    #else\n\t    char tmp_string[L_tmpnam];\n\n\t    // Get std dir for temp files\n\t    if ( GetTempPath(FILENAME_MAX,tmp_name) == 0 ) {\n\t\t    fprintf(stderr, \"Error getting temporary directory path.\\n\");\n\t\t    return -1;\n\t    }\n\n\t    // creating unique fileName    #else\n\t    char tmp_string[L_tmpnam];\n\n\t    // Get std dir for temp files\n\t    if ( GetTempPath(FILENAME_MAX,tmp_name) == 0 ) {\n\t\t    fprintf(stderr, \"Error getting temporary directory path.\\n\");\n\t\t    return -1;\n\t    }\n\n\t    // creating unique fileName\n\t    if ( tmpnam(tmp_string) == NULL ) {\n\t\t    fprintf(stderr, \"Error on the generation of a unique temp file name.\\n\");\n\t\t    return -1;\n\t    }\n\n\t    // concat temp file name\n\t    strcat(tmp_name,tmp_string);\n    #endif\n\n\treturn 0;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-377",
+    "pattern_desc": "Usage of tmpnam, which generates temporary file without exclusive access. It may lead to race conditions.",
+    "line_number": 30,
+    "line_text": "\t    if ( tmpnam(tmp_string) == NULL ) {",
+    "pattern_id": "C-R-013",
+    "rule": "tmpnam\\s*\\(\\s*\\w+\\s*\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/tmp-files.cpp",
+    "vulnerability": null,
+    "source code": "\n\nint rm_tmp_file(char* tmp_name) {\n\tchar *command;\n\n\tif ( file_exist(tmp_name) ) {\n        #if defined(__linux) || defined(__APPLE__)\n\t        command = strdup(\"rm -f \");\n        #else\n        \tcommand = strdup(\"del \");\n        #endif\n\t\tcommand = cat_strings(command, tmp_name);int rm_tmp_file(char* tmp_name) {\n\tchar *command;\n\n\tif ( file_exist(tmp_name) ) {\n        #if defined(__linux) || defined(__APPLE__)\n\t        command = strdup(\"rm -f \");\n        #else\n        \tcommand = strdup(\"del \");\n        #endif\n\t\tcommand = cat_strings(command, tmp_name);\n\t\tif ( system(command) == -1 ) {\n\t\t\tfprintf(stderr,\"Error on removing %s.\\n\", tmp_name);\n\t\t\treturn -1;\n\t\t}\n\t\tfree(command);\n\t}\n\n\treturn 0;\n}\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if the input is not sanitized",
+    "line_number": 53,
+    "line_text": "\t\tif ( system(command) == -1 ) {",
+    "pattern_id": "C-W-015",
+    "rule": "{ system($x); }",
+    "label": 1
+}

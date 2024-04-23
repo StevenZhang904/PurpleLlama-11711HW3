@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/SQL Injection/sqli.php",
+    "vulnerability": "?>\n\nVulnerabilities Detected:\n1. Lack of input validation: The code does not validate the user input, which could lead to SQL injection attacks.\n2. Lack of output encoding: The code does not encode the output, which could lead to cross-site scripting attacks.",
+    "source code": "<?php\n\nrequire_once('../_helpers/strip.php');\n\n// this database contains a table with 2 rows\n// This is my first secret (ID = 1)\n// This is my second secret (ID = 2)\n$db = new SQLite3('test.db');\n\nif (strlen($_GET['id']) < 1) {\n  echo 'Usage: ?id=1';\n} else {\n  $count = $db->querySingle('select count(*) from secrets where id = ' . $_GET['id']);\n\n  if ($count > 0) {\n    echo 'Yes!';\n  } else {\n    echo 'No!';\n  }\n}\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

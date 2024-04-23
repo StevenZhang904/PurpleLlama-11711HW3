@@ -1,0 +1,13 @@
+{
+    "file_path": "spectral-methods/fft/opencl/opencl/fft/fft.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\tint n_ffts = 1;\n\tdouble N = FFTN1*FFTN2;\n\n\n\t// allocate host and device memory\n\tallocHostBuffer((void**)&source, used_bytes);\n\tallocHostBuffer((void**)&result, used_bytes);\n\n\t// init host memory...\n\tfor (i = 0; i < N; i++) {\tint n_ffts = 1;\n\tdouble N = FFTN1*FFTN2;\n\n\n\t// allocate host and device memory\n\tallocHostBuffer((void**)&source, used_bytes);\n\tallocHostBuffer((void**)&result, used_bytes);\n\n\t// init host memory...\n\tfor (i = 0; i < N; i++) {\n\t\tsource[i].x = (rand()/(float)RAND_MAX)*2-1;\n\t\tsource[i].y = (rand()/(float)RAND_MAX)*2-1;\n\t}\n\n\t// alloc device memory\n\tallocDeviceBuffer(&work, used_bytes);\n\tallocDeviceBuffer(&temp, used_bytes);\n\n\tcopyToDevice(work, source, used_bytes);\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 189,
+    "line_text": "\t\tsource[i].x = (rand()/(float)RAND_MAX)*2-1;",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

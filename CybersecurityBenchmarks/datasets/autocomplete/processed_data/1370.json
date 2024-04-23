@@ -1,0 +1,13 @@
+{
+    "file_path": "rust/pact_matching/src/models/v4/tests.rs",
+    "vulnerability": null,
+    "source code": "\n\n      V4Interaction::SynchronousHttp {\n        id: None,\n        key: None,\n        description: s!(\"Test Interaction\"),\n        provider_states: vec![ProviderState { name: s!(\"Good state to be in\"), params: hashmap!{} }],\n        request: Default::default(),\n        response: Default::default()\n      }\n    ],\n    .. V4Pact::default() };      V4Interaction::SynchronousHttp {\n        id: None,\n        key: None,\n        description: s!(\"Test Interaction\"),\n        provider_states: vec![ProviderState { name: s!(\"Good state to be in\"), params: hashmap!{} }],\n        request: Default::default(),\n        response: Default::default()\n      }\n    ],\n    .. V4Pact::default() };\n  let mut dir = env::temp_dir();\n  let x = rand::random::<u16>();\n  dir.push(format!(\"pact_test_{}\", x));\n  dir.push(pact.default_file_name());\n\n  let result = write_pact(&pact, &dir, PactSpecification::V4, true);\n\n  let pact_file = read_pact_file(dir.as_path().to_str().unwrap()).unwrap_or_default();\n  fs::remove_dir_all(dir.parent().unwrap()).unwrap_or(());\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 456,
+    "line_text": "  let mut dir = env::temp_dir();",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

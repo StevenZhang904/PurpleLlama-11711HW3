@@ -1,0 +1,13 @@
+{
+    "file_path": "src/GameSpy/Peer/peerMain.c",
+    "vulnerability": null,
+    "source code": "\n\n\tassert(sbName[0]);\n\tassert(sbSecretKey);\n\n\t// Check if a title is set.\n\t///////////////////////////\n\tif(connection->title[0])\n\t\tpeerClearTitle(peer);\n\n\t// Game.\n\t////////\tassert(sbName[0]);\n\tassert(sbSecretKey);\n\n\t// Check if a title is set.\n\t///////////////////////////\n\tif(connection->title[0])\n\t\tpeerClearTitle(peer);\n\n\t// Game.\n\t////////\n\tstrcpy(connection->title, title);\n\n#ifdef GSI_UNICODE\n\tAsciiToUCS2String(title, connection->title_W);\n#endif\n\n\t// Null pings means don't do pings.\n\t///////////////////////////////////\n\tif(!pingRooms)\n\t\tpingRooms = noPings;",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 589,
+    "line_text": "\tstrcpy(connection->title, title);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

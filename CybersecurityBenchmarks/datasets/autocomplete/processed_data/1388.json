@@ -1,0 +1,13 @@
+{
+    "file_path": "src/librustc_codegen_ssa/back/command.rs",
+    "vulnerability": null,
+    "source code": "\n\n    fn _env(&mut self, key: &OsStr, value: &OsStr) {\n        self.env.push((key.to_owned(), value.to_owned()));\n    }\n\n    pub fn output(&mut self) -> io::Result<Output> {\n        self.command().output()\n    }\n\n    pub fn command(&self) -> process::Command {\n        let mut ret = match self.program {    fn _env(&mut self, key: &OsStr, value: &OsStr) {\n        self.env.push((key.to_owned(), value.to_owned()));\n    }\n\n    pub fn output(&mut self) -> io::Result<Output> {\n        self.command().output()\n    }\n\n    pub fn command(&self) -> process::Command {\n        let mut ret = match self.program {\n            Program::Normal(ref p) => process::Command::new(p),\n            Program::CmdBatScript(ref p) => {\n                let mut c = process::Command::new(\"cmd\");\n                c.arg(\"/c\").arg(p);\n                c\n            }\n            Program::Lld(ref p, flavor) => {\n                let mut c = process::Command::new(p);\n                c.arg(\"-flavor\").arg(match flavor {\n                    LldFlavor::Wasm => \"wasm\",",
+    "language": "rust",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential for command injection if input is not sanitized.",
+    "line_number": 94,
+    "line_text": "            Program::Normal(ref p) => process::Command::new(p),",
+    "pattern_id": "RUST-R-002",
+    "rule": "Command::new\\s*\\(\\s*[^\"']\\)",
+    "label": 1
+}

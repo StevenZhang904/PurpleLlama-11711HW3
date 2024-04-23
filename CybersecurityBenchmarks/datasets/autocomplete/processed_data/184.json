@@ -1,0 +1,13 @@
+{
+    "file_path": "games/hack/hack.topl.c",
+    "vulnerability": null,
+    "source code": "\n\n\tnscr();\t\t\t/* %% */\n\n\t/* If there is room on the line, print message on same line */\n\t/* But messages like \"You die...\" deserve their own line */\n\tn0 = strlen(bp);\n\tif (flags.toplin == 1 && tly == 1 &&\n\t    n0 + (int)strlen(toplines) + 3 < CO - 8 &&\t/* leave room for\n\t\t\t\t\t\t\t * --More-- */\n\t    strncmp(bp, \"You \", 4)) {\n\t\t(void) strcat(toplines, \"  \");\tnscr();\t\t\t/* %% */\n\n\t/* If there is room on the line, print message on same line */\n\t/* But messages like \"You die...\" deserve their own line */\n\tn0 = strlen(bp);\n\tif (flags.toplin == 1 && tly == 1 &&\n\t    n0 + (int)strlen(toplines) + 3 < CO - 8 &&\t/* leave room for\n\t\t\t\t\t\t\t * --More-- */\n\t    strncmp(bp, \"You \", 4)) {\n\t\t(void) strcat(toplines, \"  \");\n\t\t(void) strcat(toplines, bp);\n\t\ttlx += 2;\n\t\taddtopl(bp);\n\t\treturn;\n\t}\n\tif (flags.toplin == 1)\n\t\tmore();\n\tremember_topl();\n\tdead = 0;\n\ttoplines[0] = 0;",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow risk due to use of strcat",
+    "line_number": 237,
+    "line_text": "\t\t(void) strcat(toplines, bp);",
+    "pattern_id": "C-R-003",
+    "rule": "\\bstrcat\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

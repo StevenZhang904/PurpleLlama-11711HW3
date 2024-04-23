@@ -1,0 +1,13 @@
+{
+    "file_path": "wine-1.7.7/dlls/wininet/http.c",
+    "vulnerability": null,
+    "source code": "\n\n    LPCWSTR *req;\n    UINT i;\n\n    static const WCHAR szSpace[] = { ' ',0 };\n    static const WCHAR szColon[] = { ':',' ',0 };\n    static const WCHAR szCr[] = { '\\r',0 };\n    static const WCHAR szLf[] = { '\\n',0 };\n\n    /* allocate space for an array of all the string pointers to be added */\n    len = (request->nCustHeaders)*5 + 10;    LPCWSTR *req;\n    UINT i;\n\n    static const WCHAR szSpace[] = { ' ',0 };\n    static const WCHAR szColon[] = { ':',' ',0 };\n    static const WCHAR szCr[] = { '\\r',0 };\n    static const WCHAR szLf[] = { '\\n',0 };\n\n    /* allocate space for an array of all the string pointers to be added */\n    len = (request->nCustHeaders)*5 + 10;\n    req = heap_alloc(len*sizeof(LPCWSTR));\n\n    /* add the verb, path and HTTP version string */\n    n = 0;\n    req[n++] = verb;\n    req[n++] = szSpace;\n    req[n++] = path;\n    req[n++] = szSpace;\n    req[n++] = version;\n    if (use_cr)",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 652,
+    "line_text": "    req = heap_alloc(len*sizeof(LPCWSTR));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

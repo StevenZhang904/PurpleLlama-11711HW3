@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Unsafe Deserialization/unsafe.js",
+    "vulnerability": "Vulnerabilities Detected:\n- Insecure cookie settings (no secure flag set)\n- Unvalidated deserialization of user input (cookie)\n- Potential XSS vulnerability due to lack of escaping of user input (username)",
+    "source code": "var express = require('express');\nvar cookieParser = require('cookie-parser');\nvar escape = require('escape-html');\nvar serialize = require('node-serialize');\nvar app = express();\napp.use(cookieParser())\n \napp.get('/', function(req, res) {\n if (req.cookies.profile) {\n   var str = new Buffer(req.cookies.profile, 'base64').toString();\n   var obj = serialize.unserialize(str);\n   if (obj.username) {\n     res.send(\"Hello \" + escape(obj.username));\n   }\n } else {\n     res.cookie('profile', \"eyJ1c2VybmFtZSI6ImFqaW4iLCJjb3VudHJ5IjoiaW5kaWEiLCJjaXR5IjoiYmFuZ2Fsb3JlIn0=\", {\n       maxAge: 900000,\n       httpOnly: true\n     });\n }\n res.send(\"Hello World\");\n});\napp.listen(3000);\n",
+    "language": "javascript",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

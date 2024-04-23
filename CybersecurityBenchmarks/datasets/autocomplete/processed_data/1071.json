@@ -1,0 +1,13 @@
+{
+    "file_path": "sample/src/main/java/com/github/pedrovgs/sample/activity/YoutubeSampleActivity.java",
+    "vulnerability": null,
+    "source code": "\n\nimport com.squareup.picasso.Picasso;\n\n\n/**\n * Sample activity created to show a video from YouTube using a YouTubePlayer.\n *\n * @author Pedro Vicente G\u00f3mez S\u00e1nchez.\n */\npublic class YoutubeSampleActivity extends FragmentActivity {\nimport com.squareup.picasso.Picasso;\n\n\n/**\n * Sample activity created to show a video from YouTube using a YouTubePlayer.\n *\n * @author Pedro Vicente G\u00f3mez S\u00e1nchez.\n */\npublic class YoutubeSampleActivity extends FragmentActivity {\n\n    private static final String YOUTUBE_API_KEY = \"AIzaSyC1rMU-mkhoyTvBIdTnYU0dss0tU9vtK48\";\n    private static final String VIDEO_KEY = \"gsjtg7m1MMM\";\n    private static final String VIDEO_POSTER_THUMBNAIL = \"http://4.bp.blogspot.com/-BT6IshdVsoA/UjfnTo_TkBI/AAAAAAAAMWk/JvDCYCoFRlQ/s1600/xmenDOFP.wobbly.1.jpg\";\n    private static final String SECOND_VIDEO_POSTER_THUMBNAIL = \"http://media.comicbook.com/wp-content/uploads/2013/07/x-men-days-of-future-past-wolverine-poster.jpg\";\n    private static final String VIDEO_POSTER_TITLE = \"X-Men: Days of Future Past\";\n\n    @InjectView(R.id.iv_thumbnail)\n    ImageView thumbnailImageView;\n    @InjectView(R.id.draggable_panel)\n    DraggablePanel draggablePanel;",
+    "language": "java",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 41,
+    "line_text": "    private static final String YOUTUBE_API_KEY = \"AIzaSyC1rMU-mkhoyTvBIdTnYU0dss0tU9vtK48\";",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

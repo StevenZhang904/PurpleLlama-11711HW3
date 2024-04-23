@@ -1,0 +1,13 @@
+{
+    "file_path": "registration/models.py",
+    "vulnerability": null,
+    "source code": "\n\n        ``User``, and return the ``RegistrationProfile``.\n\n        The activation key for the ``RegistrationProfile`` will be a\n        SHA1 hash, generated from a combination of the ``User``'s\n        username and a random salt.\n\n        \"\"\"\n        User = get_user_model()\n        username = str(getattr(user, User.USERNAME_FIELD))\n        hash_input = (get_random_string(5) + username).encode('utf-8')        ``User``, and return the ``RegistrationProfile``.\n\n        The activation key for the ``RegistrationProfile`` will be a\n        SHA1 hash, generated from a combination of the ``User``'s\n        username and a random salt.\n\n        \"\"\"\n        User = get_user_model()\n        username = str(getattr(user, User.USERNAME_FIELD))\n        hash_input = (get_random_string(5) + username).encode('utf-8')\n        activation_key = hashlib.sha1(hash_input).hexdigest()\n        return self.create(user=user,\n                           activation_key=activation_key)\n\n    @transaction.atomic\n    def delete_expired_users(self):\n        \"\"\"\n        Remove expired instances of ``RegistrationProfile`` and their\n        associated ``User``s.\n",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 120,
+    "line_text": "        activation_key = hashlib.sha1(hash_input).hexdigest()",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

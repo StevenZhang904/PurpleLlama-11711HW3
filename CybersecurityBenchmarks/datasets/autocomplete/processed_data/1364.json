@@ -1,0 +1,13 @@
+{
+    "file_path": "examples/rep.rs",
+    "vulnerability": null,
+    "source code": "\n\n    ])\n}\n\nfn main() {\n    let args: Vec<u64> = std::env::args().skip(1).map(|id| id.parse().unwrap()).collect();\n    assert!(args.len() == 2);\n    let rep_id = 0xFEDC;\n    let reply_channel_id = args[0];\n    let req_channel_id = args[1];\n    let timeout_secs = 10; //channel times out in 10 secs    ])\n}\n\nfn main() {\n    let args: Vec<u64> = std::env::args().skip(1).map(|id| id.parse().unwrap()).collect();\n    assert!(args.len() == 2);\n    let rep_id = 0xFEDC;\n    let reply_channel_id = args[0];\n    let req_channel_id = args[1];\n    let timeout_secs = 10; //channel times out in 10 secs\n    let tmp_dir = std::env::temp_dir().join(\"kekbit\").join(\"req_rep\");\n    let max_msg_size = 1024;\n    let metadata = Metadata::new(\n        rep_id,\n        reply_channel_id,\n        max_msg_size * 1000,\n        max_msg_size,\n        timeout_secs,\n        Secs,\n    );",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 34,
+    "line_text": "    let tmp_dir = std::env::temp_dir().join(\"kekbit\").join(\"req_rep\");",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

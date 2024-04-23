@@ -1,0 +1,13 @@
+{
+    "file_path": "core/src/core.cpp",
+    "vulnerability": null,
+    "source code": "\n\n  dst->feature_size = feature_size;\n  dst->n_leafs = n_leafs;\n\n  int grid_capacity = octree_num_blocks(dst);\n  if(dst->grid_capacity < grid_capacity) {\n    dst->grid_capacity = grid_capacity;\n\n    if(dst->trees != 0) {\n      delete[] dst->trees;\n    }  dst->feature_size = feature_size;\n  dst->n_leafs = n_leafs;\n\n  int grid_capacity = octree_num_blocks(dst);\n  if(dst->grid_capacity < grid_capacity) {\n    dst->grid_capacity = grid_capacity;\n\n    if(dst->trees != 0) {\n      delete[] dst->trees;\n    }\n    dst->trees = new ot_tree_t[grid_capacity * N_TREE_INTS];\n\n    if(dst->prefix_leafs != 0) {\n      delete[] dst->prefix_leafs;\n    }\n    dst->prefix_leafs = new ot_size_t[grid_capacity];\n  }\n\n  int data_capacity = n_leafs * feature_size;\n  if(dst->data_capacity < data_capacity) {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 276,
+    "line_text": "    dst->trees = new ot_tree_t[grid_capacity * N_TREE_INTS];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

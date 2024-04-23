@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Users/UsersController.php",
+    "vulnerability": null,
+    "source code": "\n\n\n           $res = $this->users->setupTable($table);\n\n        // Add some users \n        $now = date(DATE_RFC2822);\n \n        $this->users->create([\n            'acronym' => 'admin',\n            'email' => 'admin@dbwebb.se',\n            'name' => 'Administrator',\n           $res = $this->users->setupTable($table);\n\n        // Add some users \n        $now = date(DATE_RFC2822);\n \n        $this->users->create([\n            'acronym' => 'admin',\n            'email' => 'admin@dbwebb.se',\n            'name' => 'Administrator',\n            'password' => password_hash('admin', PASSWORD_DEFAULT),\n            'created' => $now,\n            'active' => $now,\n        ]);\n\n        $this->users->create([\n            'acronym' => 'doe',\n            'email' => 'doe@dbwebb.se',\n            'name' => 'John/Jane Doe',\n            'password' => password_hash('doe', PASSWORD_DEFAULT),",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 86,
+    "line_text": "            'password' => password_hash('admin', PASSWORD_DEFAULT),",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

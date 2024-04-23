@@ -1,0 +1,13 @@
+{
+    "file_path": "main/common/flash.c",
+    "vulnerability": null,
+    "source code": "\n\n\t\t */\n\t\tif ((sector == first_sector_of_device) && (!strcmp(range,\"any\"))) {\n\t\t\tif (showflashtype(fdev->id,0) < 0)\n\t\t\t\treturn(-1);\n\t\t\tprintf(\" Bank width  : %d\\n\",fdev->width);\n\t\t\tprintf(\" Sectors     : %d\\n\",fdev->sectorcnt);\n\t\t\tprintf(\" Base addr   : 0x%08lx\\n\",(ulong)(fdev->base));\n\t\t\thdrprinted = 0;\n\n\t\t\tif (devrange == 0) {\t\t */\n\t\tif ((sector == first_sector_of_device) && (!strcmp(range,\"any\"))) {\n\t\t\tif (showflashtype(fdev->id,0) < 0)\n\t\t\t\treturn(-1);\n\t\t\tprintf(\" Bank width  : %d\\n\",fdev->width);\n\t\t\tprintf(\" Sectors     : %d\\n\",fdev->sectorcnt);\n\t\t\tprintf(\" Base addr   : 0x%08lx\\n\",(ulong)(fdev->base));\n\t\t\thdrprinted = 0;\n\n\t\t\tif (devrange == 0) {\n\t\t\t\tsprintf(varname,\"FLASH_BASE_%d\",devtot);\n\t\t\t\tshell_sprintf(varname,\"0x%lx\",(ulong)(fdev->base));\n\t\t\t\tsprintf(varname,\"FLASH_SCNT_%d\",devtot);\n\t\t\t\tshell_sprintf(varname,\"%d\",fdev->sectorcnt);\n\t\t\t\tsprintf(varname,\"FLASH_END_%d\",devtot);\n\t\t\t\tshell_sprintf(varname,\"0x%lx\",(ulong)(fdev->end));\n\t\t\t}\n\t\t\tdevtot++;\n\t\t}\n",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 197,
+    "line_text": "\t\t\t\tsprintf(varname,\"FLASH_BASE_%d\",devtot);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

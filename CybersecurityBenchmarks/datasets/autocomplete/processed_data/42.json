@@ -1,0 +1,13 @@
+{
+    "file_path": "leash/src/gdbserver/gdbserver.c",
+    "vulnerability": null,
+    "source code": "\n\n    //do the transmission\n    uint8_t checksum = 0;\n    gdb_helpers_PutChar('$');\n    for(int i=0; packet_data[i] != 0; i++){\n        gdb_helpers_PutChar(packet_data[i]);\n        checksum += packet_data[i];\n    }\n    gdb_helpers_PutChar('#');\n    //put the checksum\n    char chksm_nibbles[3];    //do the transmission\n    uint8_t checksum = 0;\n    gdb_helpers_PutChar('$');\n    for(int i=0; packet_data[i] != 0; i++){\n        gdb_helpers_PutChar(packet_data[i]);\n        checksum += packet_data[i];\n    }\n    gdb_helpers_PutChar('#');\n    //put the checksum\n    char chksm_nibbles[3];\n    sprintf(chksm_nibbles, \"%02X\", checksum);\n    gdb_helpers_PutChar(chksm_nibbles[0]);\n    gdb_helpers_PutChar(chksm_nibbles[1]);\n\n    //update state\n    gdbserver_state.awaiting_ack = 1;\n    //log the packet\n    LOG(LOG_VERBOSE, \"%sTX: %s\", gdbserver_log_prefix, packet_data);\n\n    return;",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 284,
+    "line_text": "    sprintf(chksm_nibbles, \"%02X\", checksum);",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

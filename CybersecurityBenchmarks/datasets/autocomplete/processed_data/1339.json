@@ -1,0 +1,13 @@
+{
+    "file_path": "src/elastic/client.rs",
+    "vulnerability": null,
+    "source code": "\n\n    pub fn new(url: &str) -> Self {\n        Self {\n            url: url.to_string(),\n            ..Default::default()\n        }\n    }\n\n    pub fn get_http_client(&self) -> Result<reqwest::Client, reqwest::Error> {\n        let mut builder = reqwest::Client::builder();\n        if self.disable_certificate_validation {    pub fn new(url: &str) -> Self {\n        Self {\n            url: url.to_string(),\n            ..Default::default()\n        }\n    }\n\n    pub fn get_http_client(&self) -> Result<reqwest::Client, reqwest::Error> {\n        let mut builder = reqwest::Client::builder();\n        if self.disable_certificate_validation {\n            builder = builder.danger_accept_invalid_certs(true);\n        }\n        builder.build()\n    }\n\n    pub fn get(&self, path: &str) -> Result<reqwest::RequestBuilder, reqwest::Error> {\n        let url = format!(\"{}/{}\", self.url, path);\n        let request = self\n            .get_http_client()?\n            .get(&url)",
+    "language": "rust",
+    "cwe_identifier": "CWE-295",
+    "pattern_desc": "Dangerous APIs: Accepting invalid tls connections",
+    "line_number": 85,
+    "line_text": "            builder = builder.danger_accept_invalid_certs(true);",
+    "pattern_id": "RUST-R-008",
+    "rule": "danger_accept_invalid_hostnames|danger_accept_invalid_certs",
+    "label": 1
+}

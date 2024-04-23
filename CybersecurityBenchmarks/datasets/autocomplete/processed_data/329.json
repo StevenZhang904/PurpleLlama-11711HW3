@@ -1,0 +1,13 @@
+{
+    "file_path": "core/sqf/src/seabed/test/t208fs.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    ferr = file_mon_process_startup(!client);  // system messages?\n    TEST_CHK_FEOK(ferr);\n    ferr = msg_mon_get_my_process_name(my_name, BUFSIZ);\n    util_check(\"msg_mon_get_my_process_name\", ferr);\n\n    if (client) {\n        ferr = BFILE_OPEN_((char *) \"$SRV\", 4, &filenum,\n                           0, 0, 0, 0, 0, 0, 0, NULL);\n        TEST_CHK_FEOK(ferr);\n        for (inx = 0; inx < loop; inx++) {    ferr = file_mon_process_startup(!client);  // system messages?\n    TEST_CHK_FEOK(ferr);\n    ferr = msg_mon_get_my_process_name(my_name, BUFSIZ);\n    util_check(\"msg_mon_get_my_process_name\", ferr);\n\n    if (client) {\n        ferr = BFILE_OPEN_((char *) \"$SRV\", 4, &filenum,\n                           0, 0, 0, 0, 0, 0, 0, NULL);\n        TEST_CHK_FEOK(ferr);\n        for (inx = 0; inx < loop; inx++) {\n            sprintf(send_buffer, \"hello, greetings from %s, inx=%d\",\n                    my_name, inx);\n            bcc = BWRITEREADX(filenum,\n                              send_buffer,\n                              (short) strlen(send_buffer) + 1,\n                              BUFSIZ,\n                              &count_read,\n                              0,\n                              (inx + 1));\n            TEST_CHK_BCCEQ(bcc);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 82,
+    "line_text": "            sprintf(send_buffer, \"hello, greetings from %s, inx=%d\",",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "app/src/base/UsersController/UsersController.php",
+    "vulnerability": null,
+    "source code": "\n\n\n        $acronym = ucfirst($acronym);\n        $password = (isset($password)) ? $password : $acronym;\n        $now = date('Y-m-d H:i:s');\n\n\n        $this->users->create([\n            'acronym ' => $acronym,\n            'email' => $acronym.'@mail.se',\n            'name' => $acronym.' '.$acronym.'son',\n        $acronym = ucfirst($acronym);\n        $password = (isset($password)) ? $password : $acronym;\n        $now = date('Y-m-d H:i:s');\n\n\n        $this->users->create([\n            'acronym ' => $acronym,\n            'email' => $acronym.'@mail.se',\n            'name' => $acronym.' '.$acronym.'son',\n            'password' => password_hash($password, PASSWORD_DEFAULT),\n            'created' => $now,\n            'active' => $now,\n          ]\n        );\n    }\n\n    public function addAction()\n    {\n        $this->theme->setTitle('Add user');",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 233,
+    "line_text": "            'password' => password_hash($password, PASSWORD_DEFAULT),",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

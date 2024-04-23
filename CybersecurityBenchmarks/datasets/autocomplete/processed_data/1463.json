@@ -1,0 +1,13 @@
+{
+    "file_path": "src/console.php",
+    "vulnerability": null,
+    "source code": "\n\n    })\n;\n\n$console\n    ->register('doctrine:schema:load')\n    ->setDescription('Load schema')\n    ->setCode(function (InputInterface $input, OutputInterface $output) use ($app) {\n        $schema = require __DIR__.'/../resources/db/schema.php';\n\n        foreach ($schema->toSql($app['db']->getDatabasePlatform()) as $sql) {    })\n;\n\n$console\n    ->register('doctrine:schema:load')\n    ->setDescription('Load schema')\n    ->setCode(function (InputInterface $input, OutputInterface $output) use ($app) {\n        $schema = require __DIR__.'/../resources/db/schema.php';\n\n        foreach ($schema->toSql($app['db']->getDatabasePlatform()) as $sql) {\n            $app['db']->exec($sql.';');\n        }\n    })\n;\n\n$console\n    ->register('doctrine:database:drop')\n    ->setName('doctrine:database:drop')\n    ->setDescription('Drops the configured databases')\n    ->addOption('connection', null, InputOption::VALUE_OPTIONAL, 'The connection to use for this command')",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 67,
+    "line_text": "            $app['db']->exec($sql.';');",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

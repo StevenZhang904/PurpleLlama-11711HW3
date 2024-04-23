@@ -1,0 +1,13 @@
+{
+    "file_path": "src/bin/tee.rs",
+    "vulnerability": null,
+    "source code": "\n\n    /// Flushes each writer.\n    fn flush(&mut self) -> Result<()> {\n        for w in &mut self.writers {\n            w.flush()?\n        }\n        Ok(())\n    }\n}\n\nfn main() {    /// Flushes each writer.\n    fn flush(&mut self) -> Result<()> {\n        for w in &mut self.writers {\n            w.flush()?\n        }\n        Ok(())\n    }\n}\n\nfn main() {\n    let args: Vec<_> = env::args().collect();\n\n    let prog = &args[0];\n\n    let mut tee: Tee = Tee::new();\n\n    tee.push(Box::new(io::stdout()));\n\n    for arg in args.iter().skip(1) {\n        match File::create(&arg) {",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 49,
+    "line_text": "    let args: Vec<_> = env::args().collect();",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "c/ssp/PathState.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\nvoid PCCPathState::handleSend(uint64_t packetNum) EXCLUDES(mMonitorMutex)\n{\n    struct timeval t;\n    gettimeofday(&t, NULL);\n    CBRPathState::handleSend(packetNum);\n    if (!mMonitoring) {\n        DEBUG(\"%ld.%06ld: current state = %d, begin monitoring\\n\", t.tv_sec, t.tv_usec, mState);\n        mMonitorStartTime = t;\n        srand(t.tv_usec);\nvoid PCCPathState::handleSend(uint64_t packetNum) EXCLUDES(mMonitorMutex)\n{\n    struct timeval t;\n    gettimeofday(&t, NULL);\n    CBRPathState::handleSend(packetNum);\n    if (!mMonitoring) {\n        DEBUG(\"%ld.%06ld: current state = %d, begin monitoring\\n\", t.tv_sec, t.tv_usec, mState);\n        mMonitorStartTime = t;\n        srand(t.tv_usec);\n        double x = (double)rand() / RAND_MAX; // 0 ~ 1.0\n        x /= 2.0; // 0 ~ 0.5\n        x += 1.7; // 1.7 ~ 2.2\n        mMonitorDuration = x * mSRTT;\n        if (mMonitorDuration < PCC_MIN_PACKETS * mSendInterval)\n            mMonitorDuration = PCC_MIN_PACKETS * mSendInterval;\n        mMonitorRTT = 0;\n        mMonitorReceived = 0;\n        mMonitorLost = 0;\n        mMonitoring = true;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 406,
+    "line_text": "        double x = (double)rand() / RAND_MAX; // 0 ~ 1.0",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

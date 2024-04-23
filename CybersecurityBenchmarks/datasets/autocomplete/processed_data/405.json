@@ -1,0 +1,13 @@
+{
+    "file_path": "media/filters/audio_renderer_impl_unittest.cc",
+    "vulnerability": null,
+    "source code": "\n\n  // as frames come in.\n  int ConsumeAllBufferedData() {\n    renderer_->DisableUnderflowForTesting();\n\n    int frames_read = 0;\n    int total_frames_read = 0;\n\n    const int kRequestFrames = 1024;\n    const uint32 bytes_per_frame = (decoder_->bits_per_channel() / 8) *\n        ChannelLayoutToChannelCount(decoder_->channel_layout());  // as frames come in.\n  int ConsumeAllBufferedData() {\n    renderer_->DisableUnderflowForTesting();\n\n    int frames_read = 0;\n    int total_frames_read = 0;\n\n    const int kRequestFrames = 1024;\n    const uint32 bytes_per_frame = (decoder_->bits_per_channel() / 8) *\n        ChannelLayoutToChannelCount(decoder_->channel_layout());\n    scoped_array<uint8> buffer(new uint8[kRequestFrames * bytes_per_frame]);\n\n    do {\n      TimeDelta audio_delay = TimeDelta::FromMicroseconds(\n          total_frames_read * Time::kMicrosecondsPerSecond /\n          static_cast<float>(decoder_->samples_per_second()));\n\n      frames_read = renderer_->FillBuffer(\n          buffer.get(), kRequestFrames, audio_delay.InMilliseconds());\n      total_frames_read += frames_read;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 251,
+    "line_text": "    scoped_array<uint8> buffer(new uint8[kRequestFrames * bytes_per_frame]);",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

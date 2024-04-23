@@ -1,0 +1,13 @@
+{
+    "file_path": "src/adt/stateset.c",
+    "vulnerability": null,
+    "source code": "\n\n\n\tset = *setp;\n\n\tnewlen = set->i + n;\n\tif (newlen > set->n) {\n\t\t/* need to expand */\n\t\tfsm_state_t *new;\n\t\tsize_t newcap;\n\n\t\tnewcap = (newlen < 2*set->n) ? 2*set->n : newlen;\n\tset = *setp;\n\n\tnewlen = set->i + n;\n\tif (newlen > set->n) {\n\t\t/* need to expand */\n\t\tfsm_state_t *new;\n\t\tsize_t newcap;\n\n\t\tnewcap = (newlen < 2*set->n) ? 2*set->n : newlen;\n\t\tnew = f_realloc(set->alloc, set->a, newcap * sizeof set->a[0]);\n\t\tif (new == NULL) {\n\t\t\treturn 0;\n\t\t}\n\n\t\tset->a = new;\n\t\tset->n = newcap;\n\t}\n\n\tmemcpy(&set->a[set->i], &a[0], n * sizeof a[0]);",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 337,
+    "line_text": "\t\tnew = f_realloc(set->alloc, set->a, newcap * sizeof set->a[0]);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "Helper/Generator.php",
+    "vulnerability": null,
+    "source code": "\n\n        return uniqid(mt_rand(), true);\n    }\n\n    /**\n     * Generate token.\n     *\n     * @return string\n     */\n    public static function generateToken()\n    {        return uniqid(mt_rand(), true);\n    }\n\n    /**\n     * Generate token.\n     *\n     * @return string\n     */\n    public static function generateToken()\n    {\n        return md5(uniqid(\"\", true));\n    }\n\n    /**\n     * Generate encrypted password\n     *\n     * @param $salt\n     * @param $secret\n     * @param $password\n     * @return string",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 28,
+    "line_text": "        return md5(uniqid(\"\", true));",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

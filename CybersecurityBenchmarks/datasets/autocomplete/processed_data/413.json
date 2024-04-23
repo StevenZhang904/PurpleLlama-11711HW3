@@ -1,0 +1,13 @@
+{
+    "file_path": "homework/Buchkin/08/myvector.hpp",
+    "vulnerability": null,
+    "source code": "\n\n\tif (idx >= numSize) {\n\t\tthrow std::runtime_error(\"Trying to access inexisting element\");\n\t}\n\treturn ptr[idx];\n}\n\ntemplate <class T> void\nVector<T>::push_back(const T& value)\n{\n\tif (numSize == arraySize) {\tif (idx >= numSize) {\n\t\tthrow std::runtime_error(\"Trying to access inexisting element\");\n\t}\n\treturn ptr[idx];\n}\n\ntemplate <class T> void\nVector<T>::push_back(const T& value)\n{\n\tif (numSize == arraySize) {\n\t\tstd::unique_ptr<T[]> newPtr(new T[2 * arraySize]);\n\t\tfor (size_t i = 0; i != arraySize; ++i) {\n\t\t\tnewPtr[i] = ptr[i];\n\t\t}\n\t\tptr.swap(newPtr);\n\t\tarraySize *= 2;\n\t}\n\t\n\tptr[numSize] = value;\n\t++numSize;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 52,
+    "line_text": "\t\tstd::unique_ptr<T[]> newPtr(new T[2 * arraySize]);",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

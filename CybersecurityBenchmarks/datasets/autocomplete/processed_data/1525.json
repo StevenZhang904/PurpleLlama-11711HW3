@@ -1,0 +1,13 @@
+{
+    "file_path": "app/commands/ImportBooksISBNCommand.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\tif (count($data) > 1){\n\t\t\t\t\t\t$this->info(\"Metadata discarded: \".$data[1]);\n\t\t\t\t}\n\n\n\n\n                if ($google){\n\n                    $this->info('Searching on Google '.$data[0]);\t\t\t\tif (count($data) > 1){\n\t\t\t\t\t\t$this->info(\"Metadata discarded: \".$data[1]);\n\t\t\t\t}\n\n\n\n\n                if ($google){\n\n                    $this->info('Searching on Google '.$data[0]);\n                    $search = file_get_contents(\"https://www.googleapis.com/books/v1/volumes?q=isbn:\".urlencode($data[0]).\"&key=AIzaSyABWOEVCQ83nB81klr3V_6i6XmGE9Oiz04&country=UK&maxResults=1\");\n\n                    $results = json_decode($search, true);\n\n                    //['google_book_id', 'thumbnail', 'isbn', 'name', 'condition', 'target_student_groups', 'target_course', 'price', 'quantity', 'contact_instructions', 'expires_at'];\n\n                    if (isset($results['items'][0])) {\n                        $return = $results['items'][0];\n                        $book = new Book;\n                        $book->user()->associate($responsible);",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 76,
+    "line_text": "                    $search = file_get_contents(\"https://www.googleapis.com/books/v1/volumes?q=isbn:\".urlencode($data[0]).\"&key=AIzaSyABWOEVCQ83nB81klr3V_6i6XmGE9Oiz04&country=UK&maxResults=1\");",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "kame/kame/libpcap/pcap-null.c",
+    "vulnerability": null,
+    "source code": "\n\n{\n\n\t(void)sprintf(p->errbuf, \"pcap_read: %s\", nosup);\n\treturn (-1);\n}\n\npcap_t *\npcap_open_live(char *device, int snaplen, int promisc, int to_ms, char *ebuf)\n{\n{\n\n\t(void)sprintf(p->errbuf, \"pcap_read: %s\", nosup);\n\treturn (-1);\n}\n\npcap_t *\npcap_open_live(char *device, int snaplen, int promisc, int to_ms, char *ebuf)\n{\n\n\t(void)strcpy(ebuf, nosup);\n\treturn (NULL);\n}\n\nint\npcap_setfilter(pcap_t *p, struct bpf_program *fp)\n{\n\n\tif (p->sf.rfile == NULL) {\n\t\t(void)sprintf(p->errbuf, \"pcap_setfilter: %s\", nosup);",
+    "language": "c",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 59,
+    "line_text": "\t(void)strcpy(ebuf, nosup);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

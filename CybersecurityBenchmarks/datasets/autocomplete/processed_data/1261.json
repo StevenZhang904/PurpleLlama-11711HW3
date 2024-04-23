@@ -1,0 +1,13 @@
+{
+    "file_path": "qapro-rs/src/qaenv/localenv.rs",
+    "vulnerability": null,
+    "source code": "\n\nimpl Default for DataPath {\n    fn default() -> Self {\n        Self {\n            cache: \"/data/\".to_owned(),\n            cachestart: \"\".to_string(),\n            cacheend: \"\".to_string(),\n        }\n    }\n}\npub fn new_config() -> Config {impl Default for DataPath {\n    fn default() -> Self {\n        Self {\n            cache: \"/data/\".to_owned(),\n            cachestart: \"\".to_string(),\n            cacheend: \"\".to_string(),\n        }\n    }\n}\npub fn new_config() -> Config {\n    let _args: Vec<String> = env::args().collect();\n\n    let cfg: Config = parse_config_from_cli_args(&parse_cli_args());\n    cfg\n}\n\nlazy_static! {\n    pub static ref CONFIG: Config = new_config();\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 237,
+    "line_text": "    let _args: Vec<String> = env::args().collect();",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "deps/libgdal/gdal/ogr/ogrsf_frmts/geojson/ogrgeojsonwriter.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\nstatic int\nOGR_json_double_with_significant_figures_to_string( struct json_object *jso,\n                                                    struct printbuf *pb,\n                                                    int /* level */,\n                                                    int /* flags */)\n{\n    char szBuffer[75] = {};\n    int nSize = 0;\n    if( CPLIsNan(json_object_get_double(jso)))\nstatic int\nOGR_json_double_with_significant_figures_to_string( struct json_object *jso,\n                                                    struct printbuf *pb,\n                                                    int /* level */,\n                                                    int /* flags */)\n{\n    char szBuffer[75] = {};\n    int nSize = 0;\n    if( CPLIsNan(json_object_get_double(jso)))\n        nSize = CPLsnprintf(szBuffer, sizeof(szBuffer), \"NaN\");\n    else if( CPLIsInf(json_object_get_double(jso)) )\n    {\n        if( json_object_get_double(jso) > 0 )\n            nSize = CPLsnprintf(szBuffer, sizeof(szBuffer), \"Infinity\");\n        else\n            nSize = CPLsnprintf(szBuffer, sizeof(szBuffer), \"-Infinity\");\n    }\n    else\n    {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential out of bounds access due to improper validation of return values of .*snprintf.* functions",
+    "line_number": 1530,
+    "line_text": "        nSize = CPLsnprintf(szBuffer, sizeof(szBuffer), \"NaN\");",
+    "pattern_id": "C-W-003",
+    "rule": "{ $ret = $snprintf_family($b); not: $ret < _;  _($b + $ret);}",
+    "label": 1
+}

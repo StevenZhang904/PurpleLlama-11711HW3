@@ -1,0 +1,13 @@
+{
+    "file_path": "libjl777/plugins/common/console777.c",
+    "vulnerability": null,
+    "source code": "\n\n\n#ifndef crypto777_console777_h\n#define DEFINES_ONLY\n#include \"console777.c\"\n#undef DEFINES_ONLY\n#endif\n\nint32_t getline777(char *line,int32_t max)\n{\n#ifndef _WIN32\n#ifndef crypto777_console777_h\n#define DEFINES_ONLY\n#include \"console777.c\"\n#undef DEFINES_ONLY\n#endif\n\nint32_t getline777(char *line,int32_t max)\n{\n#ifndef _WIN32\n    static char prevline[1024];\n    struct timeval timeout;\n    fd_set fdset;\n    int32_t s;\n    line[0] = 0;\n    FD_ZERO(&fdset);\n    FD_SET(STDIN_FILENO,&fdset);\n    timeout.tv_sec = 0, timeout.tv_usec = 10000;\n    if ( (s= select(1,&fdset,NULL,NULL,&timeout)) < 0 )\n        fprintf(stderr,\"wait_for_input: error select s.%d\\n\",s);",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 36,
+    "line_text": "    static char prevline[1024];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}

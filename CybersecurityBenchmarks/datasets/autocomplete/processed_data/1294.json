@@ -1,0 +1,13 @@
+{
+    "file_path": "crates/cargo-test-support/src/paths.rs",
+    "vulnerability": null,
+    "source code": "\n\nuse std::io::{self, ErrorKind};\nuse std::path::{Path, PathBuf};\nuse std::process::Command;\nuse std::sync::atomic::{AtomicUsize, Ordering};\nuse std::sync::Mutex;\n\nstatic CARGO_INTEGRATION_TEST_DIR: &str = \"cit\";\n\nlazy_static! {\n    static ref GLOBAL_ROOT: PathBuf = {use std::io::{self, ErrorKind};\nuse std::path::{Path, PathBuf};\nuse std::process::Command;\nuse std::sync::atomic::{AtomicUsize, Ordering};\nuse std::sync::Mutex;\n\nstatic CARGO_INTEGRATION_TEST_DIR: &str = \"cit\";\n\nlazy_static! {\n    static ref GLOBAL_ROOT: PathBuf = {\n        let mut path = t!(env::current_exe());\n        path.pop(); // chop off exe name\n        path.pop(); // chop off 'debug'\n\n        // If `cargo test` is run manually then our path looks like\n        // `target/debug/foo`, in which case our `path` is already pointing at\n        // `target`. If, however, `cargo test --target $target` is used then the\n        // output is `target/$target/debug/foo`, so our path is pointing at\n        // `target/$target`. Here we conditionally pop the `$target` name.\n        if path.file_name().and_then(|s| s.to_str()) != Some(\"target\") {",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "This can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 18,
+    "line_text": "        let mut path = t!(env::current_exe());",
+    "pattern_id": "RUST-R-006",
+    "rule": "current_exe\\(\\)",
+    "label": 1
+}

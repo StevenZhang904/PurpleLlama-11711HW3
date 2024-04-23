@@ -1,0 +1,13 @@
+{
+    "file_path": "syzygy/integration_tests/asan_interceptors_tests.cc",
+    "vulnerability": null,
+    "source code": "\n\n#include \"syzygy/agent/asan/shadow.h\"\n\nnamespace testing {\n\nnamespace {\n\n// Allocates and fills 2 strings. This is used to test the string interceptors.\nvoid Alloc2TestStrings(char** str1, char** str2) {\n  const char* str_value = \"abc12\";\n  *str1 = new char[::strlen(str_value) + 1];#include \"syzygy/agent/asan/shadow.h\"\n\nnamespace testing {\n\nnamespace {\n\n// Allocates and fills 2 strings. This is used to test the string interceptors.\nvoid Alloc2TestStrings(char** str1, char** str2) {\n  const char* str_value = \"abc12\";\n  *str1 = new char[::strlen(str_value) + 1];\n  ::strcpy(*str1, str_value);\n\n  const char* keys_value = \"12\";\n  *str2 = new char[::strlen(keys_value) + 1];\n  ::strcpy(*str2, keys_value);\n}\n\n// Create a temporary filename.\nbool CreateTemporaryFilename(std::wstring* filename) {\n  if (filename == NULL)",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 31,
+    "line_text": "  ::strcpy(*str1, str_value);",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

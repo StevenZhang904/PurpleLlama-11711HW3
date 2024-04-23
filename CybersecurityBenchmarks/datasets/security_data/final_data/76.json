@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Denial Of Service/example2.c",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unvalidated input: The user input is not being validated, which could lead to a buffer overflow attack.\n2. Insecure use of sleep(): The sleep() function is being used with user-supplied input, which could lead to a denial of service attack.",
+    "source code": "int i;\nchar inLine[64];\ncin >> inLine;\ni = atoi (inLine);\nsleep(i);\n",
+    "language": "c",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

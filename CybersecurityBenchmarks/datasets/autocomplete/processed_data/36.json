@@ -1,0 +1,13 @@
+{
+    "file_path": "src/http/ngx_http_request.c",
+    "vulnerability": null,
+    "source code": "\n\n\n    if (ngx_list_init(&r->headers_out.headers, r->pool, 20,\n                      sizeof(ngx_table_elt_t))\n        != NGX_OK)\n    {\n        ngx_destroy_pool(r->pool);\n        ngx_http_close_connection(c);\n        return;\n    }\n\n    if (ngx_list_init(&r->headers_out.headers, r->pool, 20,\n                      sizeof(ngx_table_elt_t))\n        != NGX_OK)\n    {\n        ngx_destroy_pool(r->pool);\n        ngx_http_close_connection(c);\n        return;\n    }\n\n    r->ctx = ngx_pcalloc(r->pool, sizeof(void *) * ngx_http_max_module);\n    if (r->ctx == NULL) {\n        ngx_destroy_pool(r->pool);\n        ngx_http_close_connection(c);\n        return;\n    }\n\n    cmcf = ngx_http_get_module_main_conf(r, ngx_http_core_module);\n\n    r->variables = ngx_pcalloc(r->pool, cmcf->variables.nelts",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 469,
+    "line_text": "    r->ctx = ngx_pcalloc(r->pool, sizeof(void *) * ngx_http_max_module);",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

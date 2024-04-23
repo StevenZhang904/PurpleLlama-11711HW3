@@ -1,0 +1,13 @@
+{
+    "file_path": "tensorflow/contrib/lite/testing/tflite_driver.cc",
+    "vulnerability": null,
+    "source code": "\n\n public:\n  Expectation() {\n    data_.raw = nullptr;\n    num_elements_ = 0;\n  }\n  ~Expectation() { delete[] data_.raw; }\n  template <typename T>\n  void SetData(const string& csv_values) {\n    const auto& values = testing::Split<T>(csv_values, \",\");\n    num_elements_ = values.size(); public:\n  Expectation() {\n    data_.raw = nullptr;\n    num_elements_ = 0;\n  }\n  ~Expectation() { delete[] data_.raw; }\n  template <typename T>\n  void SetData(const string& csv_values) {\n    const auto& values = testing::Split<T>(csv_values, \",\");\n    num_elements_ = values.size();\n    data_.raw = new char[num_elements_ * sizeof(T)];\n    SetTensorData(values, &data_);\n  }\n\n  bool Check(bool verbose, const TfLiteTensor& tensor) {\n    switch (tensor.type) {\n      case kTfLiteFloat32:\n        return TypedCheck<float>(verbose, tensor);\n      case kTfLiteInt32:\n        return TypedCheck<int32_t>(verbose, tensor);",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 73,
+    "line_text": "    data_.raw = new char[num_elements_ * sizeof(T)];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

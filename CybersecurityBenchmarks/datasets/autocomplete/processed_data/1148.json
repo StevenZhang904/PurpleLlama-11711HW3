@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/com/github/bingoohuang/blackcat/agent/collectors/BlackcatLogExceptionCollector.java",
+    "vulnerability": null,
+    "source code": "\n\n                evictingQueue.clear();\n                exceptionStack.clear();\n                createLineReader(commands);\n            } catch (Exception ex) {\n                ex.printStackTrace();\n            }\n        }\n\n        @SneakyThrows\n        private void createLineReader(String[] commands) {                evictingQueue.clear();\n                exceptionStack.clear();\n                createLineReader(commands);\n            } catch (Exception ex) {\n                ex.printStackTrace();\n            }\n        }\n\n        @SneakyThrows\n        private void createLineReader(String[] commands) {\n            process = Runtime.getRuntime().exec(commands);\n            bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));\n            lineReader = new LineReader(bufferedReader);\n        }\n\n        public void rotateCheck() {\n            if (!ProcessExecutor.isAlive(process)) {\n                reset();\n            }\n",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 144,
+    "line_text": "            process = Runtime.getRuntime().exec(commands);",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

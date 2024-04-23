@@ -1,0 +1,13 @@
+{
+    "file_path": "application/views/welcome_message.php",
+    "vulnerability": null,
+    "source code": "\n\n      <?php } ?>\n      <hr />\n      Power by <a href=\"https://github.com/tony1223/\" target=\"_blank\">TonyQ</a>, <a href=\"https://github.com/tony1223/mapfiddle\" target=\"_blank\"> fork the project </a>\n    </div>\n  </div>\n\n\n  <script src=\"https://unpkg.com/leaflet@0.7.7/dist/leaflet.js\"></script>\n  <script   src=\"https://code.jquery.com/jquery-2.2.4.min.js\"   integrity=\"sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=\"   crossorigin=\"anonymous\"></script> \n        <?php } ?>\n      <hr />\n      Power by <a href=\"https://github.com/tony1223/\" target=\"_blank\">TonyQ</a>, <a href=\"https://github.com/tony1223/mapfiddle\" target=\"_blank\"> fork the project </a>\n    </div>\n  </div>\n\n\n  <script src=\"https://unpkg.com/leaflet@0.7.7/dist/leaflet.js\"></script>\n  <script   src=\"https://code.jquery.com/jquery-2.2.4.min.js\"   integrity=\"sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=\"   crossorigin=\"anonymous\"></script> \n  \n   <script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyBSIFJslwcgjr4ttFgt0TX3KSG6sqLkzY8\"\n        ></script>\n  <script src=\"<?=base_url(\"js/google_tile.js\")?>\"></script>\n\n  <script>\n\n    var map = {\n      map:null,\n      type: window.type,\n      mode:null,",
+    "language": "php",
+    "cwe_identifier": "CWE-798",
+    "pattern_desc": "GCP API Key",
+    "line_number": 87,
+    "line_text": "   <script src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyBSIFJslwcgjr4ttFgt0TX3KSG6sqLkzY8\"",
+    "pattern_id": "ALL-R-011",
+    "rule": "AIza[0-9A-Za-z-_]{35}",
+    "label": 1
+}

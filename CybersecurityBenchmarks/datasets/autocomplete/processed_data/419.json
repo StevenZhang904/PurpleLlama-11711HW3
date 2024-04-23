@@ -1,0 +1,13 @@
+{
+    "file_path": "matCUDA lib/src/cusolverOperations.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\tTElement max_lambda;\n\n\t\t// define interval of eigenvalues of T\n\t\t// interval is [-max_lambda,max_lambda]\n\t\tmax_lambda = ( N - 1 )*( N + 2 ) + N*( N + 1 )/8 + 0.25;\n\t\n\t\t// amount of nonzero elements of T\n\t\tnnz = 3*N - 2;\n\n\t\t// allocate host memory\t\tTElement max_lambda;\n\n\t\t// define interval of eigenvalues of T\n\t\t// interval is [-max_lambda,max_lambda]\n\t\tmax_lambda = ( N - 1 )*( N + 2 ) + N*( N + 1 )/8 + 0.25;\n\t\n\t\t// amount of nonzero elements of T\n\t\tnnz = 3*N - 2;\n\n\t\t// allocate host memory\n\t\th_cooRowIndex = new int[ nnz*sizeof( int ) ];\n\t\th_cooColIndex = new int[ nnz*sizeof( int ) ];\n\t\th_cooVal = new TElement[ nnz*sizeof( TElement ) ];\n\t\th_eigenvector0 = new TElement[ N*sizeof( TElement ) ];\n\n\t\t// fill in vectors that describe T as a sparse matrix\n\t\tint counter = 0;\n\t\tfor (int i = 0; i < N; i++ ) {\n\t\t\tfor( int j = 0; j < N; j++ ) {\n\t\t\t\tif( T[ i ][ j ] != 0 ) {",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 509,
+    "line_text": "\t\th_cooRowIndex = new int[ nnz*sizeof( int ) ];",
+    "pattern_id": "CPP-W-001",
+    "rule": "{ not: $x < _; new _[$x * _]; }",
+    "label": 1
+}

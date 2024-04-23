@@ -1,0 +1,13 @@
+{
+    "file_path": "contrib/native/client/example/querySubmitter.cpp",
+    "vulnerability": null,
+    "source code": "\n\n        }\n    }else{\n        std::cerr<< \"ERROR: \" << err->msg << std::endl;\n        return Drill::QRY_FAILURE;\n    }\n}\n\nvoid print(const Drill::FieldMetadata* pFieldMetadata, void* buf, size_t sz){\n    common::MinorType type = pFieldMetadata->getMinorType();\n    common::DataMode mode = pFieldMetadata->getDataMode();        }\n    }else{\n        std::cerr<< \"ERROR: \" << err->msg << std::endl;\n        return Drill::QRY_FAILURE;\n    }\n}\n\nvoid print(const Drill::FieldMetadata* pFieldMetadata, void* buf, size_t sz){\n    common::MinorType type = pFieldMetadata->getMinorType();\n    common::DataMode mode = pFieldMetadata->getDataMode();\n    unsigned char printBuffer[10240];\n    memset(printBuffer, 0, sizeof(printBuffer));\n    switch (type) {\n        case common::BIGINT:\n            switch (mode) {\n                case common::DM_REQUIRED:\n                    sprintf((char*)printBuffer, \"%lld\", *(uint64_t*)buf);\n                case common::DM_OPTIONAL:\n                    break;\n                case common::DM_REPEATED:",
+    "language": "cpp",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to memcpy that write to a stack buffer",
+    "line_number": 80,
+    "line_text": "    unsigned char printBuffer[10240];",
+    "pattern_id": "C-W-013",
+    "rule": "{ _ $buf[_]; not: $len < _; $func($buf, _, $len); }",
+    "label": 1
+}

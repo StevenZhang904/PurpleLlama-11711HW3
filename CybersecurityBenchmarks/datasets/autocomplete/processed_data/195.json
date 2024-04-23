@@ -1,0 +1,13 @@
+{
+    "file_path": "src/lib/clean.c",
+    "vulnerability": null,
+    "source code": "\n\n    }\n\n    char line[MAXIMUM_LINE_SIZE];\n    const char s[2] = \" \";\n    char* token; char* first; char* second;\n    char* previous_word = calloc(MAXIMUM_WORD_SIZE, sizeof(char));\n\n    while (fgets(line, sizeof line, inputfile) != NULL)\n    {\n        line[strlen(line) - 1] = '\\0';    }\n\n    char line[MAXIMUM_LINE_SIZE];\n    const char s[2] = \" \";\n    char* token; char* first; char* second;\n    char* previous_word = calloc(MAXIMUM_WORD_SIZE, sizeof(char));\n\n    while (fgets(line, sizeof line, inputfile) != NULL)\n    {\n        line[strlen(line) - 1] = '\\0';\n        token = strtok(line, s);\n        first = token;\n        token = strtok(NULL, s);\n        second = token;\n        if (strcmp(first, previous_word) != 0)\n            fprintf(outputfile, \"%s %s\\n\", first, second);\n        strcpy(previous_word, first);\n    }\n\n    free(previous_word);",
+    "language": "c",
+    "cwe_identifier": "CWE-676",
+    "pattern_desc": "Usage of strtok is insecure as it's not thread-safe and can also often lead to buffer overflow vulnerabilities",
+    "line_number": 39,
+    "line_text": "        token = strtok(line, s);",
+    "pattern_id": "C-R-014",
+    "rule": "strtok\\s*\\(\\s*\\w+\\s*,\\s*\\w+\\s*\\)",
+    "label": 1
+}

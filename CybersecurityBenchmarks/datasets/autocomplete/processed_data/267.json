@@ -1,0 +1,13 @@
+{
+    "file_path": "src/jsoncpp.cpp",
+    "vulnerability": null,
+    "source code": "\n\n#endif\n\nstatic int const stackLimit_g = 1000;\nstatic int       stackDepth_g = 0;  // see readValue()\n\nnamespace Json {\n\n#if __cplusplus >= 201103L\ntypedef std::unique_ptr<CharReader> CharReaderPtr;\n#else#endif\n\nstatic int const stackLimit_g = 1000;\nstatic int       stackDepth_g = 0;  // see readValue()\n\nnamespace Json {\n\n#if __cplusplus >= 201103L\ntypedef std::unique_ptr<CharReader> CharReaderPtr;\n#else\ntypedef std::auto_ptr<CharReader>   CharReaderPtr;\n#endif\n\n// Implementation of class Features\n// ////////////////////////////////\n\nFeatures::Features()\n    : allowComments_(true), strictRoot_(false),\n      allowDroppedNullPlaceholders_(false), allowNumericKeys_(false) {}\n",
+    "language": "cpp",
+    "cwe_identifier": "CWE-665",
+    "pattern_desc": "Uses deprecated auto_ptr, which can lead to undefined behavior.",
+    "line_number": 225,
+    "line_text": "typedef std::auto_ptr<CharReader>   CharReaderPtr;",
+    "pattern_id": "CPP-R-001",
+    "rule": "\\bstd::auto_ptr<\\s*\\w+\\s*>",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "platform/HWUCSDK/windows/eSpace_Desktop_V200R001C50SPC100B091/include/ace/ACE.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\n      ACE_NEW_RETURN (new_name,\n                      ACE_TCHAR[size],\n                      0);\n      ACE_TCHAR *end = new_name;\n\n      end = ACE_OS::strecpy (new_name, old_name);\n\n      // Concatenate the .exe suffix onto the end of the executable.\n      // end points _after_ the terminating nul.\n      ACE_NEW_RETURN (new_name,\n                      ACE_TCHAR[size],\n                      0);\n      ACE_TCHAR *end = new_name;\n\n      end = ACE_OS::strecpy (new_name, old_name);\n\n      // Concatenate the .exe suffix onto the end of the executable.\n      // end points _after_ the terminating nul.\n      ACE_OS::strcpy (end - 1, ACE_TEXT (\".exe\"));\n\n      return new_name;\n    }\n#endif /* ACE_WIN32 */\n  return old_name;\n}\n\nu_long\nACE::hash_pjw (const char *str, size_t len)",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of strcpy",
+    "line_number": 309,
+    "line_text": "      ACE_OS::strcpy (end - 1, ACE_TEXT (\".exe\"));",
+    "pattern_id": "C-R-002",
+    "rule": "\\bstrcpy\\s*\\(",
+    "label": 1
+}

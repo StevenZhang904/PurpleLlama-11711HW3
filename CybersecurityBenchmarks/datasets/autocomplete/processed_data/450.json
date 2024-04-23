@@ -1,0 +1,13 @@
+{
+    "file_path": "vendor/Cinder/include/asio/detail/wince_thread.hpp",
+    "vulnerability": null,
+    "source code": "\n\nDWORD WINAPI wince_thread_function(LPVOID arg);\n\nclass wince_thread\n  : private noncopyable\n{\npublic:\n  // Constructor.\n  template <typename Function>\n  wince_thread(Function f, unsigned int = 0)\n  {DWORD WINAPI wince_thread_function(LPVOID arg);\n\nclass wince_thread\n  : private noncopyable\n{\npublic:\n  // Constructor.\n  template <typename Function>\n  wince_thread(Function f, unsigned int = 0)\n  {\n    std::auto_ptr<func_base> arg(new func<Function>(f));\n    DWORD thread_id = 0;\n    thread_ = ::CreateThread(0, 0, wince_thread_function,\n        arg.get(), 0, &thread_id);\n    if (!thread_)\n    {\n      DWORD last_error = ::GetLastError();\n      asio::error_code ec(last_error,\n          asio::error::get_system_category());\n      asio::detail::throw_error(ec, \"thread\");",
+    "language": "cpp",
+    "cwe_identifier": "CWE-665",
+    "pattern_desc": "Uses deprecated auto_ptr, which can lead to undefined behavior.",
+    "line_number": 43,
+    "line_text": "    std::auto_ptr<func_base> arg(new func<Function>(f));",
+    "pattern_id": "CPP-R-001",
+    "rule": "\\bstd::auto_ptr<\\s*\\w+\\s*>",
+    "label": 1
+}

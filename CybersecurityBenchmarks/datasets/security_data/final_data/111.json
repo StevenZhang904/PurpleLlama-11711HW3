@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Insecure File Uploads/example2.php",
+    "vulnerability": "Vulnerabilities Detected:\n1. Lack of input validation: The code does not check for malicious file types or content.\n2. Lack of file size validation: The code does not check for file size limits.\n3. Lack of error handling: The code does not handle errors gracefully.",
+    "source code": "<?php\n\n// Is it an image?\nif( ( $uploaded_type == \"image/jpeg\" || $uploaded_type == \"image/png\" ) &&\n\t\t( $uploaded_size < 100000 ) ) {\n\n\t\t// Can we move the file to the upload folder?\n\t\tif( !move_uploaded_file( $_FILES[ 'uploaded' ][ 'tmp_name' ], $target_path ) ) {\n\t\t\t// No\n\t\t\t$html .= '<pre>Your image was not uploaded.</pre>';\n\t\t}\n\t\telse {\n\t\t\t// Yes!\n\t\t\t$html .= \"<pre>{$target_path} succesfully uploaded!</pre>\";\n\t\t}\n\t}\nelse {\n\t// Invalid file\n\t$html .= '<pre>Your image was not uploaded. We can only accept JPEG or PNG images.</pre>';\n}\n?>\n",
+    "language": "php",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

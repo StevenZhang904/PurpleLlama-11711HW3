@@ -1,0 +1,13 @@
+{
+    "file_path": "application/controllers/Slokas.php",
+    "vulnerability": null,
+    "source code": "\n\n    {\n        $this->load->view('header');        \n        $slok_id=$this->uri->segment(3);         \n        $this->data['slokas_details']=  array_shift($this->Slokas_model->get_slokas_details($slok_id));                    \n        $this->load->view('Slokas/edit',$this->data);\n        $this->load->view('footer');\n    }\n    \n    public function disable()\n    {    {\n        $this->load->view('header');        \n        $slok_id=$this->uri->segment(3);         \n        $this->data['slokas_details']=  array_shift($this->Slokas_model->get_slokas_details($slok_id));                    \n        $this->load->view('Slokas/edit',$this->data);\n        $this->load->view('footer');\n    }\n    \n    public function disable()\n    {\n        ini_set(\"display_errors\", \"on\");\n        $this->load->view('header');        \n        $slok_id=$this->uri->segment(3);   \n       // $update_array=array(\"status\"=>\"N\",\"updated_datetime\"=>date(\"Y-m-d H:i:s\"));                                \n         $update_array=array(\"status\"=>\"N\");                                \n        $where=array(\"sid\"=>$slok_id);\n        $this->db->where($where);\n        \n        if($this->db->update('slokas_master', $update_array))\n        {",
+    "language": "php",
+    "cwe_identifier": "CWE-200",
+    "pattern_desc": "Potential exposure of sensitive information through error messages",
+    "line_number": 209,
+    "line_text": "        ini_set(\"display_errors\", \"on\");",
+    "pattern_id": "PHP-R-014",
+    "rule": "\\b(error_reporting|ini_set)\\s*\\(\\s*['\"]display_errors['\"],\\s*['\"]on['\"]\\s*\\)",
+    "label": 1
+}

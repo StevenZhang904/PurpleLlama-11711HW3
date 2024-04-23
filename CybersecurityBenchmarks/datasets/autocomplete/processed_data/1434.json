@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/Composer/Test/InstallerTest.php",
+    "vulnerability": null,
+    "source code": "\n\n            $actualLock = array();\n            $lockJsonMock->expects($this->atLeastOnce())\n                ->method('write')\n                ->will($this->returnCallback(function ($hash, $options) use (&$actualLock) {\n                    // need to do assertion outside of mock for nice phpunit output\n                    // so store value temporarily in reference for later assetion\n                    $actualLock = $hash;\n                }));\n        }\n            $actualLock = array();\n            $lockJsonMock->expects($this->atLeastOnce())\n                ->method('write')\n                ->will($this->returnCallback(function ($hash, $options) use (&$actualLock) {\n                    // need to do assertion outside of mock for nice phpunit output\n                    // so store value temporarily in reference for later assetion\n                    $actualLock = $hash;\n                }));\n        }\n\n        $locker = new Locker($lockJsonMock, $repositoryManager, $composer->getInstallationManager(), md5(json_encode($composerConfig)));\n        $composer->setLocker($locker);\n\n        $autoloadGenerator = $this->getMock('Composer\\Autoload\\AutoloadGenerator');\n\n        $installer = Installer::create(\n            $io,\n            $composer,\n            null,\n            $autoloadGenerator",
+    "language": "php",
+    "cwe_identifier": "CWE-327",
+    "pattern_desc": "Use of a Broken or Risky Cryptographic Algorithm",
+    "line_number": 184,
+    "line_text": "        $locker = new Locker($lockJsonMock, $repositoryManager, $composer->getInstallationManager(), md5(json_encode($composerConfig)));",
+    "pattern_id": "PHP-R-015",
+    "rule": "\\b(md5|sha1)\\s*\\(",
+    "label": 1
+}

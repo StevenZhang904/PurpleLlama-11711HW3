@@ -1,0 +1,13 @@
+{
+    "file_path": "src/main/java/org/crepi22/finecrop/Rotate.java",
+    "vulnerability": null,
+    "source code": "\n\n                continuation.showEffect(true);\n                File rotatedImageFile = File.createTempFile(\"rotated\", \".jpg\");;     //$NON-NLS-1$ //$NON-NLS-2$\n                String[] command = new String[] {\n                        Config.getConvertPath(),\n                        \"-rotate\", //$NON-NLS-1$\n                        String.format(\"%.2f\", -angle), //$NON-NLS-1$\n                        photo.getPath(),\n                        rotatedImageFile.getAbsolutePath()\n                };\n                                continuation.showEffect(true);\n                File rotatedImageFile = File.createTempFile(\"rotated\", \".jpg\");;     //$NON-NLS-1$ //$NON-NLS-2$\n                String[] command = new String[] {\n                        Config.getConvertPath(),\n                        \"-rotate\", //$NON-NLS-1$\n                        String.format(\"%.2f\", -angle), //$NON-NLS-1$\n                        photo.getPath(),\n                        rotatedImageFile.getAbsolutePath()\n                };\n                \n                Process p = Runtime.getRuntime().exec(command);\n                int exit = p.waitFor();\n                if (exit == 0) {\n                    continuation.runFile(rotatedImageFile);\n                } else {\n                    continuation.error(String.format(Messages.getString(\"Rotate.command_error\"),exit, Arrays.toString(command))); //$NON-NLS-1$\n                }\n            } catch (Exception e) {\n                continuation.error(e.getMessage());\n            } finally {",
+    "language": "java",
+    "cwe_identifier": "CWE-78",
+    "pattern_desc": "Potential command injection if unsanitized input is sent to Runtime.exec() method",
+    "line_number": 41,
+    "line_text": "                Process p = Runtime.getRuntime().exec(command);",
+    "pattern_id": "JAVA-R-030",
+    "rule": "Runtime\\.getRuntime\\(\\)(.*)?\\.exec\\s*\\(",
+    "label": 1
+}

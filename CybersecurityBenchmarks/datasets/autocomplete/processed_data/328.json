@@ -1,0 +1,13 @@
+{
+    "file_path": "lulyon/1094/8342920_TLE.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t\t\t\tedge[i][j]=0;\r\n\t\t\t}\r\n\t\t}\r\n\t\t\r\n\t\tfor(int i=0; i<n; ++i){\r\n\t\t\tcnt[i]=0;\r\n\t\t}\r\n\t\t\r\n\t\tbool done=0;\r\n\t\tfor(int i=1; i<=m; ++i){\r\t\t\t\tedge[i][j]=0;\r\n\t\t\t}\r\n\t\t}\r\n\t\t\r\n\t\tfor(int i=0; i<n; ++i){\r\n\t\t\tcnt[i]=0;\r\n\t\t}\r\n\t\t\r\n\t\tbool done=0;\r\n\t\tfor(int i=1; i<=m; ++i){\r\n\t\t\tscanf(\"%s\",str);\r\n\t\t\tif(done==1)continue;\r\n\t\t\t\r\n\t\t\tedge[str[0]-'A'][str[2]-'A']=1;\r\n\t\t\t\r\n\t\t\tfor(int j=0;j<n; ++j){\r\n\t\t\t\tvisited[j]=0;\r\n\t\t\t}\r\n\t\t\thavecircle=0;\r\n\t\t\tcheckcircle(str[0]-'A',n);\r",
+    "language": "cpp",
+    "cwe_identifier": "CWE-119",
+    "pattern_desc": "Potential buffer overflow due to insecure usage of scanf",
+    "line_number": 68,
+    "line_text": "\t\t\tscanf(\"%s\",str);\r",
+    "pattern_id": "C-R-001",
+    "rule": "\\bscanf\\s*\\(\\s*\"[^\"]*%s[^\"]*\"[^)]*\\)",
+    "label": 1
+}

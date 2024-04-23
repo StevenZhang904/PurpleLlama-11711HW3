@@ -1,0 +1,13 @@
+{
+    "file_path": "IFR_Log.php",
+    "vulnerability": null,
+    "source code": "\n\n\t\t$time = self::getTime()-self::$_start;\n\t\t$mem = memory_get_usage();\n\t\tself::log('[Stop] [Exec-time:'.$time.'s] [Mem:'.$mem.'b]');\n\n\t\tif(self::$_flags & self::ENABLE_COLLECT_SERVER)\n\t\t{\n\t\t\t$data = 'data='.base64_encode(serialize(array(\n\t\t\t\t'time'=>$time\n\t\t\t\t,'mem'=>$mem\n\t\t\t\t,'SERVER_ADDR'=>$_SERVER['SERVER_ADDR']\t\t$time = self::getTime()-self::$_start;\n\t\t$mem = memory_get_usage();\n\t\tself::log('[Stop] [Exec-time:'.$time.'s] [Mem:'.$mem.'b]');\n\n\t\tif(self::$_flags & self::ENABLE_COLLECT_SERVER)\n\t\t{\n\t\t\t$data = 'data='.base64_encode(serialize(array(\n\t\t\t\t'time'=>$time\n\t\t\t\t,'mem'=>$mem\n\t\t\t\t,'SERVER_ADDR'=>$_SERVER['SERVER_ADDR']\n\t\t\t\t,'REMOTE_ADDR'=>$_SERVER['REMOTE_ADDR']\n\t\t\t\t,'HTTP_HOST'=>$_SERVER['HTTP_HOST']\n\t\t\t\t,'REQUEST_URI'=>$_SERVER['REQUEST_URI']\n\t\t\t\t,'QUERY_STRING'=>$_SERVER['QUERY_STRING']\n\t\t\t\t,'SCRIPT_FILENAME'=>$_SERVER['SCRIPT_FILENAME']\n\t\t\t\t,'SERVER'=>$_SERVER\n\t\t\t\t,'POST'=>$_POST\n\t\t\t\t,'GET'=>$_GET\n\t\t\t\t,'COOKIE'=>$_COOKIE\n\t\t\t)));",
+    "language": "php",
+    "cwe_identifier": "CWE-290",
+    "pattern_desc": "Authentication Bypass by Spoofing",
+    "line_number": 141,
+    "line_text": "\t\t\t\t,'REMOTE_ADDR'=>$_SERVER['REMOTE_ADDR']",
+    "pattern_id": "PHP-R-024",
+    "rule": "\\$_(SERVER|ENV)\\b\\[\\s*['\"]REMOTE_(ADDR|HOST)['\"]\\s*\\]",
+    "label": 1
+}

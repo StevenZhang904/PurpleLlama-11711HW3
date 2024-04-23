@@ -1,0 +1,13 @@
+{
+    "file_path": "csl/cslbase/doxtract.cpp",
+    "vulnerability": null,
+    "source code": "\n\n    return std::strcmp(s1->alphakey, s2->alphakey);\n}\n\nstatic section *sort_sections(section *s)\n{   PAD;\n    section *s1;\n    int i = 0;\n    section **v;\n    if (s == nullptr) return nullptr;\n    for (s1=s; s1!=nullptr; s1=s1->next) i++;    return std::strcmp(s1->alphakey, s2->alphakey);\n}\n\nstatic section *sort_sections(section *s)\n{   PAD;\n    section *s1;\n    int i = 0;\n    section **v;\n    if (s == nullptr) return nullptr;\n    for (s1=s; s1!=nullptr; s1=s1->next) i++;\n    v = (section **)std::malloc(i*sizeof(section *));\n    if (v == nullptr)\n    {   std::printf(\"malloc failure\\n\");\n        std::exit(1);\n    }\n    i = 0;\n    for (s1=s; s1!=nullptr; s1=s1->next) v[i++] = s1;\n    std::qsort(v, i, sizeof(v[0]), compare_sections);\n    s1 = nullptr;\n    while (i > 0)",
+    "language": "cpp",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 816,
+    "line_text": "    v = (section **)std::malloc(i*sizeof(section *));",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "2015/day15/src/main.rs",
+    "vulnerability": null,
+    "source code": "\n\nmod recipe;\n\nuse ingredient::Ingredient;\nuse recipe::Recipe;\n\nuse std::env;\nuse std::fs::File;\nuse std::io::{BufRead, BufReader};\n\nfn main() {mod recipe;\n\nuse ingredient::Ingredient;\nuse recipe::Recipe;\n\nuse std::env;\nuse std::fs::File;\nuse std::io::{BufRead, BufReader};\n\nfn main() {\n    let filename = env::args().nth(1).expect(\"Must supply a filename\");\n\n    println!(\"{}\", solve_part_one(&filename));\n    println!(\"{}\", solve_part_two(&filename));\n}\n\nfn solve_part_one(filename: &str) -> u32 {\n    solve(filename, &|_| true)\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 15,
+    "line_text": "    let filename = env::args().nth(1).expect(\"Must supply a filename\");",
+    "pattern_id": "RUST-R-005",
+    "rule": "args\\(\\)",
+    "label": 1
+}

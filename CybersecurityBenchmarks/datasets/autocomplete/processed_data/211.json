@@ -1,0 +1,13 @@
+{
+    "file_path": "demos/mqtt/mqtt_demo_plaintext/mqtt_demo_plaintext.c",
+    "vulnerability": null,
+    "source code": "\n\n * ACK failure. Uses an exponential backoff strategy with jitter.\n *\n * @param[in] pMqttContext MQTT context pointer.\n */\nstatic int handleResubscribe( MQTTContext_t * pMqttContext );\n\n/*-----------------------------------------------------------*/\n\nstatic uint32_t generateRandomNumber()\n{ * ACK failure. Uses an exponential backoff strategy with jitter.\n *\n * @param[in] pMqttContext MQTT context pointer.\n */\nstatic int handleResubscribe( MQTTContext_t * pMqttContext );\n\n/*-----------------------------------------------------------*/\n\nstatic uint32_t generateRandomNumber()\n{\n    return( rand() );\n}\n\n/*-----------------------------------------------------------*/\nstatic int connectToServerWithBackoffRetries( NetworkContext_t * pNetworkContext,\n                                              MQTTContext_t * pMqttContext )\n{\n    int returnStatus = EXIT_FAILURE;\n    BackoffAlgorithmStatus_t backoffAlgStatus = BackoffAlgorithmSuccess;\n    SocketStatus_t socketStatus = SOCKETS_SUCCESS;",
+    "language": "c",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 346,
+    "line_text": "    return( rand() );",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

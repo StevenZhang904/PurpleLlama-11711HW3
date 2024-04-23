@@ -1,0 +1,13 @@
+{
+    "file_path": "tests/test_dupefilters.py",
+    "vulnerability": null,
+    "source code": "\n\n        dupefilter.open()\n\n        assert not dupefilter.request_seen(r1)\n        assert not dupefilter.request_seen(r2)\n\n        dupefilter.close('finished')\n\n        class CaseInsensitiveRFPDupeFilter(RFPDupeFilter):\n\n            def request_fingerprint(self, request):        dupefilter.open()\n\n        assert not dupefilter.request_seen(r1)\n        assert not dupefilter.request_seen(r2)\n\n        dupefilter.close('finished')\n\n        class CaseInsensitiveRFPDupeFilter(RFPDupeFilter):\n\n            def request_fingerprint(self, request):\n                fp = hashlib.sha1()\n                fp.update(to_bytes(request.url.lower()))\n                return fp.hexdigest()\n\n        case_insensitive_dupefilter = CaseInsensitiveRFPDupeFilter()\n        case_insensitive_dupefilter.open()\n\n        assert not case_insensitive_dupefilter.request_seen(r1)\n        assert case_insensitive_dupefilter.request_seen(r2)\n",
+    "language": "python",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "The SHA1 hash function is considered insecure. Avoid using it unless explicitly needed for compatibility reasons",
+    "line_number": 126,
+    "line_text": "                fp = hashlib.sha1()",
+    "pattern_id": "PY-R-004",
+    "rule": "\\bhashlib\\.sha1\\(",
+    "label": 1
+}

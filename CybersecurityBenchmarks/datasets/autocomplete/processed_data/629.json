@@ -1,0 +1,13 @@
+{
+    "file_path": "src/source/System.XML/Test/System.Xml/XsdValidatingReaderTests.cs",
+    "vulnerability": null,
+    "source code": "\n\n\n#if NET_2_0\n\t\t[Test]\n\t\tpublic void Bug81460 ()\n\t\t{\n\t\t\tstring xsd = \"<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'><xs:element name='foo'><xs:complexType><xs:attribute name='a' default='x' /></xs:complexType></xs:element></xs:schema>\";\n\t\t\tstring xml = \"<foo/>\";\n\t\t\tXmlReaderSettings s = new XmlReaderSettings ();\n\t\t\ts.ValidationType = ValidationType.Schema;\n\t\t\ts.Schemas.Add (XmlSchema.Read (new StringReader (xsd), null));\n#if NET_2_0\n\t\t[Test]\n\t\tpublic void Bug81460 ()\n\t\t{\n\t\t\tstring xsd = \"<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'><xs:element name='foo'><xs:complexType><xs:attribute name='a' default='x' /></xs:complexType></xs:element></xs:schema>\";\n\t\t\tstring xml = \"<foo/>\";\n\t\t\tXmlReaderSettings s = new XmlReaderSettings ();\n\t\t\ts.ValidationType = ValidationType.Schema;\n\t\t\ts.Schemas.Add (XmlSchema.Read (new StringReader (xsd), null));\n\t\t\tXmlReader r = XmlReader.Create (new StringReader (xml), s);\n\t\t\tr.Read ();\n\t\t\tr.MoveToFirstAttribute (); // default attribute\n\t\t\tAssert.AreEqual (String.Empty, r.Prefix);\n\t\t}\n#endif\n\n\t\t[Test]\n#if NET_2_0\n\t\t// annoyance",
+    "language": "csharp",
+    "cwe_identifier": "CWE-611",
+    "pattern_desc": "Incorrectly configured XML parser could be vulnerable to XML External Entity processing\n",
+    "line_number": 402,
+    "line_text": "\t\t\tXmlReader r = XmlReader.Create (new StringReader (xml), s);",
+    "pattern_id": "security.genai.CybersecurityBenchmarks.insecure_code_detector.internal.rules.semgrep.csharp.third-party.xxe-injection",
+    "rule": null,
+    "label": 1
+}

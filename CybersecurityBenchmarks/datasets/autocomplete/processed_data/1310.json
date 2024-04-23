@@ -1,0 +1,13 @@
+{
+    "file_path": "src/util/mod.rs",
+    "vulnerability": null,
+    "source code": "\n\n    use std::env;\n    use std::fs;\n    use std::fs::File;\n    use std::io::prelude::*;\n    use super::*;\n    use ::consts::*;\n    use ::util::ipv4::IPv4;\n\n    #[test]\n    fn test_update_etc_hosts() {    use std::env;\n    use std::fs;\n    use std::fs::File;\n    use std::io::prelude::*;\n    use super::*;\n    use ::consts::*;\n    use ::util::ipv4::IPv4;\n\n    #[test]\n    fn test_update_etc_hosts() {\n        let temp_file = env::temp_dir().join(\".test_update_etc_hosts\");\n        let mut f = File::create(&temp_file).expect(\"failed to create file\");\n        let orig1 = \"\\\n            # The following lines are desirable for IPv4 capable hosts\\n\\\n            127.0.0.1 localhost.localdomain localhost\\n\\\n            127.0.0.1 localhost4.localdomain4 localhost4\\n\\\n            # The following lines are desirable for IPv6 capable hosts\\n\\\n            ::1 test\\n\\\n            ::1 localhost.localdomain localhost\\n\\\n            ::1 localhost6.localdomain6 localhost6\\n\\",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "Creates an insecure temp dir - other processes might guess it / overwrite / change / read files.",
+    "line_number": 117,
+    "line_text": "        let temp_file = env::temp_dir().join(\".test_update_etc_hosts\");",
+    "pattern_id": "RUST-R-011",
+    "rule": "temp_dir\\(\\)",
+    "label": 1
+}

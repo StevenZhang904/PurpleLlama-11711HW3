@@ -1,0 +1,13 @@
+{
+    "file_path": "Services/CVS/CVS.php",
+    "vulnerability": null,
+    "source code": "\n\n\t{\n\t\t$fileName = $this->_getFileName($entity);\n\t\t$commitMessage = sprintf('[CMS] %s', $entity->getName());\n\n\t\t$shell = new Shell();\n\t\t$shell\n\t\t\t->put(sprintf('cd %s', $this->_repositoryPath))\n\t\t\t->put(sprintf('git reset .'))\n\t\t\t->put(sprintf('git add %s', $fileName))\n\t\t\t->put(sprintf('git commit -m \"%s\"', $commitMessage))\t{\n\t\t$fileName = $this->_getFileName($entity);\n\t\t$commitMessage = sprintf('[CMS] %s', $entity->getName());\n\n\t\t$shell = new Shell();\n\t\t$shell\n\t\t\t->put(sprintf('cd %s', $this->_repositoryPath))\n\t\t\t->put(sprintf('git reset .'))\n\t\t\t->put(sprintf('git add %s', $fileName))\n\t\t\t->put(sprintf('git commit -m \"%s\"', $commitMessage))\n\t\t\t->exec();\n\t}\n\n\tprivate function _doPush()\n\t{\n\t\t$shell = new Shell();\n\t\t$shell->put(sprintf('cd %s', $this->_repositoryPath));\n\n\t\tif (!$this->hasDivergedFromOrigin()) {\n\t\t\t$shell->put(sprintf('git push %s %s', $this->_origin, $this->_branch));",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 132,
+    "line_text": "\t\t\t->exec();",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

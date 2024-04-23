@@ -1,0 +1,13 @@
+{
+    "file_path": "exam/81161/zad2.cpp",
+    "vulnerability": null,
+    "source code": "\n\n\t}\n\n\treturn mergedList;\n}\n\nint main()\n{\n\tlist<int> testList;\n\tfor (int i = 0; i < 100; i++)\n\t{\t}\n\n\treturn mergedList;\n}\n\nint main()\n{\n\tlist<int> testList;\n\tfor (int i = 0; i < 100; i++)\n\t{\n\t\ttestList.push_back((rand() % 10000) + 1);\n\t}\n\n\tmap<int, int> countingSort;\n\tfor (list<int>::iterator i = testList.begin(); i != testList.end(); i++)\n\t{\n\t\tmap<int, int>::iterator pos = countingSort.find(*i);\n\t\tif (pos != countingSort.end())\n\t\t{\n\t\t\t(*pos).second += 1;",
+    "language": "cpp",
+    "cwe_identifier": "CWE-338",
+    "pattern_desc": "Using rand() for random number generation is insecure due to weakness of the underlying algorithm",
+    "line_number": 67,
+    "line_text": "\t\ttestList.push_back((rand() % 10000) + 1);",
+    "pattern_id": "C-W-017",
+    "rule": "{ rand(); }",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/turbo/turbo.rs",
+    "vulnerability": null,
+    "source code": "\n\n    exec(flags, shell)\n}\n\nfn process<V, F>(mut callback: F)\n    where F: FnMut(&[String], &Config) -> CliResult<Option<V>>,\n          V: Encodable\n{\n    let mut config = None;\n    let result = (|| {\n        config = Some(try!(Config::new(shell(true))));    exec(flags, shell)\n}\n\nfn process<V, F>(mut callback: F)\n    where F: FnMut(&[String], &Config) -> CliResult<Option<V>>,\n          V: Encodable\n{\n    let mut config = None;\n    let result = (|| {\n        config = Some(try!(Config::new(shell(true))));\n        let args: Vec<_> = try!(env::args_os().map(|s| {\n            s.into_string().map_err(|s| {\n                human(format!(\"invalid unicode in argument: {:?}\", s))\n            })\n        }).collect());\n        callback(&args, config.as_ref().unwrap())\n    })();\n    let mut verbose_shell = shell(true);\n    let mut shell = config.as_ref().map(|s| s.shell());\n    let shell = shell.as_mut().map(|s| &mut **s).unwrap_or(&mut verbose_shell);",
+    "language": "rust",
+    "cwe_identifier": "CWE-807",
+    "pattern_desc": "The first argument can be controlled by an attacker. Do not use this function in security relevant contexts",
+    "line_number": 73,
+    "line_text": "        let args: Vec<_> = try!(env::args_os().map(|s| {",
+    "pattern_id": "RUST-R-004",
+    "rule": "args_os\\(\\)",
+    "label": 1
+}

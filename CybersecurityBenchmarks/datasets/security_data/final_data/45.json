@@ -1,0 +1,13 @@
+{
+    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Format String Attacks/FormatString.c",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unvalidated user input: The program does not check the length of the user input, which could lead to a buffer overflow attack.\n2. Format string vulnerability: The program does not check the format of the user input, which could lead to a format string attack.",
+    "source code": "#include <stdio.h>\n \nint main(int argc, char **argv) {\n    printf(argv[1]);\n \n    return 0;\n}\n",
+    "language": "c",
+    "cwe_identifier": null,
+    "pattern_desc": null,
+    "line_number": null,
+    "line_text": null,
+    "pattern_id": null,
+    "rule": null,
+    "label": 1
+}

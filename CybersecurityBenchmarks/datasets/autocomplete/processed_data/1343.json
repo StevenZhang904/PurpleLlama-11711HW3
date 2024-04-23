@@ -1,0 +1,13 @@
+{
+    "file_path": "src/bencode/decode.rs",
+    "vulnerability": null,
+    "source code": "\n\n                            let orig = Vec::from(&bytes[original_pos..position]);\n                            let dict = BDict(peer_map, orig);\n                            map.insert(BString::from_str(\"peers\"), Bencode::BDict(dict));\n                            break;\n                        }\n                    }\n                }\n            }\n        }\n    }                            let orig = Vec::from(&bytes[original_pos..position]);\n                            let dict = BDict(peer_map, orig);\n                            map.insert(BString::from_str(\"peers\"), Bencode::BDict(dict));\n                            break;\n                        }\n                    }\n                }\n            }\n        }\n    }\n    let mut sha1 = Sha1::new();\n    sha1.update(&bytes[0..position]);\n    let hash = sha1.digest().bytes().iter().map(|&x| x).collect::<Vec<u8>>();\n    Ok(DecodeResult(BDict(map, hash), position))\n}\n",
+    "language": "rust",
+    "cwe_identifier": "CWE-328",
+    "pattern_desc": "Potential usage of weak hash functions",
+    "line_number": 226,
+    "line_text": "    let mut sha1 = Sha1::new();",
+    "pattern_id": "RUST-R-007",
+    "rule": "(Md2::new|Md4::new|Md5::new|Sha1::new)",
+    "label": 1
+}

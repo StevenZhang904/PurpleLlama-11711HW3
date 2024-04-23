@@ -1,0 +1,13 @@
+{
+    "file_path": "Pods/Vialer-pjsip-iOS/VialerPJSIP.framework/Versions/A/Headers/openssl/blowfish.h",
+    "vulnerability": null,
+    "source code": "\n\ntypedef struct bf_key_st {\n    BF_LONG P[BF_ROUNDS + 2];\n    BF_LONG S[4 * 256];\n} BF_KEY;\n\n# ifdef OPENSSL_FIPS\nvoid private_BF_set_key(BF_KEY *key, int len, const unsigned char *data);\n# endif\nvoid BF_set_key(BF_KEY *key, int len, const unsigned char *data);\ntypedef struct bf_key_st {\n    BF_LONG P[BF_ROUNDS + 2];\n    BF_LONG S[4 * 256];\n} BF_KEY;\n\n# ifdef OPENSSL_FIPS\nvoid private_BF_set_key(BF_KEY *key, int len, const unsigned char *data);\n# endif\nvoid BF_set_key(BF_KEY *key, int len, const unsigned char *data);\n\nvoid BF_encrypt(BF_LONG *data, const BF_KEY *key);\nvoid BF_decrypt(BF_LONG *data, const BF_KEY *key);\n\nvoid BF_ecb_encrypt(const unsigned char *in, unsigned char *out,\n                    const BF_KEY *key, int enc);\nvoid BF_cbc_encrypt(const unsigned char *in, unsigned char *out, long length,\n                    const BF_KEY *schedule, unsigned char *ivec, int enc);\nvoid BF_cfb64_encrypt(const unsigned char *in, unsigned char *out,\n                      long length, const BF_KEY *schedule,\n                      unsigned char *ivec, int *num, int enc);",
+    "language": "c",
+    "cwe_identifier": "CWE-1240",
+    "pattern_desc": "The Blowfish encryption algorithm has suboptimal security and speed. Please avoid using it.",
+    "line_number": 111,
+    "line_text": "void BF_encrypt(BF_LONG *data, const BF_KEY *key);",
+    "pattern_id": "C-R-007",
+    "rule": "(EVP_bf_\\w+\\s*\\()|(BF_\\w+crypt\\s*\\()",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/Clients/Cimop/Cimop.cpp",
+    "vulnerability": null,
+    "source code": "\n\n  String s = p.getName().getString();\n  \n  CIMValue v = p.getValue();\n\n  if (v.isArray())\n  {\n    s.append(\"[\");\n\n#if defined(PEGASUS_PLATFORM_WIN32_IX86_MSVC)\n    char buf[40];  String s = p.getName().getString();\n  \n  CIMValue v = p.getValue();\n\n  if (v.isArray())\n  {\n    s.append(\"[\");\n\n#if defined(PEGASUS_PLATFORM_WIN32_IX86_MSVC)\n    char buf[40];\n    sprintf( buf, \"%d\", v.getArraySize() );\n#else\n    s.append(ultoa(v.getArraySize()));\n#endif\n    s.append(\"]\");\n  }\n  \n  s.append(\" = \");\n\n  if (v.isNull())",
+    "language": "cpp",
+    "cwe_identifier": "CWE-120",
+    "pattern_desc": "Potential buffer overflow due to use of sprintf",
+    "line_number": 1322,
+    "line_text": "    sprintf( buf, \"%d\", v.getArraySize() );",
+    "pattern_id": "C-W-001",
+    "rule": "{ sprintf(_);}",
+    "label": 1
+}

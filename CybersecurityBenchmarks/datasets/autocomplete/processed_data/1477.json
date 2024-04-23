@@ -1,0 +1,13 @@
+{
+    "file_path": "app/Controller/UsersController.php",
+    "vulnerability": null,
+    "source code": "\n\n                $this->User->is_url_exist($csv_file_unique_income) &&\n                $this->User->is_url_exist($csv_file_school_education) &&\n                $this->User->is_url_exist($csv_file_work_experience)){\n                    $path = substr(APP, 0, strlen(APP) - 1);\n                    $cake_path = $path . DS . 'Console' . DS . 'cake.php';\n                    $file_shell = 'ImportCSVtoDB';\n                    $shell = \"php \\\"{$cake_path}\\\" -app {$path} {$file_shell} {$real_path}\";\n                    if (preg_match('/^win/i', PHP_OS))\n                        pclose(popen('start \"ImportCSVtoDB\" ' . $shell, \"r\"));\n                    else                $this->User->is_url_exist($csv_file_unique_income) &&\n                $this->User->is_url_exist($csv_file_school_education) &&\n                $this->User->is_url_exist($csv_file_work_experience)){\n                    $path = substr(APP, 0, strlen(APP) - 1);\n                    $cake_path = $path . DS . 'Console' . DS . 'cake.php';\n                    $file_shell = 'ImportCSVtoDB';\n                    $shell = \"php \\\"{$cake_path}\\\" -app {$path} {$file_shell} {$real_path}\";\n                    if (preg_match('/^win/i', PHP_OS))\n                        pclose(popen('start \"ImportCSVtoDB\" ' . $shell, \"r\"));\n                    else\n                        shell_exec($shell . ' > /dev/null 2>/dev/null &');                        \n                    \n                    $this->Session->setFlash(__('UAD_COMMON_MSG0003'), 'success');\n                    sleep(1);\n            } else\n                $this->Session->setFlash(__('UAD_ERR_MSG0004'), 'error');\n        } else\n            $this->Session->setFlash(__('UAD_ERR_MSG0004'), 'error');\n    } else\n        $this->Session->setFlash(__('UAD_ERR_MSG0005'), 'error');",
+    "language": "php",
+    "cwe_identifier": "CWE-862",
+    "pattern_desc": "Missing Authorization in critical function call",
+    "line_number": 78,
+    "line_text": "                        shell_exec($shell . ' > /dev/null 2>/dev/null &');                        ",
+    "pattern_id": "PHP-R-016",
+    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "label": 1
+}

@@ -1,0 +1,13 @@
+{
+    "file_path": "src/libponyrt/sched/scheduler.c",
+    "vulnerability": null,
+    "source code": "\n\n  // 1 second = 2000000000 cycles (approx.)\n  // based on same scale as ponyint_cpu_core_pause() uses\n  scheduler_suspend_threshold = thread_suspend_threshold * 1000000;\n\n  scheduler_count = threads;\n  min_scheduler_count = min_threads;\n  atomic_store_explicit(&active_scheduler_count, scheduler_count,\n    memory_order_relaxed);\n  atomic_store_explicit(&active_scheduler_count_check, scheduler_count,\n    memory_order_relaxed);  // 1 second = 2000000000 cycles (approx.)\n  // based on same scale as ponyint_cpu_core_pause() uses\n  scheduler_suspend_threshold = thread_suspend_threshold * 1000000;\n\n  scheduler_count = threads;\n  min_scheduler_count = min_threads;\n  atomic_store_explicit(&active_scheduler_count, scheduler_count,\n    memory_order_relaxed);\n  atomic_store_explicit(&active_scheduler_count_check, scheduler_count,\n    memory_order_relaxed);\n  scheduler = (scheduler_t*)ponyint_pool_alloc_size(\n    scheduler_count * sizeof(scheduler_t));\n  memset(scheduler, 0, scheduler_count * sizeof(scheduler_t));\n\n  uint32_t asio_cpu = ponyint_cpu_assign(scheduler_count, scheduler, nopin,\n    pinasio);\n\n#if !defined(PLATFORM_IS_WINDOWS) && defined(USE_SCHEDULER_SCALING_PTHREADS)\n  pthread_once(&sched_mut_once, sched_mut_init);\n#endif",
+    "language": "c",
+    "cwe_identifier": "CWE-680",
+    "pattern_desc": "Potential integer overflow may result in buffer overflow",
+    "line_number": 1017,
+    "line_text": "  scheduler = (scheduler_t*)ponyint_pool_alloc_size(",
+    "pattern_id": "C-W-004",
+    "rule": "{ not: $x < _; $buf = $mem_allocation_family($x * _); }",
+    "label": 1
+}

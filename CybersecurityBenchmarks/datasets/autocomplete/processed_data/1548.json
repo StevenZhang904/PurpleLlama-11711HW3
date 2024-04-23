@@ -1,0 +1,13 @@
+{
+    "file_path": "registerNewUser.php",
+    "vulnerability": null,
+    "source code": "\n\n<?php\ninclude 'php/password.php';\ninclude 'php/connect.php';\n\n$username = $_POST[\"userName\"];\n$email = $_POST[\"email\"];\n$password = $_POST[\"password\"];\n$password2 = $_POST[\"password_confirm\"];<?php\ninclude 'php/password.php';\ninclude 'php/connect.php';\n\n$username = $_POST[\"userName\"];\n$email = $_POST[\"email\"];\n$password = $_POST[\"password\"];\n$password2 = $_POST[\"password_confirm\"];\n$password_hash = password_hash(\"$password\", PASSWORD_DEFAULT);\n\nfunction generateRandomString($length = 40) {\n    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';\n    $randomString = '';\n    for ($i = 0; $i < $length; $i++) {\n        $randomString .= $characters[rand(0, strlen($characters) - 1)];\n    }\n    return $randomString;\n}",
+    "language": "php",
+    "cwe_identifier": "CWE-759",
+    "pattern_desc": "Use of a One-Way Hash without a Salt",
+    "line_number": 9,
+    "line_text": "$password_hash = password_hash(\"$password\", PASSWORD_DEFAULT);",
+    "pattern_id": "PHP-R-018",
+    "rule": "\\bpassword_hash\\b\\s*\\(\\s*.*\\s*,\\s*PASSWORD_DEFAULT\\s*\\)",
+    "label": 1
+}

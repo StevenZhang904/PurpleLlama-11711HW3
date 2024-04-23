@@ -1,0 +1,13 @@
+{
+    "file_path": "imap/src/c-client/pop3.c",
+    "vulnerability": null,
+    "source code": "\n\n\n\n/* POP3 mail find list of all mailboxes\n * Accepts: mail stream\n *\t    reference\n *\t    pattern to search\n */\n\nvoid pop3_list (MAILSTREAM *stream,char *ref,char *pat)\n{\n\n/* POP3 mail find list of all mailboxes\n * Accepts: mail stream\n *\t    reference\n *\t    pattern to search\n */\n\nvoid pop3_list (MAILSTREAM *stream,char *ref,char *pat)\n{\n  char tmp[MAILTMPLEN];\n  if (ref && *ref) {\t\t/* have a reference */\n    if (pop3_valid (ref) && pmatch (\"INBOX\",pat)) {\n      strcpy (strchr (strcpy (tmp,ref),'}')+1,\"INBOX\");\n      mm_list (stream,NIL,tmp,LATT_NOINFERIORS);\n    }\n  }\n  else if (mail_valid_net (pat,&pop3driver,NIL,tmp) && pmatch (\"INBOX\",tmp)) {\n    strcpy (strchr (strcpy (tmp,pat),'}')+1,\"INBOX\");\n    mm_list (stream,NIL,tmp,LATT_NOINFERIORS);",
+    "language": "c",
+    "cwe_identifier": "CWE-121",
+    "pattern_desc": "Calls to strcpy that write to a stack buffer",
+    "line_number": 243,
+    "line_text": "  char tmp[MAILTMPLEN];",
+    "pattern_id": "C-W-014",
+    "rule": "{ _ $buf[_]; not: strlen($src) < _; strcpy($buf, $src); }",
+    "label": 1
+}
