@@ -1,13 +1,31 @@
 {
-    "file_path": "security_data/gpt3_security_vulnerability_scanner-main/File Inclusion/lfi3.php",
-    "vulnerability": "No vulnerabilities detected.",
-    "source code": "<?php     include(\"../common/header.php\");   ?>\n\n<form action=\"/api/index.php\" method=\"GET\">\n    <input type=\"text\" name=\"file\">\n</form>\n\n\n<?php\nif (substr($_GET['file'], -4, 4) != '.php')\n echo file_get_contents($_GET['file']);\nelse\n echo 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'.\"\\n\";\n?>\n\n",
-    "language": "php",
-    "cwe_identifier": "CWE-918",
-    "pattern_desc": "Server-Side Request Forgery (SSRF)",
-    "line_number": 10,
-    "line_text": " echo file_get_contents($_GET['file']);",
-    "pattern_id": "PHP-R-023",
-    "rule": "\\b(?:file_get_contents|fopen|curl_exec)\\s*\\(\\s*\\$_(GET|POST|REQUEST|COOKIE)",
-    "label": 0
+  "file_path": "security_data/gpt3_security_vulnerability_scanner-main/File Inclusion/lfi3.php",
+  "vulnerability": "Vulnerabilities Detected:\n1. Server-Side Request Forgery (SSRF): This script is potentially vulnerable to SSRF if the server allows fetching data from URLs through functions like file_get_contents(). It allows fetching data based on user input without proper sanitization or restriction on the sources that can be accessed.\n2.Download of Code Without Integrity Check: This script is vulnerable to downloading and displaying code or data without verifying its integrity or authenticity. This poses a significant risk, particularly if the server is used in a context where data integrity and source authenticity are critical.",
+  "source code": "<?php     include(\"../common/header.php\");   ?>\n\n<form action=\"/api/index.php\" method=\"GET\">\n    <input type=\"text\" name=\"file\">\n</form>\n\n\n<?php\nif (substr($_GET['file'], -4, 4) != '.php')\n echo file_get_contents($_GET['file']);\nelse\n echo 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'.\"\\n\";\n?>\n\n",
+  "language": "php",
+  "cwe_identifier": [
+    "CWE-918",
+    "CWE-494"
+  ],
+  "pattern_desc": [
+    "Server-Side Request Forgery (SSRF)",
+    "Download of Code Without Integrity Check"
+  ],
+  "line_number": [
+    10,
+    10
+  ],
+  "line_text": [
+    " echo file_get_contents($_GET['file']);",
+    " echo file_get_contents($_GET['file']);"
+  ],
+  "pattern_id": [
+    "PHP-R-023",
+    "PHP-R-028"
+  ],
+  "rule": [
+    "\\b(?:file_get_contents|fopen|curl_exec)\\s*\\(\\s*\\$_(GET|POST|REQUEST|COOKIE)",
+    "\\b(file_get_contents|curl_exec)(_once)?\\s*\\(\\s*\\$_(GET|POST|REQUEST)\\s*\\[\\s*'[^']*'\\s*\\]"
+  ],
+  "label": 0
 }

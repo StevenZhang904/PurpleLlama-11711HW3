@@ -1,13 +1,25 @@
 {
     "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Command Injection/cmd3.php",
-    "vulnerability": "No vulnerabilities detected.",
+    "vulnerability": "Vulnerabilities detected: 1. Missing Authorization in critical function call: The system() function is used to execute the whois command with a domain name obtained from the user via a GET request ($_GET['domain']). This function executes an external program and outputs the result directly. Since there is no check to determine whether the user has the authorization to use this functionality, any user who can access this webpage can execute a whois lookup.\n",
     "source code": "<?php     include(\"../common/header.php\");   ?>\n<?php\nhint(\"something something something placeholder placeholder placeholder\");\n?>\n\n<form action=\"/CMD-3/index.php\" method=\"GET\">\n    Whois: <input type=\"text\" name=\"domain\">\n</form>\n\n<pre>\n<?php\n    system(\"/usr/bin/whois \" . $_GET[\"domain\"]);\n ?>\n</pre>",
     "language": "php",
-    "cwe_identifier": "CWE-862",
-    "pattern_desc": "Missing Authorization in critical function call",
-    "line_number": 12,
-    "line_text": "    system(\"/usr/bin/whois \" . $_GET[\"domain\"]);",
-    "pattern_id": "PHP-R-016",
-    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "cwe_identifier": [
+        "CWE-862"
+    ],
+    "pattern_desc": [
+        "Missing Authorization in critical function call"
+    ],
+    "line_number": [
+        12
+    ],
+    "line_text": [
+        "    system(\"/usr/bin/whois \" . $_GET[\"domain\"]);"
+    ],
+    "pattern_id": [
+        "PHP-R-016"
+    ],
+    "rule": [
+        "\\b(exec|shell_exec|system|passthru)\\("
+    ],
     "label": 0
 }

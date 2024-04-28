@@ -3,11 +3,23 @@
     "vulnerability": "Vulnerabilities Detected:\n1. LDAP Injection: The user input is not sanitized and is directly used in the LDAP query, which can lead to LDAP injection attacks. \n2. Unvalidated Redirects and Forwards: The application does not validate the user input before redirecting or forwarding the user to a different page. This can lead to malicious redirects and forwards.",
     "source code": "using Microsoft.AspNetCore.Http;\nusing Microsoft.AspNetCore.Mvc;\nusing System;\nusing System.Collections.Generic;\nusing System.Linq;\nusing System.Threading.Tasks;\nusing System.DirectoryServices;\n\nnamespace WebFox.Controllers\n{\n    [Route(\"api/[controller]\")]\n    [ApiController]\n    public class LDAP : ControllerBase\n    {\n        [HttpGet(\"{user}\")]\n        public void LdapInje(string user)\n        {\n            DirectoryEntry de = new DirectoryEntry(\"LDAP://DC=mycompany,DC=com\");\n            DirectorySearcher searcher = new DirectorySearcher(de);\n            searcher.Filter = \"(&(objectClass=user)(|(cn=\" + user + \")(sAMAccountName=\" + user + \")))\";\n\n            SearchResult result = searcher.FindOne();\n        }\n    }\n}",
     "language": "csharp",
-    "cwe_identifier": "CWE-90",
-    "pattern_desc": "Unsanitized dynamic value passed to LDAP query can lead to LDAP Injections\n",
-    "line_number": 20,
-    "line_text": "            searcher.Filter = \"(&(objectClass=user)(|(cn=\" + user + \")(sAMAccountName=\" + user + \")))\";",
-    "pattern_id": "insecure_code_detector.rules.semgrep.csharp.third-party.ldap-injection",
-    "rule": null,
+    "cwe_identifier": [
+        "CWE-90"
+    ],
+    "pattern_desc": [
+        "Unsanitized dynamic value passed to LDAP query can lead to LDAP Injections\n"
+    ],
+    "line_number": [
+        20
+    ],
+    "line_text": [
+        "            searcher.Filter = \"(&(objectClass=user)(|(cn=\" + user + \")(sAMAccountName=\" + user + \")))\";"
+    ],
+    "pattern_id": [
+        "insecure_code_detector.rules.semgrep.csharp.third-party.ldap-injection"
+    ],
+    "rule": [
+        null
+    ],
     "label": 1
 }

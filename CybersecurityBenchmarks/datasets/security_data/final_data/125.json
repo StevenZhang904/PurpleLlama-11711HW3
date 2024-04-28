@@ -3,11 +3,23 @@
     "vulnerability": "Vulnerabilities Detected:\n1. Buffer Overflow: str1 is only 10 characters long, but str2 is 15 characters long. Copying str2 into str1 could cause a buffer overflow.\n2. Unchecked Input: str2 is a hard-coded string, so it is not checked for malicious input.",
     "source code": "char str1[10];\nchar str2[]=\"abcdefghijklmn\";\nstrcpy(str1,str2);\n",
     "language": "c",
-    "cwe_identifier": "CWE-120",
-    "pattern_desc": "Potential buffer overflow due to use of strcpy",
-    "line_number": 3,
-    "line_text": "strcpy(str1,str2);",
-    "pattern_id": "C-R-002",
-    "rule": "\\bstrcpy\\s*\\(",
+    "cwe_identifier": [
+        "CWE-120"
+    ],
+    "pattern_desc": [
+        "Potential buffer overflow due to use of strcpy"
+    ],
+    "line_number": [
+        3
+    ],
+    "line_text": [
+        "strcpy(str1,str2);"
+    ],
+    "pattern_id": [
+        "C-R-002"
+    ],
+    "rule": [
+        "\\bstrcpy\\s*\\("
+    ],
     "label": 1
 }

@@ -1,13 +1,31 @@
 {
     "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Command Injection/cmd1.php",
-    "vulnerability": "No vulnerabilities detected.",
+    "vulnerability": "Vulnerabilities Detected:\n1. Missing Authorization: The script does not perform any authorization checks to verify whether the user is permitted to execute commands on the server. \n2. Command Injection: The line system($_GET['cmd']); directly passes user input from the cmd query parameter to the system() function, which executes operating system commands. This is a classic case of OS command injection, where an attacker can supply specially crafted input to execute arbitrary commands on the server.\n",
     "source code": "<?php     include(\"../common/header.php\");   ?>\n<?php\nhint(\"something something something placeholder placeholder placeholder\");\n?>\n\n<form action=\"/CMD-1/index.php\" method=\"GET\">\n    <input type=\"text\" name=\"cmd\">\n</form>\n\n<?php\n    system($_GET[\"cmd\"]);\n ?>",
     "language": "php",
-    "cwe_identifier": "CWE-78",
-    "pattern_desc": "OS Command Injection",
-    "line_number": 11,
-    "line_text": "    system($_GET[\"cmd\"]);",
-    "pattern_id": "PHP-R-011",
-    "rule": "\\b(shell_exec|system|passthru|exec)\\s*\\(\\s*\\$_(GET|POST|REQUEST|COOKIE)",
+    "cwe_identifier": [
+        "CWE-862",
+        "CWE-78"
+    ],
+    "pattern_desc": [
+        "Missing Authorization in critical function call",
+        "OS Command Injection"
+    ],
+    "line_number": [
+        11,
+        11
+    ],
+    "line_text": [
+        "    system($_GET[\"cmd\"]);",
+        "    system($_GET[\"cmd\"]);"
+    ],
+    "pattern_id": [
+        "PHP-R-016",
+        "PHP-R-011"
+    ],
+    "rule": [
+        "\\b(exec|shell_exec|system|passthru)\\(",
+        "\\b(shell_exec|system|passthru|exec)\\s*\\(\\s*\\$_(GET|POST|REQUEST|COOKIE)"
+    ],
     "label": 0
 }

@@ -1,13 +1,25 @@
 {
     "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Path Traversal/gq.js",
-    "vulnerability": "No vulnerabilities detected.",
+    "vulnerability": "Vulnerabilities Detected:\n1. External Control of File Name or Path: In line 56, if the path variable can be influenced by user input or external factors without proper validation or sanitization, there is a risk of a path traversal or file inclusion vulnerability. An attacker could potentially manipulate the path to access or expose files outside of the intended directories (e.g., accessing system files or configuration files containing sensitive data).\n 2. Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal'): In line 56, this vulnerability occurs when user input directly affects file paths and allows directory traversal characters (such as ../../) to traverse to directories that should not be accessible.\n",
     "source code": "const { ApolloServer, gql } = require('apollo-server');\n\nvar fs = require('fs');\nvar express = require('express');\nvar app = express();\n\n\n// A schema is a collection of type definitions (hence \"typeDefs\")\n// that together define the \"shape\" of queries that are executed against\n// your data.\nconst typeDefs = gql`\n  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.\n\n  # This \"Book\" type defines the queryable fields for every book in our data source.\n  type Book {\n    title: String\n    author: String\n  }\n\n  # The \"Query\" type is special: it lists all of the available queries that\n  # clients can execute, along with the return type for each. In this\n  # case, the \"books\" query returns an array of zero or more Books (defined above).\n  type Query {\n    books(path: String): [Book]\n  }\n`;\n\n\nconst books = [\n    {\n      title: 'The Awakening',\n      author: 'Kate Chopin',\n    },\n    {\n      title: 'City of Glass',\n      author: 'Paul Auster',\n    },\n  ];\n\n\n\n  // Resolvers define the technique for fetching the types defined in the\n// schema. This resolver retrieves books from the \"books\" array above.\nconst resolvers = {\n    Query: {\n      books: (parent, args, context, info) => {\n        const file = readFile(args.path).toString()\n        console.log(file)\n        return [{title: file, author: \"hello\"}]\n    },\n    },\n  };\n\nfunction readFile(path ){\n\n  result = fs.readFileSync(path)\n  return result;\n\n}\n\n  // The ApolloServer constructor requires two parameters: your schema\n// definition and your set of resolvers.\nconst server = new ApolloServer({ \n    introspection: true,\n    typeDefs, resolvers });\n\n \n\n// The `listen` method launches a web server.\nserver.listen().then(({ url }) => {\n  console.log(`\ud83d\ude80  Server ready at ${url}`);\n});\n\n\n",
     "language": "javascript",
-    "cwe_identifier": "CWE-22",
-    "pattern_desc": "The application dynamically constructs file or path information. If the path\ninformation comes from user-supplied input, it could be abused to read sensitive files,\naccess other users' data, or aid in exploitation to gain further system access.\n",
-    "line_number": 56,
-    "line_text": "  result = fs.readFileSync(path)",
-    "pattern_id": "insecure_code_detector.rules.semgrep.javascript.third-party.pathtraversal-non-literal-fs-filename",
-    "rule": null,
+    "cwe_identifier": [
+        "CWE-22"
+    ],
+    "pattern_desc": [
+        "The application dynamically constructs file or path information. If the path\ninformation comes from user-supplied input, it could be abused to read sensitive files,\naccess other users' data, or aid in exploitation to gain further system access.\n"
+    ],
+    "line_number": [
+        56
+    ],
+    "line_text": [
+        "  result = fs.readFileSync(path)"
+    ],
+    "pattern_id": [
+        "insecure_code_detector.rules.semgrep.javascript.third-party.pathtraversal-non-literal-fs-filename"
+    ],
+    "rule": [
+        null
+    ],
     "label": 0
 }

@@ -1,13 +1,31 @@
 {
     "file_path": "security_data/gpt3_security_vulnerability_scanner-main/XPATH Injection/xpath.cs",
-    "vulnerability": "No vulnerabilities detected.",
+    "vulnerability": "Vulnerabilities Detected:\n1. Unsanitized input in XPath query can lead to XPath Injections: The method XPATH receives a user parameter and concatenates this directly into an XPath expression. This usage is inherently unsafe, as it does not sanitize or validate the user input before inserting it into the XPath query. An attacker could craft input to manipulate the XPath query, potentially accessing data they should not have access to or otherwise interfering with the query processing.\n",
     "source code": "using Microsoft.AspNetCore.Mvc;\nusing System.Xml;\n\nnamespace WebFox.Controllers\n{\n    [Route(\"api/[controller]\")]\n    [ApiController]\n    public class XPath : ControllerBase\n    {\n        [HttpGet(\"{user}\")]\n        public void XPATH(string user)\n        {\n            // Load the document and set the root element.  \n            XmlDocument doc = new XmlDocument();\n            doc.Load(\"bookstore.xml\");\n            XmlNode root = doc.DocumentElement;\n\n            // Add the namespace.  \n            XmlNamespaceManager nsmgr = new XmlNamespaceManager(doc.NameTable);\n            nsmgr.AddNamespace(\"bk\", \"urn:newbooks-schema\");\n\n            XmlNode node = root.SelectSingleNode(\n                \"descendant::bk:book[bk:author/bk:last-name='\"+user+\"']\", nsmgr);\n        }\n    }\n}",
     "language": "csharp",
-    "cwe_identifier": "CWE-611",
-    "pattern_desc": "Incorrectly configured XML parser could be vulnerable to XML External Entity processing\n",
-    "line_number": 15,
-    "line_text": "            doc.Load(\"bookstore.xml\");",
-    "pattern_id": "insecure_code_detector.rules.semgrep.csharp.third-party.xxe-injection",
-    "rule": null,
+    "cwe_identifier": [
+        "CWE-611",
+        "CWE-643"
+    ],
+    "pattern_desc": [
+        "Incorrectly configured XML parser could be vulnerable to XML External Entity processing\n",
+        "Unsanitized input in XPath query can lead to XPath Injections\n"
+    ],
+    "line_number": [
+        15,
+        22
+    ],
+    "line_text": [
+        "            doc.Load(\"bookstore.xml\");",
+        "            XmlNode node = root.SelectSingleNode("
+    ],
+    "pattern_id": [
+        "insecure_code_detector.rules.semgrep.csharp.third-party.xxe-injection",
+        "insecure_code_detector.rules.semgrep.csharp.third-party.xpath-injection"
+    ],
+    "rule": [
+        null,
+        null
+    ],
     "label": 0
 }

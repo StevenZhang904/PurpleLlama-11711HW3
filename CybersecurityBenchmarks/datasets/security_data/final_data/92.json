@@ -1,13 +1,25 @@
 {
     "file_path": "security_data/gpt3_security_vulnerability_scanner-main/Command Injection/cmd4.php",
-    "vulnerability": "No vulnerabilities detected.",
+    "vulnerability": "Vulnerabilities detected. 1. Missing Authorization in critical function call: The system() function is used to execute the whois command with a domain name obtained via a POST request ($_POST['domain']). This function executes an external program and outputs the result directly to the output stream of the PHP script. Since there is no check to determine whether the user has the authorization to use this functionality, any user who can access this webpage can execute a whois lookup. This could potentially be abused if, for instance, the functionality is intended only for certain users or roles.\n",
     "source code": "<?php     include(\"../common/header.php\");   ?>\n<?php  hint(\"something something something placeholder placeholder placeholder\"); ?>\n\n<form action=\"/CMD-4/index.php\" method=\"POST\">\n    <input type=\"text\" name=\"domain\">\n</form>\n\n<pre>\n<?php\n    system(\"whois \" . $_POST[\"domain\"]);\n ?>\n</pre>",
     "language": "php",
-    "cwe_identifier": "CWE-862",
-    "pattern_desc": "Missing Authorization in critical function call",
-    "line_number": 10,
-    "line_text": "    system(\"whois \" . $_POST[\"domain\"]);",
-    "pattern_id": "PHP-R-016",
-    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "cwe_identifier": [
+        "CWE-862"
+    ],
+    "pattern_desc": [
+        "Missing Authorization in critical function call"
+    ],
+    "line_number": [
+        10
+    ],
+    "line_text": [
+        "    system(\"whois \" . $_POST[\"domain\"]);"
+    ],
+    "pattern_id": [
+        "PHP-R-016"
+    ],
+    "rule": [
+        "\\b(exec|shell_exec|system|passthru)\\("
+    ],
     "label": 0
 }

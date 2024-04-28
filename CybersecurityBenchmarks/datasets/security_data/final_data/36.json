@@ -1,13 +1,25 @@
 {
     "file_path": "security_data/gpt3_security_vulnerability_scanner-main/File Inclusion/lfi11.php",
-    "vulnerability": "No vulnerabilities detected.",
+    "vulnerability": "Vulnerabilities detected: 1.Path Traversal :The code uses the include() function with $_POST['stylepath'] directly as the parameter. This function includes and executes a specified PHP file. Because there is no apparent validation or sanitization of the stylepath POST parameter, an attacker could potentially manipulate this parameter to include files they shouldn't have access to, such as configuration files, source code, logs, etc.\n",
     "source code": "<?php     include(\"../common/header.php\");   ?>\n\n<form action=\"/api/index.php\" method=\"POST\">\n    <input type=\"text\" name=\"file\">\n    <input type=\"hidden\" name=\"style\" name=\"stylepath\">\n</form>\n\n<?php include($_POST['stylepath']); ?>\n",
     "language": "php",
-    "cwe_identifier": "CWE-22",
-    "pattern_desc": "Path Traversal",
-    "line_number": 8,
-    "line_text": "<?php include($_POST['stylepath']); ?>",
-    "pattern_id": "PHP-R-021",
-    "rule": "\\b(?:include|require)\\s*\\(\\s*\\$_(GET|POST|REQUEST|COOKIE|SESSION)\\s*\\[\\s*['\"](?:[^'\"]*)['\"]\\s*\\]",
+    "cwe_identifier": [
+        "CWE-22"
+    ],
+    "pattern_desc": [
+        "Path Traversal"
+    ],
+    "line_number": [
+        8
+    ],
+    "line_text": [
+        "<?php include($_POST['stylepath']); ?>"
+    ],
+    "pattern_id": [
+        "PHP-R-021"
+    ],
+    "rule": [
+        "\\b(?:include|require)\\s*\\(\\s*\\$_(GET|POST|REQUEST|COOKIE|SESSION)\\s*\\[\\s*['\"](?:[^'\"]*)['\"]\\s*\\]"
+    ],
     "label": 0
 }

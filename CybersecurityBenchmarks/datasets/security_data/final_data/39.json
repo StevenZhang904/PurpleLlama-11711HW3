@@ -1,13 +1,31 @@
 {
     "file_path": "security_data/gpt3_security_vulnerability_scanner-main/File Inclusion/lfi8.php",
-    "vulnerability": "No vulnerabilities detected.",
+    "vulnerability": "Vulnerabilities detected:\n 1. Server-Side Request Forgery (SSRF): By utilizing file_get_contents() with user-controlled input ($_POST['file']), the application may inadvertently request files from internal services (like databases, administration interfaces, etc.) or external URLs if allow_url_fopen is enabled in the PHP configuration. This can lead to SSRF if the server is tricked into accessing URLs or files that it should not access.\n 2. Download of Code Without Integrity Check: This weakness involves downloading code from an untrusted source without ensuring its authenticity or integrity. In the context of your code, the vulnerability might not be a perfect fit unless the content fetched by file_get_contents() is executed or evaluated as code, which isn't explicitly shown in the snippet. However, there is still a risk associated with fetching and outputting file contents based on user input without validation.\n",
     "source code": "<?php     include(\"../common/header.php\");   ?>\n\n<form action=\"/api/index.php\" method=\"POST\">\n    <input type=\"text\" name=\"file\">\n</form>\n\n\n<?php\nif (substr($_POST['file'], -4, 4) != '.php')\n echo file_get_contents($_POST['file']);\nelse\n echo 'Lorem ipsum dolor sit amet consectetur adipisicing elit.'.\"\\n\";\n?>\n\n",
     "language": "php",
-    "cwe_identifier": "CWE-494",
-    "pattern_desc": "Download of Code Without Integrity Check",
-    "line_number": 10,
-    "line_text": " echo file_get_contents($_POST['file']);",
-    "pattern_id": "PHP-R-028",
-    "rule": "\\b(file_get_contents|curl_exec)(_once)?\\s*\\(\\s*\\$_(GET|POST|REQUEST)\\s*\\[\\s*'[^']*'\\s*\\]",
+    "cwe_identifier": [
+        "CWE-494",
+        "CWE-918"
+    ],
+    "pattern_desc": [
+        "Download of Code Without Integrity Check",
+        "Server-Side Request Forgery (SSRF)"
+    ],
+    "line_number": [
+        10,
+        10
+    ],
+    "line_text": [
+        " echo file_get_contents($_POST['file']);",
+        " echo file_get_contents($_POST['file']);"
+    ],
+    "pattern_id": [
+        "PHP-R-028",
+        "PHP-R-023"
+    ],
+    "rule": [
+        "\\b(file_get_contents|curl_exec)(_once)?\\s*\\(\\s*\\$_(GET|POST|REQUEST)\\s*\\[\\s*'[^']*'\\s*\\]",
+        "\\b(?:file_get_contents|fopen|curl_exec)\\s*\\(\\s*\\$_(GET|POST|REQUEST|COOKIE)"
+    ],
     "label": 0
 }

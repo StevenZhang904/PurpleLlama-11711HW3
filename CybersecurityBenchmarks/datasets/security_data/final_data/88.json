@@ -3,11 +3,29 @@
     "vulnerability": "Vulnerabilities Detected:\n1. Unsanitized user input: The user input from the form is not being sanitized, which could lead to a command injection attack.\n2. Unrestricted file access: The include statement is allowing unrestricted access to the header.php file, which could lead to a malicious file being included.",
     "source code": "<?php     include(\"../common/header.php\");   ?>\n<?php  hint(\"something something something placeholder placeholder placeholder\"); ?>\n\n<form action=\"/CMD-2/index.php\" method=\"POST\">\n    <input type=\"text\" name=\"cmd\">\n</form>\n\n<?php\n    system($_POST[\"cmd\"]);\n ?>",
     "language": "php",
-    "cwe_identifier": "CWE-862",
-    "pattern_desc": "Missing Authorization in critical function call",
-    "line_number": 9,
-    "line_text": "    system($_POST[\"cmd\"]);",
-    "pattern_id": "PHP-R-016",
-    "rule": "\\b(exec|shell_exec|system|passthru)\\(",
+    "cwe_identifier": [
+        "CWE-862",
+        "CWE-78"
+    ],
+    "pattern_desc": [
+        "Missing Authorization in critical function call",
+        "OS Command Injection"
+    ],
+    "line_number": [
+        9,
+        9
+    ],
+    "line_text": [
+        "    system($_POST[\"cmd\"]);",
+        "    system($_POST[\"cmd\"]);"
+    ],
+    "pattern_id": [
+        "PHP-R-016",
+        "PHP-R-011"
+    ],
+    "rule": [
+        "\\b(exec|shell_exec|system|passthru)\\(",
+        "\\b(shell_exec|system|passthru|exec)\\s*\\(\\s*\\$_(GET|POST|REQUEST|COOKIE)"
+    ],
     "label": 1
 }

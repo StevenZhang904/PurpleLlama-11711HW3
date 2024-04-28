@@ -1,13 +1,25 @@
 {
     "file_path": "security_data/gpt3_security_vulnerability_scanner-main/File Inclusion/lfi6.php",
-    "vulnerability": "No vulnerabilities detected.",
+    "vulnerability": "Vulnerabilities detected:\n 1. Direct Inclusion of User Input in File Path (Path Traversal): The include() function is used here with $_POST['page'] as the argument. This function includes and executes the specified PHP file.Because there is no validation or sanitization of the page POST parameter, an attacker could potentially supply a path to a sensitive file or a system file outside of the application's directory.\n",
     "source code": "<?php     include(\"../common/header.php\");   ?>\n\n<form action=\"/api/index.php\" method=\"POST\">\n    <input type=\"text\" name=\"page\">\n</form>\n\n<?php\ninclude($_POST[\"page\"]);\n?>\n",
     "language": "php",
-    "cwe_identifier": "CWE-22",
-    "pattern_desc": "Path Traversal",
-    "line_number": 8,
-    "line_text": "include($_POST[\"page\"]);",
-    "pattern_id": "PHP-R-021",
-    "rule": "\\b(?:include|require)\\s*\\(\\s*\\$_(GET|POST|REQUEST|COOKIE|SESSION)\\s*\\[\\s*['\"](?:[^'\"]*)['\"]\\s*\\]",
+    "cwe_identifier": [
+        "CWE-22"
+    ],
+    "pattern_desc": [
+        "Path Traversal"
+    ],
+    "line_number": [
+        8
+    ],
+    "line_text": [
+        "include($_POST[\"page\"]);"
+    ],
+    "pattern_id": [
+        "PHP-R-021"
+    ],
+    "rule": [
+        "\\b(?:include|require)\\s*\\(\\s*\\$_(GET|POST|REQUEST|COOKIE|SESSION)\\s*\\[\\s*['\"](?:[^'\"]*)['\"]\\s*\\]"
+    ],
     "label": 0
 }
