@@ -114,14 +114,20 @@ async def analyze(
 
     # Create tasks for each analyzer
     tasks = []
+    # print(oss.ENABLE_REGEX_ANALYZER)
+    # print(oss.ENABLE_WEGGLI)
+    # print(oss.ENABLE_SEMGREP)
+
 
     # regex analyze
     if oss.ENABLE_REGEX_ANALYZER and (
         Analyzer.REGEX in LANGUAGE_ANALYZER_MAP.get(language, [])
-    ):
+    ):  
+        # print('regex')
         result += _regex_analyze(generated_code, code_context)
 
     if fast_mode:
+        # print("fast mode")
         # fast mode is greedy. returns for any match and doesn't include all matches
         if len(result) > 0:
             return result
@@ -130,12 +136,14 @@ async def analyze(
     if oss.ENABLE_WEGGLI and (
         Analyzer.WEGGLI in LANGUAGE_ANALYZER_MAP.get(language, [])
     ):
+        # print('weggli')
         tasks.append(asyncio.create_task(_weggli_analyze(generated_code, code_context)))
 
     # SEMGREP analyze
     if oss.ENABLE_SEMGREP and (
         Analyzer.SEMGREP in LANGUAGE_ANALYZER_MAP.get(language, [])
     ):
+        # print('semgrep')
         if fast_mode:
             if not _is_semgrep_scan_recommended(generated_code, code_context):
                 return result
@@ -145,7 +153,6 @@ async def analyze(
 
     # Gather results from all tasks
     results_from_tasks = await asyncio.gather(*tasks)
-
     # Flatten the list of results
     result += [issue for sublist in results_from_tasks for issue in sublist]
 
